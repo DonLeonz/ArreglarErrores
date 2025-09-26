@@ -1,0 +1,169 @@
+/* ========================================
+   ESTILOS COMUNES Y UTILIDADES
+   ======================================== */
+
+/* Gradientes de fondo */
+.bg-gradient-dark {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
+}
+
+.bg-dark-primary {
+  background-color: #1e1e1e !important;
+}
+
+.bg-dark-secondary {
+  background-color: #2c2c2c !important;
+}
+
+/* Colores de texto */
+.text-golden {
+  color: #d4a762 !important;
+}
+
+.text-white {
+  color: #f5f5f5 !important;
+}
+
+.text-white-muted {
+  color: rgba(245, 245, 245, 0.8) !important;
+}
+
+.text-white-subtle {
+  color: rgba(245, 245, 245, 0.85) !important;
+}
+
+.text-dark-golden {
+  color: #2c1608 !important;
+}
+
+/* Tamaños de fuente */
+.text-size-xs {
+  font-size: 0.7rem !important;
+}
+
+.text-size-sm {
+  font-size: 0.85rem !important;
+}
+
+.text-size-md {
+  font-size: 0.9rem !important;
+}
+
+.text-size-base {
+  font-size: 0.95rem !important;
+}
+
+.text-size-lg {
+  font-size: 1rem !important;
+}
+
+.text-size-xl {
+  font-size: 1.2rem !important;
+}
+
+.text-size-2xl {
+  font-size: 2rem !important;
+}
+
+/* Espaciados específicos */
+.padding-section {
+  padding: 40px 0 !important;
+}
+
+.padding-card {
+  padding: 15px !important;
+}
+
+/* Líneas de altura */
+.line-height-normal {
+  line-height: 1.5 !important;
+}
+
+.line-height-relaxed {
+  line-height: 1.6 !important;
+}
+
+/* Utilidades de flexbox */
+.flex-center-all {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.flex-column-full {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* Bordes decorativos */
+.border-bottom-golden {
+  border-bottom: 2px solid rgba(212, 167, 98, 0.7) !important;
+}
+
+.border-bottom-golden-subtle {
+  border-bottom: 2px solid #d4a762 !important;
+}
+
+.border-golden-subtle {
+  border: 1px solid rgba(212, 167, 98, 0.1) !important;
+}
+
+/* Letter spacing */
+.letter-spacing-sm {
+  letter-spacing: 2px !important;
+}
+
+.letter-spacing-md {
+  letter-spacing: 3px !important;
+}
+
+/* Font weight */
+.font-light {
+  font-weight: 300 !important;
+}
+
+/* Márgenes específicos */
+.margin-bottom-sm {
+  margin-bottom: 10px !important;
+}
+
+/* Anchos */
+.width-full {
+  width: 100% !important;
+}
+
+.max-width-container {
+  max-width: 960px !important;
+}
+
+/* Heights */
+.height-full {
+  height: 100% !important;
+}
+
+.min-height-card-team {
+  min-height: 450px !important;
+}
+
+/* Z-index */
+.z-10 {
+  z-index: 10 !important;
+}
+
+/* Overflow */
+.overflow-hidden-rounded {
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+/* Posiciones */
+.position-center-right {
+  max-width: 50% !important;
+  padding: 20px !important;
+}
+
+/* Fondos fijos */
+.bg-fixed {
+  background-attachment: fixed !important;
+}

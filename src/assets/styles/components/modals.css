@@ -1,0 +1,39 @@
+/* ========================================
+   MODALES REUTILIZABLES
+   ======================================== */
+
+/* Modal oscuro */
+.modal-dark {
+  background-color: #2c2c2c !important;
+  border-radius: 8px !important;
+}
+
+/* Botón cerrar modal dorado */
+.modal-close-golden {
+  color: #d4a762 !important;
+}
+
+/* Título de modal */
+.modal-title-golden {
+  color: #d4a762 !important;
+  border-bottom: 1px solid rgba(212, 167, 98, 0.3) !important;
+  padding-bottom: 10px !important;
+}
+
+/* Sección de modal */
+.modal-section-title {
+  color: #f5f5f5 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 15px !important;
+}
+
+/* Texto de modal */
+.modal-text {
+  color: rgba(245, 245, 245, 0.8) !important;
+  line-height: 1.6 !important;
+}
+
+/* Lista en modal */
+.modal-list {
+  color: rgba(245, 245, 245, 0.8) !important;
+}

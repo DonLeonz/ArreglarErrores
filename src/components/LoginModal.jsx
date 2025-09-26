@@ -1,31 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "../assets/styles/pages/blog.css";
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    // Manejar el estado del body cuando el modal está abierto
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!username || !password) return;
-    onLogin(username); // Se simula login o registro
+    onLogin(username);
+    // Limpiar campos
+    setUsername("");
+    setPassword("");
+    setIsRegistering(false);
+  };
+
+  const handleClose = () => {
+    setUsername("");
+    setPassword("");
+    setIsRegistering(false);
+    onClose();
   };
 
   return (
-    <div id="login-modal" className="uk-modal uk-open blog-login-display">
-      <div className="uk-modal-dialog uk-modal-body blog-login-container">
+    <div className="uk-modal uk-open blog-login-display">
+      <div
+        className="uk-modal-dialog uk-modal-body blog-login-container blog-modal-center"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
-          className="uk-modal-close-default color-text-black"
+          className="uk-modal-close-default color-text-black blog-modal-close"
           type="button"
-          onClick={onClose}
-          data-uk-close
+          uk-close="true"
+          onClick={handleClose}
+          aria-label="Close"
         ></button>
+
         <h2 className="uk-modal-title color-text-black">
           {isRegistering ? "Registrarse" : "Iniciar Sesión"}
         </h2>
 
-        <form className="uk-form-stacked" onSubmit={(e) => e.preventDefault()}>
+        <div className="uk-form-stacked">
           <div className="uk-margin">
             <label className="uk-form-label color-text-black">Usuario</label>
             <input
@@ -34,6 +65,11 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(e);
+                }
+              }}
             />
           </div>
           <div className="uk-margin">
@@ -44,6 +80,11 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(e);
+                }
+              }}
             />
           </div>
 
@@ -56,15 +97,29 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               {isRegistering ? "Registrarse" : "Iniciar Sesión"}
             </button>
             <button
-              className="uk-button uk-button-link"
+              className="uk-button uk-button-link color-text-black"
               type="button"
               onClick={() => setIsRegistering(!isRegistering)}
             >
               {isRegistering ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?"}
             </button>
           </div>
-        </form>
+        </div>
       </div>
+      {/* Overlay oscuro detrás del modal */}
+      <div
+        className="uk-modal-overlay uk-modal-overlay-default"
+        onClick={handleClose}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          zIndex: 1000,
+        }}
+      />
     </div>
   );
 };

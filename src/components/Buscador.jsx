@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 const Buscador = ({ onSearch, textHint }) => {
   const [input, setInput] = useState("");
 
@@ -10,7 +9,10 @@ const Buscador = ({ onSearch, textHint }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="uk-search uk-search-default uk-margin">
+    <form
+      onSubmit={handleSubmit}
+      className="uk-search uk-search-default uk-margin"
+    >
       <input
         type="text"
         placeholder={`${textHint}...`}
@@ -23,4 +25,4 @@ const Buscador = ({ onSearch, textHint }) => {
   );
 };
 
-export default Buscador
+export default Buscador;
