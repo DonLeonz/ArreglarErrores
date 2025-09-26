@@ -20,10 +20,16 @@ const coffeeItems = [
     description: "La esencia pura del café en su forma más concentrada.",
     img: espressoImg,
     isPopular: false,
-    recommendation: "Perfecto para empezar el día con energía. Nuestro espresso premium tiene un balance perfecto entre acidez y cuerpo.",
-    benefits: ["Despierta tus sentidos", "Alto contenido de antioxidantes", "Aroma intenso"],
+    recommendation:
+      "Perfecto para empezar el día con energía. Nuestro espresso premium tiene un balance perfecto entre acidez y cuerpo.",
+    benefits: [
+      "Despierta tus sentidos",
+      "Alto contenido de antioxidantes",
+      "Aroma intenso",
+    ],
     ingredients: ["Café espresso", "Agua caliente"],
-    preparation: "Preparado con una máquina de espresso aplicando presión para extraer el café concentrado."
+    preparation:
+      "Preparado con una máquina de espresso aplicando presión para extraer el café concentrado.",
   },
   {
     id: 2,
@@ -32,13 +38,15 @@ const coffeeItems = [
     origin: "Colombia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Suave y Balanceado",
-    description: "Café suave y diluido para quienes prefieren un sabor menos intenso.",
+    description:
+      "Café suave y diluido para quienes prefieren un sabor menos intenso.",
     img: americanoImg,
     isPopular: false,
-    recommendation: "Una opción ligera y prolongada ideal para una conversación larga.",
+    recommendation:
+      "Una opción ligera y prolongada ideal para una conversación larga.",
     benefits: ["Hidratación prolongada", "Bajo en calorías", "Sabor suave"],
     ingredients: ["Café espresso", "Agua caliente adicional"],
-    preparation: "Agrega agua caliente al espresso para diluirlo."
+    preparation: "Agrega agua caliente al espresso para diluirlo.",
   },
   {
     id: 3,
@@ -50,10 +58,16 @@ const coffeeItems = [
     description: "Espresso con un toque de leche vaporizada.",
     img: macchiatoImg,
     isPopular: false,
-    recommendation: "Ideal si te gusta el espresso con un pequeño giro cremoso.",
-    benefits: ["Equilibrio entre fuerte y suave", "Menor acidez", "Aroma suave"],
+    recommendation:
+      "Ideal si te gusta el espresso con un pequeño giro cremoso.",
+    benefits: [
+      "Equilibrio entre fuerte y suave",
+      "Menor acidez",
+      "Aroma suave",
+    ],
     ingredients: ["Espresso", "Espuma de leche"],
-    preparation: "Servido con una pequeña cantidad de leche vaporizada sobre el espresso."
+    preparation:
+      "Servido con una pequeña cantidad de leche vaporizada sobre el espresso.",
   },
   {
     id: 4,
@@ -66,9 +80,14 @@ const coffeeItems = [
     img: espressoDobleImg,
     isPopular: true,
     recommendation: "Para días exigentes o amantes del sabor fuerte.",
-    benefits: ["Energía prolongada", "Sabor intenso", "Alta concentración de antioxidantes"],
+    benefits: [
+      "Energía prolongada",
+      "Sabor intenso",
+      "Alta concentración de antioxidantes",
+    ],
     ingredients: ["Doble dosis de café molido", "Agua"],
-    preparation: "Mismo proceso que un espresso simple, pero con el doble de café."
+    preparation:
+      "Mismo proceso que un espresso simple, pero con el doble de café.",
   },
   {
     id: 5,
@@ -83,7 +102,8 @@ const coffeeItems = [
     recommendation: "Un sabor típico y reconfortante de las montañas.",
     benefits: ["Energía natural", "Dulzor tradicional", "Mejora la digestión"],
     ingredients: ["Café filtrado", "Panela", "Canela"],
-    preparation: "El café se prepara con panela derretida y un toque de canela."
+    preparation:
+      "El café se prepara con panela derretida y un toque de canela.",
   },
   {
     id: 6,
@@ -98,7 +118,7 @@ const coffeeItems = [
     recommendation: "Perfecto para las tardes frías o para cerrar el día.",
     benefits: ["Relajante", "Sabor profundo", "Textura cremosa"],
     ingredients: ["Café fuerte", "Whisky", "Crema batida"],
-    preparation: "Se mezcla el café con whisky y se cubre con crema batida."
+    preparation: "Se mezcla el café con whisky y se cubre con crema batida.",
   },
   {
     id: 7,
@@ -113,7 +133,7 @@ const coffeeItems = [
     recommendation: "Un postre en forma de café.",
     benefits: ["Alto en energía", "Textura sedosa", "Ideal como digestivo"],
     ingredients: ["Café espresso", "Leche condensada"],
-    preparation: "Se sirve el café sobre una base de leche condensada."
+    preparation: "Se sirve el café sobre una base de leche condensada.",
   },
   {
     id: 8,
@@ -128,7 +148,8 @@ const coffeeItems = [
     recommendation: "Perfecto para cerrar una buena comida con intensidad.",
     benefits: ["Digestivo", "Combina energía y relajación", "Sabor único"],
     ingredients: ["Café espresso", "Brandy o licor"],
-    preparation: "Se mezcla el café caliente con el licor justo antes de servir."
+    preparation:
+      "Se mezcla el café caliente con el licor justo antes de servir.",
   },
   {
     id: 9,
@@ -141,9 +162,13 @@ const coffeeItems = [
     img: cappuccinoImg,
     isPopular: true,
     recommendation: "La opción clásica para cualquier hora del día.",
-    benefits: ["Espuma suave", "Sabor equilibrado", "Ideal para acompañar postres"],
+    benefits: [
+      "Espuma suave",
+      "Sabor equilibrado",
+      "Ideal para acompañar postres",
+    ],
     ingredients: ["Espresso", "Leche vaporizada", "Espuma de leche"],
-    preparation: "Se sirve con partes iguales de café, leche y espuma."
+    preparation: "Se sirve con partes iguales de café, leche y espuma.",
   },
   {
     id: 10,
@@ -155,10 +180,15 @@ const coffeeItems = [
     description: "El matrimonio perfecto entre café y chocolate.",
     img: mocaccinoImg,
     isPopular: true,
-    recommendation: "Nuestro dulce recomendado para hoy. La combinación perfecta para los amantes del chocolate.",
-    benefits: ["Balance perfecto café-chocolate", "Textura cremosa", "Endulzado natural"],
+    recommendation:
+      "Nuestro dulce recomendado para hoy. La combinación perfecta para los amantes del chocolate.",
+    benefits: [
+      "Balance perfecto café-chocolate",
+      "Textura cremosa",
+      "Endulzado natural",
+    ],
     ingredients: ["Café espresso", "Chocolate", "Leche vaporizada"],
-    preparation: "Se mezcla el café con chocolate y se añade leche vaporizada."
+    preparation: "Se mezcla el café con chocolate y se añade leche vaporizada.",
   },
 ];
 

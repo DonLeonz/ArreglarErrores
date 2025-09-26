@@ -1,0 +1,23 @@
+/* ========================================
+   COMPONENTE RESULTADO MANGADEX
+   ======================================== */
+
+.mangadex-card {
+  height: 100% !important;
+}
+
+.mangadex-card-image-container {
+  height: 350px !important;
+  overflow: hidden !important;
+}
+
+.mangadex-card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+.mangadex-card-body {
+  flex-grow: 1 !important;
+}

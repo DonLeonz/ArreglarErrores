@@ -1,0 +1,91 @@
+/* ========================================
+   PÁGINA RECOMENDADO
+   ======================================== */
+
+.recomendado-container {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
+  background-color: #1e1e1e !important;
+  padding: 40px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* Título */
+.recomendado-title {
+  color: #d4a762 !important;
+  font-size: 2rem !important;
+  margin: 10px !important;
+}
+
+/* Card principal */
+.recomendado-card {
+  background-color: #2c2c2c !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 960px !important;
+  height: auto !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+}
+
+/* Imagen del producto */
+.recomendado-image {
+  width: 220px !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  border: 4px solid #d4a762 !important;
+}
+
+/* Título del producto */
+.recomendado-product-title {
+  color: #f5f5f5 !important;
+  margin-bottom: 10px !important;
+}
+
+/* Precio */
+.recomendado-price {
+  background-color: rgba(212, 167, 98, 0.9) !important;
+  color: #2c1608 !important;
+  font-size: 1rem !important;
+  padding: 6px 12px !important;
+}
+
+/* Badge popular */
+.recomendado-popular {
+  background-color: rgba(165, 42, 42, 0.7) !important;
+  color: white !important;
+}
+
+/* Descripción */
+.recomendado-description {
+  color: rgba(245, 245, 245, 0.85) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Labels de información */
+.recomendado-info-label {
+  color: #d4a762 !important;
+}
+
+.recomendado-info-value {
+  color: #f5f5f5 !important;
+}
+
+/* Badge de origen */
+.recomendado-origin-badge {
+  background-color: rgba(94, 43, 22, 0.7) !important;
+  color: #f5f5f5 !important;
+}
+
+/* Recomendación especial */
+.recomendado-special {
+  color: #d4a762 !important;
+  font-size: 0.9rem !important;
+  font-style: italic !important;
+}

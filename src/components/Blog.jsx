@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import LoginModal from "../components/LoginModal";
 import avatarDefault from "../assets/img/avatars/default.jpg";
 import blogDefault from "../assets/img/blog/blogDefault.jpg";
 import blogExample1 from "../assets/img/blog/blog-example1.jpg";
 import blogExample2 from "../assets/img/blog/blog-example2.jpg";
+import "../assets/styles/pages/blog.css";
 
 const Blog = () => {
   const { currentUser, login } = useAuth();
@@ -42,6 +43,11 @@ const Blog = () => {
     image: null,
   });
 
+  // Solo para asegurar que UIkit esté disponible
+  useEffect(() => {
+    // Verificar que UIkit esté cargado
+  }, []);
+
   const handleLogin = (username) => {
     login(username); // Usa el contexto
     setModalOpen(false);
@@ -63,11 +69,13 @@ const Blog = () => {
 
   const handleCommentSubmit = (id) => {
     if (!currentUser) {
-      UIkit.notification({
-        message: "Debes iniciar sesión para comentar.",
-        status: "warning",
-        pos: "top-center",
-      });
+      if (window.UIkit) {
+        window.UIkit.notification({
+          message: "Debes iniciar sesión para comentar.",
+          status: "warning",
+          pos: "top-center",
+        });
+      }
       setModalOpen(true);
       return;
     }
@@ -87,21 +95,25 @@ const Blog = () => {
       [id]: "",
     }));
 
-    UIkit.notification({
-      message: "Comentario publicado.",
-      status: "success",
-      pos: "top-center",
-    });
+    if (window.UIkit) {
+      window.UIkit.notification({
+        message: "Comentario publicado.",
+        status: "success",
+        pos: "top-center",
+      });
+    }
   };
 
   const handleBlogSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
-      UIkit.notification({
-        message: "Debes iniciar sesión para publicar un blog.",
-        status: "warning",
-        pos: "top-center",
-      });
+      if (window.UIkit) {
+        window.UIkit.notification({
+          message: "Debes iniciar sesión para publicar un blog.",
+          status: "warning",
+          pos: "top-center",
+        });
+      }
       setModalOpen(true);
       return;
     }
@@ -124,23 +136,22 @@ const Blog = () => {
       image: null,
     });
 
-    UIkit.notification({
-      message: "Blog publicado exitosamente.",
-      status: "success",
-      pos: "top-center",
-    });
+    if (window.UIkit) {
+      window.UIkit.notification({
+        message: "Blog publicado exitosamente.",
+        status: "success",
+        pos: "top-center",
+      });
+    }
   };
 
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
+        {/* Formulario de blog directamente en el JSX */}
         <div className="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black blog-form-spacing">
           <h3 className="uk-card-title">Agregar nuevo blog</h3>
-          <form
-            className="uk-grid-small"
-            data-uk-grid
-            onSubmit={handleBlogSubmit}
-          >
+          <div className="uk-grid-small" data-uk-grid>
             <div className="uk-width-1-2@s">
               <input
                 className="uk-input"
@@ -181,23 +192,26 @@ const Blog = () => {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) =>
-                  setNewBlog({
-                    ...newBlog,
-                    image: URL.createObjectURL(e.target.files[0]),
-                  })
-                }
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setNewBlog({
+                      ...newBlog,
+                      image: URL.createObjectURL(e.target.files[0]),
+                    });
+                  }
+                }}
               />
             </div>
             <div className="uk-width-1-1">
               <button
-                type="submit"
+                type="button"
                 className="uk-button uk-button-secondary blog-container-round"
+                onClick={handleBlogSubmit}
               >
                 Publicar blog
               </button>
             </div>
-          </form>
+          </div>
         </div>
 
         {/* Mostrar blogs */}

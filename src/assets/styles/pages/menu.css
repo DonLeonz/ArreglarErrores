@@ -1,0 +1,158 @@
+/* ========================================
+   PÁGINA MENÚ
+   ======================================== */
+
+.menu-section {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
+}
+
+.menu-header-title {
+  letter-spacing: 3px !important;
+  font-weight: 300 !important;
+  margin-bottom: 10px !important;
+}
+
+.menu-header-underline {
+  border-bottom: 2px solid rgba(212, 167, 98, 0.7) !important;
+  color: #f5f5f5 !important;
+}
+
+.menu-header-subtitle {
+  color: #d4a762 !important;
+}
+
+.menu-grid {
+  margin-top: 20px !important;
+}
+
+/* Card de producto del menú */
+.menu-product-card {
+  background-color: #2c2c2c !important;
+  border: 1px solid rgba(212, 167, 98, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+}
+
+/* Imagen de producto */
+.menu-product-image-container {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 80px !important;
+  border: 2px solid #d4a762 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.menu-product-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* Información del producto */
+.menu-product-info {
+  flex-grow: 1 !important;
+}
+
+.menu-product-title {
+  color: #f5f5f5 !important;
+  font-size: 1.2rem !important;
+}
+
+.menu-product-price {
+  background-color: rgba(212, 167, 98, 0.9) !important;
+  color: #2c1608 !important;
+  padding: 3px 10px !important;
+  border-radius: 12px !important;
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
+}
+
+.menu-product-origin {
+  background-color: rgba(94, 43, 22, 0.7) !important;
+  color: #f5f5f5 !important;
+  font-size: 0.7rem !important;
+  padding: 2px 8px !important;
+  margin-right: 8px !important;
+}
+
+.menu-product-bestseller {
+  background-color: rgba(165, 42, 42, 0.7) !important;
+  color: white !important;
+  font-size: 0.7rem !important;
+  padding: 2px 8px !important;
+}
+
+.menu-product-description {
+  color: rgba(245, 245, 245, 0.8) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Botón de detalles */
+.menu-details-button {
+  color: #d4a762 !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(212, 167, 98, 0.5) !important;
+  border-radius: 6px !important;
+  padding: 3px 15px !important;
+  font-size: 0.85rem !important;
+  transition: all 0.3s !important;
+}
+
+.menu-details-button:hover {
+  background-color: rgba(212, 167, 98, 0.1) !important;
+  border-color: #d4a762 !important;
+}
+
+/* Modal de producto */
+.menu-modal-body {
+  background-color: #2c2c2c !important;
+  border-radius: 8px !important;
+}
+
+.menu-modal-close {
+  color: #d4a762 !important;
+}
+
+.menu-modal-image-container {
+  width: 300px !important;
+  height: 300px !important;
+  border: 3px solid #d4a762 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.menu-modal-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.menu-modal-title {
+  color: #d4a762 !important;
+  border-bottom: 1px solid rgba(212, 167, 98, 0.3) !important;
+  padding-bottom: 10px !important;
+}
+
+.menu-modal-section-title {
+  color: #f5f5f5 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 15px !important;
+}
+
+.menu-modal-list {
+  color: rgba(245, 245, 245, 0.8) !important;
+}
+
+.menu-modal-text {
+  color: rgba(245, 245, 245, 0.8) !important;
+  line-height: 1.6 !important;
+}
+
+.menu-modal-label {
+  background-color: rgba(212, 167, 98, 0.15) !important;
+  color: #d4a762 !important;
+  font-size: 0.9rem !important;
+  padding: 5px 10px !important;
+}

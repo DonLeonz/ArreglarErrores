@@ -1,0 +1,9 @@
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer-container {
+  background-color: #2f2c2c !important;
+  width: 100% !important;
+  z-index: 10 !important;
+}
