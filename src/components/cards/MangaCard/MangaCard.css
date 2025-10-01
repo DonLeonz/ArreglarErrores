@@ -1,0 +1,32 @@
+/* src/components/cards/MangaCard/MangaCard.css */
+/* Anteriormente: resultado-mangadex.css */
+
+.mangadex-card {
+  height: 100% !important;
+}
+
+.mangadex-card-image-container {
+  height: 350px !important;
+  overflow: hidden !important;
+}
+
+.mangadex-card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+.mangadex-card-body {
+  flex-grow: 1 !important;
+}
+
+.mangadex-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
+.mangadex-card-image-container:hover .mangadex-card-image {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}

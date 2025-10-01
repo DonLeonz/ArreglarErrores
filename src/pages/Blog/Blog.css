@@ -1,0 +1,130 @@
+/* ========================================
+   PÁGINA BLOG
+   ======================================== */
+
+.color-text-black {
+  color: black !important;
+}
+
+.blog-background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(../../assets/img/blog/blog-background.jpg) !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 40px 0 !important;
+}
+
+.blog-container-round {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+/* Modal de login */
+.blog-login-display {
+  display: block !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.blog-login-container {
+  background: white !important;
+  color: black !important;
+  border-radius: 20px !important;
+  margin: auto !important;
+}
+
+.blog-login-input {
+  color: black !important;
+  border-radius: 10px !important;
+  background-color: #e7e3e3 !important;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+}
+
+/* Contenedor de imagen del blog */
+.blog-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-image-container {
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Botón de imagen sin estilos */
+.blog-image-button {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Espaciado del formulario */
+.blog-form-spacing {
+  margin-top: 80px;
+}
+
+/* Card del blog */
+.blog-card {
+  background-color: white !important;
+}
+
+/* Estilos para los comentarios */
+.blog-comment-textarea {
+  color: black !important;
+  border-radius: 10px !important;
+  background-color: #e7e3e3 !important;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+}
+
+/* Botones del blog */
+.blog-button-secondary {
+  background-color: #222 !important;
+  color: white !important;
+  border-radius: 12px !important;
+}
+
+.blog-button-primary {
+  background-color: #1e87f0 !important;
+  color: white !important;
+  border-radius: 12px !important;
+}
+
+/* Centrar el modal */
+.blog-modal-center {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1010 !important;
+}
+
+/* Estilo del botón de cerrar */
+.blog-modal-close {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  color: black !important;
+  background: none !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  cursor: pointer !important;
+  z-index: 1 !important;
+}
+
+/* Input del formulario del blog */
+.blog-form-input {
+  width: 100% !important;
+}
