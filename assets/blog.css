@@ -1,0 +1,53 @@
+.color-text-black {
+    color: black !important;
+}
+
+.blog-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../assets/img/blog/blog-background.jpg) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 40px 0 !important;
+
+}
+
+.blog-container-round {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+
+.blog-login-display {
+    display: block !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.blog-login-container {
+    background: white !important;
+    color: black !important;
+    border-radius: 20px !important;
+    margin: auto !important;
+}
+
+.blog-login-input {
+    color: black !important;
+    border-radius: 10px !important;
+    background-color: #e7e3e3 !important;
+    padding: 8px !important;
+    border: 1px solid #ccc !important;
+}
+
+.blog-image-container {
+    height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.blog-form-spacing {
+    margin-top: 80px;
+}

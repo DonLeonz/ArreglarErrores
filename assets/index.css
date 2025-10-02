@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+
+* {
+    font-family: "Lexend Deca", sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.background-opaque {
+    background: rgba(82, 69, 69, 0.40);
+}
+
+/**
+    Útil para que el primer hijo de un elemento con el estilo anterior se ajuste
+    al tamaño del navbar y pueda mostrar bien su contenido
+**/
+.first-child-adjustment {
+    height: 100%;
+    padding-top: 6rem !important;
+    margin-top: -6rem !important;
+}

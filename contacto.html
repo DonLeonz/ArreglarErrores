@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="coffe.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css">
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/blog.css">
+    <link rel="stylesheet" href="assets/surtienvases-theme.css">
+    <link rel="stylesheet" href="assets/coffee-styles.css">
+    <title>Contacto - SurtiEnvases</title>
+</head>
+<body>
+    <!-- Navbar (mismo que index pero adaptado) -->
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <nav class="uk-navbar-container uk-navbar-transparent">
+            <div class="uk-container uk-width-1-1 background-opaque">
+                <div uk-navbar="mode: click" class="uk-flex">
+                    <div class="uk-navbar-left">
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-flex uk-link-heading" href="index.html">
+                                <img src="assets/img/coffe-user-logo.svg" alt="Logo">
+                                <button class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
+                                    <strong>
+                                        SurtiEnvases<br><span id="navbar-username"></span>
+                                    </strong>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="uk-navbar-center uk-visible@l">
+                        <div class="uk-navbar-item uk-dark">
+                            <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html">Catálogo</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
+                        </div>
+                    </div>
+                    <div class="uk-navbar-right uk-visible@l">
+                        <div class="uk-navbar-item uk-light" id="auth-buttons">
+                            <!-- Los botones se insertan dinámicamente con JS -->
+                        </div>
+                        <div class="uk-navbar-item uk-dark">
+                            <a class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded" href="#">Registrarse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="first-child-adjustment uk-section uk-padding-small coffee-section-gradient">
+        <div class="uk-container uk-container-large uk-padding uk-light">
+
+            <!-- Título -->
+            <div class="uk-text-center uk-margin-large-bottom">
+                <h2 class="uk-heading-small uk-text-uppercase coffee-menu-grid-header">
+                    <span class="uk-display-inline-block uk-padding-small coffee-section-title-gold">
+                        Contáctanos
+                    </span>
+                </h2>
+                <p class="uk-text-lead coffee-title-gold">
+                    Estamos aquí para ayudarte con tus necesidades de empaque
+                </p>
+            </div>
+
+            <div class="uk-grid-medium uk-child-width-1-2@m" data-uk-grid>
+                <!-- Información de contacto -->
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
+                        <h3 class="uk-card-title coffee-title-gold">Información de Contacto</h3>
+                        
+                        <div class="uk-margin">
+                            <p class="coffee-text-white">
+                                <span uk-icon="icon: location; ratio: 1.2"></span>
+                                <strong>Oficina Principal:</strong><br>
+                                Calle 45 #23-67, Zona Industrial<br>
+                                Bogotá, Colombia
+                            </p>
+                        </div>
+
+                        <div class="uk-margin">
+                            <p class="coffee-text-white">
+                                <span uk-icon="icon: phone; ratio: 1.2"></span>
+                                <strong>Teléfonos:</strong><br>
+                                PBX: +57 (1) 234 5678<br>
+                                Ventas: +57 (1) 234 5679<br>
+                                Servicio al cliente: +57 (1) 234 5680
+                            </p>
+                        </div>
+
+                        <div class="uk-margin">
+                            <p class="coffee-text-white">
+                                <span uk-icon="icon: whatsapp; ratio: 1.2"></span>
+                                <strong>WhatsApp Business:</strong><br>
+                                +57 300 123 4567
+                            </p>
+                        </div>
+
+                        <div class="uk-margin">
+                            <p class="coffee-text-white">
+                                <span uk-icon="icon: mail; ratio: 1.2"></span>
+                                <strong>Correos:</strong><br>
+                                Ventas: ventas@surtienvases.com<br>
+                                Info: info@surtienvases.com<br>
+                                Soporte: soporte@surtienvases.com
+                            </p>
+                        </div>
+
+                        <div class="uk-margin">
+                            <p class="coffee-text-white">
+                                <span uk-icon="icon: clock; ratio: 1.2"></span>
+                                <strong>Horario de Atención:</strong><br>
+                                Lunes a Viernes: 8:00 AM - 6:00 PM<br>
+                                Sábados: 8:00 AM - 1:00 PM<br>
+                                Domingos y festivos: Cerrado
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Sucursales -->
+                    <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border uk-margin-top">
+                        <h3 class="uk-card-title coffee-title-gold">Nuestras Sucursales</h3>
+                        
+                        <div class="uk-margin-small">
+                            <p class="coffee-text-white">
+                                <strong>Medellín:</strong> Carrera 50 #10-20, Itagüí<br>
+                                Tel: +57 (4) 345 6789
+                            </p>
+                        </div>
+                        
+                        <div class="uk-margin-small">
+                            <p class="coffee-text-white">
+                                <strong>Cali:</strong> Calle 15 #4-50, Zona Industrial Yumbo<br>
+                                Tel: +57 (2) 456 7890
+                            </p>
+                        </div>
+                        
+                        <div class="uk-margin-small">
+                            <p class="coffee-text-white">
+                                <strong>Barranquilla:</strong> Vía 40 #75-100<br>
+                                Tel: +57 (5) 567 8901
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de contacto -->
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
+                        <h3 class="uk-card-title coffee-title-gold">Envíanos un Mensaje</h3>
+                        
+                        <form class="uk-form-stacked" id="contact-form">
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Nombre Completo *</label>
+                                <input class="uk-input blog-login-input" type="text" placeholder="Tu nombre" required>
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Empresa</label>
+                                <input class="uk-input blog-login-input" type="text" placeholder="Nombre de tu empresa">
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Correo Electrónico *</label>
+                                <input class="uk-input blog-login-input" type="email" placeholder="tu@email.com" required>
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Teléfono *</label>
+                                <input class="uk-input blog-login-input" type="tel" placeholder="+57 300 000 0000" required>
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Asunto *</label>
+                                <select class="uk-select blog-login-input" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option>Cotización</option>
+                                    <option>Información de productos</option>
+                                    <option>Distribución</option>
+                                    <option>Reclamos</option>
+                                    <option>Sugerencias</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label class="uk-form-label coffee-text-white">Mensaje *</label>
+                                <textarea class="uk-textarea blog-login-input" rows="5" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                            </div>
+                            
+                            <div class="uk-margin">
+                                <label>
+                                    <input class="uk-checkbox" type="checkbox" required>
+                                    <span class="coffee-text-white uk-margin-small-left">
+                                        Acepto la política de tratamiento de datos personales
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <button class="uk-button uk-button-primary blog-container-round uk-width-1-1" type="submit">
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="uk-margin-large-top">
+                <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
+                    <h3 class="uk-card-title coffee-title-gold uk-text-center">Encuéntranos</h3>
+                    <div class="uk-text-center uk-padding">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7937744790446!2d-74.11317668523814!3d4.627753696633889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a286d598bd5%3A0xddf14904a87dfb47!2sZona%20Industrial%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1234567890" 
+                            width="100%" 
+                            height="400" 
+                            style="border:0; border-radius: 8px;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (mismo del index) -->
+    <footer class="uk-section uk-section-small" style="background-color: #2f2c2c; width: 100%; z-index: 10">
+        <div class="uk-container">
+            <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
+                <div>
+                    <img src="assets/img/coffe-user-logo.svg" alt="SurtiEnvases Logo" class="uk-margin-small-bottom">
+                    <p class="uk-text-small uk-text-muted">Tu proveedor de confianza en envases para todas las industrias.</p>
+                </div>
+                <div>
+                    <h4 class="uk-text-bold" style="color: white;">Enlaces Rápidos</h4>
+                    <ul class="uk-list uk-list-divider">
+                        <li><a href="productos.html" class="uk-link-muted">Productos</a></li>
+                        <li><a href="promociones.html" class="uk-link-muted">Promociones</a></li>
+                        <li><a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a></li>
+                        <li><a href="contacto.html" class="uk-link-muted">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="uk-text-bold" style="color: white;">Información</h4>
+                    <ul class="uk-list uk-list-divider">
+                        <li><a href="politica-privacidad.html" class="uk-link-muted">Política de Privacidad</a></li>
+                        <li><a href="terminos.html" class="uk-link-muted">Términos y Condiciones</a></li>
+                        <li><a href="cambios-devoluciones.html" class="uk-link-muted">Cambios y Devoluciones</a></li>
+                        <li><a href="preguntas-frecuentes.html" class="uk-link-muted">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="uk-text-bold" style="color: white;">Síguenos</h4>
+                    <div class="uk-margin-small-top">
+                        <a href="https://www.facebook.com/surtienvases" class="uk-icon-button" uk-icon="icon: facebook" target="_blank"></a>
+                        <a href="https://www.instagram.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: instagram" target="_blank"></a>
+                        <a href="https://www.youtube.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: youtube" target="_blank"></a>
+                        <a href="https://www.linkedin.com/company/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: linkedin" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="uk-divider-icon uk-margin-medium">
+            <div class="uk-text-center uk-text-small uk-text-muted">
+                <p>© 2025 SurtiEnvases. Todos los derechos reservados. | NIT: 900.123.456-7</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
+    <!-- Auth System -->
+    <script src="js/auth.js"></script>
+    <script>
+        // Manejo del formulario
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            UIkit.notification({
+                message: 'Mensaje enviado exitosamente. Te contactaremos pronto.',
+                status: 'success',
+                pos: 'top-center',
+                timeout: 3000
+            });
+            this.reset();
+        });
+    </script>
+</body>
+</html>

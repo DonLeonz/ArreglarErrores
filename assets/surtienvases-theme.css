@@ -1,0 +1,516 @@
+/* ========================================
+   SURTIENVASES - TEMA DE COLORES CORPORATIVO
+   ======================================== */
+
+:root {
+  /* Colores principales de la marca */
+  --surtienvases-naranja: #EE7622;
+  --surtienvases-verde: #B7CE38;
+  --surtienvases-morado: #904191;
+  --surtienvases-blanco: #FFFFFF;
+  --surtienvases-negro: #1D1D1B;
+  
+  /* Variaciones de colores */
+  --naranja-oscuro: #D45A0A;
+  --naranja-claro: #FF9544;
+  --naranja-transparente: rgba(238, 118, 34, 0.1);
+  
+  --verde-oscuro: #94A82E;
+  --verde-claro: #C5D855;
+  --verde-transparente: rgba(183, 206, 56, 0.1);
+  
+  --morado-oscuro: #6B2F6B;
+  --morado-claro: #A455A4;
+  --morado-transparente: rgba(144, 65, 145, 0.1);
+  
+  /* Grises para textos */
+  --gris-oscuro: #2C2C2C;
+  --gris-medio: #666666;
+  --gris-claro: #E5E5E5;
+  --gris-fondo: #F5F5F5;
+}
+
+/* ========================================
+   ESTILOS GLOBALES
+   ======================================== */
+
+body {
+  background-color: var(--gris-fondo) !important;
+  color: var(--surtienvases-negro) !important;
+}
+
+/* ========================================
+   NAVBAR / NAVEGACIÓN
+   ======================================== */
+
+.background-opaque {
+  background: linear-gradient(135deg, 
+    rgba(238, 118, 34, 0.95), 
+    rgba(144, 65, 145, 0.85)) !important;
+  backdrop-filter: blur(10px);
+}
+
+.uk-navbar-container {
+  background: transparent !important;
+}
+
+.uk-navbar-item .uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-navbar-item .uk-button-secondary:hover {
+  background-color: var(--verde-oscuro) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(183, 206, 56, 0.4) !important;
+}
+
+.uk-navbar-item .uk-button-text {
+  color: var(--surtienvases-blanco) !important;
+  position: relative;
+  transition: all 0.3s ease !important;
+}
+
+.uk-navbar-item .uk-button-text:hover {
+  color: var(--surtienvases-verde) !important;
+}
+
+.uk-navbar-item .uk-button-text::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--surtienvases-verde);
+  transition: width 0.3s ease;
+}
+
+.uk-navbar-item .uk-button-text:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   CARDS Y CONTENEDORES
+   ======================================== */
+
+.uk-card-default {
+  background-color: var(--surtienvases-blanco) !important;
+  border: 1px solid var(--gris-claro) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-card-default:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(238, 118, 34, 0.2) !important;
+  border-color: var(--surtienvases-naranja) !important;
+}
+
+.uk-card-title {
+  color: var(--surtienvases-morado) !important;
+  font-weight: 600 !important;
+}
+
+/* Cards oscuras para el menú */
+.uk-background-secondary .uk-card,
+div[style*="background-color: #2c2c2c"] {
+  background-color: var(--surtienvases-blanco) !important;
+  border: 2px solid var(--naranja-transparente) !important;
+}
+
+div[style*="background-color: #2c2c2c"] h3,
+div[style*="background-color: #2c2c2c"] .uk-card-title {
+  color: var(--surtienvases-morado) !important;
+}
+
+div[style*="background-color: #2c2c2c"] p {
+  color: var(--gris-oscuro) !important;
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+
+.uk-button-primary {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-primary:hover {
+  background-color: var(--naranja-oscuro) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(238, 118, 34, 0.4) !important;
+}
+
+.uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-secondary:hover {
+  background-color: var(--verde-oscuro) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(183, 206, 56, 0.4) !important;
+}
+
+.uk-button-default {
+  background-color: transparent !important;
+  color: var(--surtienvases-morado) !important;
+  border: 2px solid var(--surtienvases-morado) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-default:hover {
+  background-color: var(--surtienvases-morado) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* ========================================
+   BADGES Y LABELS
+   ======================================== */
+
+.uk-label {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  font-weight: 600 !important;
+}
+
+.uk-badge {
+  background-color: var(--morado-transparente) !important;
+  color: var(--surtienvases-morado) !important;
+  border: 1px solid var(--surtienvases-morado) !important;
+}
+
+span[style*="background-color: rgba(212, 167, 98"] {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+span[style*="background-color: rgba(94, 43, 22"] {
+  background-color: var(--verde-transparente) !important;
+  color: var(--verde-oscuro) !important;
+  border: 1px solid var(--surtienvases-verde) !important;
+}
+
+span[style*="background-color: rgba(165, 42, 42"] {
+  background-color: var(--surtienvases-morado) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* ========================================
+   FONDOS Y SECCIONES
+   ======================================== */
+
+.uk-background-secondary,
+div[style*="background: linear-gradient(to bottom, #1e1e1e, #2c2c2c)"] {
+  background: linear-gradient(135deg, 
+    var(--gris-fondo) 0%, 
+    var(--surtienvases-blanco) 100%) !important;
+}
+
+.uk-section {
+  position: relative;
+}
+
+/* Fondo del blog */
+.blog-background {
+  background-image: linear-gradient(
+    rgba(238, 118, 34, 0.3), 
+    rgba(144, 65, 145, 0.3)
+  ), url(../assets/img/blog/blog-background.jpg) !important;
+}
+
+/* ========================================
+   FORMULARIOS E INPUTS
+   ======================================== */
+
+.uk-input, .uk-textarea, .uk-select {
+  border: 2px solid var(--gris-claro) !important;
+  background-color: var(--surtienvases-blanco) !important;
+  color: var(--surtienvases-negro) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-input:focus, .uk-textarea:focus, .uk-select:focus {
+  border-color: var(--surtienvases-naranja) !important;
+  box-shadow: 0 0 0 3px rgba(238, 118, 34, 0.1) !important;
+}
+
+.blog-login-input {
+  background-color: var(--gris-fondo) !important;
+  border: 2px solid var(--gris-claro) !important;
+  color: var(--surtienvases-negro) !important;
+}
+
+.blog-login-input:focus {
+  border-color: var(--surtienvases-verde) !important;
+  box-shadow: 0 0 0 3px rgba(183, 206, 56, 0.1) !important;
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.uk-modal-dialog {
+  background-color: var(--surtienvases-blanco) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+}
+
+.uk-modal-title {
+  color: var(--surtienvases-morado) !important;
+  border-bottom: 3px solid var(--surtienvases-verde) !important;
+  padding-bottom: 15px !important;
+}
+
+.uk-modal-close-default {
+  color: var(--surtienvases-naranja) !important;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer[style*="background-color: #2f2c2c"] {
+  background: linear-gradient(135deg, 
+    var(--surtienvases-morado), 
+    var(--morado-oscuro)) !important;
+}
+
+footer .uk-icon-button {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: var(--surtienvases-blanco) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+footer .uk-icon-button:hover {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  transform: translateY(-3px);
+  border-color: var(--surtienvases-verde) !important;
+}
+
+/* ========================================
+   TEXTOS Y TÍTULOS
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--surtienvases-morado) !important;
+}
+
+.uk-heading-line > * {
+  color: var(--surtienvases-morado) !important;
+  position: relative;
+}
+
+.uk-heading-line > *::before,
+.uk-heading-line > *::after {
+  border-bottom: 2px solid var(--surtienvases-verde) !important;
+}
+
+p {
+  color: var(--gris-oscuro) !important;
+}
+
+a {
+  color: var(--surtienvases-naranja) !important;
+  transition: color 0.3s ease !important;
+}
+
+a:hover {
+  color: var(--naranja-oscuro) !important;
+  text-decoration: none !important;
+}
+
+/* ========================================
+   ACORDEÓN (API PAGE)
+   ======================================== */
+
+.uk-accordion-title {
+  color: var(--surtienvases-morado) !important;
+  background: linear-gradient(90deg, 
+    var(--verde-transparente), 
+    transparent) !important;
+  padding: 15px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-accordion-title:hover {
+  background: linear-gradient(90deg, 
+    var(--naranja-transparente), 
+    transparent) !important;
+}
+
+.uk-open .uk-accordion-title {
+  background: linear-gradient(90deg, 
+    var(--surtienvases-verde), 
+    var(--verde-claro)) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* ========================================
+   ALERTAS Y NOTIFICACIONES
+   ======================================== */
+
+.uk-alert-danger {
+  background-color: rgba(238, 118, 34, 0.1) !important;
+  color: var(--naranja-oscuro) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+}
+
+.uk-notification-message {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+}
+
+.uk-notification-message-success {
+  background-color: var(--surtienvases-verde) !important;
+}
+
+.uk-notification-message-warning {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* ========================================
+   ELEMENTOS ESPECIALES
+   ======================================== */
+
+/* Círculos de imágenes */
+.uk-border-circle {
+  border: 3px solid var(--surtienvases-verde) !important;
+}
+
+div[style*="border: 2px solid #d4a762"],
+div[style*="border: 3px solid #d4a762"],
+div[style*="border: 4px solid #d4a762"] {
+  border-color: var(--surtienvases-verde) !important;
+}
+
+/* Overlay en imágenes */
+.uk-overlay-primary {
+  background-color: rgba(144, 65, 145, 0.9) !important;
+}
+
+/* Divider */
+.uk-divider-icon {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle%20fill='%23B7CE38'%20cx='10'%20cy='10'%20r='5'%3E%3C/circle%3E%3C/svg%3E") !important;
+}
+
+/* ========================================
+   ANIMACIONES Y EFECTOS
+   ======================================== */
+
+@keyframes pulse-naranja {
+  0% { box-shadow: 0 0 0 0 rgba(238, 118, 34, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(238, 118, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(238, 118, 34, 0); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Aplicar animación suave al navbar */
+.background-opaque {
+  background-size: 200% 200%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+/* ========================================
+   RESPONSIVE Y AJUSTES MÓVILES
+   ======================================== */
+
+@media (max-width: 640px) {
+  .uk-navbar-item .uk-button-secondary,
+  .uk-navbar-item .uk-button-text {
+    font-size: 0.9rem !important;
+  }
+  
+  .uk-card {
+    margin-bottom: 20px !important;
+  }
+}
+
+/* ========================================
+   UTILIDADES ADICIONALES
+   ======================================== */
+
+/* Sombras personalizadas */
+.shadow-naranja {
+  box-shadow: 0 10px 30px rgba(238, 118, 34, 0.3) !important;
+}
+
+.shadow-verde {
+  box-shadow: 0 10px 30px rgba(183, 206, 56, 0.3) !important;
+}
+
+.shadow-morado {
+  box-shadow: 0 10px 30px rgba(144, 65, 145, 0.3) !important;
+}
+
+/* Bordes decorativos */
+.border-top-naranja {
+  border-top: 4px solid var(--surtienvases-naranja) !important;
+}
+
+.border-top-verde {
+  border-top: 4px solid var(--surtienvases-verde) !important;
+}
+
+.border-top-morado {
+  border-top: 4px solid var(--surtienvases-morado) !important;
+}
+
+/* ========================================
+   OVERRIDE PARA ELEMENTOS ESPECÍFICOS
+   ======================================== */
+
+/* Corregir colores de texto en elementos light/dark */
+.uk-light * {
+  color: var(--surtienvases-blanco) !important;
+}
+
+.uk-dark * {
+  color: var(--gris-oscuro) !important;
+}
+
+/* Asegurar que los precios se vean bien */
+span[style*="color: #d4a762"] {
+  color: var(--surtienvases-naranja) !important;
+  font-weight: 600 !important;
+}
+
+span[style*="color: #f5f5f5"],
+p[style*="color: #f5f5f5"] {
+  color: var(--gris-oscuro) !important;
+}
+
+/* Textos en modales oscuros */
+div[style*="background-color: #2c2c2c"] span[style*="color: #f5f5f5"],
+div[style*="background-color: #2c2c2c"] p[style*="color: rgba(245, 245, 245"] {
+  color: var(--gris-oscuro) !important;
+}
+
+/* ========================================
+   ESTADO HOVER GLOBAL
+   ======================================== */
+
+*[class*="uk-card"]:hover,
+*[class*="uk-button"]:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}

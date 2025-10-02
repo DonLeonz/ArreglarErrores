@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="coffe.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css">
+    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="assets/blog.css">
+    <link rel="stylesheet" href="assets/surtienvases-theme.css">
+    <link rel="stylesheet" href="assets/coffee-styles.css">
+    <link rel="stylesheet" href="assets/surtienvases-custom.css">
+    <title>Catálogo Digital - SurtiEnvases</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+        <nav class="uk-navbar-container uk-navbar-transparent">
+            <div class="uk-container uk-width-1-1 background-opaque">
+                <div uk-navbar="mode: click" class="uk-flex">
+                    <div class="uk-navbar-left">
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-flex uk-link-heading" href="index.html">
+                                <img src="assets/img/coffe-user-logo.svg" alt="Logo">
+                                <button class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
+                                    <strong>
+                                        SurtiEnvases<br><span id="navbar-username"></span>
+                                    </strong>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="uk-navbar-center uk-visible@l">
+                        <div class="uk-navbar-item uk-dark">
+                            <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html">Catálogo</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
+                        </div>
+                        <div class="uk-navbar-item uk-light">
+                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
+                        </div>
+                    </div>
+                    <div class="uk-navbar-right uk-visible@l">
+                        <div class="uk-navbar-item uk-light" id="auth-buttons">
+                            <!-- Los botones se insertan dinámicamente con JS -->
+                        </div>
+                        <div class="uk-navbar-item uk-dark">
+                            <a class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded" href="#">Registrarse</a>
+                        </div>
+                    </div>
+                    <!-- Menú hamburguesa -->
+                    <div class="uk-hidden@l uk-navbar-right">
+                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon="true" uk-toggle="target: #burger-menu"></a>
+                        <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+                            <div class="uk-offcanvas-bar">
+                                <button class="uk-offcanvas-close" type="button" uk-close="true"></button>
+                                <div class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top" uk-grid="true">
+                                    <div class="uk-flex-left">
+                                        <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html"><strong>Catálogo</strong></a>
+                                    </div>
+                                    <div class="uk-flex-left uk-margin-small-left">
+                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
+                                    </div>
+                                    <div class="uk-flex-left uk-margin-small-left">
+                                        <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
+                                    </div>
+                                    <div class="uk-flex-left uk-margin-small-left">
+                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
+                                    </div>
+                                    <div class="uk-flex-left uk-margin-small-left">
+                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
+                                    </div>
+                                    <div class="uk-flex-left uk-margin-small-left">
+                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
+                                    </div>
+                                    <hr class="uk-divider-icon">
+                                    <div class="uk-light">
+                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Iniciar Sesión</a>
+                                    </div>
+                                    <div class="uk-dark">
+                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Registrarse</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" uk-modal class="uk-modal">
+        <div class="uk-modal-dialog uk-modal-body blog-login-container">
+            <button class="uk-modal-close-default color-text-black" type="button" data-uk-close></button>
+            <h2 class="uk-modal-title color-text-black" id="modal-title">Iniciar Sesión</h2>
+            <form class="uk-form-stacked" id="login-form">
+                <div class="uk-margin">
+                    <label class="uk-form-label color-text-black">Usuario</label>
+                    <input class="uk-input blog-login-input" type="text" id="username-input" required>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label color-text-black">Contraseña</label>
+                    <input class="uk-input blog-login-input" type="password" id="password-input" required>
+                </div>
+                <div class="uk-flex uk-flex-between">
+                    <button class="uk-button uk-button-primary blog-container-round" type="submit" id="submit-btn">Iniciar Sesión</button>
+                    <button class="uk-button uk-button-link" type="button" id="toggle-register">¿No tienes cuenta?</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Catalog Content -->
+    <div class="uk-background-cover first-child-adjustment catalog-section"
+        style="background-image: url('assets/img/fondo_6.jpg'); background-attachment: fixed">
+        <div class="uk-container uk-section">
+            <h1 class="uk-heading-line uk-text-center uk-margin-large-bottom section-title-white">
+                <span>Catálogo Digital</span>
+            </h1>
+            
+            <!-- Acordeón de Búsquedas -->
+            <ul uk-accordion="multiple: true">
+                <!-- Buscador General -->
+                <li class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default catalog-accordion-item uk-open">
+                    <a class="uk-accordion-title uk-text-lead uk-text-bold accordion-open-default">
+                        <span uk-icon="icon: search; ratio: 2"></span> Buscar Productos
+                    </a>
+                    <div class="uk-accordion-content uk-padding-small">
+                        <p>Encuentra el envase perfecto para tu negocio</p>
+                        <!-- Buscador -->
+                        <form class="uk-grid-small" uk-grid id="product-search-form">
+                            <div class="uk-width-1-2@s">
+                                <input type="text" placeholder="Buscar por nombre o código..." 
+                                       class="uk-input" id="product-search-input">
+                            </div>
+                            <div class="uk-width-1-4@s">
+                                <select class="uk-select" id="category-filter">
+                                    <option value="">Todas las categorías</option>
+                                    <option value="vidrio">Envases de Vidrio</option>
+                                    <option value="plastico">Envases Plásticos</option>
+                                    <option value="tapas">Tapas y Complementos</option>
+                                    <option value="cosmetico">Envases Cosméticos</option>
+                                    <option value="farmaceutico">Envases Farmacéuticos</option>
+                                    <option value="industrial">Envases Industriales</option>
+                                </select>
+                            </div>
+                            <div class="uk-width-1-4@s">
+                                <button type="submit" class="uk-button uk-button-primary uk-width-1-1">
+                                    <span uk-icon="search"></span> Buscar
+                                </button>
+                            </div>
+                        </form>
+                        <div id="product-loading" class="uk-hidden">
+                            <div class="uk-text-center uk-margin-top">
+                                <div uk-spinner></div>
+                                <p>Buscando productos...</p>
+                            </div>
+                        </div>
+                        <div id="product-results" class="uk-margin-top"></div>
+                    </div>
+                </li>
+                
+                <!-- Filtros por Industria -->
+                <li class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default catalog-accordion-item">
+                    <a class="uk-accordion-title uk-text-lead uk-text-bold">
+                        🏭 Buscar por Industria
+                    </a>
+                    <div class="uk-accordion-content">
+                        <p>Selecciona tu industria para ver productos recomendados</p>
+                        <div class="uk-child-width-1-4@m uk-child-width-1-2@s uk-grid-small" uk-grid>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="alimentos">
+                                    🍽️ Alimentos
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="bebidas">
+                                    🥤 Bebidas
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="cosmetica">
+                                    💄 Cosmética
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="farmaceutica">
+                                    💊 Farmacéutica
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="quimicos">
+                                    ⚗️ Químicos
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="limpieza">
+                                    🧹 Limpieza
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="industrial">
+                                    🏗️ Industrial
+                                </button>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter" data-industry="todas">
+                                    📦 Todas
+                                </button>
+                            </div>
+                        </div>
+                        <div id="industry-results" class="uk-margin-top"></div>
+                    </div>
+                </li>
+
+                <!-- Calculadora de Cantidades -->
+                <li class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default catalog-accordion-item">
+                    <a class="uk-accordion-title uk-text-lead uk-text-bold">
+                        🧮 Calculadora de Cantidades
+                    </a>
+                    <div class="uk-accordion-content">
+                        <p>Calcula cuántos envases necesitas según tu producción</p>
+                        <form class="uk-grid-small" uk-grid id="calculator-form">
+                            <div class="uk-width-1-3@s">
+                                <label class="uk-form-label">Producción diaria (unidades)</label>
+                                <input type="number" class="uk-input" id="daily-production" placeholder="Ej: 500">
+                            </div>
+                            <div class="uk-width-1-3@s">
+                                <label class="uk-form-label">Días de inventario deseado</label>
+                                <input type="number" class="uk-input" id="inventory-days" placeholder="Ej: 30">
+                            </div>
+                            <div class="uk-width-1-3@s">
+                                <label class="uk-form-label uk-hidden-touch">&nbsp;</label>
+                                <button type="button" class="uk-button uk-button-primary uk-width-1-1" onclick="catalogoSystem.calculateQuantity()">
+                                    Calcular
+                                </button>
+                            </div>
+                        </form>
+                        <div id="calculator-result" class="uk-margin-top"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="uk-section uk-section-small footer-main">
+        <div class="uk-container">
+            <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
+                <div>
+                    <img src="assets/img/coffe-user-logo.svg" alt="SurtiEnvases Logo" class="uk-margin-small-bottom">
+                    <p class="uk-text-small uk-text-muted">Distribuidora de soluciones en empaque con amplia gama de envases en plástico y vidrio.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="uk-list uk-list-divider">
+                        <li><a href="productos.html" class="uk-link-muted">Productos</a></li>
+                        <li><a href="promociones.html" class="uk-link-muted">Promociones</a></li>
+                        <li><a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a></li>
+                        <li><a href="contacto.html" class="uk-link-muted">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Información</h4>
+                    <ul class="uk-list uk-list-divider">
+                        <li><a href="politica-privacidad.html" class="uk-link-muted">Política de Privacidad</a></li>
+                        <li><a href="terminos.html" class="uk-link-muted">Términos y Condiciones</a></li>
+                        <li><a href="cambios-devoluciones.html" class="uk-link-muted">Cambios y Devoluciones</a></li>
+                        <li><a href="preguntas-frecuentes.html" class="uk-link-muted">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Síguenos</h4>
+                    <div class="uk-margin-small-top">
+                        <a href="https://www.facebook.com/surtienvasesneiva" class="uk-icon-button" uk-icon="icon: facebook" target="_blank"></a>
+                        <a href="https://www.instagram.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: instagram" target="_blank"></a>
+                        <a href="https://www.youtube.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: youtube" target="_blank"></a>
+                        <a href="https://www.linkedin.com/company/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: linkedin" target="_blank"></a>
+                    </div>
+                    <div class="uk-margin-top">
+                        <p class="uk-text-small uk-text-muted">
+                            <span uk-icon="icon: mail"></span> info@surtienvasesneiva.co<br>
+                            <span uk-icon="icon: phone"></span> +57 (8) 871 1599<br>
+                            <span uk-icon="icon: location"></span> Calle 10 #2-58, Centro, Neiva
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr class="uk-divider-icon footer-divider">
+            <div class="uk-text-center uk-text-small uk-text-muted">
+                <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/573001234567" class="whatsapp-floating" target="_blank">
+        <div class="uk-button whatsapp-button-circle">
+            <span uk-icon="icon: whatsapp; ratio: 1.5"></span>
+        </div>
+    </a>
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
+    <!-- Auth System -->
+    <script src="js/auth.js"></script>
+    <!-- Products Data -->
+    <script src="js/productItems.js"></script>
+    <!-- Catálogo System -->
+    <script src="js/catalogo.js"></script>
+</body>
+</html>
