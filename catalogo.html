@@ -39,7 +39,7 @@
             <div class="uk-navbar-center uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <a
-                  class="uk-button uk-button-secondary uk-border-rounded"
+                  class="uk-button uk-button-secondary uk-border-rounded active"
                   href="catalogo.html"
                   >Catálogo</a
                 >
@@ -71,6 +71,103 @@
                   href="contacto.html"
                   >Contacto</a
                 >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="preguntas-frecuentes.html"
+                  >FAQ</a
+                >
+              </div>
+            </div>
+            <div class="uk-navbar-right uk-visible@l">
+              <div class="uk-navbar-item uk-dark">
+                <button
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  onclick="productsSystem.toggleCart()"
+                  style="position: relative"
+                >
+                  <span uk-icon="cart"></span> Cotizar
+                  <span
+                    class="cart-badge"
+                    id="cart-count-navbar"
+                    style="display: none"
+                    >0</span
+                  >
+                </button>
+              </div>
+            </div>
+            <!-- Menú hamburguesa -->
+            <div class="uk-hidden@l uk-navbar-right">
+              <a
+                class="uk-navbar-toggle"
+                uk-navbar-toggle-icon="true"
+                uk-toggle="target: #burger-menu"
+              ></a>
+              <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+                <div class="uk-offcanvas-bar">
+                  <button
+                    class="uk-offcanvas-close"
+                    type="button"
+                    uk-close="true"
+                  ></button>
+                  <div
+                    class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
+                    uk-grid="true"
+                  >
+                    <div class="uk-flex-left">
+                      <a
+                        class="uk-button uk-button-secondary uk-border-rounded"
+                        href="catalogo.html"
+                        ><strong>Catálogo</strong></a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="productos.html"
+                        >Productos</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="novedades.html"
+                        >Novedades</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="nosotros.html"
+                        >Nosotros</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="contacto.html"
+                        >Contacto</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="preguntas-frecuentes.html"
+                        >FAQ</a
+                      >
+                    </div>
+                    <hr class="uk-divider-icon" />
+                    <div class="uk-flex-left">
+                      <button
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
+                        onclick="productsSystem.toggleCart(); UIkit.offcanvas('#burger-menu').hide();"
+                      >
+                        <span uk-icon="cart"></span> Ver Carrito
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -272,12 +369,16 @@
               class="uk-margin-small-bottom"
             />
             <p class="uk-text-small uk-text-muted">
-              Distribuidora de soluciones en empaque.
+              Distribuidora de soluciones en empaque con amplia gama de envases
+              en plástico y vidrio.
             </p>
           </div>
           <div>
             <h4 class="footer-title">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
+              </li>
               <li>
                 <a href="productos.html" class="uk-link-muted">Productos</a>
               </li>
@@ -297,6 +398,9 @@
                   >Preguntas Frecuentes</a
                 >
               </li>
+              <li>
+                <a href="novedades.html" class="uk-link-muted">Novedades</a>
+              </li>
             </ul>
           </div>
           <div>
@@ -309,11 +413,36 @@
                 target="_blank"
               ></a>
               <a
-                href="https://www.instagram.com/surtienvases"
+                href="https://www.instagram.com/envases_surtienvases"
                 class="uk-icon-button uk-margin-small-left"
                 uk-icon="icon: instagram"
                 target="_blank"
               ></a>
+            </div>
+            <div class="uk-margin-top">
+              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <p class="uk-text-small uk-text-muted">
+                <span uk-icon="icon: mail"></span>
+                surtienvasesn@gmail.com<br />
+                <span uk-icon="icon: location"></span> Neiva, Huila
+              </p>
+              <div
+                class="uk-grid-small uk-child-width-expand@s uk-text-small uk-text-muted"
+                uk-grid
+              >
+                <p class="uk-text-small uk-text-muted">
+                  <strong>Sede 1:</strong><br />
+                  <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
+                  <span uk-icon="icon: phone"></span> 3163209967<br />
+                  <span uk-icon="icon: receiver"></span> 8672555
+                </p>
+                <p class="uk-text-small uk-text-muted">
+                  <strong>Sede 2:</strong><br />
+                  <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
+                  <span uk-icon="icon: phone"></span> 3153957275<br />
+                  <span uk-icon="icon: receiver"></span> 8673132
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -326,7 +455,7 @@
 
     <!-- WhatsApp Flotante -->
     <a
-      href="https://wa.me/5738711599"
+      href="https://wa.me/573153957275"
       class="whatsapp-floating"
       target="_blank"
     >
@@ -334,6 +463,31 @@
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>
+
+    <!-- Carrito Flotante -->
+    <div class="cart-floating">
+      <button class="cart-button-circle" onclick="productsSystem.toggleCart()">
+        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div id="cart-modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Carrito de Cotización</h2>
+        <div id="cart-items"></div>
+        <div class="uk-text-center uk-margin-top">
+          <button
+            class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+            onclick="productsSystem.sendQuoteToWhatsApp()"
+          >
+            <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>

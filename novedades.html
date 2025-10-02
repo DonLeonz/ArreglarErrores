@@ -53,7 +53,7 @@
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
-                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  class="uk-text-capitalize uk-button uk-button-text uk-light active"
                   href="novedades.html"
                   >Novedades</a
                 >
@@ -71,6 +71,86 @@
                   href="contacto.html"
                   >Contacto</a
                 >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="preguntas-frecuentes.html"
+                  >FAQ</a
+                >
+              </div>
+            </div>
+            <div class="uk-navbar-right uk-visible@l">
+              <div class="uk-navbar-item uk-dark">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
+                  href="productos.html"
+                  >Cotizar</a
+                >
+              </div>
+            </div>
+            <!-- Menú hamburguesa -->
+            <div class="uk-hidden@l uk-navbar-right">
+              <a
+                class="uk-navbar-toggle"
+                uk-navbar-toggle-icon="true"
+                uk-toggle="target: #burger-menu"
+              ></a>
+              <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+                <div class="uk-offcanvas-bar">
+                  <button
+                    class="uk-offcanvas-close"
+                    type="button"
+                    uk-close="true"
+                  ></button>
+                  <div
+                    class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
+                    uk-grid="true"
+                  >
+                    <div class="uk-flex-left">
+                      <a
+                        class="uk-button uk-button-secondary uk-border-rounded"
+                        href="catalogo.html"
+                        ><strong>Catálogo</strong></a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="productos.html"
+                        >Productos</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="novedades.html"
+                        >Novedades</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="nosotros.html"
+                        >Nosotros</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="contacto.html"
+                        >Contacto</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="preguntas-frecuentes.html"
+                        >FAQ</a
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -155,12 +235,16 @@
               class="uk-margin-small-bottom"
             />
             <p class="uk-text-small uk-text-muted">
-              Tu proveedor de confianza en envases.
+              Distribuidora de soluciones en empaque con amplia gama de envases
+              en plástico y vidrio.
             </p>
           </div>
           <div>
             <h4 class="footer-title">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
+              </li>
               <li>
                 <a href="productos.html" class="uk-link-muted">Productos</a>
               </li>
@@ -180,6 +264,9 @@
                   >Preguntas Frecuentes</a
                 >
               </li>
+              <li>
+                <a href="novedades.html" class="uk-link-muted">Novedades</a>
+              </li>
             </ul>
           </div>
           <div>
@@ -198,6 +285,31 @@
                 target="_blank"
               ></a>
             </div>
+            <div class="uk-margin-top">
+              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <p class="uk-text-small uk-text-muted">
+                <span uk-icon="icon: mail"></span>
+                surtienvasesn@gmail.com<br />
+                <span uk-icon="icon: location"></span> Neiva, Huila
+              </p>
+              <div
+                class="uk-grid-small uk-child-width-expand@s uk-text-small uk-text-muted"
+                uk-grid
+              >
+                <p class="uk-text-small uk-text-muted">
+                  <strong>Sede 1:</strong><br />
+                  <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
+                  <span uk-icon="icon: phone"></span> 3163209967<br />
+                  <span uk-icon="icon: receiver"></span> 8672555
+                </p>
+                <p class="uk-text-small uk-text-muted">
+                  <strong>Sede 2:</strong><br />
+                  <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
+                  <span uk-icon="icon: phone"></span> 3153957275<br />
+                  <span uk-icon="icon: receiver"></span> 8673132
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <hr class="uk-divider-icon footer-divider" />
@@ -209,7 +321,7 @@
 
     <!-- WhatsApp Flotante -->
     <a
-      href="https://wa.me/5738711599"
+      href="https://wa.me/573153957275"
       class="whatsapp-floating"
       target="_blank"
     >
@@ -223,5 +335,25 @@
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
     <!-- News System -->
     <script src="js/novedades.js"></script>
+    <!-- Script para sincronizar contador del navbar -->
+    <script>
+      function updateNavbarCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        const badge = document.getElementById("navbar-cart-count");
+
+        if (badge) {
+          badge.textContent = count;
+          badge.style.display = count > 0 ? "inline-block" : "none";
+        }
+      }
+
+      // Actualizar al cargar la página
+      document.addEventListener("DOMContentLoaded", updateNavbarCartCount);
+
+      // Actualizar cuando cambie el localStorage
+      window.addEventListener("storage", updateNavbarCartCount);
+    </script>
+    <script src="js/surtienvases-data-fixes.js"></script>
   </body>
 </html>

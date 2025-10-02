@@ -129,9 +129,12 @@
 }
 
 .product-stock-available {
-  background-color: rgba(183, 206, 56, 0.2) !important;
-  color: var(--surtienvases-verde) !important;
-  border: 1px solid var(--surtienvases-verde) !important;
+  background-color: #ee7622 !important;
+  color: #ffffff !important;
+  border: 2px solid #d45a0a !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  box-shadow: 0 2px 6px rgba(238, 118, 34, 0.3) !important;
 }
 
 /* ========================================
@@ -172,6 +175,10 @@
 
 .category-button,
 .industry-button {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #904191 !important;
+  border: 2px solid #ee7622 !important;
+  font-weight: 600 !important;
   min-height: 50px !important;
   display: flex !important;
   align-items: center !important;
@@ -181,15 +188,18 @@
 
 .category-button:hover,
 .industry-button:hover {
-  background-color: var(--surtienvases-naranja) !important;
+  background-color: #ee7622 !important;
   color: white !important;
   transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
 }
 
 .category-button.active {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
+  background-color: #b7ce38 !important;
+  color: #1d1d1b !important;
+  border-color: #b7ce38 !important;
   font-weight: bold !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
 }
 
 /* ========================================
@@ -206,7 +216,7 @@
 .cart-button-circle {
   width: 60px !important;
   height: 60px !important;
-  background-color: var(--surtienvases-morado) !important;
+  background-color: #904191 !important;
   border-radius: 50% !important;
   display: flex !important;
   align-items: center !important;
@@ -217,7 +227,7 @@
 }
 
 .cart-button-circle:hover {
-  background-color: var(--surtienvases-naranja) !important;
+  background-color: #ee7622 !important;
   transform: translateY(-5px) !important;
   box-shadow: 0 8px 20px rgba(238, 118, 34, 0.7) !important;
 }
@@ -239,7 +249,7 @@
 }
 
 .cart-item {
-  border-bottom: 1px solid var(--gris-claro) !important;
+  border-bottom: 1px solid #e5e5e5 !important;
   padding: 15px 0 !important;
 }
 
@@ -257,7 +267,7 @@
 }
 
 .accordion-open-default > .uk-accordion-title {
-  color: var(--surtienvases-morado) !important;
+  color: #904191 !important;
 }
 
 /* ========================================
