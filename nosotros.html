@@ -1,313 +1,471 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="coffe.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <link rel="stylesheet" href="assets/blog.css">
-    <link rel="stylesheet" href="assets/surtienvases-theme.css">
-    <link rel="stylesheet" href="assets/coffee-styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
+    />
+    <link rel="stylesheet" href="assets/index.css" />
+    <link rel="stylesheet" href="assets/surtienvases-theme.css" />
+    <link rel="stylesheet" href="assets/coffee-styles.css" />
+    <link rel="stylesheet" href="assets/surtienvases-custom.css" />
     <title>Nosotros - SurtiEnvases</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navbar -->
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-        <nav class="uk-navbar-container uk-navbar-transparent">
-            <div class="uk-container uk-width-1-1 background-opaque">
-                <div uk-navbar="mode: click" class="uk-flex">
-                    <div class="uk-navbar-left">
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-flex uk-link-heading" href="index.html">
-                                <img src="assets/img/coffe-user-logo.svg" alt="Logo">
-                                <button class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
-                                    <strong>
-                                        SurtiEnvases<br><span id="navbar-username"></span>
-                                    </strong>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="uk-navbar-center uk-visible@l">
-                        <div class="uk-navbar-item uk-dark">
-                            <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html">Catálogo</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
-                        </div>
-                    </div>
-                    <div class="uk-navbar-right uk-visible@l">
-                        <div class="uk-navbar-item uk-light" id="auth-buttons">
-                            <!-- Los botones se insertan dinámicamente con JS -->
-                        </div>
-                        <div class="uk-navbar-item uk-dark">
-                            <a class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded" href="#">Registrarse</a>
-                        </div>
-                    </div>
-                    <!-- Menú hamburguesa -->
-                    <div class="uk-hidden@l uk-navbar-right">
-                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon="true" uk-toggle="target: #burger-menu"></a>
-                        <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
-                            <div class="uk-offcanvas-bar">
-                                <button class="uk-offcanvas-close" type="button" uk-close="true"></button>
-                                <div class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top" uk-grid="true">
-                                    <div class="uk-flex-left">
-                                        <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html"><strong>Catálogo</strong></a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
-                                    </div>
-                                    <hr class="uk-divider-icon">
-                                    <div class="uk-light">
-                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Iniciar Sesión</a>
-                                    </div>
-                                    <div class="uk-dark">
-                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Registrarse</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div
+      uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
+    >
+      <nav class="uk-navbar-container uk-navbar-transparent">
+        <div class="uk-container uk-width-1-1 background-opaque">
+          <div uk-navbar="mode: click" class="uk-flex">
+            <div class="uk-navbar-left">
+              <div class="uk-navbar-item uk-light">
+                <a class="uk-flex uk-link-heading" href="index.html">
+                  <img src="assets/img/coffe-user-logo.svg" alt="Logo" />
+                  <button
+                    class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link"
+                  >
+                    <strong>SurtiEnvases</strong>
+                  </button>
+                </a>
+              </div>
             </div>
-        </nav>
-    </div>
-
-    <!-- Login Modal -->
-    <div id="login-modal" uk-modal class="uk-modal">
-        <div class="uk-modal-dialog uk-modal-body blog-login-container">
-            <button class="uk-modal-close-default color-text-black" type="button" data-uk-close></button>
-            <h2 class="uk-modal-title color-text-black" id="modal-title">Iniciar Sesión</h2>
-            <form class="uk-form-stacked" id="login-form">
-                <div class="uk-margin">
-                    <label class="uk-form-label color-text-black">Usuario</label>
-                    <input class="uk-input blog-login-input" type="text" id="username-input" required>
+            <div class="uk-navbar-center uk-visible@l">
+              <div class="uk-navbar-item uk-dark">
+                <a
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  href="catalogo.html"
+                  >Catálogo</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="productos.html"
+                  >Productos</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="novedades.html"
+                  >Novedades</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="nosotros.html"
+                  >Nosotros</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="contacto.html"
+                  >Contacto</a
+                >
+              </div>
+            </div>
+            <div class="uk-navbar-right uk-visible@l">
+              <div class="uk-navbar-item uk-dark">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
+                  href="productos.html"
+                  >Cotizar</a
+                >
+              </div>
+            </div>
+            <!-- Menú hamburguesa -->
+            <div class="uk-hidden@l uk-navbar-right">
+              <a
+                class="uk-navbar-toggle"
+                uk-navbar-toggle-icon="true"
+                uk-toggle="target: #burger-menu"
+              ></a>
+              <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+                <div class="uk-offcanvas-bar">
+                  <button
+                    class="uk-offcanvas-close"
+                    type="button"
+                    uk-close="true"
+                  ></button>
+                  <div
+                    class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
+                    uk-grid="true"
+                  >
+                    <div class="uk-flex-left">
+                      <a
+                        class="uk-button uk-button-secondary uk-border-rounded"
+                        href="catalogo.html"
+                        ><strong>Catálogo</strong></a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="productos.html"
+                        >Productos</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="novedades.html"
+                        >Novedades</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="nosotros.html"
+                        >Nosotros</a
+                      >
+                    </div>
+                    <div class="uk-flex-left uk-margin-small-left">
+                      <a
+                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        href="contacto.html"
+                        >Contacto</a
+                      >
+                    </div>
+                  </div>
                 </div>
-                <div class="uk-margin">
-                    <label class="uk-form-label color-text-black">Contraseña</label>
-                    <input class="uk-input blog-login-input" type="password" id="password-input" required>
-                </div>
-                <div class="uk-flex uk-flex-between">
-                    <button class="uk-button uk-button-primary blog-container-round" type="submit" id="submit-btn">Iniciar Sesión</button>
-                    <button class="uk-button uk-button-link" type="button" id="toggle-register">¿No tienes cuenta?</button>
-                </div>
-            </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </nav>
     </div>
 
     <!-- Nosotros Content -->
-    <div class="first-child-adjustment uk-section uk-padding-small coffee-section-gradient">
-        <div class="uk-container uk-container-large uk-padding uk-light coffee-section-gradient">
-
-            <!-- Sección del título -->
-            <div class="uk-text-center uk-margin-large-bottom">
-                <h2 class="uk-heading-small uk-text-uppercase coffee-menu-grid-header">
-                    <span class="uk-display-inline-block uk-padding-small coffee-section-title-gold">
-                        Quiénes Somos
-                    </span>
-                </h2>
-            </div>
-
-            <!-- Contenido principal -->
-            <div class="uk-grid-medium uk-child-width-1-2@m" data-uk-grid>
-                <!-- Columna izquierda (historia) -->
-                <div>
-                    <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
-                        <h3 class="uk-card-title coffee-title-gold">Nuestra Historia</h3>
-                        <p class="coffee-text-white">
-                            Desde 2010, SurtiEnvases ha sido el socio confiable de miles de empresas colombianas. 
-                            Comenzamos como un pequeño almacén en Bogotá y hoy somos líderes nacionales en distribución 
-                            de envases, con presencia en las principales ciudades del país. Nuestra experiencia de más 
-                            de 15 años nos respalda.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Columna derecha (misión) -->
-                <div>
-                    <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
-                        <h3 class="uk-card-title coffee-title-gold">Nuestra Misión</h3>
-                        <p class="coffee-text-white">
-                            Proporcionar soluciones integrales de empaque que impulsen el éxito de nuestros clientes. 
-                            Nos comprometemos con la calidad, innovación y sostenibilidad, ofreciendo productos certificados 
-                            y un servicio excepcional que supere las expectativas del mercado.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Valores -->
-            <div class="uk-margin-large-top">
-                <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
-                    <h3 class="uk-card-title coffee-title-gold uk-text-center">Nuestros Valores</h3>
-                    <div class="uk-child-width-1-3@m uk-text-center" data-uk-grid>
-                        <div>
-                            <span uk-icon="icon: check; ratio: 2" style="color: #B7CE38;"></span>
-                            <h4 class="coffee-text-white">Calidad</h4>
-                            <p class="coffee-text-white-muted">Productos certificados y garantizados</p>
-                        </div>
-                        <div>
-                            <span uk-icon="icon: users; ratio: 2" style="color: #B7CE38;"></span>
-                            <h4 class="coffee-text-white">Servicio</h4>
-                            <p class="coffee-text-white-muted">Atención personalizada y asesoría experta</p>
-                        </div>
-                        <div>
-                            <span uk-icon="icon: world; ratio: 2" style="color: #B7CE38;"></span>
-                            <h4 class="coffee-text-white">Sostenibilidad</h4>
-                            <p class="coffee-text-white-muted">Comprometidos con el medio ambiente</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Equipo -->
-            <div class="uk-margin-large-top">
-                <h3 class="uk-text-center coffee-title-gold">Nuestro Equipo Directivo</h3>
-                <div class="uk-grid-small uk-child-width-1-3@m" data-uk-grid>
-                    <div>
-                        <div class="uk-card uk-card-default uk-flex uk-flex-column coffee-team-card">
-                            <div class="uk-card-media-top">
-                                <img src="assets/img/nosotros/sofia.jpg" alt="Carlos Mendoza" class="coffee-team-image">
-                            </div>
-                            <div class="uk-card-body uk-flex-1 coffee-team-card-body">
-                                <h4 class="coffee-team-name">Carlos Mendoza</h4>
-                                <p class="coffee-team-role">Director Comercial</p>
-                                <p class="coffee-text-white-muted" style="font-size: 0.85rem;">
-                                    15 años de experiencia en el sector de empaques y distribución industrial.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="uk-card uk-card-default uk-flex uk-flex-column coffee-team-card">
-                            <div class="uk-card-media-top">
-                                <img src="assets/img/nosotros/juan.jpg" alt="Laura García" class="coffee-team-image">
-                            </div>
-                            <div class="uk-card-body uk-flex-1 coffee-team-card-body">
-                                <h4 class="coffee-team-name">Laura García</h4>
-                                <p class="coffee-team-role">Jefa de Logística</p>
-                                <p class="coffee-text-white-muted" style="font-size: 0.85rem;">
-                                    Especialista en cadena de suministro con maestría en operaciones.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="uk-card uk-card-default uk-flex uk-flex-column coffee-team-card">
-                            <div class="uk-card-media-top">
-                                <img src="assets/img/nosotros/maria.jpg" alt="Andrea Rodríguez" class="coffee-team-image">
-                            </div>
-                            <div class="uk-card-body uk-flex-1 coffee-team-card-body">
-                                <h4 class="coffee-team-name">Andrea Rodríguez</h4>
-                                <p class="coffee-team-role">Servicio al Cliente</p>
-                                <p class="coffee-text-white-muted" style="font-size: 0.85rem;">
-                                    Tu contacto directo para asesoría personalizada y soluciones a medida.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cifras -->
-            <div class="uk-margin-large-top">
-                <div class="uk-card uk-card-default uk-card-body coffee-card-dark-border">
-                    <h3 class="uk-card-title coffee-title-gold uk-text-center">SurtiEnvases en Cifras</h3>
-                    <div class="uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" data-uk-grid>
-                        <div>
-                            <h2 class="coffee-title-gold" style="font-size: 2.5rem; margin: 0;">15+</h2>
-                            <p class="coffee-text-white">Años de experiencia</p>
-                        </div>
-                        <div>
-                            <h2 class="coffee-title-gold" style="font-size: 2.5rem; margin: 0;">5,000+</h2>
-                            <p class="coffee-text-white">Clientes satisfechos</p>
-                        </div>
-                        <div>
-                            <h2 class="coffee-title-gold" style="font-size: 2.5rem; margin: 0;">10,000+</h2>
-                            <p class="coffee-text-white">Productos en catálogo</p>
-                        </div>
-                        <div>
-                            <h2 class="coffee-title-gold" style="font-size: 2.5rem; margin: 0;">4</h2>
-                            <p class="coffee-text-white">Bodegas nacionales</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div
+      class="first-child-adjustment uk-section uk-padding-small coffee-section-gradient"
+    >
+      <div
+        class="uk-container uk-container-large uk-padding uk-light coffee-section-gradient"
+      >
+        <!-- Título -->
+        <div class="uk-text-center uk-margin-large-bottom">
+          <h2
+            class="uk-heading-small uk-text-uppercase coffee-menu-grid-header"
+          >
+            <span
+              class="uk-display-inline-block uk-padding-small coffee-section-title-gold"
+            >
+              Quiénes Somos
+            </span>
+          </h2>
         </div>
+
+        <!-- Contenido principal -->
+        <div class="uk-grid-medium uk-child-width-1-2@m" data-uk-grid>
+          <!-- Historia -->
+          <div>
+            <div
+              class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+            >
+              <h3 class="uk-card-title coffee-title-gold">Nuestra Historia</h3>
+              <p class="coffee-text-white">
+                Desde 2010, SurtiEnvases ha sido el socio confiable de miles de
+                empresas en el Huila. Comenzamos como un pequeño almacén en
+                Neiva y hoy somos distribuidores líderes en la región, con
+                presencia en las principales zonas comerciales de la ciudad.
+                Nuestra experiencia de más de 15 años nos respalda.
+              </p>
+            </div>
+          </div>
+
+          <!-- Misión -->
+          <div>
+            <div
+              class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+            >
+              <h3 class="uk-card-title coffee-title-gold">Nuestra Misión</h3>
+              <p class="coffee-text-white">
+                Proporcionar soluciones integrales de empaque que impulsen el
+                éxito de nuestros clientes. Nos comprometemos con la calidad,
+                innovación y sostenibilidad, ofreciendo productos certificados y
+                un servicio excepcional que supere las expectativas del mercado
+                huilense.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nuestras Sedes -->
+        <div class="uk-margin-large-top">
+          <h3 class="uk-text-center coffee-title-gold uk-margin-medium-bottom">
+            Nuestras Sedes en Neiva
+          </h3>
+          <div class="uk-grid-medium uk-child-width-1-2@m" data-uk-grid>
+            <!-- Sede Principal -->
+            <div>
+              <div
+                class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+              >
+                <h4 class="coffee-title-gold">🏢 Sede Principal - Centro</h4>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="location" class="icon-verde"></span>
+                    <strong>Dirección:</strong><br />
+                    Calle 10 #2-58, Centro<br />
+                    Neiva, Huila
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="phone" class="icon-verde"></span>
+                    <strong>Teléfono:</strong><br />
+                    +57 (8) 871 1599
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="whatsapp" class="icon-verde"></span>
+                    <strong>WhatsApp:</strong><br />
+                    +57 300 123 4567
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="clock" class="icon-verde"></span>
+                    <strong>Horario:</strong><br />
+                    Lunes a Viernes: 8:00 AM - 6:00 PM<br />
+                    Sábados: 8:00 AM - 2:00 PM
+                  </p>
+                </div>
+                <div class="uk-margin-top">
+                  <a
+                    href="https://wa.me/573001234567"
+                    target="_blank"
+                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                  >
+                    <span uk-icon="whatsapp"></span> Contactar Sede Centro
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sede Norte -->
+            <div>
+              <div
+                class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+              >
+                <h4 class="coffee-title-gold">🏪 Sede Norte</h4>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="location" class="icon-verde"></span>
+                    <strong>Dirección:</strong><br />
+                    Carrera 5 #52-18, Barrio Altico<br />
+                    Neiva, Huila
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="phone" class="icon-verde"></span>
+                    <strong>Teléfono:</strong><br />
+                    +57 (8) 871 1598
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="whatsapp" class="icon-verde"></span>
+                    <strong>WhatsApp:</strong><br />
+                    +57 321 456 7890
+                  </p>
+                </div>
+                <div class="uk-margin-small">
+                  <p class="coffee-text-white">
+                    <span uk-icon="clock" class="icon-verde"></span>
+                    <strong>Horario:</strong><br />
+                    Lunes a Viernes: 8:00 AM - 6:00 PM<br />
+                    Sábados: 8:00 AM - 1:00 PM
+                  </p>
+                </div>
+                <div class="uk-margin-top">
+                  <a
+                    href="https://wa.me/573214567890"
+                    target="_blank"
+                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                  >
+                    <span uk-icon="whatsapp"></span> Contactar Sede Norte
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Valores -->
+        <div class="uk-margin-large-top">
+          <div
+            class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+          >
+            <h3 class="uk-card-title coffee-title-gold uk-text-center">
+              Nuestros Valores
+            </h3>
+            <div class="uk-child-width-1-3@m uk-text-center" data-uk-grid>
+              <div>
+                <span
+                  uk-icon="icon: check; ratio: 2"
+                  class="icon-verde values-icon"
+                ></span>
+                <h4 class="coffee-text-white">Calidad</h4>
+                <p class="coffee-text-white-muted">
+                  Productos certificados y garantizados
+                </p>
+              </div>
+              <div>
+                <span
+                  uk-icon="icon: users; ratio: 2"
+                  class="icon-verde values-icon"
+                ></span>
+                <h4 class="coffee-text-white">Servicio</h4>
+                <p class="coffee-text-white-muted">
+                  Atención personalizada y asesoría experta
+                </p>
+              </div>
+              <div>
+                <span
+                  uk-icon="icon: world; ratio: 2"
+                  class="icon-verde values-icon"
+                ></span>
+                <h4 class="coffee-text-white">Sostenibilidad</h4>
+                <p class="coffee-text-white-muted">
+                  Comprometidos con el medio ambiente
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cifras -->
+        <div class="uk-margin-large-top">
+          <div
+            class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+          >
+            <h3 class="uk-card-title coffee-title-gold uk-text-center">
+              SurtiEnvases en Cifras
+            </h3>
+            <div
+              class="uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center"
+              data-uk-grid
+            >
+              <div>
+                <h2 class="coffee-title-gold stats-number">15+</h2>
+                <p class="coffee-text-white">Años de experiencia</p>
+              </div>
+              <div>
+                <h2 class="coffee-title-gold stats-number">3,000+</h2>
+                <p class="coffee-text-white">Clientes satisfechos</p>
+              </div>
+              <div>
+                <h2 class="coffee-title-gold stats-number">5,000+</h2>
+                <p class="coffee-text-white">Productos en catálogo</p>
+              </div>
+              <div>
+                <h2 class="coffee-title-gold stats-number">2</h2>
+                <p class="coffee-text-white">Sedes en Neiva</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
-    <footer class="uk-section uk-section-small" style="background-color: #2f2c2c; width: 100%; z-index: 10">
-        <div class="uk-container">
-            <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
-                <div>
-                    <img src="assets/img/coffe-user-logo.svg" alt="SurtiEnvases Logo" class="uk-margin-small-bottom">
-                    <p class="uk-text-small uk-text-muted">Tu proveedor de confianza en envases para todas las industrias.</p>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Enlaces Rápidos</h4>
-                    <ul class="uk-list uk-list-divider">
-                        <li><a href="productos.html" class="uk-link-muted">Productos</a></li>
-                        <li><a href="promociones.html" class="uk-link-muted">Promociones</a></li>
-                        <li><a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a></li>
-                        <li><a href="contacto.html" class="uk-link-muted">Contacto</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Información</h4>
-                    <ul class="uk-list uk-list-divider">
-                        <li><a href="politica-privacidad.html" class="uk-link-muted">Política de Privacidad</a></li>
-                        <li><a href="terminos.html" class="uk-link-muted">Términos y Condiciones</a></li>
-                        <li><a href="cambios-devoluciones.html" class="uk-link-muted">Cambios y Devoluciones</a></li>
-                        <li><a href="preguntas-frecuentes.html" class="uk-link-muted">Preguntas Frecuentes</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Síguenos</h4>
-                    <div class="uk-margin-small-top">
-                        <a href="https://www.facebook.com/surtienvases" class="uk-icon-button" uk-icon="icon: facebook" target="_blank"></a>
-                        <a href="https://www.instagram.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: instagram" target="_blank"></a>
-                        <a href="https://www.youtube.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: youtube" target="_blank"></a>
-                        <a href="https://www.linkedin.com/company/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: linkedin" target="_blank"></a>
-                    </div>
-                </div>
+    <footer class="uk-section uk-section-small footer-main">
+      <div class="uk-container">
+        <div
+          class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
+          uk-grid
+        >
+          <div>
+            <img
+              src="assets/img/coffe-user-logo.svg"
+              alt="SurtiEnvases Logo"
+              class="uk-margin-small-bottom"
+            />
+            <p class="uk-text-small uk-text-muted">
+              Tu proveedor de confianza en envases para el Huila.
+            </p>
+          </div>
+          <div>
+            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="productos.html" class="uk-link-muted">Productos</a>
+              </li>
+              <li>
+                <a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a>
+              </li>
+              <li>
+                <a href="contacto.html" class="uk-link-muted">Contacto</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Información</h4>
+            <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="preguntas-frecuentes.html" class="uk-link-muted"
+                  >Preguntas Frecuentes</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Síguenos</h4>
+            <div class="uk-margin-small-top">
+              <a
+                href="https://www.facebook.com/surtienvasesneiva"
+                class="uk-icon-button"
+                uk-icon="icon: facebook"
+                target="_blank"
+              ></a>
+              <a
+                href="https://www.instagram.com/envases_surtienvases"
+                class="uk-icon-button uk-margin-small-left"
+                uk-icon="icon: instagram"
+                target="_blank"
+              ></a>
             </div>
-            <hr class="uk-divider-icon uk-margin-medium">
-            <div class="uk-text-center uk-text-small uk-text-muted">
-                <p>© 2025 SurtiEnvases. Todos los derechos reservados. | NIT: 900.123.456-7</p>
+            <div class="uk-margin-top">
+              <p class="uk-text-small uk-text-muted">
+                <span uk-icon="icon: mail"></span>
+                info@surtienvasesneiva.co<br />
+                <span uk-icon="icon: phone"></span> +57 (8) 871 1599<br />
+                <span uk-icon="icon: location"></span> Neiva, Huila
+              </p>
             </div>
+          </div>
         </div>
+        <hr class="uk-divider-icon footer-divider" />
+        <div class="uk-text-center uk-text-small uk-text-muted">
+          <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
+        </div>
+      </div>
     </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a
+      href="https://wa.me/5738711599"
+      class="whatsapp-floating"
+      target="_blank"
+    >
+      <div class="whatsapp-button-circle">
+        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+      </div>
+    </a>
 
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
-    <!-- Auth System -->
-    <script src="js/auth.js"></script>
-</body>
+  </body>
+</html>

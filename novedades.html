@@ -1,207 +1,227 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="coffe.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css">
-    <link rel="stylesheet" href="assets/index.css">
-    <link rel="stylesheet" href="assets/blog.css">
-    <link rel="stylesheet" href="assets/surtienvases-theme.css">
-    <link rel="stylesheet" href="assets/coffee-styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
+    />
+    <link rel="stylesheet" href="assets/index.css" />
+    <link rel="stylesheet" href="assets/blog.css" />
+    <link rel="stylesheet" href="assets/surtienvases-theme.css" />
+    <link rel="stylesheet" href="assets/coffee-styles.css" />
+    <link rel="stylesheet" href="assets/surtienvases-custom.css" />
     <title>Novedades - SurtiEnvases</title>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navbar -->
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
-        <nav class="uk-navbar-container uk-navbar-transparent">
-            <div class="uk-container uk-width-1-1 background-opaque">
-                <div uk-navbar="mode: click" class="uk-flex">
-                    <div class="uk-navbar-left">
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-flex uk-link-heading" href="index.html">
-                                <img src="assets/img/coffe-user-logo.svg" alt="Logo">
-                                <button class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
-                                    <strong>
-                                        SurtiEnvases<br><span id="navbar-username"></span>
-                                    </strong>
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="uk-navbar-center uk-visible@l">
-                        <div class="uk-navbar-item uk-dark">
-                            <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html">Catálogo</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
-                        </div>
-                        <div class="uk-navbar-item uk-light">
-                            <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
-                        </div>
-                    </div>
-                    <div class="uk-navbar-right uk-visible@l">
-                        <div class="uk-navbar-item uk-light" id="auth-buttons">
-                            <!-- Los botones se insertan dinámicamente con JS -->
-                        </div>
-                        <div class="uk-navbar-item uk-dark">
-                            <a class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded" href="#">Registrarse</a>
-                        </div>
-                    </div>
-                    <!-- Menú hamburguesa -->
-                    <div class="uk-hidden@l uk-navbar-right">
-                        <a class="uk-navbar-toggle" uk-navbar-toggle-icon="true" uk-toggle="target: #burger-menu"></a>
-                        <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
-                            <div class="uk-offcanvas-bar">
-                                <button class="uk-offcanvas-close" type="button" uk-close="true"></button>
-                                <div class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top" uk-grid="true">
-                                    <div class="uk-flex-left">
-                                        <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.html"><strong>Catálogo</strong></a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.html">Productos</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text" href="promociones.html">Promociones</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.html">Novedades</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.html">Nosotros</a>
-                                    </div>
-                                    <div class="uk-flex-left uk-margin-small-left">
-                                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.html">Contacto</a>
-                                    </div>
-                                    <hr class="uk-divider-icon">
-                                    <div class="uk-light">
-                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Iniciar Sesión</a>
-                                    </div>
-                                    <div class="uk-dark">
-                                        <a class="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1" href="#">Registrarse</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div
+      uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
+    >
+      <nav class="uk-navbar-container uk-navbar-transparent">
+        <div class="uk-container uk-width-1-1 background-opaque">
+          <div uk-navbar="mode: click" class="uk-flex">
+            <div class="uk-navbar-left">
+              <div class="uk-navbar-item uk-light">
+                <a class="uk-flex uk-link-heading" href="index.html">
+                  <img src="assets/img/coffe-user-logo.svg" alt="Logo" />
+                  <button
+                    class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link"
+                  >
+                    <strong>SurtiEnvases</strong>
+                  </button>
+                </a>
+              </div>
             </div>
-        </nav>
-    </div>
-
-    <!-- Login Modal -->
-    <div id="login-modal" uk-modal class="uk-modal">
-        <div class="uk-modal-dialog uk-modal-body blog-login-container">
-            <button class="uk-modal-close-default color-text-black" type="button" data-uk-close></button>
-            <h2 class="uk-modal-title color-text-black" id="modal-title">Iniciar Sesión</h2>
-            <form class="uk-form-stacked" id="login-form">
-                <div class="uk-margin">
-                    <label class="uk-form-label color-text-black">Usuario</label>
-                    <input class="uk-input blog-login-input" type="text" id="username-input" required>
-                </div>
-                <div class="uk-margin">
-                    <label class="uk-form-label color-text-black">Contraseña</label>
-                    <input class="uk-input blog-login-input" type="password" id="password-input" required>
-                </div>
-                <div class="uk-flex uk-flex-between">
-                    <button class="uk-button uk-button-primary blog-container-round" type="submit" id="submit-btn">Iniciar Sesión</button>
-                    <button class="uk-button uk-button-link" type="button" id="toggle-register">¿No tienes cuenta?</button>
-                </div>
-            </form>
+            <div class="uk-navbar-center uk-visible@l">
+              <div class="uk-navbar-item uk-dark">
+                <a
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  href="catalogo.html"
+                  >Catálogo</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="productos.html"
+                  >Productos</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="novedades.html"
+                  >Novedades</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="nosotros.html"
+                  >Nosotros</a
+                >
+              </div>
+              <div class="uk-navbar-item uk-light">
+                <a
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
+                  href="contacto.html"
+                  >Contacto</a
+                >
+              </div>
+            </div>
+          </div>
         </div>
+      </nav>
     </div>
 
     <!-- News Content -->
     <div class="uk-section first-child-adjustment uk-dark blog-background">
-        <div class="uk-container uk-text-default">
-            <!-- Formulario para agregar nueva noticia -->
-            <div class="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black blog-form-spacing">
-                <h3 class="uk-card-title">Publicar Nueva Noticia</h3>
-                <form class="uk-grid-small" data-uk-grid id="news-form">
-                    <div class="uk-width-1-2@s">
-                        <input class="uk-input" type="text" placeholder="Título de la noticia" id="news-title" required>
-                    </div>
-                    <div class="uk-width-1-2@s">
-                        <input class="uk-input" type="text" placeholder="Autor" id="news-author" required>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <textarea class="uk-textarea" rows="3" placeholder="Resumen o introducción de la noticia" id="news-excerpt" required></textarea>
-                    </div>
-                    <div class="uk-width-1-1">
-                        <input type="file" accept="image/*" id="news-image">
-                    </div>
-                    <div class="uk-width-1-1">
-                        <button type="submit" class="uk-button uk-button-secondary blog-container-round">Publicar noticia</button>
-                    </div>
-                </form>
+      <div class="uk-container uk-text-default">
+        <!-- Formulario para agregar nueva noticia -->
+        <div
+          class="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black blog-form-spacing"
+        >
+          <h3 class="uk-card-title">Publicar Artículo</h3>
+          <form class="uk-grid-small" data-uk-grid id="news-form">
+            <div class="uk-width-1-2@s">
+              <input
+                class="uk-input"
+                type="text"
+                placeholder="Título del artículo"
+                id="news-title"
+                required
+              />
             </div>
-
-            <!-- Contenedor de noticias -->
-            <div class="uk-child-width-1-2@s" uk-grid="masonry: pack" data-uk-grid id="news-container">
-                <!-- Las noticias se cargan dinámicamente con JavaScript -->
+            <div class="uk-width-1-2@s">
+              <input
+                class="uk-input"
+                type="text"
+                placeholder="Autor"
+                id="news-author"
+                value="Usuario Invitado"
+                required
+              />
             </div>
+            <div class="uk-width-1-1">
+              <textarea
+                class="uk-textarea"
+                rows="3"
+                placeholder="Resumen o introducción del artículo"
+                id="news-excerpt"
+                required
+              ></textarea>
+            </div>
+            <div class="uk-width-1-1">
+              <input type="file" accept="image/*" id="news-image" />
+            </div>
+            <div class="uk-width-1-1">
+              <button
+                type="submit"
+                class="uk-button uk-button-secondary blog-container-round"
+              >
+                Publicar artículo
+              </button>
+            </div>
+          </form>
         </div>
+
+        <!-- Contenedor de artículos -->
+        <div
+          class="uk-child-width-1-2@s"
+          uk-grid="masonry: pack"
+          data-uk-grid
+          id="news-container"
+        >
+          <!-- Los artículos se cargan dinámicamente con JavaScript -->
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
-    <footer class="uk-section uk-section-small" style="background-color: #2f2c2c; width: 100%; z-index: 10">
-        <div class="uk-container">
-            <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
-                <div>
-                    <img src="assets/img/coffe-user-logo.svg" alt="SurtiEnvases Logo" class="uk-margin-small-bottom">
-                    <p class="uk-text-small uk-text-muted">Tu proveedor de confianza en envases para todas las industrias.</p>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Enlaces Rápidos</h4>
-                    <ul class="uk-list uk-list-divider">
-                        <li><a href="productos.html" class="uk-link-muted">Productos</a></li>
-                        <li><a href="promociones.html" class="uk-link-muted">Promociones</a></li>
-                        <li><a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a></li>
-                        <li><a href="contacto.html" class="uk-link-muted">Contacto</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Información</h4>
-                    <ul class="uk-list uk-list-divider">
-                        <li><a href="politica-privacidad.html" class="uk-link-muted">Política de Privacidad</a></li>
-                        <li><a href="terminos.html" class="uk-link-muted">Términos y Condiciones</a></li>
-                        <li><a href="cambios-devoluciones.html" class="uk-link-muted">Cambios y Devoluciones</a></li>
-                        <li><a href="preguntas-frecuentes.html" class="uk-link-muted">Preguntas Frecuentes</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="uk-text-bold" style="color: white;">Síguenos</h4>
-                    <div class="uk-margin-small-top">
-                        <a href="https://www.facebook.com/surtienvases" class="uk-icon-button" uk-icon="icon: facebook" target="_blank"></a>
-                        <a href="https://www.instagram.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: instagram" target="_blank"></a>
-                        <a href="https://www.youtube.com/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: youtube" target="_blank"></a>
-                        <a href="https://www.linkedin.com/company/surtienvases" class="uk-icon-button uk-margin-small-left" uk-icon="icon: linkedin" target="_blank"></a>
-                    </div>
-                </div>
+    <footer class="uk-section uk-section-small footer-main">
+      <div class="uk-container">
+        <div
+          class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
+          uk-grid
+        >
+          <div>
+            <img
+              src="assets/img/coffe-user-logo.svg"
+              alt="SurtiEnvases Logo"
+              class="uk-margin-small-bottom"
+            />
+            <p class="uk-text-small uk-text-muted">
+              Tu proveedor de confianza en envases.
+            </p>
+          </div>
+          <div>
+            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="productos.html" class="uk-link-muted">Productos</a>
+              </li>
+              <li>
+                <a href="nosotros.html" class="uk-link-muted">Quiénes Somos</a>
+              </li>
+              <li>
+                <a href="contacto.html" class="uk-link-muted">Contacto</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Información</h4>
+            <ul class="uk-list uk-list-divider">
+              <li>
+                <a href="preguntas-frecuentes.html" class="uk-link-muted"
+                  >Preguntas Frecuentes</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-title">Síguenos</h4>
+            <div class="uk-margin-small-top">
+              <a
+                href="https://www.facebook.com/surtienvasesneiva"
+                class="uk-icon-button"
+                uk-icon="icon: facebook"
+                target="_blank"
+              ></a>
+              <a
+                href="https://www.instagram.com/envases_surtienvases"
+                class="uk-icon-button uk-margin-small-left"
+                uk-icon="icon: instagram"
+                target="_blank"
+              ></a>
             </div>
-            <hr class="uk-divider-icon uk-margin-medium">
-            <div class="uk-text-center uk-text-small uk-text-muted">
-                <p>© 2025 SurtiEnvases. Todos los derechos reservados. | NIT: 900.123.456-7</p>
-            </div>
+          </div>
         </div>
+        <hr class="uk-divider-icon footer-divider" />
+        <div class="uk-text-center uk-text-small uk-text-muted">
+          <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
+        </div>
+      </div>
     </footer>
+
+    <!-- WhatsApp Flotante -->
+    <a
+      href="https://wa.me/5738711599"
+      class="whatsapp-floating"
+      target="_blank"
+    >
+      <div class="whatsapp-button-circle">
+        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+      </div>
+    </a>
 
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
-    <!-- Auth System -->
-    <script src="js/auth.js"></script>
     <!-- News System -->
     <script src="js/novedades.js"></script>
-</body>
+  </body>
 </html>

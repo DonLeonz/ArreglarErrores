@@ -10,51 +10,51 @@
 
 /* Botón flotante de WhatsApp */
 .whatsapp-floating {
-    position: fixed !important;
-    bottom: 30px !important;
-    right: 30px !important;
-    z-index: 999 !important;
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 999 !important;
 }
 
 .whatsapp-button-circle {
-    width: 60px !important;
-    height: 60px !important;
-    background-color: #25D366 !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5) !important;
-    transition: all 0.3s ease !important;
+  width: 60px !important;
+  height: 60px !important;
+  background-color: #25d366 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5) !important;
+  transition: all 0.3s ease !important;
 }
 
 .whatsapp-button-circle:hover {
-    background-color: #128C7E !important;
-    transform: translateY(-5px) !important;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.7) !important;
+  background-color: #128c7e !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.7) !important;
 }
 
 /* Botón de WhatsApp con texto */
 .whatsapp-button {
-    background-color: #25D366 !important;
-    color: white !important;
-    border: none !important;
-    transition: all 0.3s ease !important;
+  background-color: #25d366 !important;
+  color: white !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
 }
 
 .whatsapp-button:hover {
-    background-color: #128C7E !important;
-    color: white !important; /* Mantener texto blanco */
-    transform: translateY(-2px) !important;
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
+  background-color: #128c7e !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
 }
 
 .whatsapp-button span {
-    color: white !important;
+  color: white !important;
 }
 
 .whatsapp-button:hover span {
-    color: white !important; /* Asegurar que el icono también se mantenga blanco */
+  color: white !important;
 }
 
 /* ========================================
@@ -62,46 +62,28 @@
    ======================================== */
 
 .discount-badge {
-    background-color: #ff0000 !important;
-    color: white !important;
-    font-size: 1.2rem !important;
-    padding: 10px !important;
-    font-weight: bold !important;
+  background-color: #ff0000 !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  padding: 10px !important;
+  font-weight: bold !important;
 }
 
 .discount-badge-small {
-    background-color: #ff6600 !important;
-    color: white !important;
-    padding: 5px 10px !important;
+  background-color: #ff6600 !important;
+  color: white !important;
+  padding: 5px 10px !important;
 }
 
 .price-strikethrough {
-    text-decoration: line-through !important;
-    color: #888 !important;
-    font-size: 1.2rem !important;
+  text-decoration: line-through !important;
+  color: #888 !important;
+  font-size: 1.2rem !important;
 }
 
 .price-large {
-    font-size: 1.5rem !important;
-    font-weight: bold !important;
-}
-
-.limited-offer-badge {
-    background-color: #ff0000 !important;
-    color: white !important;
-    animation: pulse 2s infinite !important;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
 }
 
 /* ========================================
@@ -109,25 +91,25 @@
    ======================================== */
 
 .section-title-white {
-    color: white !important;
+  color: white !important;
 }
 
 .team-member-description {
-    font-size: 0.85rem !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    line-height: 1.4 !important;
+  font-size: 0.85rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.4 !important;
 }
 
 .stats-number {
-    font-size: 2.5rem !important;
-    margin: 0 !important;
-    font-weight: bold !important;
+  font-size: 2.5rem !important;
+  margin: 0 !important;
+  font-weight: bold !important;
 }
 
 .footer-title {
-    color: white !important;
-    font-weight: bold !important;
-    margin-bottom: 1rem !important;
+  color: white !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
 }
 
 /* ========================================
@@ -135,21 +117,21 @@
    ======================================== */
 
 .product-image-small {
-    height: 150px !important;
-    object-fit: cover !important;
-    width: 100% !important;
+  height: 150px !important;
+  object-fit: cover !important;
+  width: 100% !important;
 }
 
 .product-image-medium {
-    height: 120px !important;
-    object-fit: cover !important;
-    width: 100% !important;
+  height: 120px !important;
+  object-fit: cover !important;
+  width: 100% !important;
 }
 
 .product-stock-available {
-    background-color: rgba(183, 206, 56, 0.2) !important;
-    color: var(--surtienvases-verde) !important;
-    border: 1px solid var(--surtienvases-verde) !important;
+  background-color: rgba(183, 206, 56, 0.2) !important;
+  color: var(--surtienvases-verde) !important;
+  border: 1px solid var(--surtienvases-verde) !important;
 }
 
 /* ========================================
@@ -157,11 +139,11 @@
    ======================================== */
 
 .icon-large {
-    font-size: 2rem !important;
+  font-size: 2rem !important;
 }
 
 .icon-verde {
-    color: #B7CE38 !important;
+  color: #b7ce38 !important;
 }
 
 /* ========================================
@@ -169,46 +151,100 @@
    ======================================== */
 
 .calculator-result-success {
-    background-color: #d4edda !important;
-    border-color: #c3e6cb !important;
-    color: #155724 !important;
-    padding: 20px !important;
-    border-radius: 8px !important;
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+  color: #155724 !important;
+  padding: 20px !important;
+  border-radius: 8px !important;
 }
 
 .calculator-result-warning {
-    background-color: #fff3cd !important;
-    border-color: #ffeaa7 !important;
-    color: #856404 !important;
-    padding: 15px !important;
-    border-radius: 8px !important;
+  background-color: #fff3cd !important;
+  border-color: #ffeaa7 !important;
+  color: #856404 !important;
+  padding: 15px !important;
+  border-radius: 8px !important;
 }
 
 /* ========================================
-   FILTROS DE INDUSTRIA
+   FILTROS DE INDUSTRIA Y CATEGORÍAS
    ======================================== */
 
+.category-button,
 .industry-button {
-    min-height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s ease !important;
+  min-height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
 }
 
+.category-button:hover,
 .industry-button:hover {
-    background-color: var(--surtienvases-naranja) !important;
-    color: white !important;
-    transform: translateY(-2px) !important;
+  background-color: var(--surtienvases-naranja) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+}
+
+.category-button.active {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  font-weight: bold !important;
 }
 
 /* ========================================
-   VALORES (NOSOTROS)
+   CARRITO DE COTIZACIÓN
    ======================================== */
 
-.values-icon {
-    display: inline-block !important;
-    margin-bottom: 10px !important;
+.cart-floating {
+  position: fixed !important;
+  bottom: 100px !important;
+  right: 30px !important;
+  z-index: 998 !important;
+}
+
+.cart-button-circle {
+  width: 60px !important;
+  height: 60px !important;
+  background-color: var(--surtienvases-morado) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(144, 65, 145, 0.5) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+}
+
+.cart-button-circle:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(238, 118, 34, 0.7) !important;
+}
+
+.cart-badge {
+  position: absolute !important;
+  top: -5px !important;
+  right: -5px !important;
+  background-color: #ff0000 !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+}
+
+.cart-item {
+  border-bottom: 1px solid var(--gris-claro) !important;
+  padding: 15px 0 !important;
+}
+
+.cart-item:last-child {
+  border-bottom: none !important;
 }
 
 /* ========================================
@@ -216,12 +252,12 @@
    ======================================== */
 
 .catalog-section {
-    min-height: calc(100vh - 200px) !important;
-    padding-bottom: 50px !important;
+  min-height: calc(100vh - 200px) !important;
+  padding-bottom: 50px !important;
 }
 
 .accordion-open-default > .uk-accordion-title {
-    color: var(--surtienvases-morado) !important;
+  color: var(--surtienvases-morado) !important;
 }
 
 /* ========================================
@@ -229,37 +265,14 @@
    ======================================== */
 
 .footer-main {
-    background-color: #2f2c2c !important;
-    width: 100% !important;
-    z-index: 10 !important;
+  background-color: #2f2c2c !important;
+  width: 100% !important;
+  z-index: 10 !important;
 }
 
 .footer-divider {
-    margin: 2rem 0 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* ========================================
-   ARREGLOS ESPECÍFICOS
-   ======================================== */
-
-/* Asegurar que el texto de los botones de cotización se mantenga legible */
-.uk-button-primary.whatsapp-button:focus,
-.uk-button-primary.whatsapp-button:active {
-    color: white !important;
-    background-color: #128C7E !important;
-}
-
-/* Corregir altura de imágenes en cards */
-.blog-image-container img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-}
-
-/* Mejoras en el espaciado del catálogo */
-.catalog-accordion-item {
-    margin-bottom: 1rem !important;
+  margin: 2rem 0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 /* ========================================
@@ -267,28 +280,28 @@
    ======================================== */
 
 .margin-top-large {
-    margin-top: 3rem !important;
+  margin-top: 3rem !important;
 }
 
 .margin-bottom-large {
-    margin-bottom: 3rem !important;
+  margin-bottom: 3rem !important;
 }
 
 .padding-vertical-large {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
 }
 
 .text-justify {
-    text-align: justify !important;
+  text-align: justify !important;
 }
 
 .width-half-mobile {
-    width: 50% !important;
+  width: 50% !important;
 }
 
 @media (max-width: 640px) {
-    .width-half-mobile {
-        width: 100% !important;
-    }
+  .width-half-mobile {
+    width: 100% !important;
+  }
 }
