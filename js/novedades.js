@@ -193,7 +193,7 @@ class NovedadesSystem {
                             }</span>
                         </div>
                         
-                        <button class="uk-button uk-button-secondary uk-margin-small-top blog-container-round"
+                        <button class="uk-button uk-button-secondary uk-margin-small-top uk-border-rounded"
                             onclick="novedadesSystem.toggleComments(${
                               article.id
                             })">
@@ -231,7 +231,7 @@ class NovedadesSystem {
                 <textarea class="uk-textarea uk-placeholder blog-login-input" rows="3"
                     placeholder="Escribe tu comentario..." id="comment-input-${newsId}"></textarea>
                 
-                <button class="uk-button uk-button-primary uk-margin-top blog-container-round"
+                <button class="uk-button uk-button-primary uk-margin-top uk-border-rounded"
                     onclick="novedadesSystem.handleCommentSubmit(${newsId})">
                     Comentar
                 </button>

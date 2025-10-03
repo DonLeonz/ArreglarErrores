@@ -1,4 +1,4 @@
-// Sistema de Productos con Carrito
+// Sistema de Productos con Carrito - CORREGIDO
 class ProductsSystem {
   constructor() {
     this.cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -101,13 +101,13 @@ class ProductsSystem {
                     <!-- Botones -->
                     <div class="uk-text-center uk-padding-small uk-grid-small" uk-grid>
                         <div class="uk-width-1-2@s">
-                            <button class="uk-button uk-button-default coffee-button-outline uk-width-1-1"
+                            <button class="uk-button uk-button-default coffee-button-outline uk-width-1-1 uk-border-rounded"
                                 onclick="productsSystem.showModal(${index})">
                                 Ver Detalles
                             </button>
                         </div>
                         <div class="uk-width-1-2@s">
-                            <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                            <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                                 onclick="productsSystem.addToCart(${item.id})">
                                 <span uk-icon="cart"></span> Agregar
                             </button>
@@ -191,7 +191,7 @@ class ProductsSystem {
 
                                 <div class="uk-margin-large-top uk-text-center uk-grid-small" uk-grid>
                                     <div class="uk-width-1-2@s">
-                                        <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1" 
+                                        <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded" 
                                                 onclick="productsSystem.addToCart(${
                                                   item.id
                                                 }); UIkit.modal('#modal-${index}').hide();">
@@ -203,7 +203,7 @@ class ProductsSystem {
                                           item.title
                                         )}" 
                                            target="_blank" 
-                                           class="uk-button uk-button-secondary uk-width-1-1">
+                                           class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded">
                                             <span uk-icon="whatsapp"></span> Consultar Directo
                                         </a>
                                     </div>
@@ -266,6 +266,7 @@ class ProductsSystem {
         this.removeFromCart(productId);
       } else {
         this.saveCart();
+        this.updateCartCount();
         this.renderCart();
       }
     }
@@ -277,10 +278,19 @@ class ProductsSystem {
 
   updateCartCount() {
     const count = this.cart.reduce((total, item) => total + item.quantity, 0);
+
+    // Actualizar AMBOS badges
     const badge = document.getElementById("cart-count");
+    const badgeNavbar = document.getElementById("cart-count-navbar");
+
     if (badge) {
       badge.textContent = count;
       badge.style.display = count > 0 ? "flex" : "none";
+    }
+
+    if (badgeNavbar) {
+      badgeNavbar.textContent = count;
+      badgeNavbar.style.display = count > 0 ? "inline-block" : "none";
     }
   }
 
@@ -349,11 +359,12 @@ class ProductsSystem {
     )}`;
     window.open(whatsappUrl, "_blank");
 
-    // Limpiar carrito después de enviar
-    this.cart = [];
-    this.saveCart();
-    this.updateCartCount();
-    UIkit.modal("#cart-modal").hide();
+    UIkit.notification({
+      message: "Redirigiendo a WhatsApp...",
+      status: "success",
+      pos: "top-center",
+      timeout: 2000,
+    });
   }
 }
 

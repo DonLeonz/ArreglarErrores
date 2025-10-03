@@ -15,6 +15,30 @@
     <link rel="stylesheet" href="assets/coffee-styles.css" />
     <link rel="stylesheet" href="assets/surtienvases-custom.css" />
     <title>Preguntas Frecuentes - SurtiEnvases</title>
+    <style>
+      /* Estilos mejorados para FAQ */
+      .uk-subnav-pill > * > a {
+        background-color: rgba(183, 206, 56, 0.2) !important;
+        color: #b7ce38 !important;
+        border-radius: 8px !important;
+        padding: 10px 20px !important;
+        transition: all 0.3s ease !important;
+        border: 2px solid transparent !important;
+      }
+
+      .uk-subnav-pill > * > a:hover {
+        background-color: rgba(183, 206, 56, 0.4) !important;
+        transform: translateY(-2px);
+      }
+
+      .uk-subnav-pill > .uk-active > a {
+        background-color: #b7ce38 !important;
+        color: #1d1d1b !important;
+        font-weight: 700 !important;
+        border: 2px solid #94a82e !important;
+        box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar -->
@@ -82,11 +106,19 @@
             </div>
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
-                <a
-                  class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
-                  href="productos.html"
-                  >Cotizar</a
+                <button
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  onclick="productsSystem.toggleCart()"
+                  style="position: relative"
                 >
+                  <span uk-icon="cart"></span> Cotizar
+                  <span
+                    class="cart-badge"
+                    id="cart-count-navbar"
+                    style="display: none"
+                    >0</span
+                  >
+                </button>
               </div>
             </div>
             <!-- Menú hamburguesa -->
@@ -149,6 +181,15 @@
                         >FAQ</a
                       >
                     </div>
+                    <hr class="uk-divider-icon" />
+                    <div class="uk-flex-left">
+                      <button
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
+                        onclick="productsSystem.toggleCart(); UIkit.offcanvas('#burger-menu').hide();"
+                      >
+                        <span uk-icon="cart"></span> Ver Carrito
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -160,19 +201,25 @@
 
     <!-- FAQ Content -->
     <div
-      class="uk-background-cover first-child-adjustment uk-height-viewport"
-      style="
-        background-image: url('assets/img/fondo_6.jpg');
-        background-attachment: fixed;
-      "
+      class="first-child-adjustment uk-section uk-padding-small coffee-section-gradient"
     >
-      <div class="uk-container uk-section">
-        <h1
-          class="uk-heading-line uk-text-center uk-margin-large-bottom"
-          style="color: white"
-        >
-          <span>Preguntas Frecuentes</span>
-        </h1>
+      <div class="uk-container uk-container-large uk-padding uk-light">
+        <!-- Título -->
+        <div class="uk-text-center uk-margin-large-bottom">
+          <h2
+            class="uk-heading-small uk-text-uppercase coffee-menu-grid-header"
+          >
+            <span
+              class="uk-display-inline-block uk-padding-small coffee-section-title-gold"
+            >
+              Preguntas Frecuentes
+            </span>
+          </h2>
+          <p class="uk-text-lead coffee-title-gold">
+            Encuentra respuestas a tus dudas sobre nuestros productos y
+            servicios
+          </p>
+        </div>
 
         <!-- Categorías de preguntas -->
         <div class="uk-margin-large">
@@ -189,13 +236,13 @@
             <li>
               <ul class="uk-accordion" uk-accordion="multiple: false">
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Qué es SurtiEnvases?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       SurtiEnvases es una empresa líder en la distribución de
                       envases para todas las industrias en Colombia. Contamos
                       con más de 15 años de experiencia ofreciendo soluciones de
@@ -205,13 +252,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Trabajan con empresas pequeñas?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       ¡Por supuesto! Atendemos desde emprendedores y pequeñas
                       empresas hasta grandes industrias. Nuestros pedidos
                       mínimos están diseñados para ser accesibles a todos los
@@ -220,27 +267,27 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Dónde están ubicados?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
-                      Nuestra sede principal está en Bogotá, pero contamos con
-                      bodegas en Medellín, Cali y Barranquilla. Esto nos permite
-                      hacer entregas rápidas en todo el territorio nacional.
+                    <p class="coffee-text-white">
+                      Tenemos dos sedes en Neiva, Huila: Sede 1 en Calle 10
+                      #2-58 y Sede 2 en Calle 10 #1G-41. Esto nos permite hacer
+                      entregas rápidas en toda la región del Huila.
                     </p>
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo solicitar muestras?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, ofrecemos muestras de nuestros productos. Para
                       solicitarlas, contáctanos por WhatsApp o correo
                       electrónico indicando los productos de tu interés y te
@@ -256,13 +303,13 @@
             <li>
               <ul class="uk-accordion" uk-accordion="multiple: false">
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es el pedido mínimo?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       El pedido mínimo varía según el producto. Generalmente
                       manejamos cajas completas que pueden contener desde 24
                       hasta 100 unidades dependiendo del tipo de envase.
@@ -272,46 +319,46 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Cuánto tarda la entrega?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
-                      Los tiempos de entrega son: Bogotá (24-48 horas), Ciudades
-                      principales (48-72 horas), Otros destinos (3-5 días
-                      hábiles). Para productos por encargo o importados, el
-                      tiempo puede extenderse a 15-30 días.
+                    <p class="coffee-text-white">
+                      Los tiempos de entrega en Neiva son de 24-48 horas. Para
+                      municipios cercanos del Huila, el tiempo puede extenderse
+                      a 2-3 días hábiles. Para productos por encargo o
+                      importados, el tiempo puede extenderse a 15-30 días.
                     </p>
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es el costo del envío?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       El costo de envío depende del peso, volumen y destino.
                       Ofrecemos envío gratis en pedidos superiores a $500.000
-                      para ciudades principales. Para otros casos, el costo se
-                      calcula al momento de la cotización.
+                      dentro de Neiva. Para otros casos, el costo se calcula al
+                      momento de la cotización.
                     </p>
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
-                    ¿Hacen envíos internacionales?
+                  <a href="" class="uk-accordion-title coffee-title-gold">
+                    ¿Hacen envíos fuera del Huila?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
-                      Actualmente solo realizamos envíos dentro de Colombia. Sin
-                      embargo, estamos trabajando para expandir nuestros
-                      servicios a otros países de la región.
+                    <p class="coffee-text-white">
+                      Nuestra cobertura principal es en Neiva y municipios
+                      cercanos del Huila. Para envíos a otras ciudades,
+                      contáctanos para evaluar disponibilidad y costos.
                     </p>
                   </div>
                 </li>
@@ -322,13 +369,13 @@
             <li>
               <ul class="uk-accordion" uk-accordion="multiple: false">
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Los productos son aptos para alimentos?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, todos nuestros envases destinados a la industria
                       alimentaria cuentan con certificaciones FDA y cumplen con
                       las normas sanitarias colombianas. Cada producto indica
@@ -337,13 +384,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo personalizar los envases?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Ofrecemos servicios de personalización como serigrafía,
                       etiquetado y tampografía. Los pedidos mínimos para
                       personalización comienzan desde 1,000 unidades.
@@ -353,13 +400,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Tienen productos ecológicos?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, contamos con una línea eco-friendly que incluye
                       envases biodegradables, compostables y fabricados con
                       materiales reciclados. Busca el sello verde en nuestro
@@ -368,13 +415,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Qué garantía tienen los productos?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Todos nuestros productos tienen garantía contra defectos
                       de fabricación. Si recibes un producto defectuoso, tienes
                       30 días para reportarlo y procederemos con el cambio o
@@ -389,28 +436,28 @@
             <li>
               <ul class="uk-accordion" uk-accordion="multiple: false">
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Qué métodos de pago aceptan?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Aceptamos: Transferencia bancaria, PSE, tarjetas de
-                      crédito y débito, efectivo (contra entrega en Bogotá), y
+                      crédito y débito, efectivo (contra entrega en Neiva), y
                       crédito directo para clientes frecuentes (sujeto a
                       aprobación).
                     </p>
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Ofrecen crédito?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, ofrecemos crédito a 30, 60 y 90 días para empresas
                       establecidas. Requiere documentación empresarial,
                       referencias comerciales y aprobación crediticia.
@@ -419,13 +466,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Emiten factura electrónica?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, emitimos factura electrónica validada por la DIAN. La
                       recibirás en tu correo electrónico inmediatamente después
                       de confirmar tu pedido.
@@ -433,13 +480,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Hay descuentos por volumen?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Sí, manejamos precios especiales para compras por volumen.
                       Los descuentos comienzan desde el 5% para pedidos
                       superiores a $1,000,000 y pueden llegar hasta el 20% en
@@ -454,13 +501,13 @@
             <li>
               <ul class="uk-accordion" uk-accordion="multiple: false">
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es la política de devoluciones?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Aceptamos devoluciones dentro de los 30 días posteriores a
                       la entrega, siempre que los productos estén en su empaque
                       original y sin usar. Los gastos de envío de la devolución
@@ -470,13 +517,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Qué hacer si llega un producto dañado?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Si recibes productos dañados, toma fotografías
                       inmediatamente y contáctanos dentro de las 48 horas
                       siguientes. Procederemos con el reemplazo sin costo
@@ -485,13 +532,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo cancelar mi pedido?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Puedes cancelar tu pedido sin costo hasta 24 horas después
                       de realizarlo. Si el pedido ya fue despachado, aplicarán
                       cargos de envío y reposición del 10% del valor total.
@@ -499,13 +546,13 @@
                   </div>
                 </li>
                 <li
-                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-small"
+                  class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title uk-text-lead">
+                  <a href="" class="uk-accordion-title coffee-title-gold">
                     ¿Cómo se procesan los reembolsos?
                   </a>
                   <div class="uk-accordion-content">
-                    <p>
+                    <p class="coffee-text-white">
                       Los reembolsos se procesan en 5-10 días hábiles después de
                       recibir y verificar los productos devueltos. El dinero se
                       devuelve por el mismo método de pago utilizado en la
@@ -519,40 +566,47 @@
         </div>
 
         <!-- Sección de contacto adicional -->
-        <div
-          class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default uk-margin-large-top"
-        >
-          <div class="uk-text-center">
-            <h3>¿No encontraste lo que buscabas?</h3>
-            <p>Nuestro equipo está listo para ayudarte</p>
-            <div
-              class="uk-child-width-1-3@m uk-grid-small uk-margin-top"
-              uk-grid
-            >
-              <div>
-                <a
-                  href="https://wa.me/573001234567"
-                  target="_blank"
-                  class="uk-button uk-button-primary uk-width-1-1"
-                >
-                  <span uk-icon="whatsapp"></span> WhatsApp
-                </a>
-              </div>
-              <div>
-                <a
-                  href="mailto:info@surtienvases.com"
-                  class="uk-button uk-button-default uk-width-1-1"
-                >
-                  <span uk-icon="mail"></span> Email
-                </a>
-              </div>
-              <div>
-                <a
-                  href="tel:+5712345678"
-                  class="uk-button uk-button-secondary uk-width-1-1"
-                >
-                  <span uk-icon="phone"></span> Llamar
-                </a>
+        <div class="uk-margin-large-top">
+          <div
+            class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+          >
+            <div class="uk-text-center">
+              <h3 class="coffee-title-gold">
+                ¿No encontraste lo que buscabas?
+              </h3>
+              <p class="coffee-text-white">
+                Nuestro equipo está listo para ayudarte
+              </p>
+              <div
+                class="uk-child-width-1-3@m uk-grid-small uk-margin-top"
+                uk-grid
+              >
+                <div>
+                  <a
+                    href="https://wa.me/573163209967"
+                    target="_blank"
+                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+                  >
+                    <span uk-icon="whatsapp"></span> WhatsApp Sede 1
+                  </a>
+                </div>
+                <div>
+                  <a
+                    href="https://wa.me/573153957275"
+                    target="_blank"
+                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+                  >
+                    <span uk-icon="whatsapp"></span> WhatsApp Sede 2
+                  </a>
+                </div>
+                <div>
+                  <a
+                    href="mailto:surtienvasesn@gmail.com?subject=Consulta desde FAQ&body=Hola SurtiEnvases, tengo una consulta: "
+                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+                  >
+                    <span uk-icon="mail"></span> Email
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -669,10 +723,37 @@
       </div>
     </a>
 
+    <!-- Carrito Flotante -->
+    <div class="cart-floating">
+      <button class="cart-button-circle" onclick="productsSystem.toggleCart()">
+        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div id="cart-modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Carrito de Cotización</h2>
+        <div id="cart-items"></div>
+        <div class="uk-text-center uk-margin-top">
+          <button
+            class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+            onclick="productsSystem.sendQuoteToWhatsApp()"
+          >
+            <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
-    <!-- Contacto Script -->
-    <script src="js/contacto.js"></script>
+    <!-- Products Data -->
+    <script src="js/productItems.js"></script>
+    <!-- Products System -->
+    <script src="js/productos.js"></script>
   </body>
 </html>

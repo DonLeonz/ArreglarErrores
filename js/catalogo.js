@@ -1,4 +1,4 @@
-// Sistema de Catálogo con Carrito Integrado
+// Sistema de Catálogo con Carrito Integrado - MEJORADO
 class CatalogoSystem {
   constructor() {
     // Compartir el mismo carrito con productos.html
@@ -10,6 +10,7 @@ class CatalogoSystem {
     this.setupProductSearch();
     this.setupIndustryFilters();
     this.renderCart();
+    this.updateCartCount();
   }
 
   setupProductSearch() {
@@ -145,7 +146,7 @@ class CatalogoSystem {
                     }</p>
                     <div class="uk-grid-small uk-child-width-1-2" uk-grid>
                         <div>
-                            <button class="uk-button uk-button-primary uk-button-small uk-width-1-1" 
+                            <button class="uk-button uk-button-primary whatsapp-button uk-button-small uk-width-1-1 uk-border-rounded" 
                                     onclick="catalogoSystem.addToCart(${
                                       product.id
                                     })">
@@ -157,7 +158,7 @@ class CatalogoSystem {
                               product.title
                             )}" 
                                target="_blank" 
-                               class="uk-button uk-button-secondary uk-button-small uk-width-1-1">
+                               class="uk-button uk-button-primary whatsapp-button uk-button-small uk-width-1-1 uk-border-rounded">
                                 <span uk-icon="whatsapp"></span> Consultar
                             </a>
                         </div>
@@ -188,6 +189,7 @@ class CatalogoSystem {
 
     this.saveCart();
     this.renderCart();
+    this.updateCartCount();
 
     UIkit.notification({
       message: `${product.title} agregado al carrito`,
@@ -200,6 +202,7 @@ class CatalogoSystem {
   removeFromCart(productId) {
     this.cart = this.cart.filter((item) => item.id !== productId);
     this.saveCart();
+    this.updateCartCount();
     this.renderCart();
   }
 
@@ -212,12 +215,36 @@ class CatalogoSystem {
       } else {
         this.saveCart();
         this.renderCart();
+        this.updateCartCount();
       }
     }
   }
 
   saveCart() {
     localStorage.setItem("cart", JSON.stringify(this.cart));
+  }
+
+  updateCartCount() {
+    const count = this.cart.reduce((total, item) => total + item.quantity, 0);
+
+    // Actualizar AMBOS badges
+    const badge = document.getElementById("cart-count");
+    const badgeNavbar = document.getElementById("cart-count-navbar");
+
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? "flex" : "none";
+    }
+
+    if (badgeNavbar) {
+      badgeNavbar.textContent = count;
+      badgeNavbar.style.display = count > 0 ? "inline-block" : "none";
+    }
+  }
+
+  toggleCart() {
+    this.renderCart();
+    UIkit.modal("#cart-modal").show();
   }
 
   renderCart() {

@@ -15,6 +15,15 @@
     <link rel="stylesheet" href="assets/coffee-styles.css" />
     <link rel="stylesheet" href="assets/surtienvases-custom.css" />
     <title>Contacto - SurtiEnvases</title>
+    <style>
+      /* Fix para texto en inputs */
+      .blog-login-input {
+        color: #1d1d1b !important;
+      }
+      .blog-login-input::placeholder {
+        color: #666666 !important;
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar -->
@@ -82,11 +91,19 @@
             </div>
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
-                <a
-                  class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
-                  href="productos.html"
-                  >Cotizar</a
+                <button
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  onclick="productsSystem.toggleCart()"
+                  style="position: relative"
                 >
+                  <span uk-icon="cart"></span> Cotizar
+                  <span
+                    class="cart-badge"
+                    id="cart-count-navbar"
+                    style="display: none"
+                    >0</span
+                  >
+                </button>
               </div>
             </div>
             <!-- Menú hamburguesa -->
@@ -148,6 +165,15 @@
                         href="preguntas-frecuentes.html"
                         >FAQ</a
                       >
+                    </div>
+                    <hr class="uk-divider-icon" />
+                    <div class="uk-flex-left">
+                      <button
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
+                        onclick="productsSystem.toggleCart(); UIkit.offcanvas('#burger-menu').hide();"
+                      >
+                        <span uk-icon="cart"></span> Ver Carrito
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -312,12 +338,12 @@
                   >
                   <select class="uk-select blog-login-input" required>
                     <option value="">Selecciona una opción</option>
-                    <option>Cotización</option>
-                    <option>Información de productos</option>
-                    <option>Distribución</option>
-                    <option>Reclamos</option>
-                    <option>Sugerencias</option>
-                    <option>Otro</option>
+                    <option class="blog-login-input">Cotización</option>
+                    <option class="blog-login-input">Información de productos</option>
+                    <option class="blog-login-input">Distribución</option>
+                    <option class="blog-login-input">Reclamos</option>
+                    <option class="blog-login-input">Sugerencias</option>
+                    <option class="blog-login-input">Otro</option>
                   </select>
                 </div>
 
@@ -334,7 +360,7 @@
                 </div>
 
                 <button
-                  class="uk-button uk-button-primary blog-container-round uk-width-1-1 whatsapp-button"
+                  class="uk-button uk-button-primary uk-border-rounded uk-width-1-1 whatsapp-button"
                   type="submit"
                 >
                   Enviar Mensaje
@@ -364,7 +390,7 @@
                 <a
                   href="https://wa.me/573163209967"
                   target="_blank"
-                  class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                  class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                 >
                   <span uk-icon="whatsapp"></span> Contactar Sede 1
                 </a>
@@ -373,7 +399,7 @@
                 <a
                   href="https://wa.me/573153957275"
                   target="_blank"
-                  class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                  class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                 >
                   <span uk-icon="whatsapp"></span> Contactar Sede 2
                 </a>
@@ -493,9 +519,38 @@
       </div>
     </a>
 
+    <!-- Carrito Flotante -->
+    <div class="cart-floating">
+      <button class="cart-button-circle" onclick="productsSystem.toggleCart()">
+        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div id="cart-modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Carrito de Cotización</h2>
+        <div id="cart-items"></div>
+        <div class="uk-text-center uk-margin-top">
+          <button
+            class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+            onclick="productsSystem.sendQuoteToWhatsApp()"
+          >
+            <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
+    <!-- Products Data -->
+    <script src="js/productItems.js"></script>
+    <!-- Products System -->
+    <script src="js/productos.js"></script>
     <!-- Contacto Script -->
     <script src="js/contacto.js"></script>
   </body>
