@@ -1,7 +1,7 @@
 // ========================================
 // SISTEMA DE PRODUCTOS - VERSIÓN CORREGIDA
 // Mantiene funcionalidad original
-// ========================================
+// ======================================== */
 
 class ProductsSystem {
   constructor() {
@@ -165,7 +165,7 @@ class ProductsSystem {
             </div>
             
             <div class="uk-width-2-3@m uk-width-1-1@s coffee-padding-large">
-              <h2 class="uk-modal-title coffee-title-gold-border">
+              <h2 class="uk-modal-title">
                 ${item.title}
               </h2>
               
@@ -195,12 +195,12 @@ class ProductsSystem {
               <div class="uk-margin-medium-top">
                 <div class="uk-grid-small" data-uk-grid>
                   <div>
-                    <span class="uk-badge" style="background-color: var(--surtienvases-verde); color: var(--surtienvases-negro);">
+                    <span class="uk-badge product-stock-available">
                       Material: ${item.material}
                     </span>
                   </div>
                   <div>
-                    <span class="uk-badge" style="background-color: var(--surtienvases-naranja); color: white;">
+                    <span class="uk-badge product-stock-available">
                       ${item.certification}
                     </span>
                   </div>

@@ -1,6 +1,8 @@
 /* ========================================
    SURTIENVASES - ESTILOS CONSOLIDADOS
-   Versión corregida que mantiene lo mejor de ambos mundos
+   Versión DEFINITIVAMENTE corregida
+   - Título del modal BLANCO y VISIBLE en fondo morado
+   - Icono X del menú hamburguesa VISIBLE usando SVG de UIkit
    ======================================== */
 
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
@@ -198,12 +200,11 @@ body {
   transform: translateX(0) !important;
 }
 
-/* Botón cerrar */
+/* Botón cerrar - CORREGIDO PARA SVG DE UIKIT */
 #burger-menu .uk-offcanvas-close {
   position: absolute !important;
   top: 15px !important;
   right: 15px !important;
-  color: var(--surtienvases-blanco) !important;
   background: rgba(183, 206, 56, 0.3) !important;
   border-radius: 50% !important;
   width: 40px !important;
@@ -217,18 +218,18 @@ body {
 
 #burger-menu .uk-offcanvas-close:hover {
   background: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
 }
 
-/* Asegurar que el icono sea visible */
-#burger-menu .uk-offcanvas-close::before,
-#burger-menu .uk-offcanvas-close::after {
-  background-color: var(--surtienvases-blanco) !important;
+/* El ícono SVG de UIkit */
+#burger-menu .uk-offcanvas-close svg {
+  stroke: var(--surtienvases-blanco) !important;
+  stroke-width: 2 !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
-#burger-menu .uk-offcanvas-close:hover::before,
-#burger-menu .uk-offcanvas-close:hover::after {
-  background-color: var(--surtienvases-negro) !important;
+#burger-menu .uk-offcanvas-close:hover svg {
+  stroke: var(--surtienvases-negro) !important;
 }
 
 /* Contenedor del contenido */
@@ -352,6 +353,21 @@ body {
   color: var(--surtienvases-verde) !important;
   background-color: rgba(183, 206, 56, 0.2) !important;
   border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.coffee-modal-dark .uk-modal-close-default svg {
+  stroke: var(--surtienvases-verde) !important;
+  stroke-width: 2 !important;
+}
+
+.coffee-modal-dark .uk-modal-close-default:hover {
+  background-color: var(--surtienvases-verde) !important;
+}
+
+.coffee-modal-dark .uk-modal-close-default:hover svg {
+  stroke: var(--surtienvases-negro) !important;
 }
 
 /* ========================================
@@ -493,7 +509,7 @@ body {
 
 .product-stock-available {
   background-color: var(--surtienvases-naranja) !important;
-  color: var(--surtienvases-blanco) !important;
+  color: var(--surtienvases-negro) !important;
   border: 2px solid var(--naranja-oscuro) !important;
   font-weight: 700 !important;
   padding: 4px 10px !important;
@@ -774,7 +790,7 @@ h6 {
 }
 
 /* ========================================
-   MODAL
+   MODAL - CORREGIDO
    ======================================== */
 .uk-modal-dialog {
   background-color: var(--surtienvases-blanco) !important;
@@ -782,10 +798,20 @@ h6 {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* Título general de modales claros */
 .uk-modal-title {
   color: var(--surtienvases-morado) !important;
   border-bottom: 3px solid var(--surtienvases-verde) !important;
   padding-bottom: 15px !important;
+}
+
+/* Título específico para modales oscuros - MÁS ESPECÍFICO */
+.coffee-modal-dark .uk-modal-title {
+  color: var(--surtienvases-blanco) !important;
+  border-bottom: 3px solid var(--surtienvases-naranja) !important;
+  padding-bottom: 15px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6) !important;
+  font-weight: 600 !important;
 }
 
 /* ========================================

@@ -158,7 +158,7 @@ class CatalogoSystem {
 
   renderProductResults(products, container) {
     container.innerHTML = `
-      <h3 class="uk-margin-top coffee-title-white">
+      <h3 class="uk-margin-top uk-modal-title">
         Resultados de búsqueda (${products.length})
       </h3>
       <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin-top" uk-grid>
@@ -242,7 +242,7 @@ class CatalogoSystem {
 
     if (filteredProducts.length > 0) {
       resultsDiv.innerHTML = `
-        <h3 class="coffee-title-white uk-margin-top">
+        <h3 class="uk-modal-title uk-margin-top">
           Productos recomendados para ${
             industry === "todas" ? "todas las industrias" : industry
           }
