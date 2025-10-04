@@ -987,3 +987,204 @@ footer .uk-icon-button:hover {
 *[class*="uk-button"]:hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+/* ========================================
+   BADGES MEJORADOS - PRODUCTOS
+   ======================================== */
+
+/* Badge de Stock Disponible */
+.product-stock-badge {
+  background: linear-gradient(135deg, #b7ce38, #94a82e) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 3px 8px rgba(183, 206, 56, 0.4) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-stock-badge:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+/* Badge de Material */
+.product-material-badge {
+  background: linear-gradient(135deg, #904191, #6b2f6b) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(183, 206, 56, 0.3) !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 8px rgba(144, 65, 145, 0.3) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-material-badge:hover {
+  border-color: var(--surtienvases-verde) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(144, 65, 145, 0.4) !important;
+}
+
+/* Badge de Certificación */
+.product-cert-badge {
+  background: linear-gradient(135deg, #ee7622, #d45a0a) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 8px rgba(238, 118, 34, 0.3) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-cert-badge:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+/* Iconos dentro de los badges */
+.badge-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* ========================================
+   BOTONES DE CERRAR MEJORADOS
+   ======================================== */
+
+/* Botón de cerrar para modales de productos */
+.product-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(238, 118, 34, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+}
+
+.product-modal-close:hover {
+  background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+.product-modal-close::before,
+.product-modal-close::after {
+  content: '' !important;
+  position: absolute !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: white !important;
+  border-radius: 2px !important;
+}
+
+.product-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.product-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* Botón de cerrar para menú hamburguesa */
+.burger-menu-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(238, 118, 34, 0.2) !important;
+  border: 2px solid rgba(183, 206, 56, 0.5) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 1001 !important;
+  padding: 0 !important;
+}
+
+.burger-menu-close:hover {
+  background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
+}
+
+.burger-menu-close::before,
+.burger-menu-close::after {
+  content: '' !important;
+  position: absolute !important;
+  width: 20px !important;
+  height: 3px !important;
+  background: white !important;
+  border-radius: 3px !important;
+}
+
+.burger-menu-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.burger-menu-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* Container de badges para mejor alineación */
+.product-badges-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: center !important;
+  margin-top: 12px !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .product-stock-badge,
+  .product-material-badge,
+  .product-cert-badge {
+    font-size: 0.75rem !important;
+    padding: 4px 10px !important;
+  }
+  
+  .product-modal-close,
+  .burger-menu-close {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  
+  .product-modal-close::before,
+  .product-modal-close::after {
+    width: 16px !important;
+  }
+  
+  .burger-menu-close::before,
+  .burger-menu-close::after {
+    width: 18px !important;
+  }
+}

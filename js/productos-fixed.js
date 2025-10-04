@@ -1,7 +1,7 @@
 // ========================================
-// SISTEMA DE PRODUCTOS - VERSIÓN CORREGIDA
-// Mantiene funcionalidad original
-// ======================================== */
+// SISTEMA DE PRODUCTOS - VERSIÓN MEJORADA
+// Con badges rediseñados y botones de cerrar funcionales
+// ========================================
 
 class ProductsSystem {
   constructor() {
@@ -113,7 +113,12 @@ class ProductsSystem {
                 <span class="coffee-menu-origin">${item.industry}</span>
                 ${
                   item.stock === "Disponible"
-                    ? '<span class="uk-badge product-stock-available">✓ En Stock</span>'
+                    ? `<span class="product-stock-badge">
+                        <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        En Stock
+                      </span>`
                     : ""
                 }
               </div>
@@ -151,7 +156,10 @@ class ProductsSystem {
       <div id="modal-${index}" class="uk-modal-container uk-modal" data-uk-modal>
         <div class="uk-modal-dialog uk-modal-body uk-light coffee-modal-dark">
           
-          <button class="uk-modal-close-default" type="button" data-uk-close></button>
+          <!-- Botón de cerrar mejorado -->
+          <button class="product-modal-close" type="button" 
+                  onclick="UIkit.modal('#modal-${index}').hide()"
+                  aria-label="Cerrar modal"></button>
           
           <div class="uk-grid-collapse" data-uk-grid>
             <div class="uk-width-1-3@m uk-width-1-1@s">
@@ -192,19 +200,21 @@ class ProductsSystem {
                 </p>
               </div>
               
-              <div class="uk-margin-medium-top">
-                <div class="uk-grid-small" data-uk-grid>
-                  <div>
-                    <span class="uk-badge product-stock-available">
-                      Material: ${item.material}
-                    </span>
-                  </div>
-                  <div>
-                    <span class="uk-badge product-stock-available">
-                      ${item.certification}
-                    </span>
-                  </div>
-                </div>
+              <div class="uk-margin-medium-top product-badges-container">
+                <span class="product-material-badge">
+                  <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"/>
+                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"/>
+                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"/>
+                  </svg>
+                  ${item.material}
+                </span>
+                <span class="product-cert-badge">
+                  <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  ${item.certification}
+                </span>
               </div>
 
               <div class="uk-margin-large-top uk-text-center uk-grid-small" uk-grid>
@@ -315,7 +325,7 @@ class ProductsSystem {
   }
 
   renderCart() {
-    const container = document.getElementById("cart-items");
+    const container = document.getElementById("cart-items-container");
     if (!container) return;
 
     if (this.cart.length === 0) {
@@ -415,4 +425,4 @@ window.surtienvases.products = new ProductsSystem();
 // Alias global para compatibilidad
 window.productsSystem = window.surtienvases.products;
 
-console.log("✓ Sistema de productos inicializado");
+console.log("✓ Sistema de productos inicializado con estilos mejorados");
