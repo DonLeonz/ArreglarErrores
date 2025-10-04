@@ -2,52 +2,35 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Preguntas Frecuentes - SurtiEnvases. Encuentra respuestas sobre nuestros productos y servicios"
+    />
+    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
+
     <!-- UIkit CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
+
     <link rel="stylesheet" href="assets/index.css" />
-    <link rel="stylesheet" href="assets/blog.css" />
-    <link rel="stylesheet" href="assets/surtienvases-theme.css" />
-    <link rel="stylesheet" href="assets/coffee-styles.css" />
-    <link rel="stylesheet" href="assets/surtienvases-custom.css" />
+    <link rel="stylesheet" href="assets/surtienvases-styles.css" />
+
     <title>Preguntas Frecuentes - SurtiEnvases</title>
-    <style>
-      /* Estilos mejorados para FAQ */
-      .uk-subnav-pill > * > a {
-        background-color: rgba(183, 206, 56, 0.2) !important;
-        color: #b7ce38 !important;
-        border-radius: 8px !important;
-        padding: 10px 20px !important;
-        transition: all 0.3s ease !important;
-        border: 2px solid transparent !important;
-      }
-
-      .uk-subnav-pill > * > a:hover {
-        background-color: rgba(183, 206, 56, 0.4) !important;
-        transform: translateY(-2px);
-      }
-
-      .uk-subnav-pill > .uk-active > a {
-        background-color: #b7ce38 !important;
-        color: #1d1d1b !important;
-        font-weight: 700 !important;
-        border: 2px solid #94a82e !important;
-        box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
-      }
-    </style>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- ========================================
+         NAVBAR
+         ======================================== -->
     <div
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
         <div class="uk-container uk-width-1-1 background-opaque">
           <div uk-navbar="mode: click" class="uk-flex">
+            <!-- Logo -->
             <div class="uk-navbar-left">
               <div class="uk-navbar-item uk-light">
                 <a class="uk-flex uk-link-heading" href="index.html">
@@ -60,55 +43,65 @@
                 </a>
               </div>
             </div>
+
+            <!-- Menú Desktop -->
             <div class="uk-navbar-center uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <a
                   class="uk-button uk-button-secondary uk-border-rounded"
                   href="catalogo.html"
-                  >Catálogo</a
                 >
+                  Catálogo
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="productos.html"
-                  >Productos</a
                 >
+                  Productos
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="novedades.html"
-                  >Novedades</a
                 >
+                  Novedades
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="nosotros.html"
-                  >Nosotros</a
                 >
+                  Nosotros
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="contacto.html"
-                  >Contacto</a
                 >
+                  Contacto
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
-                  class="uk-text-capitalize uk-button uk-button-text uk-light active"
+                  class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="preguntas-frecuentes.html"
-                  >FAQ</a
                 >
+                  FAQ
+                </a>
               </div>
             </div>
+
+            <!-- Botón Cotizar Desktop -->
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
                   class="uk-button uk-button-secondary uk-border-rounded"
-                  onclick="productsSystem.toggleCart()"
+                  id="navbar-quote-btn"
                   style="position: relative"
                 >
                   <span uk-icon="cart"></span> Cotizar
@@ -121,71 +114,87 @@
                 </button>
               </div>
             </div>
-            <!-- Menú hamburguesa -->
+
+            <!-- Menú Hamburguesa -->
             <div class="uk-hidden@l uk-navbar-right">
               <a
                 class="uk-navbar-toggle"
-                uk-navbar-toggle-icon="true"
+                uk-navbar-toggle-icon
                 uk-toggle="target: #burger-menu"
               ></a>
-              <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+
+              <div
+                id="burger-menu"
+                uk-offcanvas="mode: slide; overlay: true; flip: true"
+              >
                 <div class="uk-offcanvas-bar">
                   <button
                     class="uk-offcanvas-close"
                     type="button"
-                    uk-close="true"
+                    uk-close
                   ></button>
-                  <div
-                    class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
-                    uk-grid="true"
-                  >
-                    <div class="uk-flex-left">
+
+                  <div class="uk-margin-large-top">
+                    <div class="uk-margin">
                       <a
-                        class="uk-button uk-button-secondary uk-border-rounded"
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
                         href="catalogo.html"
-                        ><strong>Catálogo</strong></a
                       >
+                        <strong>Catálogo</strong>
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="productos.html"
-                        >Productos</a
                       >
+                        Productos
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="novedades.html"
-                        >Novedades</a
                       >
+                        Novedades
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="nosotros.html"
-                        >Nosotros</a
                       >
+                        Nosotros
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="contacto.html"
-                        >Contacto</a
                       >
+                        Contacto
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="preguntas-frecuentes.html"
-                        >FAQ</a
                       >
+                        FAQ
+                      </a>
                     </div>
+
                     <hr class="uk-divider-icon" />
-                    <div class="uk-flex-left">
+
+                    <div class="uk-margin">
                       <button
                         class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                        onclick="productsSystem.toggleCart(); UIkit.offcanvas('#burger-menu').hide();"
+                        id="mobile-cart-btn"
                       >
                         <span uk-icon="cart"></span> Ver Carrito
                       </button>
@@ -199,16 +208,14 @@
       </nav>
     </div>
 
-    <!-- FAQ Content -->
-    <div
-      class="first-child-adjustment uk-section uk-padding-small coffee-section-gradient"
-    >
+    <!-- ============================================
+       CONTENIDO PRINCIPAL
+       ============================================ -->
+    <div class="first-child-adjustment uk-section coffee-section-gradient">
       <div class="uk-container uk-container-large uk-padding uk-light">
         <!-- Título -->
         <div class="uk-text-center uk-margin-large-bottom">
-          <h2
-            class="uk-heading-small uk-text-uppercase coffee-menu-grid-header"
-          >
+          <h2 class="uk-heading-small uk-text-uppercase">
             <span
               class="uk-display-inline-block uk-padding-small coffee-section-title-gold"
             >
@@ -234,11 +241,11 @@
           <ul class="uk-switcher uk-margin">
             <!-- Preguntas Generales -->
             <li>
-              <ul class="uk-accordion" uk-accordion="multiple: false">
+              <ul class="uk-accordion" uk-accordion>
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Qué es SurtiEnvases?
                   </a>
                   <div class="uk-accordion-content">
@@ -254,7 +261,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Trabajan con empresas pequeñas?
                   </a>
                   <div class="uk-accordion-content">
@@ -269,7 +276,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Dónde están ubicados?
                   </a>
                   <div class="uk-accordion-content">
@@ -283,7 +290,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo solicitar muestras?
                   </a>
                   <div class="uk-accordion-content">
@@ -301,11 +308,11 @@
 
             <!-- Pedidos y Envíos -->
             <li>
-              <ul class="uk-accordion" uk-accordion="multiple: false">
+              <ul class="uk-accordion" uk-accordion>
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es el pedido mínimo?
                   </a>
                   <div class="uk-accordion-content">
@@ -321,7 +328,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Cuánto tarda la entrega?
                   </a>
                   <div class="uk-accordion-content">
@@ -336,7 +343,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es el costo del envío?
                   </a>
                   <div class="uk-accordion-content">
@@ -351,7 +358,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Hacen envíos fuera del Huila?
                   </a>
                   <div class="uk-accordion-content">
@@ -367,11 +374,11 @@
 
             <!-- Productos -->
             <li>
-              <ul class="uk-accordion" uk-accordion="multiple: false">
+              <ul class="uk-accordion" uk-accordion>
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Los productos son aptos para alimentos?
                   </a>
                   <div class="uk-accordion-content">
@@ -386,7 +393,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo personalizar los envases?
                   </a>
                   <div class="uk-accordion-content">
@@ -402,7 +409,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Tienen productos ecológicos?
                   </a>
                   <div class="uk-accordion-content">
@@ -417,7 +424,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Qué garantía tienen los productos?
                   </a>
                   <div class="uk-accordion-content">
@@ -434,11 +441,11 @@
 
             <!-- Pagos -->
             <li>
-              <ul class="uk-accordion" uk-accordion="multiple: false">
+              <ul class="uk-accordion" uk-accordion>
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Qué métodos de pago aceptan?
                   </a>
                   <div class="uk-accordion-content">
@@ -453,7 +460,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Ofrecen crédito?
                   </a>
                   <div class="uk-accordion-content">
@@ -468,7 +475,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Emiten factura electrónica?
                   </a>
                   <div class="uk-accordion-content">
@@ -482,7 +489,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Hay descuentos por volumen?
                   </a>
                   <div class="uk-accordion-content">
@@ -499,11 +506,11 @@
 
             <!-- Devoluciones -->
             <li>
-              <ul class="uk-accordion" uk-accordion="multiple: false">
+              <ul class="uk-accordion" uk-accordion>
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Cuál es la política de devoluciones?
                   </a>
                   <div class="uk-accordion-content">
@@ -519,7 +526,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Qué hacer si llega un producto dañado?
                   </a>
                   <div class="uk-accordion-content">
@@ -534,7 +541,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Puedo cancelar mi pedido?
                   </a>
                   <div class="uk-accordion-content">
@@ -548,7 +555,7 @@
                 <li
                   class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-margin-small coffee-card-dark-border"
                 >
-                  <a href="" class="uk-accordion-title coffee-title-gold">
+                  <a href="#" class="uk-accordion-title coffee-title-gold">
                     ¿Cómo se procesan los reembolsos?
                   </a>
                   <div class="uk-accordion-content">
@@ -585,6 +592,7 @@
                   <a
                     href="https://wa.me/573163209967"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                   >
                     <span uk-icon="whatsapp"></span> WhatsApp Sede 1
@@ -594,6 +602,7 @@
                   <a
                     href="https://wa.me/573153957275"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                   >
                     <span uk-icon="whatsapp"></span> WhatsApp Sede 2
@@ -601,10 +610,12 @@
                 </div>
                 <div>
                   <a
-                    href="mailto:surtienvasesn@gmail.com?subject=Consulta desde FAQ&body=Hola SurtiEnvases, tengo una consulta: "
+                    href="https://www.instagram.com/envases_surtienvases"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
                   >
-                    <span uk-icon="mail"></span> Email
+                    <span uk-icon="instagram"></span> Instagram
                   </a>
                 </div>
               </div>
@@ -614,13 +625,16 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
     <footer class="uk-section uk-section-small footer-main">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
           uk-grid
         >
+          <!-- Columna 1: Logo y descripción -->
           <div>
             <img
               src="assets/img/coffe-user-logo.svg"
@@ -632,6 +646,8 @@
               en plástico y vidrio.
             </p>
           </div>
+
+          <!-- Columna 2: Enlaces rápidos -->
           <div>
             <h4 class="footer-title">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
@@ -649,6 +665,8 @@
               </li>
             </ul>
           </div>
+
+          <!-- Columna 3: Información -->
           <div>
             <h4 class="footer-title">Información</h4>
             <ul class="uk-list uk-list-divider">
@@ -662,6 +680,8 @@
               </li>
             </ul>
           </div>
+
+          <!-- Columna 4: Redes y contacto -->
           <div>
             <h4 class="footer-title">Síguenos</h4>
             <div class="uk-margin-small-top">
@@ -670,42 +690,48 @@
                 class="uk-icon-button"
                 uk-icon="icon: facebook"
                 target="_blank"
+                rel="noopener noreferrer"
               ></a>
               <a
                 href="https://www.instagram.com/envases_surtienvases"
                 class="uk-icon-button uk-margin-small-left"
                 uk-icon="icon: instagram"
                 target="_blank"
+                rel="noopener noreferrer"
               ></a>
             </div>
+
             <div class="uk-margin-top">
               <h4 class="footer-title uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
-                <span uk-icon="icon: mail"></span>
-                surtienvasesn@gmail.com<br />
+                <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
               </p>
-              <div
-                class="uk-grid-small uk-child-width-expand@s uk-text-small uk-text-muted"
-                uk-grid
-              >
-                <p class="uk-text-small uk-text-muted">
-                  <strong>Sede 1:</strong><br />
-                  <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
-                  <span uk-icon="icon: phone"></span> 3163209967<br />
-                  <span uk-icon="icon: receiver"></span> 8672555
-                </p>
-                <p class="uk-text-small uk-text-muted">
-                  <strong>Sede 2:</strong><br />
-                  <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
-                  <span uk-icon="icon: phone"></span> 3153957275<br />
-                  <span uk-icon="icon: receiver"></span> 8673132
-                </p>
+
+              <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
+                <div>
+                  <p class="uk-text-small uk-text-muted">
+                    <strong>Sede 1:</strong><br />
+                    <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
+                    <span uk-icon="icon: phone"></span> 3163209967<br />
+                    <span uk-icon="icon: receiver"></span> 8672555
+                  </p>
+                </div>
+                <div>
+                  <p class="uk-text-small uk-text-muted">
+                    <strong>Sede 2:</strong><br />
+                    <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
+                    <span uk-icon="icon: phone"></span> 3153957275<br />
+                    <span uk-icon="icon: receiver"></span> 8673132
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
         <hr class="uk-divider-icon footer-divider" />
+
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
         </div>
@@ -717,43 +743,28 @@
       href="https://wa.me/573153957275"
       class="whatsapp-floating"
       target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
     >
       <div class="whatsapp-button-circle">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>
 
-    <!-- Carrito Flotante -->
-    <div class="cart-floating">
-      <button class="cart-button-circle" onclick="productsSystem.toggleCart()">
-        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
-        <span class="cart-badge" id="cart-count">0</span>
-      </button>
-    </div>
+    <!-- ============================================
+       SCRIPTS
+       ============================================ -->
+    <!-- UIkit -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit-icons.min.js"></script>
 
-    <!-- Modal del Carrito -->
-    <div id="cart-modal" uk-modal>
-      <div class="uk-modal-dialog uk-modal-body">
-        <button class="uk-modal-close-default" type="button" uk-close></button>
-        <h2 class="uk-modal-title">Carrito de Cotización</h2>
-        <div id="cart-items"></div>
-        <div class="uk-text-center uk-margin-top">
-          <button
-            class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
-            onclick="productsSystem.sendQuoteToWhatsApp()"
-          >
-            <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
-    <!-- Products Data -->
+    <!-- Datos de productos -->
     <script src="js/productItems.js"></script>
-    <!-- Products System -->
-    <script src="js/productos.js"></script>
+
+    <!-- Carrito universal -->
+    <script src="js/surtienvases-cart.js"></script>
+
+    <!-- Navbar init -->
+    <script src="js/navbar-init.js"></script>
   </body>
 </html>

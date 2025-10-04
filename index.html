@@ -2,27 +2,35 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SurtiEnvases - Tu proveedor de confianza en envases de vidrio, plástico y complementos en Neiva, Huila"
+    />
+    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
+
     <!-- UIkit CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
+
     <link rel="stylesheet" href="assets/index.css" />
-    <link rel="stylesheet" href="assets/surtienvases-theme.css" />
-    <link rel="stylesheet" href="assets/coffee-styles.css" />
-    <link rel="stylesheet" href="assets/surtienvases-custom.css" />
+    <link rel="stylesheet" href="assets/surtienvases-styles.css" />
+
     <title>SurtiEnvases - Tu Proveedor de Envases de Confianza</title>
   </head>
   <body>
-    <!-- Navbar -->
+    <!-- ========================================
+         NAVBAR
+         ======================================== -->
     <div
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
         <div class="uk-container uk-width-1-1 background-opaque">
           <div uk-navbar="mode: click" class="uk-flex">
+            <!-- Logo -->
             <div class="uk-navbar-left">
               <div class="uk-navbar-item uk-light">
                 <a class="uk-flex uk-link-heading" href="index.html">
@@ -35,118 +43,161 @@
                 </a>
               </div>
             </div>
+
+            <!-- Menú Desktop -->
             <div class="uk-navbar-center uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <a
                   class="uk-button uk-button-secondary uk-border-rounded"
                   href="catalogo.html"
-                  >Catálogo</a
                 >
+                  Catálogo
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="productos.html"
-                  >Productos</a
                 >
+                  Productos
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="novedades.html"
-                  >Novedades</a
                 >
+                  Novedades
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="nosotros.html"
-                  >Nosotros</a
                 >
+                  Nosotros
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="contacto.html"
-                  >Contacto</a
                 >
+                  Contacto
+                </a>
               </div>
               <div class="uk-navbar-item uk-light">
                 <a
                   class="uk-text-capitalize uk-button uk-button-text uk-light"
                   href="preguntas-frecuentes.html"
-                  >FAQ</a
                 >
+                  FAQ
+                </a>
               </div>
             </div>
+
+            <!-- Botón Cotizar Desktop -->
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
-                <a
-                  class="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
-                  href="productos.html"
-                  >Cotizar</a
+                <button
+                  class="uk-button uk-button-secondary uk-border-rounded"
+                  id="navbar-quote-btn"
+                  style="position: relative"
                 >
+                  <span uk-icon="cart"></span> Cotizar
+                  <span
+                    class="cart-badge"
+                    id="cart-count-navbar"
+                    style="display: none"
+                    >0</span
+                  >
+                </button>
               </div>
             </div>
-            <!-- Menú hamburguesa -->
+
+            <!-- Menú Hamburguesa -->
             <div class="uk-hidden@l uk-navbar-right">
               <a
                 class="uk-navbar-toggle"
-                uk-navbar-toggle-icon="true"
+                uk-navbar-toggle-icon
                 uk-toggle="target: #burger-menu"
               ></a>
-              <div id="burger-menu" uk-offcanvas="overlay: true; flip: true">
+
+              <div
+                id="burger-menu"
+                uk-offcanvas="mode: slide; overlay: true; flip: true"
+              >
                 <div class="uk-offcanvas-bar">
                   <button
                     class="uk-offcanvas-close"
                     type="button"
-                    uk-close="true"
+                    uk-close
                   ></button>
-                  <div
-                    class="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
-                    uk-grid="true"
-                  >
-                    <div class="uk-flex-left">
+
+                  <div class="uk-margin-large-top">
+                    <div class="uk-margin">
                       <a
-                        class="uk-button uk-button-secondary uk-border-rounded"
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
                         href="catalogo.html"
-                        ><strong>Catálogo</strong></a
                       >
+                        <strong>Catálogo</strong>
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="productos.html"
-                        >Productos</a
                       >
+                        Productos
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="novedades.html"
-                        >Novedades</a
                       >
+                        Novedades
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="nosotros.html"
-                        >Nosotros</a
                       >
+                        Nosotros
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="contacto.html"
-                        >Contacto</a
                       >
+                        Contacto
+                      </a>
                     </div>
-                    <div class="uk-flex-left uk-margin-small-left">
+
+                    <div class="uk-margin-small">
                       <a
-                        class="uk-text-capitalize uk-button uk-button-text uk-light"
+                        class="uk-button uk-button-text uk-width-1-1"
                         href="preguntas-frecuentes.html"
-                        >FAQ</a
                       >
+                        FAQ
+                      </a>
+                    </div>
+
+                    <hr class="uk-divider-icon" />
+
+                    <div class="uk-margin">
+                      <button
+                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
+                        id="mobile-cart-btn"
+                      >
+                        <span uk-icon="cart"></span> Ver Carrito
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -157,7 +208,9 @@
       </nav>
     </div>
 
-    <!-- Home Content -->
+    <!-- ============================================
+       CONTENIDO PRINCIPAL
+       ============================================ -->
     <div
       class="uk-background-cover uk-height-viewport uk-light first-child-adjustment uk-flex uk-position-relative"
       style="background-image: url('assets/img/coffe-soft-header.svg')"
@@ -189,7 +242,7 @@
         <div class="uk-child-width-1-3@m uk-grid-match" uk-grid>
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
-              <span uk-icon="icon: cart; ratio: 3"></span>
+              <span uk-icon="icon: cart; ratio: 3" class="icon-verde"></span>
               <h3 class="uk-card-title">Amplio Catálogo</h3>
               <p>
                 Más de 5,000 referencias en envases de vidrio, plástico, tapas y
@@ -199,7 +252,10 @@
           </div>
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
-              <span uk-icon="icon: location; ratio: 3"></span>
+              <span
+                uk-icon="icon: location; ratio: 3"
+                class="icon-verde"
+              ></span>
               <h3 class="uk-card-title">Entrega en el Huila</h3>
               <p>
                 Cobertura en Neiva y municipios cercanos con tiempos de entrega
@@ -209,7 +265,7 @@
           </div>
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
-              <span uk-icon="icon: check; ratio: 3"></span>
+              <span uk-icon="icon: check; ratio: 3" class="icon-verde"></span>
               <h3 class="uk-card-title">Calidad Certificada</h3>
               <p>
                 Todos nuestros productos cumplen con las normas técnicas
@@ -221,24 +277,16 @@
       </div>
     </div>
 
-    <!-- WhatsApp Flotante -->
-    <a
-      href="https://wa.me/573153957275"
-      class="whatsapp-floating"
-      target="_blank"
-    >
-      <div class="whatsapp-button-circle">
-        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
-      </div>
-    </a>
-
-    <!-- Footer -->
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
     <footer class="uk-section uk-section-small footer-main">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
           uk-grid
         >
+          <!-- Columna 1: Logo y descripción -->
           <div>
             <img
               src="assets/img/coffe-user-logo.svg"
@@ -250,6 +298,8 @@
               en plástico y vidrio.
             </p>
           </div>
+
+          <!-- Columna 2: Enlaces rápidos -->
           <div>
             <h4 class="footer-title">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
@@ -267,6 +317,8 @@
               </li>
             </ul>
           </div>
+
+          <!-- Columna 3: Información -->
           <div>
             <h4 class="footer-title">Información</h4>
             <ul class="uk-list uk-list-divider">
@@ -280,6 +332,8 @@
               </li>
             </ul>
           </div>
+
+          <!-- Columna 4: Redes y contacto -->
           <div>
             <h4 class="footer-title">Síguenos</h4>
             <div class="uk-margin-small-top">
@@ -288,51 +342,81 @@
                 class="uk-icon-button"
                 uk-icon="icon: facebook"
                 target="_blank"
+                rel="noopener noreferrer"
               ></a>
               <a
                 href="https://www.instagram.com/envases_surtienvases"
                 class="uk-icon-button uk-margin-small-left"
                 uk-icon="icon: instagram"
                 target="_blank"
+                rel="noopener noreferrer"
               ></a>
             </div>
+
             <div class="uk-margin-top">
               <h4 class="footer-title uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
-                <span uk-icon="icon: mail"></span>
-                surtienvasesn@gmail.com<br />
+                <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
               </p>
-              <div
-                class="uk-grid-small uk-child-width-expand@s uk-text-small uk-text-muted"
-                uk-grid
-              >
-                <p class="uk-text-small uk-text-muted">
-                  <strong>Sede 1:</strong><br />
-                  <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
-                  <span uk-icon="icon: phone"></span> 3163209967<br />
-                  <span uk-icon="icon: receiver"></span> 8672555
-                </p>
-                <p class="uk-text-small uk-text-muted">
-                  <strong>Sede 2:</strong><br />
-                  <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
-                  <span uk-icon="icon: phone"></span> 3153957275<br />
-                  <span uk-icon="icon: receiver"></span> 8673132
-                </p>
+
+              <div class="uk-grid-small uk-child-width-expand@s" uk-grid>
+                <div>
+                  <p class="uk-text-small uk-text-muted">
+                    <strong>Sede 1:</strong><br />
+                    <span uk-icon="icon: location"></span> Calle 10 #2-58<br />
+                    <span uk-icon="icon: phone"></span> 3163209967<br />
+                    <span uk-icon="icon: receiver"></span> 8672555
+                  </p>
+                </div>
+                <div>
+                  <p class="uk-text-small uk-text-muted">
+                    <strong>Sede 2:</strong><br />
+                    <span uk-icon="icon: location"></span> Calle 10 #1G-41<br />
+                    <span uk-icon="icon: phone"></span> 3153957275<br />
+                    <span uk-icon="icon: receiver"></span> 8673132
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
         <hr class="uk-divider-icon footer-divider" />
+
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
 
-    <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/js/uikit-icons.min.js"></script>
-    <script src="js/surtienvases-cart-universal.js"></script>
+    <!-- WhatsApp Flotante -->
+    <a
+      href="https://wa.me/573153957275"
+      class="whatsapp-floating"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <div class="whatsapp-button-circle">
+        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+      </div>
+    </a>
+
+    <!-- ============================================
+       SCRIPTS
+       ============================================ -->
+    <!-- UIkit -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit-icons.min.js"></script>
+
+    <!-- Datos de productos -->
+    <script src="js/productItems.js"></script>
+
+    <!-- Carrito universal -->
+    <script src="js/surtienvases-cart.js"></script>
+
+    <!-- Navbar init -->
+    <script src="js/navbar-init.js"></script>
   </body>
 </html>

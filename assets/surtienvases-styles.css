@@ -1,0 +1,963 @@
+/* ========================================
+   SURTIENVASES - ESTILOS CONSOLIDADOS
+   Versión corregida que mantiene lo mejor de ambos mundos
+   ======================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
+
+/* ========================================
+   VARIABLES DE COLOR
+   ======================================== */
+:root {
+  /* Colores principales */
+  --surtienvases-naranja: #ee7622;
+  --surtienvases-verde: #b7ce38;
+  --surtienvases-morado: #904191;
+  --surtienvases-blanco: #ffffff;
+  --surtienvases-negro: #1d1d1b;
+
+  /* Variaciones */
+  --naranja-oscuro: #d45a0a;
+  --naranja-claro: #ff9544;
+  --verde-oscuro: #94a82e;
+  --verde-claro: #c5d855;
+  --morado-oscuro: #6b2f6b;
+  --morado-claro: #a455a4;
+
+  /* Grises */
+  --gris-oscuro: #2c2c2c;
+  --gris-medio: #666666;
+  --gris-claro: #e5e5e5;
+  --gris-fondo: #f5f5f5;
+
+  /* Transparencias */
+  --naranja-transparente: rgba(238, 118, 34, 0.1);
+  --verde-transparente: rgba(183, 206, 56, 0.1);
+  --morado-transparente: rgba(144, 65, 145, 0.1);
+}
+
+/* ========================================
+   ESTILOS GLOBALES
+   ======================================== */
+* {
+  font-family: "Lexend Deca", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  background-color: var(--gris-fondo) !important;
+  color: var(--surtienvases-negro) !important;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.background-opaque {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 118, 34, 0.95),
+    rgba(144, 65, 145, 0.85)
+  ) !important;
+  backdrop-filter: blur(10px);
+  background-size: 200% 200%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+.uk-navbar-container {
+  background: transparent !important;
+}
+
+/* Botones del navbar */
+.uk-navbar-item .uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+}
+
+.uk-navbar-item .uk-button-secondary:hover {
+  background-color: var(--verde-oscuro) !important;
+  color: var(--surtienvases-negro) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(183, 206, 56, 0.4) !important;
+}
+
+.uk-navbar-item .uk-button-secondary.active {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+.uk-navbar-item .uk-button-text {
+  color: var(--surtienvases-blanco) !important;
+  position: relative;
+  transition: all 0.3s ease !important;
+}
+
+.uk-navbar-item .uk-button-text:hover {
+  color: var(--surtienvases-verde) !important;
+}
+
+.uk-navbar-item .uk-button-text.active {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border-radius: 6px !important;
+  padding: 8px 16px !important;
+  font-weight: 700 !important;
+}
+
+.uk-navbar-item .uk-button-text:not(.active)::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--surtienvases-verde);
+  transition: width 0.3s ease;
+}
+
+.uk-navbar-item .uk-button-text:not(.active):hover::after {
+  width: 100%;
+}
+
+.first-child-adjustment {
+  height: 100%;
+  padding-top: 6rem !important;
+  margin-top: -6rem !important;
+}
+
+/* ========================================
+   MENÚ HAMBURGUESA - OVERLAY PÁGINA COMPLETA
+   ======================================== */
+/* Botón toggle */
+.uk-navbar-toggle {
+  color: var(--surtienvases-blanco) !important;
+  min-height: 40px !important;
+}
+
+/* CRÍTICO: Forzar que el offcanvas sea de nivel superior */
+#burger-menu.uk-offcanvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 99999 !important;
+  display: none !important;
+}
+
+#burger-menu.uk-offcanvas.uk-open {
+  display: block !important;
+}
+
+/* Overlay que cubre TODA la página */
+#burger-menu.uk-offcanvas::before {
+  content: "" !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  z-index: 1 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Barra del menú */
+#burger-menu .uk-offcanvas-bar {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 320px !important;
+  max-width: 85vw !important;
+  height: 100vh !important;
+  background: linear-gradient(
+    180deg,
+    rgba(144, 65, 145, 0.98) 0%,
+    rgba(238, 118, 34, 0.98) 100%
+  ) !important;
+  backdrop-filter: blur(10px) !important;
+  padding: 40px 20px !important;
+  z-index: 2 !important;
+  overflow-y: auto !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s ease !important;
+}
+
+/* Cuando está abierto */
+#burger-menu.uk-open .uk-offcanvas-bar {
+  transform: translateX(0) !important;
+}
+
+/* Botón cerrar */
+#burger-menu .uk-offcanvas-close {
+  position: absolute !important;
+  top: 15px !important;
+  right: 15px !important;
+  color: var(--surtienvases-blanco) !important;
+  background: rgba(183, 206, 56, 0.3) !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 3 !important;
+  transition: all 0.3s ease !important;
+}
+
+#burger-menu .uk-offcanvas-close:hover {
+  background: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+}
+
+/* Asegurar que el icono sea visible */
+#burger-menu .uk-offcanvas-close::before,
+#burger-menu .uk-offcanvas-close::after {
+  background-color: var(--surtienvases-blanco) !important;
+}
+
+#burger-menu .uk-offcanvas-close:hover::before,
+#burger-menu .uk-offcanvas-close:hover::after {
+  background-color: var(--surtienvases-negro) !important;
+}
+
+/* Contenedor del contenido */
+#burger-menu .uk-margin-large-top {
+  margin-top: 70px !important;
+}
+
+/* Botones del menú */
+#burger-menu a,
+#burger-menu button {
+  display: block !important;
+  width: 100% !important;
+  padding: 14px 20px !important;
+  margin-bottom: 10px !important;
+  border-radius: 8px !important;
+  font-size: 1rem !important;
+  text-align: left !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+#burger-menu .uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  font-weight: 700 !important;
+}
+
+#burger-menu .uk-button-text {
+  background-color: transparent !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+#burger-menu a:hover,
+#burger-menu button:hover {
+  transform: translateX(8px) !important;
+}
+
+#burger-menu .uk-button-secondary:hover {
+  background-color: var(--verde-oscuro) !important;
+}
+
+#burger-menu .uk-button-text:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Divider */
+#burger-menu hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+  margin: 20px 0 !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  #burger-menu .uk-offcanvas-bar {
+    width: 280px !important;
+    max-width: 90vw !important;
+  }
+}
+
+/* ========================================
+   CARDS Y CONTENEDORES
+   ======================================== */
+.uk-card-default {
+  background-color: var(--surtienvases-blanco) !important;
+  border: 1px solid var(--gris-claro) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-card-default:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(238, 118, 34, 0.2) !important;
+  border-color: var(--surtienvases-naranja) !important;
+}
+
+/* Cards oscuras */
+.coffee-card-dark {
+  background: linear-gradient(
+    135deg,
+    var(--surtienvases-morado),
+    var(--morado-oscuro)
+  ) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  box-shadow: 0 4px 15px rgba(144, 65, 145, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.coffee-card-dark:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 20px rgba(238, 118, 34, 0.4) !important;
+  border-color: var(--surtienvases-verde) !important;
+}
+
+.coffee-card-dark-border {
+  background: linear-gradient(
+    135deg,
+    var(--morado-oscuro),
+    var(--surtienvases-morado)
+  ) !important;
+  border: 2px solid var(--surtienvases-verde) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(144, 65, 145, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.coffee-modal-dark {
+  background: linear-gradient(
+    135deg,
+    var(--surtienvases-morado),
+    var(--morado-oscuro)
+  ) !important;
+  border-radius: 8px !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+}
+
+.coffee-modal-dark .uk-modal-close-default {
+  color: var(--surtienvases-verde) !important;
+  background-color: rgba(183, 206, 56, 0.2) !important;
+  border-radius: 50% !important;
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.uk-button-primary,
+.whatsapp-button {
+  background-color: #25d366 !important;
+  color: var(--surtienvases-blanco) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  border-radius: 6px !important;
+}
+
+.uk-button-primary:hover,
+.whatsapp-button:hover {
+  background-color: #128c7e !important;
+  color: var(--surtienvases-blanco) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
+}
+
+.uk-button-default {
+  background-color: transparent !important;
+  color: var(--surtienvases-morado) !important;
+  border: 2px solid var(--surtienvases-morado) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-default:hover {
+  background-color: var(--surtienvases-morado) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* Botón secundario - ESTILO ORIGINAL DE NOVEDADES */
+.uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-secondary:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  border-color: var(--surtienvases-naranja) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+/* Botones con outline */
+.coffee-button-outline {
+  color: var(--surtienvases-negro) !important;
+  background-color: var(--surtienvases-verde) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  border-radius: 6px !important;
+  padding: 3px 15px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s !important;
+}
+
+.coffee-button-outline:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(238, 118, 34, 0.3) !important;
+}
+
+/* Botones de categoría */
+.category-button,
+.industry-button,
+.industry-filter {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--surtienvases-morado) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  font-weight: 600 !important;
+  min-height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  border-radius: 6px !important;
+}
+
+.category-button:hover,
+.industry-button:hover,
+.industry-filter:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+.category-button.active {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border-color: var(--surtienvases-verde) !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
+}
+
+/* Botón transparente para imágenes */
+.image-button-transparent {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================
+   BADGES Y LABELS
+   ======================================== */
+.uk-label {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  font-weight: 600 !important;
+}
+
+.uk-badge {
+  background-color: var(--morado-transparente) !important;
+  color: var(--surtienvases-morado) !important;
+  border: 1px solid var(--surtienvases-morado) !important;
+}
+
+.coffee-price-badge {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  padding: 3px 10px !important;
+  border-radius: 12px !important;
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.product-stock-available {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  border: 2px solid var(--naranja-oscuro) !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  box-shadow: 0 2px 6px rgba(238, 118, 34, 0.3) !important;
+}
+
+.coffee-menu-origin {
+  color: var(--surtienvases-blanco) !important;
+  background-color: rgba(144, 65, 145, 0.8) !important;
+  border: 1px solid var(--surtienvases-verde) !important;
+  font-size: 0.7rem !important;
+  padding: 2px 8px !important;
+  margin-right: 8px !important;
+  font-weight: 600 !important;
+  display: inline-block !important;
+}
+
+/* ========================================
+   TEXTOS Y TÍTULOS
+   ======================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--surtienvases-morado) !important;
+}
+
+.coffee-title-white {
+  color: var(--surtienvases-blanco) !important;
+  font-size: 1.2rem !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.coffee-title-gold {
+  color: var(--surtienvases-verde) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.coffee-title-gold-border {
+  color: var(--surtienvases-verde) !important;
+  border-bottom: 2px solid var(--surtienvases-naranja) !important;
+  padding-bottom: 10px !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.coffee-text-white {
+  color: var(--surtienvases-blanco) !important;
+}
+
+.coffee-text-white-muted {
+  color: var(--surtienvases-verde) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.5 !important;
+}
+
+.section-title-white {
+  color: var(--surtienvases-blanco) !important;
+}
+
+.color-text-black {
+  color: black !important;
+}
+
+/* ========================================
+   IMÁGENES
+   ======================================== */
+.coffee-image-circle {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 80px !important;
+  border: 3px solid var(--surtienvases-verde) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.coffee-image-circle-large {
+  width: 300px !important;
+  height: 300px !important;
+  border: 4px solid var(--surtienvases-verde) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.coffee-image-cover {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.product-image-small {
+  height: 150px !important;
+  object-fit: cover !important;
+  width: 100% !important;
+}
+
+.product-image-medium {
+  height: 120px !important;
+  object-fit: cover !important;
+  width: 100% !important;
+}
+
+/* ========================================
+   SECCIONES Y FONDOS
+   ======================================== */
+.coffee-section-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--morado-oscuro) 0%,
+    var(--surtienvases-morado) 50%,
+    var(--morado-oscuro) 100%
+  ) !important;
+}
+
+.coffee-section-title-gold {
+  border-bottom: 3px solid var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-verde) !important;
+  letter-spacing: 3px !important;
+  font-weight: 300 !important;
+  margin-bottom: 10px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.coffee-section-title-border {
+  border-bottom: 3px solid var(--surtienvases-verde) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* Blog/Novedades background */
+.blog-background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(../assets/img/blog/blog-background.jpg) !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 40px 0 !important;
+}
+
+.blog-form-spacing {
+  margin-top: 80px !important;
+}
+
+.blog-container-round {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.blog-image-container {
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ========================================
+   FORMULARIOS
+   ======================================== */
+.uk-input,
+.uk-textarea,
+.uk-select {
+  border: 2px solid var(--gris-claro) !important;
+  background-color: var(--surtienvases-blanco) !important;
+  color: var(--surtienvases-negro) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-input:focus,
+.uk-textarea:focus,
+.uk-select:focus {
+  border-color: var(--surtienvases-naranja) !important;
+  box-shadow: 0 0 0 3px rgba(238, 118, 34, 0.1) !important;
+}
+
+.blog-login-input {
+  color: var(--surtienvases-negro) !important;
+  border-radius: 10px !important;
+  background-color: #e7e3e3 !important;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+}
+
+.blog-login-input::placeholder {
+  color: var(--gris-medio) !important;
+}
+
+.blog-login-input:focus {
+  border-color: var(--surtienvases-verde) !important;
+  box-shadow: 0 0 0 3px rgba(183, 206, 56, 0.1) !important;
+}
+
+/* ========================================
+   CARRITO
+   ======================================== */
+.cart-floating {
+  position: fixed !important;
+  bottom: 100px !important;
+  right: 30px !important;
+  z-index: 998 !important;
+}
+
+.cart-button-circle {
+  width: 60px !important;
+  height: 60px !important;
+  background-color: var(--surtienvases-morado) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(144, 65, 145, 0.5) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.cart-button-circle:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(238, 118, 34, 0.7) !important;
+}
+
+.cart-badge {
+  position: absolute !important;
+  top: -8px !important;
+  right: -8px !important;
+  background-color: #ff0000 !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 22px !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.7rem !important;
+  font-weight: bold !important;
+  z-index: 10 !important;
+}
+
+.cart-item {
+  border-bottom: 1px solid var(--gris-claro) !important;
+  padding: 15px 0 !important;
+}
+
+.cart-item:last-child {
+  border-bottom: none !important;
+}
+
+/* ========================================
+   WHATSAPP FLOTANTE
+   ======================================== */
+.whatsapp-floating {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 999 !important;
+}
+
+.whatsapp-button-circle {
+  width: 60px !important;
+  height: 60px !important;
+  background-color: #25d366 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5) !important;
+  transition: all 0.3s ease !important;
+}
+
+.whatsapp-button-circle:hover {
+  background-color: #128c7e !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.7) !important;
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+.uk-modal-dialog {
+  background-color: var(--surtienvases-blanco) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+}
+
+.uk-modal-title {
+  color: var(--surtienvases-morado) !important;
+  border-bottom: 3px solid var(--surtienvases-verde) !important;
+  padding-bottom: 15px !important;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer-main {
+  background-color: #2f2c2c !important;
+  width: 100% !important;
+  z-index: 10 !important;
+}
+
+.footer-title {
+  color: white !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+}
+
+.footer-divider {
+  margin: 2rem 0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+footer .uk-icon-button {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: var(--surtienvases-blanco) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+footer .uk-icon-button:hover {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  transform: translateY(-3px);
+  border-color: var(--surtienvases-verde) !important;
+}
+
+/* ========================================
+   ACORDEÓN (FAQ) - ESTILOS ORIGINALES BONITOS
+   ======================================== */
+.uk-accordion-title {
+  color: var(--surtienvases-morado) !important;
+  background: linear-gradient(
+    90deg,
+    var(--verde-transparente),
+    transparent
+  ) !important;
+  padding: 15px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  border: 2px solid transparent !important;
+}
+
+.uk-accordion-title:hover {
+  background: linear-gradient(
+    90deg,
+    var(--naranja-transparente),
+    transparent
+  ) !important;
+  color: var(--surtienvases-naranja) !important;
+  border-color: var(--naranja-transparente) !important;
+}
+
+.uk-open .uk-accordion-title {
+  background: linear-gradient(
+    90deg,
+    var(--surtienvases-verde),
+    var(--verde-claro)
+  ) !important;
+  color: var(--surtienvases-negro) !important;
+  border-color: var(--surtienvases-verde) !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.3) !important;
+}
+
+.uk-accordion-content {
+  color: var(--surtienvases-negro) !important;
+  padding: 20px !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 0 0 8px 8px !important;
+}
+
+.coffee-card-dark-border .uk-accordion-title {
+  color: var(--surtienvases-verde) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(183, 206, 56, 0.2),
+    transparent
+  ) !important;
+}
+
+.coffee-card-dark-border .uk-accordion-content {
+  color: var(--surtienvases-blanco) !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ========================================
+   UTILIDADES
+   ======================================== */
+.icon-verde {
+  color: var(--surtienvases-verde) !important;
+}
+
+.icon-large {
+  font-size: 2rem !important;
+}
+
+.coffee-flex-grow {
+  flex-grow: 1 !important;
+}
+
+.coffee-margin-small-top {
+  margin-top: 0.5rem !important;
+}
+
+.coffee-padding-large {
+  padding: 2rem !important;
+}
+
+.stats-number {
+  font-size: 2.5rem !important;
+  margin: 0 !important;
+  font-weight: bold !important;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 640px) {
+  .uk-navbar-item .uk-button-secondary,
+  .uk-navbar-item .uk-button-text {
+    font-size: 0.9rem !important;
+  }
+
+  .uk-card {
+    margin-bottom: 20px !important;
+  }
+
+  #burger-menu.uk-offcanvas .uk-offcanvas-bar {
+    padding: 30px 15px !important;
+  }
+
+  .cart-floating,
+  .whatsapp-floating {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+
+  .cart-button-circle,
+  .whatsapp-button-circle {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Transiciones suaves */
+*[class*="uk-card"]:hover,
+*[class*="uk-button"]:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
