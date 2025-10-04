@@ -163,11 +163,13 @@ class NovedadesSystem {
             <div id="modal-media-image-${
               article.id
             }" class="uk-flex-top" uk-modal>
-              <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
-                <button class="uk-modal-close-outside" type="button" uk-close></button>
-                <img src="${article.imageUrl}" alt="${article.title}">
-              </div>
-            </div>
+  <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical" style="position: relative;">
+    <button class="image-modal-close" type="button" 
+            onclick="UIkit.modal('#modal-media-image-${article.id}').hide()"
+            aria-label="Cerrar imagen"></button>
+    <img src="${article.imageUrl}" alt="${article.title}">
+  </div>
+</div>
           </div>
           
           <div class="uk-card-body">

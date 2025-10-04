@@ -1,14 +1,15 @@
 /* ========================================
-   SURTIENVASES - ESTILOS CONSOLIDADOS
-   Versión DEFINITIVAMENTE corregida
-   - Título del modal BLANCO y VISIBLE en fondo morado
-   - Icono X del menú hamburguesa VISIBLE usando SVG de UIkit
+   SURTIENVASES - SISTEMA DE ESTILOS
+   Versión Organizada y Optimizada
    ======================================== */
 
+/* ========================================
+   1. IMPORTS Y FUENTES
+   ======================================== */
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
 
 /* ========================================
-   VARIABLES DE COLOR
+   2. VARIABLES DE COLOR
    ======================================== */
 :root {
   /* Colores principales */
@@ -39,7 +40,7 @@
 }
 
 /* ========================================
-   ESTILOS GLOBALES
+   3. ESTILOS GLOBALES
    ======================================== */
 * {
   font-family: "Lexend Deca", sans-serif !important;
@@ -54,8 +55,10 @@ body {
 }
 
 /* ========================================
-   NAVBAR
+   4. NAVBAR
    ======================================== */
+
+/* Contenedor principal */
 .background-opaque {
   background: linear-gradient(
     135deg,
@@ -69,6 +72,12 @@ body {
 
 .uk-navbar-container {
   background: transparent !important;
+}
+
+.first-child-adjustment {
+  height: 100%;
+  padding-top: 6rem !important;
+  margin-top: -6rem !important;
 }
 
 /* Botones del navbar */
@@ -129,22 +138,17 @@ body {
   width: 100%;
 }
 
-.first-child-adjustment {
-  height: 100%;
-  padding-top: 6rem !important;
-  margin-top: -6rem !important;
-}
-
 /* ========================================
-   MENÚ HAMBURGUESA - OVERLAY PÁGINA COMPLETA
+   5. MENÚ HAMBURGUESA
    ======================================== */
+
 /* Botón toggle */
 .uk-navbar-toggle {
   color: var(--surtienvases-blanco) !important;
   min-height: 40px !important;
 }
 
-/* CRÍTICO: Forzar que el offcanvas sea de nivel superior */
+/* Offcanvas container */
 #burger-menu.uk-offcanvas {
   position: fixed !important;
   top: 0 !important;
@@ -159,7 +163,7 @@ body {
   display: block !important;
 }
 
-/* Overlay que cubre TODA la página */
+/* Overlay oscuro */
 #burger-menu.uk-offcanvas::before {
   content: "" !important;
   position: fixed !important;
@@ -173,7 +177,7 @@ body {
   height: 100vh !important;
 }
 
-/* Barra del menú */
+/* Barra lateral del menú */
 #burger-menu .uk-offcanvas-bar {
   position: fixed !important;
   top: 0 !important;
@@ -195,51 +199,67 @@ body {
   transition: transform 0.3s ease !important;
 }
 
-/* Cuando está abierto */
 #burger-menu.uk-open .uk-offcanvas-bar {
   transform: translateX(0) !important;
 }
 
-/* Botón cerrar - CORREGIDO PARA SVG DE UIKIT */
+/* Ocultar botón default de UIkit */
 #burger-menu .uk-offcanvas-close {
+  display: none !important;
+}
+
+/* Botón de cerrar personalizado */
+.burger-menu-close {
   position: absolute !important;
-  top: 15px !important;
-  right: 15px !important;
-  background: rgba(183, 206, 56, 0.3) !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(238, 118, 34, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: 50% !important;
-  width: 40px !important;
-  height: 40px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  z-index: 3 !important;
+  cursor: pointer !important;
   transition: all 0.3s ease !important;
+  z-index: 1001 !important;
+  padding: 0 !important;
+  outline: none !important;
 }
 
-#burger-menu .uk-offcanvas-close:hover {
+.burger-menu-close:hover {
   background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
 }
 
-/* El ícono SVG de UIkit */
-#burger-menu .uk-offcanvas-close svg {
-  stroke: var(--surtienvases-blanco) !important;
-  stroke-width: 2 !important;
+.burger-menu-close::before,
+.burger-menu-close::after {
+  content: "" !important;
+  position: absolute !important;
   width: 20px !important;
-  height: 20px !important;
+  height: 3px !important;
+  background: white !important;
+  border-radius: 3px !important;
 }
 
-#burger-menu .uk-offcanvas-close:hover svg {
-  stroke: var(--surtienvases-negro) !important;
+.burger-menu-close::before {
+  transform: rotate(45deg) !important;
 }
 
-/* Contenedor del contenido */
+.burger-menu-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* Contenido del menú */
 #burger-menu .uk-margin-large-top {
   margin-top: 70px !important;
 }
 
-/* Botones del menú */
 #burger-menu a,
-#burger-menu button {
+#burger-menu button:not(.burger-menu-close) {
   display: block !important;
   width: 100% !important;
   padding: 14px 20px !important;
@@ -265,7 +285,7 @@ body {
 }
 
 #burger-menu a:hover,
-#burger-menu button:hover {
+#burger-menu button:not(.burger-menu-close):hover {
   transform: translateX(8px) !important;
 }
 
@@ -277,23 +297,270 @@ body {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* Divider */
 #burger-menu hr {
   border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
   margin: 20px 0 !important;
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-  #burger-menu .uk-offcanvas-bar {
-    width: 280px !important;
-    max-width: 90vw !important;
-  }
+/* ========================================
+   6. BOTONES
+   ======================================== */
+
+/* Botones primarios y WhatsApp */
+.uk-button-primary,
+.whatsapp-button {
+  background-color: #25d366 !important;
+  color: var(--surtienvases-blanco) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  border-radius: 6px !important;
+}
+
+.uk-button-primary:hover,
+.whatsapp-button:hover {
+  background-color: #128c7e !important;
+  color: var(--surtienvases-blanco) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
+}
+
+/* Botón default */
+.uk-button-default {
+  background-color: transparent !important;
+  color: var(--surtienvases-morado) !important;
+  border: 2px solid var(--surtienvases-morado) !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-default:hover {
+  background-color: var(--surtienvases-morado) !important;
+  color: var(--surtienvases-blanco) !important;
+}
+
+/* Botón secundario */
+.uk-button-secondary {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-button-secondary:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  border-color: var(--surtienvases-naranja) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+/* Botón con outline */
+.coffee-button-outline {
+  color: var(--surtienvases-negro) !important;
+  background-color: var(--surtienvases-verde) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  border-radius: 6px !important;
+  padding: 3px 15px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s !important;
+}
+
+.coffee-button-outline:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: var(--surtienvases-blanco) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(238, 118, 34, 0.3) !important;
+}
+
+/* Botones de categoría e industria */
+.category-button,
+.industry-button,
+.industry-filter {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--surtienvases-morado) !important;
+  border: 2px solid var(--surtienvases-naranja) !important;
+  font-weight: 600 !important;
+  min-height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  border-radius: 6px !important;
+}
+
+.category-button:hover,
+.industry-button:hover,
+.industry-filter:hover {
+  background-color: var(--surtienvases-naranja) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+.category-button.active {
+  background-color: var(--surtienvases-verde) !important;
+  color: var(--surtienvases-negro) !important;
+  border-color: var(--surtienvases-verde) !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
+}
+
+/* Botón transparente para imágenes */
+.image-button-transparent {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  width: 100%;
+  height: 100%;
 }
 
 /* ========================================
-   CARDS Y CONTENEDORES
+   7. BOTONES DE CERRAR (MODALES)
    ======================================== */
+
+/* Botón de cerrar para modales de productos */
+.product-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(238, 118, 34, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+.product-modal-close:hover {
+  background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+.product-modal-close::before,
+.product-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: white !important;
+  border-radius: 2px !important;
+}
+
+.product-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.product-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* Botón de cerrar para modal de imágenes en novedades */
+.image-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(238, 118, 34, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+.image-modal-close:hover {
+  background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+.image-modal-close::before,
+.image-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 20px !important;
+  height: 3px !important;
+  background: white !important;
+  border-radius: 3px !important;
+}
+
+.image-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.image-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* Botón de cerrar para modal del carrito */
+.cart-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(144, 65, 145, 0.9) !important;
+  border: 2px solid rgba(183, 206, 56, 0.5) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+.cart-modal-close:hover {
+  background: var(--surtienvases-verde) !important;
+  border-color: var(--surtienvases-verde) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
+}
+
+.cart-modal-close::before,
+.cart-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: white !important;
+  border-radius: 2px !important;
+}
+
+.cart-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.cart-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+/* ========================================
+   8. CARDS Y CONTENEDORES
+   ======================================== */
+
+/* Cards default */
 .uk-card-default {
   background-color: var(--surtienvases-blanco) !important;
   border: 1px solid var(--gris-claro) !important;
@@ -339,6 +606,7 @@ body {
   transition: all 0.3s ease !important;
 }
 
+/* Modal oscuro */
 .coffee-modal-dark {
   background: linear-gradient(
     135deg,
@@ -371,120 +639,10 @@ body {
 }
 
 /* ========================================
-   BOTONES
+   9. BADGES Y LABELS
    ======================================== */
-.uk-button-primary,
-.whatsapp-button {
-  background-color: #25d366 !important;
-  color: var(--surtienvases-blanco) !important;
-  border: none !important;
-  font-weight: 500 !important;
-  transition: all 0.3s ease !important;
-  border-radius: 6px !important;
-}
 
-.uk-button-primary:hover,
-.whatsapp-button:hover {
-  background-color: #128c7e !important;
-  color: var(--surtienvases-blanco) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
-}
-
-.uk-button-default {
-  background-color: transparent !important;
-  color: var(--surtienvases-morado) !important;
-  border: 2px solid var(--surtienvases-morado) !important;
-  transition: all 0.3s ease !important;
-}
-
-.uk-button-default:hover {
-  background-color: var(--surtienvases-morado) !important;
-  color: var(--surtienvases-blanco) !important;
-}
-
-/* Botón secundario - ESTILO ORIGINAL DE NOVEDADES */
-.uk-button-secondary {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
-  border: 2px solid var(--surtienvases-naranja) !important;
-  font-weight: 600 !important;
-  transition: all 0.3s ease !important;
-}
-
-.uk-button-secondary:hover {
-  background-color: var(--surtienvases-naranja) !important;
-  color: var(--surtienvases-blanco) !important;
-  border-color: var(--surtienvases-naranja) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
-}
-
-/* Botones con outline */
-.coffee-button-outline {
-  color: var(--surtienvases-negro) !important;
-  background-color: var(--surtienvases-verde) !important;
-  border: 2px solid var(--surtienvases-naranja) !important;
-  border-radius: 6px !important;
-  padding: 3px 15px !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  transition: all 0.3s !important;
-}
-
-.coffee-button-outline:hover {
-  background-color: var(--surtienvases-naranja) !important;
-  color: var(--surtienvases-blanco) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 8px rgba(238, 118, 34, 0.3) !important;
-}
-
-/* Botones de categoría */
-.category-button,
-.industry-button,
-.industry-filter {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  color: var(--surtienvases-morado) !important;
-  border: 2px solid var(--surtienvases-naranja) !important;
-  font-weight: 600 !important;
-  min-height: 50px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: all 0.3s ease !important;
-  border-radius: 6px !important;
-}
-
-.category-button:hover,
-.industry-button:hover,
-.industry-filter:hover {
-  background-color: var(--surtienvases-naranja) !important;
-  color: white !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
-}
-
-.category-button.active {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
-  border-color: var(--surtienvases-verde) !important;
-  font-weight: bold !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
-}
-
-/* Botón transparente para imágenes */
-.image-button-transparent {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  cursor: pointer !important;
-  width: 100%;
-  height: 100%;
-}
-
-/* ========================================
-   BADGES Y LABELS
-   ======================================== */
+/* Labels básicos */
 .uk-label {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-blanco) !important;
@@ -497,6 +655,7 @@ body {
   border: 1px solid var(--surtienvases-morado) !important;
 }
 
+/* Badge de precio */
 .coffee-price-badge {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-blanco) !important;
@@ -507,6 +666,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Badge de stock disponible (viejo) */
 .product-stock-available {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-negro) !important;
@@ -516,6 +676,7 @@ body {
   box-shadow: 0 2px 6px rgba(238, 118, 34, 0.3) !important;
 }
 
+/* Badge de origen (menú) */
 .coffee-menu-origin {
   color: var(--surtienvases-blanco) !important;
   background-color: rgba(144, 65, 145, 0.8) !important;
@@ -527,9 +688,88 @@ body {
   display: inline-block !important;
 }
 
+/* Badges mejorados para productos */
+.product-stock-badge {
+  background: linear-gradient(135deg, #b7ce38, #94a82e) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 3px 8px rgba(183, 206, 56, 0.4) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-stock-badge:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(183, 206, 56, 0.5) !important;
+}
+
+.product-material-badge {
+  background: linear-gradient(135deg, #904191, #6b2f6b) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(183, 206, 56, 0.3) !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 8px rgba(144, 65, 145, 0.3) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-material-badge:hover {
+  border-color: var(--surtienvases-verde) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(144, 65, 145, 0.4) !important;
+}
+
+.product-cert-badge {
+  background: linear-gradient(135deg, #ee7622, #d45a0a) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 6px 14px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 3px 8px rgba(238, 118, 34, 0.3) !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.product-cert-badge:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 12px rgba(238, 118, 34, 0.4) !important;
+}
+
+/* Iconos dentro de badges */
+.badge-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Container de badges */
+.product-badges-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: center !important;
+  margin-top: 12px !important;
+}
+
 /* ========================================
-   TEXTOS Y TÍTULOS
+   10. TEXTOS Y TÍTULOS
    ======================================== */
+
+/* Títulos generales */
 h1,
 h2,
 h3,
@@ -539,12 +779,14 @@ h6 {
   color: var(--surtienvases-morado) !important;
 }
 
+/* Títulos blancos */
 .coffee-title-white {
   color: var(--surtienvases-blanco) !important;
   font-size: 1.2rem !important;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* Títulos dorados */
 .coffee-title-gold {
   color: var(--surtienvases-verde) !important;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
@@ -557,6 +799,7 @@ h6 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* Textos */
 .coffee-text-white {
   color: var(--surtienvases-blanco) !important;
 }
@@ -576,8 +819,10 @@ h6 {
 }
 
 /* ========================================
-   IMÁGENES
+   11. IMÁGENES
    ======================================== */
+
+/* Imágenes circulares */
 .coffee-image-circle {
   width: 100px !important;
   height: 100px !important;
@@ -593,6 +838,7 @@ h6 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4) !important;
 }
 
+/* Cover */
 .coffee-image-cover {
   width: 100% !important;
   height: 100% !important;
@@ -600,6 +846,7 @@ h6 {
   object-position: center !important;
 }
 
+/* Imágenes de productos */
 .product-image-small {
   height: 150px !important;
   object-fit: cover !important;
@@ -613,8 +860,10 @@ h6 {
 }
 
 /* ========================================
-   SECCIONES Y FONDOS
+   12. SECCIONES Y FONDOS
    ======================================== */
+
+/* Gradiente de sección */
 .coffee-section-gradient {
   background: linear-gradient(
     135deg,
@@ -624,6 +873,7 @@ h6 {
   ) !important;
 }
 
+/* Títulos de sección */
 .coffee-section-title-gold {
   border-bottom: 3px solid var(--surtienvases-naranja) !important;
   color: var(--surtienvases-verde) !important;
@@ -638,7 +888,7 @@ h6 {
   color: var(--surtienvases-blanco) !important;
 }
 
-/* Blog/Novedades background */
+/* Blog/Novedades */
 .blog-background {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(../assets/img/blog/blog-background.jpg) !important;
@@ -669,8 +919,10 @@ h6 {
 }
 
 /* ========================================
-   FORMULARIOS
+   13. FORMULARIOS
    ======================================== */
+
+/* Inputs generales */
 .uk-input,
 .uk-textarea,
 .uk-select {
@@ -687,6 +939,7 @@ h6 {
   box-shadow: 0 0 0 3px rgba(238, 118, 34, 0.1) !important;
 }
 
+/* Inputs del blog */
 .blog-login-input {
   color: var(--surtienvases-negro) !important;
   border-radius: 10px !important;
@@ -705,8 +958,10 @@ h6 {
 }
 
 /* ========================================
-   CARRITO
+   14. CARRITO
    ======================================== */
+
+/* Carrito flotante */
 .cart-floating {
   position: fixed !important;
   bottom: 100px !important;
@@ -735,6 +990,7 @@ h6 {
   box-shadow: 0 8px 20px rgba(238, 118, 34, 0.7) !important;
 }
 
+/* Badge del carrito */
 .cart-badge {
   position: absolute !important;
   top: -8px !important;
@@ -752,6 +1008,7 @@ h6 {
   z-index: 10 !important;
 }
 
+/* Items del carrito */
 .cart-item {
   border-bottom: 1px solid var(--gris-claro) !important;
   padding: 15px 0 !important;
@@ -762,8 +1019,9 @@ h6 {
 }
 
 /* ========================================
-   WHATSAPP FLOTANTE
+   15. WHATSAPP FLOTANTE
    ======================================== */
+
 .whatsapp-floating {
   position: fixed !important;
   bottom: 30px !important;
@@ -790,22 +1048,23 @@ h6 {
 }
 
 /* ========================================
-   MODAL - CORREGIDO
+   16. MODALES
    ======================================== */
+
+/* Modal general */
 .uk-modal-dialog {
   background-color: var(--surtienvases-blanco) !important;
   border-radius: 12px !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Título general de modales claros */
+/* Títulos de modales */
 .uk-modal-title {
   color: var(--surtienvases-morado) !important;
   border-bottom: 3px solid var(--surtienvases-verde) !important;
   padding-bottom: 15px !important;
 }
 
-/* Título específico para modales oscuros - MÁS ESPECÍFICO */
 .coffee-modal-dark .uk-modal-title {
   color: var(--surtienvases-blanco) !important;
   border-bottom: 3px solid var(--surtienvases-naranja) !important;
@@ -815,8 +1074,9 @@ h6 {
 }
 
 /* ========================================
-   FOOTER
+   17. FOOTER
    ======================================== */
+
 .footer-main {
   background-color: #2f2c2c !important;
   width: 100% !important;
@@ -849,8 +1109,9 @@ footer .uk-icon-button:hover {
 }
 
 /* ========================================
-   ACORDEÓN (FAQ) - ESTILOS ORIGINALES BONITOS
+   18. ACORDEÓN (FAQ)
    ======================================== */
+
 .uk-accordion-title {
   color: var(--surtienvases-morado) !important;
   background: linear-gradient(
@@ -909,8 +1170,9 @@ footer .uk-icon-button:hover {
 }
 
 /* ========================================
-   UTILIDADES
+   19. UTILIDADES
    ======================================== */
+
 .icon-verde {
   color: var(--surtienvases-verde) !important;
 }
@@ -938,38 +1200,9 @@ footer .uk-icon-button:hover {
 }
 
 /* ========================================
-   RESPONSIVE
+   20. ANIMACIONES
    ======================================== */
-@media (max-width: 640px) {
-  .uk-navbar-item .uk-button-secondary,
-  .uk-navbar-item .uk-button-text {
-    font-size: 0.9rem !important;
-  }
 
-  .uk-card {
-    margin-bottom: 20px !important;
-  }
-
-  #burger-menu.uk-offcanvas .uk-offcanvas-bar {
-    padding: 30px 15px !important;
-  }
-
-  .cart-floating,
-  .whatsapp-floating {
-    bottom: 20px !important;
-    right: 20px !important;
-  }
-
-  .cart-button-circle,
-  .whatsapp-button-circle {
-    width: 50px !important;
-    height: 50px !important;
-  }
-}
-
-/* ========================================
-   ANIMACIONES
-   ======================================== */
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
@@ -989,202 +1222,73 @@ footer .uk-icon-button:hover {
 }
 
 /* ========================================
-   BADGES MEJORADOS - PRODUCTOS
+   21. RESPONSIVE
    ======================================== */
 
-/* Badge de Stock Disponible */
-.product-stock-badge {
-  background: linear-gradient(135deg, #b7ce38, #94a82e) !important;
-  color: #ffffff !important;
-  border: none !important;
-  font-weight: 600 !important;
-  padding: 6px 14px !important;
-  border-radius: 20px !important;
-  box-shadow: 0 3px 8px rgba(183, 206, 56, 0.4) !important;
-  font-size: 0.85rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  transition: all 0.3s ease !important;
-}
-
-.product-stock-badge:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(183, 206, 56, 0.5) !important;
-}
-
-/* Badge de Material */
-.product-material-badge {
-  background: linear-gradient(135deg, #904191, #6b2f6b) !important;
-  color: #ffffff !important;
-  border: 2px solid rgba(183, 206, 56, 0.3) !important;
-  font-weight: 600 !important;
-  padding: 6px 14px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 3px 8px rgba(144, 65, 145, 0.3) !important;
-  font-size: 0.85rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  transition: all 0.3s ease !important;
-}
-
-.product-material-badge:hover {
-  border-color: var(--surtienvases-verde) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(144, 65, 145, 0.4) !important;
-}
-
-/* Badge de Certificación */
-.product-cert-badge {
-  background: linear-gradient(135deg, #ee7622, #d45a0a) !important;
-  color: #ffffff !important;
-  border: none !important;
-  font-weight: 600 !important;
-  padding: 6px 14px !important;
-  border-radius: 8px !important;
-  box-shadow: 0 3px 8px rgba(238, 118, 34, 0.3) !important;
-  font-size: 0.85rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  transition: all 0.3s ease !important;
-}
-
-.product-cert-badge:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(238, 118, 34, 0.4) !important;
-}
-
-/* Iconos dentro de los badges */
-.badge-icon {
-  width: 16px !important;
-  height: 16px !important;
-}
-
-/* ========================================
-   BOTONES DE CERRAR MEJORADOS
-   ======================================== */
-
-/* Botón de cerrar para modales de productos */
-.product-modal-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: rgba(238, 118, 34, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-}
-
-.product-modal-close:hover {
-  background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
-}
-
-.product-modal-close::before,
-.product-modal-close::after {
-  content: '' !important;
-  position: absolute !important;
-  width: 18px !important;
-  height: 2px !important;
-  background: white !important;
-  border-radius: 2px !important;
-}
-
-.product-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.product-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-/* Botón de cerrar para menú hamburguesa */
-.burger-menu-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(238, 118, 34, 0.2) !important;
-  border: 2px solid rgba(183, 206, 56, 0.5) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 1001 !important;
-  padding: 0 !important;
-}
-
-.burger-menu-close:hover {
-  background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
-}
-
-.burger-menu-close::before,
-.burger-menu-close::after {
-  content: '' !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: white !important;
-  border-radius: 3px !important;
-}
-
-.burger-menu-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.burger-menu-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-/* Container de badges para mejor alineación */
-.product-badges-container {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 8px !important;
-  align-items: center !important;
-  margin-top: 12px !important;
-}
-
-/* Responsive */
 @media (max-width: 640px) {
+  /* Navbar */
+  .uk-navbar-item .uk-button-secondary,
+  .uk-navbar-item .uk-button-text {
+    font-size: 0.9rem !important;
+  }
+
+  /* Cards */
+  .uk-card {
+    margin-bottom: 20px !important;
+  }
+
+  /* Menú hamburguesa */
+  #burger-menu .uk-offcanvas-bar {
+    width: 280px !important;
+    max-width: 90vw !important;
+    padding: 30px 15px !important;
+  }
+
+  /* Botones flotantes */
+  .cart-floating,
+  .whatsapp-floating {
+    bottom: 20px !important;
+    right: 20px !important;
+  }
+
+  .cart-button-circle,
+  .whatsapp-button-circle {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  /* Badges de productos */
   .product-stock-badge,
   .product-material-badge,
   .product-cert-badge {
     font-size: 0.75rem !important;
     padding: 4px 10px !important;
   }
-  
+
+  /* Botones de cerrar */
   .product-modal-close,
-  .burger-menu-close {
+  .burger-menu-close,
+  .image-modal-close,
+  .cart-modal-close {
     width: 36px !important;
     height: 36px !important;
   }
-  
+
   .product-modal-close::before,
-  .product-modal-close::after {
+  .product-modal-close::after,
+  .cart-modal-close::before,
+  .cart-modal-close::after {
     width: 16px !important;
   }
-  
+
   .burger-menu-close::before,
-  .burger-menu-close::after {
+  .burger-menu-close::after,
+  .image-modal-close::before,
+  .image-modal-close::after {
     width: 18px !important;
   }
 }
+
+/* ========================================
+   FIN DEL ARCHIVO
+   ======================================== */

@@ -72,11 +72,13 @@ class SurtiEnvasesCart {
       </div>
 
       <!-- Modal del Carrito -->
-      <div id="cart-modal" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body">
-          <button class="uk-modal-close-default" type="button" uk-close></button>
-          <h2 class="uk-modal-title">Carrito de Cotización</h2>
-          <div id="cart-items-container"></div>
+<div id="cart-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body" style="position: relative;">
+    <button class="cart-modal-close" type="button" 
+            onclick="UIkit.modal('#cart-modal').hide()"
+            aria-label="Cerrar carrito"></button>
+    <h2 class="uk-modal-title">Carrito de Cotización</h2>
+    <div id="cart-items-container"></div>
           <div class="uk-text-center uk-margin-top">
             <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1" id="send-quote-btn">
               <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
