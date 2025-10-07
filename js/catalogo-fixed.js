@@ -1,17 +1,18 @@
 // ========================================
-// SISTEMA DE CATÁLOGO - VERSIÓN CORREGIDA
-// Mantiene funcionalidad original
+// SISTEMA DE CATÁLOGO - SINCRONIZADO CON ADMIN
+// Lee productos, categorías e industrias de localStorage
 // ========================================
 
 class CatalogoSystem {
   constructor() {
     this.cart = JSON.parse(localStorage.getItem("cart")) || [];
     this.products = [];
+    this.categories = [];
+    this.industries = [];
     this.init();
   }
 
   init() {
-    // Esperar a que productItems esté disponible
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () => this.setup());
     } else {
@@ -20,59 +21,129 @@ class CatalogoSystem {
   }
 
   setup() {
-    // Verificar y cargar productos
     this.loadProducts();
-
-    // Configurar funcionalidades
+    this.loadCategories();
+    this.loadIndustries();
+    this.updateCategorySelect();
+    this.updateIndustryButtons();
     this.setupProductSearch();
     this.setupIndustryFilters();
     this.renderCartPreview();
     this.updateCartCount();
 
     console.log("✓ Sistema de catálogo inicializado");
-    console.log(`  📦 Productos cargados: ${this.products.length}`);
+    console.log(`  📦 Productos: ${this.products.length}`);
+    console.log(`  🏷️ Categorías: ${this.categories.length}`);
+    console.log(`  🏭 Industrias: ${this.industries.length}`);
   }
 
   loadProducts() {
-    // Intentar cargar desde window.productItems
-    if (window.productItems && Array.isArray(window.productItems)) {
-      this.products = window.productItems;
-      console.log("  ✓ Productos cargados desde window.productItems");
-    } else {
-      console.error(
-        "  ❌ ERROR: window.productItems no está definido o no es un array"
-      );
-      console.log("  Verificando productItems.js...");
-
-      // Reintentar después de un momento
-      setTimeout(() => {
-        if (window.productItems && Array.isArray(window.productItems)) {
-          this.products = window.productItems;
-          console.log("  ✓ Productos cargados (segundo intento)");
-          console.log(`  📦 Total de productos: ${this.products.length}`);
-        } else {
-          console.error("  ❌ No se pueden cargar los productos");
-          this.showProductError();
-        }
-      }, 500);
+    try {
+      const stored = localStorage.getItem("allProducts");
+      if (stored) {
+        this.products = JSON.parse(stored);
+      } else if (window.productItems) {
+        this.products = window.productItems;
+      }
+    } catch (e) {
+      console.error("Error al cargar productos:", e);
+      this.products = window.productItems || [];
     }
   }
 
-  showProductError() {
-    const resultsDiv = document.getElementById("product-results");
-    if (resultsDiv) {
-      resultsDiv.innerHTML = `
-        <div class="uk-alert-danger" uk-alert>
-          <h3>Error al cargar productos</h3>
-          <p>No se pueden cargar los productos. Por favor:</p>
-          <ul>
-            <li>Verifica que el archivo <code>js/productItems.js</code> existe</li>
-            <li>Verifica que se está cargando antes de <code>catalogo-fixed.js</code></li>
-            <li>Abre la consola del navegador para ver más detalles</li>
-          </ul>
-        </div>
-      `;
+  loadCategories() {
+    try {
+      const stored = localStorage.getItem("allCategories");
+      if (stored) {
+        this.categories = JSON.parse(stored);
+      } else {
+        this.categories = [
+          { id: 1, name: "Envases de Vidrio", key: "vidrio", icon: "🫙" },
+          { id: 2, name: "Envases Plásticos", key: "plastico", icon: "🧴" },
+          { id: 3, name: "Tapas y Complementos", key: "tapas", icon: "🔧" },
+          { id: 4, name: "Envases Cosméticos", key: "cosmetico", icon: "💄" },
+          {
+            id: 5,
+            name: "Envases Farmacéuticos",
+            key: "farmaceutico",
+            icon: "💊",
+          },
+          {
+            id: 6,
+            name: "Envases Industriales",
+            key: "industrial",
+            icon: "🏗️",
+          },
+        ];
+      }
+    } catch (e) {
+      console.error("Error al cargar categorías:", e);
     }
+  }
+
+  loadIndustries() {
+    try {
+      const stored = localStorage.getItem("allIndustries");
+      if (stored) {
+        this.industries = JSON.parse(stored);
+      } else {
+        this.industries = [
+          { id: 1, name: "Alimentos", key: "alimentos", icon: "🍽️" },
+          { id: 2, name: "Bebidas", key: "bebidas", icon: "🥤" },
+          { id: 3, name: "Cosmética", key: "cosmetica", icon: "💄" },
+          { id: 4, name: "Farmacéutica", key: "farmaceutica", icon: "💊" },
+          { id: 5, name: "Químicos", key: "quimicos", icon: "⚗️" },
+          { id: 6, name: "Limpieza", key: "limpieza", icon: "🧹" },
+          { id: 7, name: "Industrial", key: "industrial", icon: "🏗️" },
+        ];
+      }
+    } catch (e) {
+      console.error("Error al cargar industrias:", e);
+    }
+  }
+
+  updateCategorySelect() {
+    const select = document.getElementById("category-filter");
+    if (!select) return;
+
+    const currentValue = select.value;
+    select.innerHTML = `
+      <option value="">Todas las categorías</option>
+      ${this.categories
+        .map((cat) => `<option value="${cat.key}">${cat.name}</option>`)
+        .join("")}
+    `;
+    select.value = currentValue;
+  }
+
+  updateIndustryButtons() {
+    const container =
+      document.querySelector("[data-industry]")?.parentElement?.parentElement;
+    if (!container) return;
+
+    container.innerHTML =
+      this.industries
+        .map(
+          (ind) => `
+      <div>
+        <button
+          class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
+          data-industry="${ind.key}">
+          ${ind.icon} ${ind.name}
+        </button>
+      </div>
+    `
+        )
+        .join("") +
+      `
+      <div>
+        <button
+          class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
+          data-industry="todas">
+          📦 Todas
+        </button>
+      </div>
+    `;
   }
 
   // ========================================
@@ -104,7 +175,6 @@ class CatalogoSystem {
 
       let filteredProducts = [...this.products];
 
-      // Filtrar por query
       if (query) {
         const searchTerm = query.toLowerCase();
         filteredProducts = filteredProducts.filter(
@@ -116,7 +186,6 @@ class CatalogoSystem {
         );
       }
 
-      // Filtrar por categoría
       if (category) {
         filteredProducts = this.filterByCategory(filteredProducts, category);
       }
@@ -130,9 +199,6 @@ class CatalogoSystem {
             <p class="uk-text-muted uk-margin-top">
               No se encontraron productos con esos criterios
             </p>
-            <p class="uk-text-small uk-text-muted">
-              Intenta con otros términos de búsqueda
-            </p>
           </div>
         `;
       }
@@ -140,19 +206,12 @@ class CatalogoSystem {
   }
 
   filterByCategory(products, category) {
-    const categoryMap = {
-      vidrio: "Vidrio",
-      plastico: "Plástico",
-      tapas: "Tapas",
-      cosmetico: "Cosmét",
-      farmaceutico: "Farmacéut",
-      industrial: "Industrial",
-    };
-
-    const searchTerm = categoryMap[category] || category;
+    const categoryObj = this.categories.find((c) => c.key === category);
+    if (!categoryObj) return products;
 
     return products.filter(
-      (product) => product.category && product.category.includes(searchTerm)
+      (product) =>
+        product.category && product.category.includes(categoryObj.name)
     );
   }
 
@@ -170,27 +229,25 @@ class CatalogoSystem {
   createProductCard(product) {
     return `
       <div>
-        <div class="uk-card uk-card-default uk-card-body uk-text-center coffee-card-dark">
+        <div class="uk-card uk-card-default uk-card-body uk-text-center card-degradado-morado-borde-naranja">
           <img src="${product.img}" alt="${product.title}"
-              class="product-image-medium uk-margin-bottom">
-          <h3 class="uk-card-title uk-text-truncate coffee-title-white">
+              class="imagen-producto-altura-120 uk-margin-bottom">
+          <h3 class="uk-card-title uk-text-truncate titulo-blanco-sombra">
             ${product.title}
           </h3>
-          <p class="uk-text-meta coffee-text-white-muted">${
-            product.category
-          }</p>
-          <p class="uk-text-small coffee-text-white">
+          <p class="uk-text-meta texto-verde-muted">${product.category}</p>
+          <p class="uk-text-small texto-blanco">
             ${product.minimumOrder || "Consultar"}
           </p>
           <div class="uk-grid-small uk-child-width-1-2" uk-grid>
             <div>
-              <button class="uk-button uk-button-primary whatsapp-button uk-button-small uk-width-1-1 uk-border-rounded" 
+              <button class="uk-button uk-button-primary boton-whatsapp uk-button-small uk-width-1-1 uk-border-rounded" 
                       onclick="catalogoSystem.addToCart(${product.id})">
                 <span uk-icon="cart"></span> Agregar
               </button>
             </div>
             <div>
-              <button class="uk-button uk-button-primary whatsapp-button uk-button-small uk-width-1-1 uk-border-rounded"
+              <button class="uk-button uk-button-primary boton-whatsapp uk-button-small uk-width-1-1 uk-border-rounded"
                       onclick="catalogoSystem.contactWhatsApp('${encodeURIComponent(
                         product.title
                       )}')">
@@ -207,7 +264,9 @@ class CatalogoSystem {
   // FILTROS POR INDUSTRIA
   // ========================================
   setupIndustryFilters() {
-    const buttons = document.querySelectorAll(".industry-filter");
+    const buttons = document.querySelectorAll(
+      ".boton-filtro-categoria-industria"
+    );
 
     buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
@@ -224,29 +283,19 @@ class CatalogoSystem {
     let filteredProducts = [...this.products];
 
     if (industry !== "todas") {
-      const industryMap = {
-        alimentos: "Alimentos",
-        bebidas: "Bebidas",
-        cosmetica: "Cosmética",
-        farmaceutica: "Farmacéutica",
-        quimicos: "Químicos",
-        limpieza: "Limpieza",
-        industrial: "Industrial",
-      };
-
-      const searchTerm = industryMap[industry];
-      filteredProducts = filteredProducts.filter(
-        (product) => product.industry && product.industry.includes(searchTerm)
-      );
+      const industryObj = this.industries.find((i) => i.key === industry);
+      if (industryObj) {
+        filteredProducts = filteredProducts.filter(
+          (product) =>
+            product.industry && product.industry.includes(industryObj.name)
+        );
+      }
     }
 
     if (filteredProducts.length > 0) {
       resultsDiv.innerHTML = `
         <h3 class="uk-modal-title uk-margin-top">
-          Productos recomendados para ${
-            industry === "todas" ? "todas las industrias" : industry
-          }
-          (${filteredProducts.length})
+          Productos recomendados (${filteredProducts.length})
         </h3>
         <div class="uk-grid uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match" uk-grid>
           ${filteredProducts.map((p) => this.createProductCard(p)).join("")}
@@ -291,7 +340,7 @@ class CatalogoSystem {
     container.innerHTML = cart
       .map(
         (item) => `
-      <div class="cart-item">
+      <div class="carrito-item">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
           <div class="uk-width-expand">
             <h4 class="uk-margin-remove">${item.title}</h4>
@@ -457,14 +506,12 @@ class CatalogoSystem {
 window.surtienvases = window.surtienvases || {};
 window.surtienvases.catalogo = new CatalogoSystem();
 
-// Alias global para compatibilidad
 window.catalogoSystem = window.surtienvases.catalogo;
 
-// Exponer función para el botón de enviar cotización
 window.sendCatalogQuote = () => {
   if (window.surtienvases?.catalogo) {
     window.surtienvases.catalogo.sendCartToWhatsApp();
   }
 };
 
-console.log("✓ Sistema de catálogo inicializado");
+console.log("✓ Sistema de catálogo sincronizado con admin");

@@ -15,7 +15,6 @@
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
 
-    <link rel="stylesheet" href="assets/index.css" />
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
 
     <title>Nosotros - SurtiEnvases</title>
@@ -28,7 +27,7 @@
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
-        <div class="uk-container uk-width-1-1 background-opaque">
+        <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
           <div uk-navbar="mode: click" class="uk-flex">
             <!-- Logo -->
             <div class="uk-navbar-left">
@@ -106,7 +105,7 @@
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="cart-badge"
+                    class="carrito-badge-contador"
                     id="cart-count-navbar"
                     style="display: none"
                     >0</span
@@ -129,7 +128,7 @@
               >
                 <div class="uk-offcanvas-bar">
                   <button
-                    class="burger-menu-close"
+                    class="boton-cerrar-menu"
                     type="button"
                     onclick="UIkit.offcanvas('#burger-menu').hide()"
                     aria-label="Cerrar menú"
@@ -212,13 +211,15 @@
     <!-- ============================================
        CONTENIDO PRINCIPAL
        ============================================ -->
-    <div class="first-child-adjustment uk-section coffee-section-gradient">
+    <div
+      class="navbar-ajuste-primer-hijo uk-section seccion-fondo-degradado-morado"
+    >
       <div class="uk-container uk-container-large uk-padding uk-light">
         <!-- Título -->
         <div class="uk-text-center uk-margin-large-bottom">
           <h2 class="uk-heading-small uk-text-uppercase">
             <span
-              class="uk-display-inline-block uk-padding-small coffee-section-title-gold"
+              class="uk-display-inline-block uk-padding-small titulo-seccion-decorado-verde"
             >
               Quiénes Somos
             </span>
@@ -230,10 +231,12 @@
           <!-- Historia -->
           <div>
             <div
-              class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+              class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
             >
-              <h3 class="uk-card-title coffee-title-gold">Nuestra Historia</h3>
-              <p class="coffee-text-white">
+              <h3 class="uk-card-title titulo-verde-sombra">
+                Nuestra Historia
+              </h3>
+              <p class="texto-blanco">
                 Desde 2010, SurtiEnvases ha sido el socio confiable de miles de
                 empresas en el Huila. Comenzamos como un pequeño almacén en
                 Neiva y hoy somos distribuidores líderes en la región, con
@@ -246,10 +249,10 @@
           <!-- Misión -->
           <div>
             <div
-              class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+              class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
             >
-              <h3 class="uk-card-title coffee-title-gold">Nuestra Misión</h3>
-              <p class="coffee-text-white">
+              <h3 class="uk-card-title titulo-verde-sombra">Nuestra Misión</h3>
+              <p class="texto-blanco">
                 Proporcionar soluciones integrales de empaque que impulsen el
                 éxito de nuestros clientes. Nos comprometemos con la calidad,
                 innovación y sostenibilidad, ofreciendo productos certificados y
@@ -262,46 +265,65 @@
 
         <!-- Nuestras Sedes -->
         <div class="uk-margin-large-top">
-          <h3 class="uk-text-center coffee-title-gold uk-margin-medium-bottom">
+          <h3
+            class="uk-text-center titulo-verde-sombra uk-margin-medium-bottom"
+          >
             Nuestras Sedes en Neiva
           </h3>
           <div class="uk-grid-medium uk-child-width-1-2@m" uk-grid>
             <!-- Sede 1 -->
             <div>
               <div
-                class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+                class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
               >
-                <h4 class="coffee-title-gold">🏢 Sede 1 - Centro</h4>
+                <h4 class="titulo-verde-sombra">🏢 Sede 1 - Centro</h4>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="location" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="location" class="icono-verde"></span>
                     <strong>Dirección:</strong><br />
                     Calle 10 #2-58, Centro<br />
                     Neiva, Huila
                   </p>
                 </div>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="phone" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="phone" class="icono-verde"></span>
                     <strong>Teléfonos:</strong><br />
                     Móvil: 3163209967<br />
                     Fijo: 8672555
                   </p>
                 </div>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="clock" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="clock" class="icono-verde"></span>
                     <strong>Horario:</strong><br />
                     Lunes a Viernes: 8:00 AM - 12:00 PM & 2:00 PM - 6:00 PM<br />
                     Sábados: 8:30 AM - 2:30 PM (Jornada continua)
                   </p>
                 </div>
+
+                <!-- Mapa Sede 1 -->
+                <div
+                  class="uk-margin-top contenedor-redondeado"
+                  style="overflow: hidden"
+                >
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.6089238735094!2d-75.29420742520472!3d2.9282087970481196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b747cd603db89%3A0x6796a582d7ca17b9!2sSurtienvases%20Neiva!5e0!3m2!1ses!2sco!4v1759768371240!5m2!1ses!2sco"
+                    width="600"
+                    height="350"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+
                 <div class="uk-margin-top">
                   <a
                     href="https://wa.me/573163209967"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                    class="uk-button uk-button-primary boton-whatsapp uk-width-1-1"
                   >
                     <span uk-icon="whatsapp"></span> Contactar Sede 1
                   </a>
@@ -312,39 +334,56 @@
             <!-- Sede 2 -->
             <div>
               <div
-                class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+                class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
               >
-                <h4 class="coffee-title-gold">🏪 Sede 2 - Centro</h4>
+                <h4 class="titulo-verde-sombra">🏪 Sede 2 - Centro</h4>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="location" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="location" class="icono-verde"></span>
                     <strong>Dirección:</strong><br />
                     Calle 10 #1G-41, Centro<br />
                     Neiva, Huila
                   </p>
                 </div>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="phone" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="phone" class="icono-verde"></span>
                     <strong>Teléfonos:</strong><br />
                     Móvil: 3153957275<br />
                     Fijo: 8673132
                   </p>
                 </div>
                 <div class="uk-margin-small">
-                  <p class="coffee-text-white">
-                    <span uk-icon="clock" class="icon-verde"></span>
+                  <p class="texto-blanco">
+                    <span uk-icon="clock" class="icono-verde"></span>
                     <strong>Horario:</strong><br />
                     Lunes a Viernes: 8:00 AM - 12:00 PM & 2:00 PM - 6:00 PM<br />
                     Sábados: 8:30 AM - 2:30 PM (Jornada continua)
                   </p>
                 </div>
+
+                <!-- Mapa Sede 2 -->
+                <div
+                  class="uk-margin-top contenedor-redondeado"
+                  style="overflow: hidden"
+                >
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.610088469363!2d-75.29626692520469!3d2.9278813970484383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3b747d450d93df%3A0x5edad13a86d48b0!2sCl.%2010%20%23%201G-41%2C%20Neiva%2C%20Huila!5e0!3m2!1ses!2sco!4v1759768474758!5m2!1ses!2sco"
+                    width="600"
+                    height="350"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  ></iframe>
+                </div>
+
                 <div class="uk-margin-top">
                   <a
                     href="https://wa.me/573153957275"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                    class="uk-button uk-button-primary boton-whatsapp uk-width-1-1"
                   >
                     <span uk-icon="whatsapp"></span> Contactar Sede 2
                   </a>
@@ -357,30 +396,39 @@
         <!-- Valores -->
         <div class="uk-margin-large-top">
           <div
-            class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+            class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
           >
-            <h3 class="uk-card-title coffee-title-gold uk-text-center">
+            <h3 class="uk-card-title titulo-verde-sombra uk-text-center">
               Nuestros Valores
             </h3>
             <div class="uk-child-width-1-3@m uk-text-center" uk-grid>
               <div>
-                <span uk-icon="icon: check; ratio: 2" class="icon-verde"></span>
-                <h4 class="coffee-text-white">Calidad</h4>
-                <p class="coffee-text-white-muted">
+                <span
+                  uk-icon="icon: check; ratio: 2"
+                  class="icono-verde"
+                ></span>
+                <h4 class="texto-blanco">Calidad</h4>
+                <p class="texto-verde-muted">
                   Productos certificados y garantizados
                 </p>
               </div>
               <div>
-                <span uk-icon="icon: users; ratio: 2" class="icon-verde"></span>
-                <h4 class="coffee-text-white">Servicio</h4>
-                <p class="coffee-text-white-muted">
+                <span
+                  uk-icon="icon: users; ratio: 2"
+                  class="icono-verde"
+                ></span>
+                <h4 class="texto-blanco">Servicio</h4>
+                <p class="texto-verde-muted">
                   Atención personalizada y asesoría experta
                 </p>
               </div>
               <div>
-                <span uk-icon="icon: world; ratio: 2" class="icon-verde"></span>
-                <h4 class="coffee-text-white">Sostenibilidad</h4>
-                <p class="coffee-text-white-muted">
+                <span
+                  uk-icon="icon: world; ratio: 2"
+                  class="icono-verde"
+                ></span>
+                <h4 class="texto-blanco">Sostenibilidad</h4>
+                <p class="texto-verde-muted">
                   Comprometidos con el medio ambiente
                 </p>
               </div>
@@ -391,9 +439,9 @@
         <!-- Cifras -->
         <div class="uk-margin-large-top">
           <div
-            class="uk-card uk-card-default uk-card-body coffee-card-dark-border"
+            class="uk-card uk-card-default uk-card-body card-degradado-morado-borde-verde"
           >
-            <h3 class="uk-card-title coffee-title-gold uk-text-center">
+            <h3 class="uk-card-title titulo-verde-sombra uk-text-center">
               SurtiEnvases en Cifras
             </h3>
             <div
@@ -401,20 +449,20 @@
               uk-grid
             >
               <div>
-                <h2 class="coffee-title-gold stats-number">15+</h2>
-                <p class="coffee-text-white">Años de experiencia</p>
+                <h2 class="titulo-verde-sombra numero-estadistica">15+</h2>
+                <p class="texto-blanco">Años de experiencia</p>
               </div>
               <div>
-                <h2 class="coffee-title-gold stats-number">3,000+</h2>
-                <p class="coffee-text-white">Clientes satisfechos</p>
+                <h2 class="titulo-verde-sombra numero-estadistica">3,000+</h2>
+                <p class="texto-blanco">Clientes satisfechos</p>
               </div>
               <div>
-                <h2 class="coffee-title-gold stats-number">5,000+</h2>
-                <p class="coffee-text-white">Productos en catálogo</p>
+                <h2 class="titulo-verde-sombra numero-estadistica">5,000+</h2>
+                <p class="texto-blanco">Productos en catálogo</p>
               </div>
               <div>
-                <h2 class="coffee-title-gold stats-number">2</h2>
-                <p class="coffee-text-white">Sedes en Neiva</p>
+                <h2 class="titulo-verde-sombra numero-estadistica">2</h2>
+                <p class="texto-blanco">Sedes en Neiva</p>
               </div>
             </div>
           </div>
@@ -425,7 +473,7 @@
     <!-- ========================================
          FOOTER
          ======================================== -->
-    <footer class="uk-section uk-section-small footer-main">
+    <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
@@ -446,7 +494,7 @@
 
           <!-- Columna 2: Enlaces rápidos -->
           <div>
-            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <h4 class="footer-titulo">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
@@ -465,7 +513,7 @@
 
           <!-- Columna 3: Información -->
           <div>
-            <h4 class="footer-title">Información</h4>
+            <h4 class="footer-titulo">Información</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="preguntas-frecuentes.html" class="uk-link-muted"
@@ -480,7 +528,7 @@
 
           <!-- Columna 4: Redes y contacto -->
           <div>
-            <h4 class="footer-title">Síguenos</h4>
+            <h4 class="footer-titulo">Síguenos</h4>
             <div class="uk-margin-small-top">
               <a
                 href="https://www.facebook.com/surtienvasesneiva"
@@ -499,7 +547,7 @@
             </div>
 
             <div class="uk-margin-top">
-              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <h4 class="footer-titulo uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
                 <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
@@ -527,7 +575,7 @@
           </div>
         </div>
 
-        <hr class="uk-divider-icon footer-divider" />
+        <hr class="uk-divider-icon footer-divisor" />
 
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
@@ -538,12 +586,12 @@
     <!-- WhatsApp Flotante -->
     <a
       href="https://wa.me/573153957275"
-      class="whatsapp-floating"
+      class="whatsapp-flotante"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      <div class="whatsapp-button-circle">
+      <div class="whatsapp-boton-circular">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>

@@ -15,9 +15,7 @@
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
 
-    <link rel="stylesheet" href="assets/index.css" />
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
-    <link rel="stylesheet" href="assets/blog.css" />
 
     <title>Novedades - SurtiEnvases</title>
   </head>
@@ -29,7 +27,7 @@
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
-        <div class="uk-container uk-width-1-1 background-opaque">
+        <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
           <div uk-navbar="mode: click" class="uk-flex">
             <!-- Logo -->
             <div class="uk-navbar-left">
@@ -107,7 +105,7 @@
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="cart-badge"
+                    class="carrito-badge-contador"
                     id="cart-count-navbar"
                     style="display: none"
                     >0</span
@@ -130,7 +128,7 @@
               >
                 <div class="uk-offcanvas-bar">
                   <button
-                    class="burger-menu-close"
+                    class="boton-cerrar-menu"
                     type="button"
                     onclick="UIkit.offcanvas('#burger-menu').hide()"
                     aria-label="Cerrar menú"
@@ -213,17 +211,19 @@
     <!-- ============================================
        CONTENIDO PRINCIPAL
        ============================================ -->
-    <div class="uk-section first-child-adjustment uk-dark blog-background">
+    <div
+      class="uk-section navbar-ajuste-primer-hijo uk-dark fondo-imagen-overlay-oscuro"
+    >
       <div class="uk-container uk-text-default">
         <!-- Formulario para agregar nueva noticia -->
         <div
-          class="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black blog-form-spacing"
+          class="uk-card uk-card-default uk-card-body uk-margin-bottom contenedor-redondeado texto-negro margen-superior-80"
         >
           <h3 class="uk-card-title">Publicar Artículo</h3>
           <form class="uk-grid-small" uk-grid id="news-form">
             <div class="uk-width-1-2@s">
               <input
-                class="uk-input blog-login-input"
+                class="uk-input input-fondo-gris-claro"
                 type="text"
                 placeholder="Título del artículo"
                 id="news-title"
@@ -232,7 +232,7 @@
             </div>
             <div class="uk-width-1-2@s">
               <input
-                class="uk-input blog-login-input"
+                class="uk-input input-fondo-gris-claro"
                 type="text"
                 placeholder="Autor"
                 id="news-author"
@@ -242,7 +242,7 @@
             </div>
             <div class="uk-width-1-1">
               <textarea
-                class="uk-textarea blog-login-input"
+                class="uk-textarea input-fondo-gris-claro"
                 rows="3"
                 placeholder="Resumen o introducción del artículo"
                 id="news-excerpt"
@@ -254,13 +254,13 @@
                 type="file"
                 accept="image/*"
                 id="news-image"
-                class="uk-input blog-login-input"
+                class="uk-input input-fondo-gris-claro"
               />
             </div>
             <div class="uk-width-1-1">
               <button
                 type="submit"
-                class="uk-button uk-button-secondary blog-container-round"
+                class="uk-button uk-button-secondary contenedor-redondeado"
               >
                 Publicar artículo
               </button>
@@ -283,7 +283,7 @@
     <!-- ========================================
          FOOTER
          ======================================== -->
-    <footer class="uk-section uk-section-small footer-main">
+    <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
@@ -304,7 +304,7 @@
 
           <!-- Columna 2: Enlaces rápidos -->
           <div>
-            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <h4 class="footer-titulo">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
@@ -323,7 +323,7 @@
 
           <!-- Columna 3: Información -->
           <div>
-            <h4 class="footer-title">Información</h4>
+            <h4 class="footer-titulo">Información</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="preguntas-frecuentes.html" class="uk-link-muted"
@@ -338,7 +338,7 @@
 
           <!-- Columna 4: Redes y contacto -->
           <div>
-            <h4 class="footer-title">Síguenos</h4>
+            <h4 class="footer-titulo">Síguenos</h4>
             <div class="uk-margin-small-top">
               <a
                 href="https://www.facebook.com/surtienvasesneiva"
@@ -357,7 +357,7 @@
             </div>
 
             <div class="uk-margin-top">
-              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <h4 class="footer-titulo uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
                 <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
@@ -385,7 +385,7 @@
           </div>
         </div>
 
-        <hr class="uk-divider-icon footer-divider" />
+        <hr class="uk-divider-icon footer-divisor" />
 
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
@@ -396,12 +396,12 @@
     <!-- WhatsApp Flotante -->
     <a
       href="https://wa.me/573153957275"
-      class="whatsapp-floating"
+      class="whatsapp-flotante"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      <div class="whatsapp-button-circle">
+      <div class="whatsapp-boton-circular">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>

@@ -1,27 +1,53 @@
 // ========================================
-// SISTEMA DE PRODUCTOS - VERSIÓN MEJORADA
-// Con badges rediseñados y botones de cerrar funcionales
+// SISTEMA DE PRODUCTOS - SINCRONIZADO CON ADMIN
+// Lee productos de localStorage
 // ========================================
 
 class ProductsSystem {
   constructor() {
-    this.products = window.productItems || [];
+    this.products = [];
     this.cart = JSON.parse(localStorage.getItem("cart")) || [];
     this.currentCategory = "todos";
     this.init();
   }
 
   init() {
+    this.loadProducts();
     this.renderProducts();
     this.setupCategoryFilters();
     this.updateCartCount();
+  }
+
+  loadProducts() {
+    try {
+      const stored = localStorage.getItem("allProducts");
+      if (stored) {
+        this.products = JSON.parse(stored);
+        console.log(
+          `✓ Productos cargados desde localStorage: ${this.products.length}`
+        );
+      } else if (window.productItems) {
+        this.products = window.productItems;
+        console.log(
+          `✓ Productos cargados desde productItems.js: ${this.products.length}`
+        );
+      } else {
+        this.products = [];
+        console.warn("⚠ No se encontraron productos");
+      }
+    } catch (e) {
+      console.error("Error al cargar productos:", e);
+      this.products = window.productItems || [];
+    }
   }
 
   // ========================================
   // FILTROS
   // ========================================
   setupCategoryFilters() {
-    const buttons = document.querySelectorAll(".category-button");
+    const buttons = document.querySelectorAll(
+      ".boton-filtro-categoria-industria"
+    );
 
     buttons.forEach((button) => {
       button.addEventListener("click", (e) => {
@@ -75,7 +101,7 @@ class ProductsSystem {
     if (filteredProducts.length === 0) {
       productsGrid.innerHTML = `
         <div class="uk-width-1-1 uk-text-center uk-padding">
-          <p class="uk-text-lead coffee-text-white">
+          <p class="uk-text-lead texto-blanco">
             No se encontraron productos en esta categoría
           </p>
         </div>
@@ -91,30 +117,30 @@ class ProductsSystem {
   createProductCard(item, index) {
     return `
       <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1 coffee-card-dark">
+        <div class="uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1 card-degradado-morado-borde-naranja">
           
           <div class="uk-flex uk-flex-middle uk-flex-wrap uk-child-width-expand@m uk-grid-small" data-uk-grid>
             <!-- Imagen -->
             <div class="uk-flex uk-flex-center uk-width-1-3@s uk-width-1-4@m">
-              <div class="uk-border-circle uk-overflow-hidden coffee-image-circle">
+              <div class="uk-border-circle uk-overflow-hidden imagen-circular-100">
                 <img src="${item.img}" alt="${
       item.title
-    }" class="uk-cover coffee-image-cover">
+    }" class="uk-cover imagen-cover">
               </div>
             </div>
             
             <!-- Información básica -->
-            <div class="coffee-flex-grow">
-              <h3 class="uk-card-title uk-margin-remove-bottom coffee-title-white">
+            <div class="flex-grow-1">
+              <h3 class="uk-card-title uk-margin-remove-bottom titulo-blanco-sombra">
                 ${item.title}
               </h3>
               
-              <div class="coffee-margin-small-top">
-                <span class="coffee-menu-origin">${item.industry}</span>
+              <div class="margen-superior-pequeno">
+                <span class="badge-origen-pequeno">${item.industry}</span>
                 ${
                   item.stock === "Disponible"
-                    ? `<span class="product-stock-badge">
-                        <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+                    ? `<span class="badge-stock-disponible">
+                        <svg class="badge-icono" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
                         En Stock
@@ -123,7 +149,7 @@ class ProductsSystem {
                 }
               </div>
               
-              <p class="coffee-margin-small-top coffee-text-white-muted">
+              <p class="margen-superior-pequeno texto-verde-muted">
                 ${item.description}
               </p>
             </div>
@@ -132,13 +158,13 @@ class ProductsSystem {
           <!-- Botones -->
           <div class="uk-text-center uk-padding-small uk-grid-small" uk-grid>
             <div class="uk-width-1-2@s">
-              <button class="uk-button uk-button-default coffee-button-outline uk-width-1-1 uk-border-rounded"
+              <button class="uk-button uk-button-default boton-outline-verde-borde-naranja uk-width-1-1 uk-border-rounded"
                       onclick="productsSystem.showModal(${index})">
                 Ver Detalles
               </button>
             </div>
             <div class="uk-width-1-2@s">
-              <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+              <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1 uk-border-rounded"
                       onclick="productsSystem.addToCart(${item.id})">
                 <span uk-icon="cart"></span> Agregar
               </button>
@@ -154,32 +180,31 @@ class ProductsSystem {
   createProductModal(item, index) {
     return `
       <div id="modal-${index}" class="uk-modal-container uk-modal" data-uk-modal>
-        <div class="uk-modal-dialog uk-modal-body uk-light coffee-modal-dark">
+        <div class="uk-modal-dialog uk-modal-body uk-light modal-degradado-morado">
           
-          <!-- Botón de cerrar mejorado -->
-          <button class="product-modal-close" type="button" 
+          <button class="boton-cerrar-modal-producto" type="button" 
                   onclick="UIkit.modal('#modal-${index}').hide()"
                   aria-label="Cerrar modal"></button>
           
           <div class="uk-grid-collapse" data-uk-grid>
             <div class="uk-width-1-3@m uk-width-1-1@s">
               <div class="uk-padding uk-flex uk-flex-center">
-                <div class="uk-border-circle uk-overflow-hidden coffee-image-circle-large">
+                <div class="uk-border-circle uk-overflow-hidden imagen-circular-300">
                   <img src="${item.img}" alt="${
       item.title
-    }" class="uk-cover coffee-image-cover">
+    }" class="uk-cover imagen-cover">
                 </div>
               </div>
             </div>
             
-            <div class="uk-width-2-3@m uk-width-1-1@s coffee-padding-large">
+            <div class="uk-width-2-3@m uk-width-1-1@s padding-grande">
               <h2 class="uk-modal-title">
                 ${item.title}
               </h2>
               
               <div class="uk-margin-medium-top">
-                <h3 class="coffee-title-gold">Especificaciones:</h3>
-                <ul class="uk-list uk-list-bullet coffee-text-white">
+                <h3 class="titulo-verde-sombra">Especificaciones:</h3>
+                <ul class="uk-list uk-list-bullet texto-blanco">
                   ${(item.specifications || [])
                     .map((spec) => `<li>${spec}</li>`)
                     .join("")}
@@ -187,30 +212,30 @@ class ProductsSystem {
               </div>
               
               <div class="uk-margin-medium-top">
-                <h3 class="coffee-title-gold">Características:</h3>
-                <p class="coffee-text-white">
+                <h3 class="titulo-verde-sombra">Características:</h3>
+                <p class="texto-blanco">
                   ${item.recommendation || "Información no disponible."}
                 </p>
               </div>
 
               <div class="uk-margin-medium-top">
-                <h3 class="coffee-title-gold">Pedido Mínimo:</h3>
-                <p class="coffee-text-white">
+                <h3 class="titulo-verde-sombra">Pedido Mínimo:</h3>
+                <p class="texto-blanco">
                   ${item.minimumOrder || "Consultar disponibilidad"}
                 </p>
               </div>
               
-              <div class="uk-margin-medium-top product-badges-container">
-                <span class="product-material-badge">
-                  <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+              <div class="uk-margin-medium-top contenedor-badges">
+                <span class="badge-material-producto">
+                  <svg class="badge-icono" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"/>
                     <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"/>
                     <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"/>
                   </svg>
                   ${item.material}
                 </span>
-                <span class="product-cert-badge">
-                  <svg class="badge-icon" fill="currentColor" viewBox="0 0 20 20">
+                <span class="badge-certificacion-producto">
+                  <svg class="badge-icono" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                   </svg>
                   ${item.certification}
@@ -219,7 +244,7 @@ class ProductsSystem {
 
               <div class="uk-margin-large-top uk-text-center uk-grid-small" uk-grid>
                 <div class="uk-width-1-2@s">
-                  <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded" 
+                  <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1 uk-border-rounded" 
                           onclick="productsSystem.addToCart(${
                             item.id
                           }); UIkit.modal('#modal-${index}').hide();">
@@ -227,7 +252,7 @@ class ProductsSystem {
                   </button>
                 </div>
                 <div class="uk-width-1-2@s">
-                  <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1 uk-border-rounded"
+                  <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1 uk-border-rounded"
                           onclick="productsSystem.contactWhatsApp('${encodeURIComponent(
                             item.title
                           )}')">
@@ -337,7 +362,7 @@ class ProductsSystem {
     container.innerHTML = this.cart
       .map(
         (item) => `
-        <div class="cart-item">
+        <div class="carrito-item">
           <div class="uk-grid-small uk-flex-middle" uk-grid>
             <div class="uk-width-expand">
               <h4 class="uk-margin-remove">${item.title}</h4>
@@ -422,7 +447,6 @@ class ProductsSystem {
 window.surtienvases = window.surtienvases || {};
 window.surtienvases.products = new ProductsSystem();
 
-// Alias global para compatibilidad
 window.productsSystem = window.surtienvases.products;
 
-console.log("✓ Sistema de productos inicializado con estilos mejorados");
+console.log("✓ Sistema de productos sincronizado con admin");

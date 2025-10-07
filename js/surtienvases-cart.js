@@ -64,23 +64,23 @@ class SurtiEnvasesCart {
 
     const cartHTML = `
       <!-- Carrito Flotante -->
-      <div id="cart-floating-container" class="cart-floating">
-        <button class="cart-button-circle" id="toggle-cart-btn" aria-label="Ver carrito">
+      <div id="cart-floating-container" class="carrito-flotante">
+        <button class="carrito-boton-circular" id="toggle-cart-btn" aria-label="Ver carrito">
           <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
-          <span class="cart-badge" id="cart-count" style="display: none;">0</span>
+          <span class="carrito-badge-contador" id="cart-count" style="display: none;">0</span>
         </button>
       </div>
 
       <!-- Modal del Carrito -->
 <div id="cart-modal" uk-modal>
   <div class="uk-modal-dialog uk-modal-body" style="position: relative;">
-    <button class="cart-modal-close" type="button" 
+    <button class="boton-cerrar-modal-carrito" type="button" 
             onclick="UIkit.modal('#cart-modal').hide()"
             aria-label="Cerrar carrito"></button>
     <h2 class="uk-modal-title">Carrito de Cotización</h2>
     <div id="cart-items-container"></div>
           <div class="uk-text-center uk-margin-top">
-            <button class="uk-button uk-button-primary whatsapp-button uk-width-1-1" id="send-quote-btn">
+            <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1" id="send-quote-btn">
               <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
             </button>
           </div>
@@ -210,7 +210,7 @@ class SurtiEnvasesCart {
     container.innerHTML = cart
       .map(
         (item) => `
-      <div class="cart-item">
+      <div class="carrito-item">
         <div class="uk-grid-small uk-flex-middle" uk-grid>
           <div class="uk-width-expand">
             <h4 class="uk-margin-remove">${item.title}</h4>

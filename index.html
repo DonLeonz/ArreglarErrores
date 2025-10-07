@@ -7,7 +7,7 @@
       name="description"
       content="SurtiEnvases - Tu proveedor de confianza en envases de vidrio, plástico y complementos en Neiva, Huila"
     />
-    <link rel="icon" type="image/svg+xml" href="coffe.svg" />
+    <link rel="icon" type="image/png" href="assets/img/logo/surtienvases.png" />
 
     <!-- UIkit CSS -->
     <link
@@ -15,7 +15,6 @@
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
 
-    <link rel="stylesheet" href="assets/index.css" />
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
 
     <title>SurtiEnvases - Tu Proveedor de Envases de Confianza</title>
@@ -28,18 +27,17 @@
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
-        <div class="uk-container uk-width-1-1 background-opaque">
+        <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
           <div uk-navbar="mode: click" class="uk-flex">
             <!-- Logo -->
             <div class="uk-navbar-left">
               <div class="uk-navbar-item uk-light">
                 <a class="uk-flex uk-link-heading" href="index.html">
-                  <img src="assets/img/coffe-user-logo.svg" alt="Logo" />
-                  <button
-                    class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link"
-                  >
-                    <strong>SurtiEnvases</strong>
-                  </button>
+                  <img
+                    src="assets/img/logo/SurtiLogo.PNG"
+                    alt="Logo"
+                    class="imagen-logo-350"
+                  />
                 </a>
               </div>
             </div>
@@ -106,7 +104,7 @@
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="cart-badge"
+                    class="carrito-badge-contador"
                     id="cart-count-navbar"
                     style="display: none"
                     >0</span
@@ -129,7 +127,7 @@
               >
                 <div class="uk-offcanvas-bar">
                   <button
-                    class="burger-menu-close"
+                    class="boton-cerrar-menu"
                     type="button"
                     onclick="UIkit.offcanvas('#burger-menu').hide()"
                     aria-label="Cerrar menú"
@@ -210,13 +208,55 @@
     </div>
 
     <!-- ============================================
-       CONTENIDO PRINCIPAL
-       ============================================ -->
+        CONTENIDO PRINCIPAL
+        ============================================ -->
     <div
-      class="uk-background-cover uk-height-viewport uk-light first-child-adjustment uk-flex uk-position-relative"
+      class="uk-background-cover uk-height-viewport uk-light navbar-ajuste-primer-hijo uk-flex uk-position-relative"
       style="background-image: url('assets/img/coffe-soft-header.svg')"
     >
       <div class="uk-container uk-margin-large-top uk-height-1-1">
+        <div
+          class="uk-position-center-left uk-position-medium uk-width-1-2@m uk-padding"
+        >
+          <div
+            class="uk-position-relative uk-visible-toggle uk-light"
+            tabindex="-1"
+            uk-slideshow
+          >
+            <div class="uk-slideshow-items uk-border-rounded">
+              <div>
+                <img
+                  src="assets/img/blog/blog-background.jpg"
+                  alt=""
+                  uk-cover
+                />
+              </div>
+              <div>
+                <img
+                  src="assets/img/blog/blog-background.png"
+                  alt=""
+                  uk-cover
+                />
+              </div>
+              <div>
+                <img src="assets/img/blog/blog-example1.jpg" alt="" uk-cover />
+              </div>
+            </div>
+
+            <a
+              class="uk-position-center-left uk-position-small uk-hidden-hover"
+              href
+              uk-slidenav-previous
+              uk-slideshow-item="previous"
+            ></a>
+            <a
+              class="uk-position-center-right uk-position-small uk-hidden-hover"
+              href
+              uk-slidenav-next
+              uk-slideshow-item="next"
+            ></a>
+          </div>
+        </div>
         <div
           class="uk-position-center-right uk-position-medium uk-width-1-2@m uk-padding"
         >
@@ -243,7 +283,7 @@
         <div class="uk-child-width-1-3@m uk-grid-match" uk-grid>
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
-              <span uk-icon="icon: cart; ratio: 3" class="icon-verde"></span>
+              <span uk-icon="icon: cart; ratio: 3" class="icono-verde"></span>
               <h3 class="uk-card-title">Amplio Catálogo</h3>
               <p>
                 Más de 5,000 referencias en envases de vidrio, plástico, tapas y
@@ -255,7 +295,7 @@
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
               <span
                 uk-icon="icon: location; ratio: 3"
-                class="icon-verde"
+                class="icono-verde"
               ></span>
               <h3 class="uk-card-title">Entrega en el Huila</h3>
               <p>
@@ -266,7 +306,7 @@
           </div>
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
-              <span uk-icon="icon: check; ratio: 3" class="icon-verde"></span>
+              <span uk-icon="icon: check; ratio: 3" class="icono-verde"></span>
               <h3 class="uk-card-title">Calidad Certificada</h3>
               <p>
                 Todos nuestros productos cumplen con las normas técnicas
@@ -281,7 +321,7 @@
     <!-- ========================================
          FOOTER
          ======================================== -->
-    <footer class="uk-section uk-section-small footer-main">
+    <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
@@ -290,9 +330,9 @@
           <!-- Columna 1: Logo y descripción -->
           <div>
             <img
-              src="assets/img/coffe-user-logo.svg"
-              alt="SurtiEnvases Logo"
-              class="uk-margin-small-bottom"
+              src="assets/img/logo/LogoFooter.png"
+              alt="Logo"
+              class="imagen-logo-350 uk-margin-small-bottom"
             />
             <p class="uk-text-small uk-text-muted">
               Distribuidora de soluciones en empaque con amplia gama de envases
@@ -302,7 +342,7 @@
 
           <!-- Columna 2: Enlaces rápidos -->
           <div>
-            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <h4 class="footer-titulo">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
@@ -321,7 +361,7 @@
 
           <!-- Columna 3: Información -->
           <div>
-            <h4 class="footer-title">Información</h4>
+            <h4 class="footer-titulo">Información</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="preguntas-frecuentes.html" class="uk-link-muted"
@@ -336,7 +376,7 @@
 
           <!-- Columna 4: Redes y contacto -->
           <div>
-            <h4 class="footer-title">Síguenos</h4>
+            <h4 class="footer-titulo">Síguenos</h4>
             <div class="uk-margin-small-top">
               <a
                 href="https://www.facebook.com/surtienvasesneiva"
@@ -355,7 +395,7 @@
             </div>
 
             <div class="uk-margin-top">
-              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <h4 class="footer-titulo uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
                 <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
@@ -383,7 +423,7 @@
           </div>
         </div>
 
-        <hr class="uk-divider-icon footer-divider" />
+        <hr class="uk-divider-icon footer-divisor" />
 
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
@@ -394,12 +434,12 @@
     <!-- WhatsApp Flotante -->
     <a
       href="https://wa.me/573153957275"
-      class="whatsapp-floating"
+      class="whatsapp-flotante"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      <div class="whatsapp-button-circle">
+      <div class="whatsapp-boton-circular">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>

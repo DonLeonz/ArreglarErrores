@@ -15,7 +15,6 @@
       href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
 
-    <link rel="stylesheet" href="assets/index.css" />
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
 
     <title>Productos - SurtiEnvases</title>
@@ -28,7 +27,7 @@
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
-        <div class="uk-container uk-width-1-1 background-opaque">
+        <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
           <div uk-navbar="mode: click" class="uk-flex">
             <!-- Logo -->
             <div class="uk-navbar-left">
@@ -106,7 +105,7 @@
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="cart-badge"
+                    class="carrito-badge-contador"
                     id="cart-count-navbar"
                     style="display: none"
                     >0</span
@@ -129,7 +128,7 @@
               >
                 <div class="uk-offcanvas-bar">
                   <button
-                    class="burger-menu-close"
+                    class="boton-cerrar-menu"
                     type="button"
                     onclick="UIkit.offcanvas('#burger-menu').hide()"
                     aria-label="Cerrar menú"
@@ -210,20 +209,22 @@
     </div>
 
     <!-- ============================================
-       CONTENIDO PRINCIPAL
-       ============================================ -->
-    <div class="first-child-adjustment uk-section coffee-section-gradient">
+        CONTENIDO PRINCIPAL
+        ============================================ -->
+    <div
+      class="navbar-ajuste-primer-hijo uk-section seccion-fondo-degradado-morado"
+    >
       <div class="uk-container uk-container-xlarge uk-padding-small uk-light">
         <!-- Encabezado -->
         <div class="uk-text-center uk-margin-large-bottom">
           <h2 class="uk-heading-small uk-text-uppercase">
             <span
-              class="uk-display-inline-block uk-padding-small coffee-section-title-border"
+              class="uk-display-inline-block uk-padding-small titulo-blanco-borde-verde"
             >
               Nuestros Productos
             </span>
           </h2>
-          <p class="uk-text-lead coffee-title-gold">
+          <p class="uk-text-lead titulo-verde-sombra">
             Soluciones de empaque para todas las industrias
           </p>
         </div>
@@ -236,7 +237,7 @@
           >
             <div>
               <button
-                class="uk-button uk-button-default uk-width-1-1 category-button active"
+                class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria active"
                 data-category="todos"
               >
                 📦 Todos
@@ -244,7 +245,7 @@
             </div>
             <div>
               <button
-                class="uk-button uk-button-default uk-width-1-1 category-button"
+                class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-category="vidrio"
               >
                 🫙 Vidrio
@@ -252,7 +253,7 @@
             </div>
             <div>
               <button
-                class="uk-button uk-button-default uk-width-1-1 category-button"
+                class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-category="plastico"
               >
                 🧴 Plástico
@@ -260,7 +261,7 @@
             </div>
             <div>
               <button
-                class="uk-button uk-button-default uk-width-1-1 category-button"
+                class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-category="farmaceutico"
               >
                 💊 Farmacéutico
@@ -268,7 +269,7 @@
             </div>
             <div>
               <button
-                class="uk-button uk-button-default uk-width-1-1 category-button"
+                class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-category="complementos"
               >
                 🔧 Complementos
@@ -292,7 +293,7 @@
     <!-- ========================================
          FOOTER
          ======================================== -->
-    <footer class="uk-section uk-section-small footer-main">
+    <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
@@ -313,7 +314,7 @@
 
           <!-- Columna 2: Enlaces rápidos -->
           <div>
-            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <h4 class="footer-titulo">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
@@ -332,7 +333,7 @@
 
           <!-- Columna 3: Información -->
           <div>
-            <h4 class="footer-title">Información</h4>
+            <h4 class="footer-titulo">Información</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="preguntas-frecuentes.html" class="uk-link-muted"
@@ -347,7 +348,7 @@
 
           <!-- Columna 4: Redes y contacto -->
           <div>
-            <h4 class="footer-title">Síguenos</h4>
+            <h4 class="footer-titulo">Síguenos</h4>
             <div class="uk-margin-small-top">
               <a
                 href="https://www.facebook.com/surtienvasesneiva"
@@ -366,7 +367,7 @@
             </div>
 
             <div class="uk-margin-top">
-              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <h4 class="footer-titulo uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
                 <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
@@ -394,7 +395,7 @@
           </div>
         </div>
 
-        <hr class="uk-divider-icon footer-divider" />
+        <hr class="uk-divider-icon footer-divisor" />
 
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
@@ -405,12 +406,12 @@
     <!-- WhatsApp Flotante -->
     <a
       href="https://wa.me/573153957275"
-      class="whatsapp-floating"
+      class="whatsapp-flotante"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      <div class="whatsapp-button-circle">
+      <div class="whatsapp-boton-circular">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>

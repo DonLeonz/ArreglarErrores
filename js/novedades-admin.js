@@ -1,6 +1,6 @@
 // ========================================
-// SISTEMA DE NOVEDADES - SINCRONIZADO CON ADMIN
-// Lee artículos de localStorage (sin botones de eliminar)
+// SISTEMA DE NOVEDADES - VERSIÓN CON ADMINISTRACIÓN
+// Con funciones de eliminación de artículos y comentarios
 // ========================================
 
 class NovedadesSystem {
@@ -13,23 +13,8 @@ class NovedadesSystem {
 
   loadNews() {
     try {
-      // Primero intentar cargar desde allNews (que usa admin)
-      const storedAll = localStorage.getItem("allNews");
-      if (storedAll) {
-        console.log("✓ Artículos cargados desde allNews (admin)");
-        return JSON.parse(storedAll);
-      }
-
-      // Si no existe, cargar desde news (legacy)
       const stored = localStorage.getItem("news");
-      if (stored) {
-        console.log("✓ Artículos cargados desde news (legacy)");
-        return JSON.parse(stored);
-      }
-
-      // Si no hay nada, cargar defaults
-      console.log("✓ Cargando artículos por defecto");
-      return this.getInitialNews();
+      return stored ? JSON.parse(stored) : this.getInitialNews();
     } catch (e) {
       console.error("Error al cargar noticias:", e);
       return this.getInitialNews();
@@ -46,6 +31,7 @@ class NovedadesSystem {
         avatarUrl: "assets/img/avatars/default.jpg",
         excerpt:
           "Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.",
+        isDeletable: false
       },
       {
         id: 2,
@@ -55,6 +41,7 @@ class NovedadesSystem {
         avatarUrl: "assets/img/avatars/default.jpg",
         excerpt:
           "Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.",
+        isDeletable: false
       },
       {
         id: 3,
@@ -64,6 +51,7 @@ class NovedadesSystem {
         avatarUrl: "assets/img/avatars/default.jpg",
         excerpt:
           "Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.",
+        isDeletable: false
       },
     ];
   }
@@ -80,9 +68,7 @@ class NovedadesSystem {
 
   saveNews() {
     try {
-      // Guardar en ambos lugares para compatibilidad
       localStorage.setItem("news", JSON.stringify(this.news));
-      localStorage.setItem("allNews", JSON.stringify(this.news));
     } catch (e) {
       console.error("Error al guardar noticias:", e);
     }
@@ -120,7 +106,7 @@ class NovedadesSystem {
 
     if (!title || !excerpt) {
       UIkit.notification({
-        message: "Por favor completa todos los campos",
+        message: "Por favor completa todos los campos requeridos",
         status: "warning",
         pos: "top-center",
       });
@@ -132,14 +118,14 @@ class NovedadesSystem {
       imageUrl = URL.createObjectURL(imageInput.files[0]);
     }
 
-    const maxId = this.news.reduce((max, n) => Math.max(max, n.id), 0);
     const newArticle = {
-      id: maxId + 1,
+      id: Date.now(),
       title: title,
       author: author,
       excerpt: excerpt,
       imageUrl: imageUrl,
       avatarUrl: "assets/img/avatars/default.jpg",
+      isDeletable: true // Los artículos nuevos son eliminables
     };
 
     this.news.unshift(newArticle);
@@ -160,15 +146,6 @@ class NovedadesSystem {
     const container = document.getElementById("news-container");
     if (!container) return;
 
-    if (this.news.length === 0) {
-      container.innerHTML = `
-        <div class="uk-width-1-1 uk-text-center uk-padding">
-          <p class="uk-text-muted">No hay artículos publicados</p>
-        </div>
-      `;
-      return;
-    }
-
     container.innerHTML = this.news
       .map((article) => this.createArticleCard(article))
       .join("");
@@ -179,7 +156,15 @@ class NovedadesSystem {
 
     return `
       <div>
-        <div class="uk-card uk-card-default uk-card-hover contenedor-redondeado texto-negro">
+        <div class="uk-card uk-card-default uk-card-hover contenedor-redondeado texto-negro uk-position-relative">
+          
+          ${article.isDeletable ? `
+            <button class="boton-eliminar-novedad" 
+                    onclick="novedadesSystem.deleteArticle(${article.id})"
+                    aria-label="Eliminar artículo">
+            </button>
+          ` : ''}
+          
           <div class="uk-card-media-top contenedor-imagen-altura-350">
             <button type="button" 
                     onclick="novedadesSystem.showImageModal(${article.id})"
@@ -187,14 +172,10 @@ class NovedadesSystem {
               <img src="${article.imageUrl}" alt="${article.title}">
             </button>
             
-            <div id="modal-media-image-${
-              article.id
-            }" class="uk-flex-top" uk-modal>
+            <div id="modal-media-image-${article.id}" class="uk-flex-top" uk-modal>
               <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical" style="position: relative;">
                 <button class="boton-cerrar-modal-imagen" type="button" 
-                        onclick="UIkit.modal('#modal-media-image-${
-                          article.id
-                        }').hide()"
+                        onclick="UIkit.modal('#modal-media-image-${article.id}').hide()"
                         aria-label="Cerrar imagen"></button>
                 <img src="${article.imageUrl}" alt="${article.title}">
               </div>
@@ -243,20 +224,20 @@ class NovedadesSystem {
           Comentar
         </button>
         
-        ${
-          newsComments.length > 0
-            ? `
+        ${newsComments.length > 0 ? `
           <div class="uk-margin-top">
             <h4 class="uk-heading-line"><span>Comentarios</span></h4>
           </div>
-        `
-            : ""
-        }
+        ` : ''}
         
         ${newsComments
-          .map(
-            (comment) => `
-          <article class="uk-comment uk-margin-top">
+          .map((comment, index) => `
+          <article class="uk-comment uk-margin-top uk-position-relative">
+            <button class="boton-eliminar-comentario" 
+                    onclick="novedadesSystem.deleteComment(${newsId}, ${index})"
+                    aria-label="Eliminar comentario">
+            </button>
+            
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
                    src="assets/img/avatars/default.jpg"
@@ -266,9 +247,7 @@ class NovedadesSystem {
                   ${comment.author}
                 </h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                  <li><span class="texto-negro">${this.getTimeAgo(
-                    comment.timestamp
-                  )}</span></li>
+                  <li><span class="texto-negro">${this.getTimeAgo(comment.timestamp)}</span></li>
                 </ul>
               </div>
             </header>
@@ -276,8 +255,7 @@ class NovedadesSystem {
               <p>${comment.text}</p>
             </div>
           </article>
-        `
-          )
+        `)
           .join("")}
       </div>
     `;
@@ -320,6 +298,57 @@ class NovedadesSystem {
     });
   }
 
+  deleteArticle(articleId) {
+    UIkit.modal.confirm("¿Estás seguro de eliminar este artículo? También se eliminarán todos sus comentarios.").then(
+      () => {
+        this.news = this.news.filter(article => article.id !== articleId);
+        
+        // Eliminar también los comentarios del artículo
+        delete this.comments[articleId];
+        
+        this.saveNews();
+        this.saveComments();
+        this.renderNews();
+
+        UIkit.notification({
+          message: "Artículo eliminado exitosamente",
+          status: "success",
+          pos: "top-center",
+        });
+      },
+      () => {
+        // Cancelado
+      }
+    );
+  }
+
+  deleteComment(newsId, commentIndex) {
+    UIkit.modal.confirm("¿Estás seguro de eliminar este comentario?").then(
+      () => {
+        if (this.comments[newsId] && this.comments[newsId][commentIndex]) {
+          this.comments[newsId].splice(commentIndex, 1);
+          
+          // Si no quedan comentarios, eliminar el array
+          if (this.comments[newsId].length === 0) {
+            delete this.comments[newsId];
+          }
+          
+          this.saveComments();
+          this.renderNews();
+
+          UIkit.notification({
+            message: "Comentario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+        }
+      },
+      () => {
+        // Cancelado
+      }
+    );
+  }
+
   showImageModal(newsId) {
     const modal = UIkit.modal(
       document.getElementById(`modal-media-image-${newsId}`)
@@ -339,4 +368,4 @@ class NovedadesSystem {
 
 // Inicialización
 const novedadesSystem = new NovedadesSystem();
-console.log("✓ Sistema de novedades sincronizado con admin");
+console.log("✓ Sistema de novedades con administración inicializado");

@@ -12,7 +12,6 @@
     />
 
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="assets/index.css" />
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
   </head>
 
@@ -24,7 +23,7 @@
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
       <nav class="uk-navbar-container uk-navbar-transparent">
-        <div class="uk-container uk-width-1-1 background-opaque">
+        <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
           <div uk-navbar="mode: click" class="uk-flex">
             <!-- Logo -->
             <div class="uk-navbar-left">
@@ -102,7 +101,7 @@
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="cart-badge"
+                    class="carrito-badge-contador"
                     id="cart-count-navbar"
                     style="display: none"
                     >0</span
@@ -125,7 +124,7 @@
               >
                 <div class="uk-offcanvas-bar">
                   <button
-                    class="burger-menu-close"
+                    class="boton-cerrar-menu"
                     type="button"
                     onclick="UIkit.offcanvas('#burger-menu').hide()"
                     aria-label="Cerrar menú"
@@ -209,7 +208,7 @@
          CONTENIDO PRINCIPAL
          ============================================ -->
     <div
-      class="uk-background-cover first-child-adjustment catalog-section"
+      class="uk-background-cover navbar-ajuste-primer-hijo catalog-section"
       style="
         background-image: url('assets/img/fondo_6.jpg');
         background-attachment: fixed;
@@ -217,7 +216,7 @@
     >
       <div class="uk-container uk-section">
         <h1
-          class="uk-heading-line uk-text-center uk-margin-large-bottom section-title-white"
+          class="uk-heading-line uk-text-center uk-margin-large-bottom texto-blanco"
         >
           <span>Catálogo Digital</span>
         </h1>
@@ -293,7 +292,7 @@
               >
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="alimentos"
                   >
                     🍽️ Alimentos
@@ -301,7 +300,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="bebidas"
                   >
                     🥤 Bebidas
@@ -309,7 +308,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="cosmetica"
                   >
                     💄 Cosmética
@@ -317,7 +316,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="farmaceutica"
                   >
                     💊 Farmacéutica
@@ -325,7 +324,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="quimicos"
                   >
                     ⚗️ Químicos
@@ -333,7 +332,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="limpieza"
                   >
                     🧹 Limpieza
@@ -341,7 +340,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="industrial"
                   >
                     🏗️ Industrial
@@ -349,7 +348,7 @@
                 </div>
                 <div>
                   <button
-                    class="uk-button uk-button-default uk-width-1-1 industry-button industry-filter"
+                    class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                     data-industry="todas"
                   >
                     📦 Todas
@@ -377,7 +376,7 @@
                 id="catalog-cart-actions"
               >
                 <button
-                  class="uk-button uk-button-primary whatsapp-button uk-width-1-1"
+                  class="uk-button uk-button-primary boton-whatsapp uk-width-1-1"
                   onclick="sendCatalogQuote()"
                 >
                   <span uk-icon="whatsapp"></span> Enviar Cotización por
@@ -393,7 +392,7 @@
     <!-- ========================================
          FOOTER
          ======================================== -->
-    <footer class="uk-section uk-section-small footer-main">
+    <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
           class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
@@ -414,7 +413,7 @@
 
           <!-- Columna 2: Enlaces rápidos -->
           <div>
-            <h4 class="footer-title">Enlaces Rápidos</h4>
+            <h4 class="footer-titulo">Enlaces Rápidos</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="catalogo.html" class="uk-link-muted">Catálogo</a>
@@ -433,7 +432,7 @@
 
           <!-- Columna 3: Información -->
           <div>
-            <h4 class="footer-title">Información</h4>
+            <h4 class="footer-titulo">Información</h4>
             <ul class="uk-list uk-list-divider">
               <li>
                 <a href="preguntas-frecuentes.html" class="uk-link-muted"
@@ -448,7 +447,7 @@
 
           <!-- Columna 4: Redes y contacto -->
           <div>
-            <h4 class="footer-title">Síguenos</h4>
+            <h4 class="footer-titulo">Síguenos</h4>
             <div class="uk-margin-small-top">
               <a
                 href="https://www.facebook.com/surtienvasesneiva"
@@ -467,7 +466,7 @@
             </div>
 
             <div class="uk-margin-top">
-              <h4 class="footer-title uk-margin-small-top">Contacto</h4>
+              <h4 class="footer-titulo uk-margin-small-top">Contacto</h4>
               <p class="uk-text-small uk-text-muted">
                 <span uk-icon="icon: mail"></span> surtienvasesn@gmail.com<br />
                 <span uk-icon="icon: location"></span> Neiva, Huila
@@ -495,7 +494,7 @@
           </div>
         </div>
 
-        <hr class="uk-divider-icon footer-divider" />
+        <hr class="uk-divider-icon footer-divisor" />
 
         <div class="uk-text-center uk-text-small uk-text-muted">
           <p>© 2025 SurtiEnvases Neiva. Todos los derechos reservados.</p>
@@ -506,12 +505,12 @@
     <!-- WhatsApp Flotante -->
     <a
       href="https://wa.me/573153957275"
-      class="whatsapp-floating"
+      class="whatsapp-flotante"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
     >
-      <div class="whatsapp-button-circle">
+      <div class="whatsapp-boton-circular">
         <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
       </div>
     </a>
@@ -534,7 +533,5 @@
 
     <!-- Sistema de catálogo -->
     <script src="js/catalogo-fixed.js"></script>
-    <!-- Debug (TEMPORAL - SEXTO) -->
-    <script src="js/debug-catalogo.js"></script>
   </body>
 </html>
