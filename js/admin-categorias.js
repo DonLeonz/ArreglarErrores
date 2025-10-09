@@ -11,11 +11,11 @@ class CategoryAdmin {
   }
 
   loadCategories() {
-  /**
-   * Carga categorías dinámicas para catálogo y productos.
-   * Combina categorías predefinidas con categorías personalizadas guardadas en localStorage.
-   * @returns {Array} Un array de objetos con formato {id, name, key, icon, isDeletable}
-   */
+    /**
+     * Carga categorías dinámicas para catálogo y productos.
+     * Combina categorías predefinidas con categorías personalizadas guardadas en localStorage.
+     * @returns {Array} Un array de objetos con formato {id, name, key, icon, isDeletable}
+     */
     try {
       const stored = localStorage.getItem("allCategories");
       if (stored) {
@@ -27,8 +27,18 @@ class CategoryAdmin {
           { id: 2, name: "Envases Plásticos", key: "plastico", icon: "🧴" },
           { id: 3, name: "Tapas y Complementos", key: "tapas", icon: "🔧" },
           { id: 4, name: "Envases Cosméticos", key: "cosmetico", icon: "💄" },
-          { id: 5, name: "Envases Farmacéuticos", key: "farmaceutico", icon: "💊" },
-          { id: 6, name: "Envases Industriales", key: "industrial", icon: "🏗️" }
+          {
+            id: 5,
+            name: "Envases Farmacéuticos",
+            key: "farmaceutico",
+            icon: "💊",
+          },
+          {
+            id: 6,
+            name: "Envases Industriales",
+            key: "industrial",
+            icon: "🏗️",
+          },
         ];
         this.saveCategories(defaults);
         return defaults;
@@ -53,7 +63,7 @@ class CategoryAdmin {
           { id: 4, name: "Farmacéutica", key: "farmaceutica", icon: "💊" },
           { id: 5, name: "Químicos", key: "quimicos", icon: "⚗️" },
           { id: 6, name: "Limpieza", key: "limpieza", icon: "🧹" },
-          { id: 7, name: "Industrial", key: "industrial", icon: "🏗️" }
+          { id: 7, name: "Industrial", key: "industrial", icon: "🏗️" },
         ];
         this.saveIndustries(defaults);
         return defaults;
@@ -85,20 +95,26 @@ class CategoryAdmin {
   }
 
   updateSystemCategories() {
+    console.log("🔄 Actualizando sistemas con nuevas categorías...");
+
     this.updateCategorySelects();
-    
+
     if (window.catalogoSystem) {
+      console.log("  ✓ Actualizando catálogo...");
       this.updateCatalogFilters();
     }
-    
+
     if (window.productsSystem) {
-      this.updateProductFilters();
+      console.log("  ✓ Actualizando página de productos...");
+      window.productsSystem.refreshCategories();
     }
+
+    console.log("✓ Todos los sistemas actualizados");
   }
 
   updateSystemIndustries() {
     this.updateIndustrySelects();
-    
+
     if (window.catalogoSystem) {
       this.updateCatalogIndustryFilters();
     }
@@ -138,18 +154,18 @@ class CategoryAdmin {
       UIkit.notification({
         message: "Por favor ingresa un nombre para la categoría",
         status: "warning",
-        pos: "top-center"
+        pos: "top-center",
       });
       return;
     }
 
     const key = this.generateKey(name);
 
-    if (this.categories.find(c => c.key === key)) {
+    if (this.categories.find((c) => c.key === key)) {
       UIkit.notification({
         message: "Ya existe una categoría con ese nombre",
         status: "warning",
-        pos: "top-center"
+        pos: "top-center",
       });
       return;
     }
@@ -159,7 +175,7 @@ class CategoryAdmin {
       id: maxId + 1,
       name: name,
       key: key,
-      icon: icon
+      icon: icon,
     };
 
     this.categories.push(newCategory);
@@ -171,7 +187,7 @@ class CategoryAdmin {
     UIkit.notification({
       message: "Categoría agregada exitosamente",
       status: "success",
-      pos: "top-center"
+      pos: "top-center",
     });
   }
 
@@ -183,18 +199,18 @@ class CategoryAdmin {
       UIkit.notification({
         message: "Por favor ingresa un nombre para la industria",
         status: "warning",
-        pos: "top-center"
+        pos: "top-center",
       });
       return;
     }
 
     const key = this.generateKey(name);
 
-    if (this.industries.find(i => i.key === key)) {
+    if (this.industries.find((i) => i.key === key)) {
       UIkit.notification({
         message: "Ya existe una industria con ese nombre",
         status: "warning",
-        pos: "top-center"
+        pos: "top-center",
       });
       return;
     }
@@ -204,7 +220,7 @@ class CategoryAdmin {
       id: maxId + 1,
       name: name,
       key: key,
-      icon: icon
+      icon: icon,
     };
 
     this.industries.push(newIndustry);
@@ -216,7 +232,7 @@ class CategoryAdmin {
     UIkit.notification({
       message: "Industria agregada exitosamente",
       status: "success",
-      pos: "top-center"
+      pos: "top-center",
     });
   }
 
@@ -233,13 +249,14 @@ class CategoryAdmin {
     if (!container) return;
 
     if (this.categories.length === 0) {
-      container.innerHTML = '<p class="uk-text-muted uk-text-center">No hay categorías registradas</p>';
+      container.innerHTML =
+        '<p class="uk-text-muted uk-text-center">No hay categorías registradas</p>';
       return;
     }
 
     container.innerHTML = `
       <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid>
-        ${this.categories.map(cat => this.createCategoryCard(cat)).join("")}
+        ${this.categories.map((cat) => this.createCategoryCard(cat)).join("")}
       </div>
     `;
   }
@@ -249,13 +266,14 @@ class CategoryAdmin {
     if (!container) return;
 
     if (this.industries.length === 0) {
-      container.innerHTML = '<p class="uk-text-muted uk-text-center">No hay industrias registradas</p>';
+      container.innerHTML =
+        '<p class="uk-text-muted uk-text-center">No hay industrias registradas</p>';
       return;
     }
 
     container.innerHTML = `
       <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid>
-        ${this.industries.map(ind => this.createIndustryCard(ind)).join("")}
+        ${this.industries.map((ind) => this.createIndustryCard(ind)).join("")}
       </div>
     `;
   }
@@ -297,14 +315,14 @@ class CategoryAdmin {
   deleteCategory(categoryId) {
     UIkit.modal.confirm("¿Estás seguro de eliminar esta categoría?").then(
       () => {
-        this.categories = this.categories.filter(c => c.id !== categoryId);
+        this.categories = this.categories.filter((c) => c.id !== categoryId);
         this.saveCategories();
         this.renderCategoriesList();
 
         UIkit.notification({
           message: "Categoría eliminada exitosamente",
           status: "success",
-          pos: "top-center"
+          pos: "top-center",
         });
       },
       () => {}
@@ -314,14 +332,14 @@ class CategoryAdmin {
   deleteIndustry(industryId) {
     UIkit.modal.confirm("¿Estás seguro de eliminar esta industria?").then(
       () => {
-        this.industries = this.industries.filter(i => i.id !== industryId);
+        this.industries = this.industries.filter((i) => i.id !== industryId);
         this.saveIndustries();
         this.renderIndustriesList();
 
         UIkit.notification({
           message: "Industria eliminada exitosamente",
           status: "success",
-          pos: "top-center"
+          pos: "top-center",
         });
       },
       () => {}
@@ -330,21 +348,24 @@ class CategoryAdmin {
 
   updateCategorySelects() {
     const selects = document.querySelectorAll('select[id*="category"]');
-    selects.forEach(select => {
+    selects.forEach((select) => {
       if (select.id === "category-filter") {
         const currentValue = select.value;
         select.innerHTML = `
           <option value="">Todas las categorías</option>
-          ${this.categories.map(cat => 
-            `<option value="${cat.key}">${cat.name}</option>`
-          ).join("")}
+          ${this.categories
+            .map((cat) => `<option value="${cat.key}">${cat.name}</option>`)
+            .join("")}
         `;
         select.value = currentValue;
       } else if (select.id === "product-category") {
         const currentValue = select.value;
-        select.innerHTML = this.categories.map(cat => 
-          `<option value="${cat.name}">${cat.icon} ${cat.name}</option>`
-        ).join("");
+        select.innerHTML = this.categories
+          .map(
+            (cat) =>
+              `<option value="${cat.name}">${cat.icon} ${cat.name}</option>`
+          )
+          .join("");
         select.value = currentValue;
       }
     });
@@ -352,11 +373,14 @@ class CategoryAdmin {
 
   updateIndustrySelects() {
     const selects = document.querySelectorAll('select[id*="industry"]');
-    selects.forEach(select => {
+    selects.forEach((select) => {
       const currentValue = select.value;
-      select.innerHTML = this.industries.map(ind => 
-        `<option value="${ind.name}">${ind.icon} ${ind.name}</option>`
-      ).join("");
+      select.innerHTML = this.industries
+        .map(
+          (ind) =>
+            `<option value="${ind.name}">${ind.icon} ${ind.name}</option>`
+        )
+        .join("");
       select.value = currentValue;
     });
   }
@@ -369,17 +393,24 @@ class CategoryAdmin {
   }
 
   updateCatalogIndustryFilters() {
-    const container = document.querySelector('[data-industry]')?.parentElement?.parentElement;
+    const container =
+      document.querySelector("[data-industry]")?.parentElement?.parentElement;
     if (!container) return;
 
-    container.innerHTML = this.industries.map(ind => `
+    container.innerHTML =
+      this.industries
+        .map(
+          (ind) => `
       <div>
         <button class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-industry="${ind.key}">
           ${ind.icon} ${ind.name}
         </button>
       </div>
-    `).join("") + `
+    `
+        )
+        .join("") +
+      `
       <div>
         <button class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
                 data-industry="todas">
@@ -390,46 +421,6 @@ class CategoryAdmin {
 
     if (window.catalogoSystem) {
       window.catalogoSystem.setupIndustryFilters();
-    }
-  }
-
-  updateProductFilters() {
-    const container = document.querySelector('[data-category]')?.parentElement?.parentElement;
-    if (!container) return;
-
-    const allButton = `
-      <div>
-        <button class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria active"
-                data-category="todos">
-          📦 Todos
-        </button>
-      </div>
-    `;
-
-    const categoryButtons = this.categories
-      .filter(cat => ["vidrio", "plastico", "farmaceutico"].includes(cat.key))
-      .map(cat => `
-        <div>
-          <button class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
-                  data-category="${cat.key}">
-            ${cat.icon} ${cat.name.replace("Envases ", "")}
-          </button>
-        </div>
-      `).join("");
-
-    const complementsButton = `
-      <div>
-        <button class="uk-button uk-button-default uk-width-1-1 boton-filtro-categoria-industria"
-                data-category="complementos">
-          🔧 Complementos
-        </button>
-      </div>
-    `;
-
-    container.innerHTML = allButton + categoryButtons + complementsButton;
-
-    if (window.productsSystem) {
-      window.productsSystem.setupCategoryFilters();
     }
   }
 

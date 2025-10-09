@@ -7,7 +7,11 @@
       name="description"
       content="SurtiEnvases - Tu proveedor de confianza en envases de vidrio, plástico y complementos en Neiva, Huila"
     />
-    <link rel="icon" type="image/png" href="assets/img/logo/surtienvases.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/img/surtienvases/logo/surtienvases.png"
+    />
 
     <!-- UIkit CSS -->
     <link
@@ -34,16 +38,16 @@
               <div class="uk-navbar-item uk-light">
                 <a class="uk-flex uk-link-heading" href="index.html">
                   <img
-                    src="assets/img/logo/SurtiLogo.PNG"
-                    alt="Logo"
-                    class="imagen-logo-350"
+                    src="assets/img/surtienvases/logo/SurtiLogo.PNG"
+                    alt="Logo SurtiEnvases"
+                    class="imagen-logo-300"
                   />
                 </a>
               </div>
             </div>
 
             <!-- Menú Desktop -->
-            <div class="uk-navbar-center uk-visible@l">
+            <div class="uk-navbar-center uk-visible@m">
               <div class="uk-navbar-item uk-dark">
                 <a
                   class="uk-button uk-button-secondary uk-border-rounded"
@@ -95,7 +99,7 @@
             </div>
 
             <!-- Botón Cotizar Desktop -->
-            <div class="uk-navbar-right uk-visible@l">
+            <div class="uk-navbar-right uk-visible@m">
               <div class="uk-navbar-item uk-dark">
                 <button
                   class="uk-button uk-button-secondary uk-border-rounded"
@@ -114,7 +118,7 @@
             </div>
 
             <!-- Menú Hamburguesa -->
-            <div class="uk-hidden@l uk-navbar-right">
+            <div class="uk-hidden@m uk-navbar-right">
               <a
                 class="uk-navbar-toggle"
                 uk-navbar-toggle-icon
@@ -208,79 +212,90 @@
     </div>
 
     <!-- ============================================
-        CONTENIDO PRINCIPAL
+        HERO SECTION - REDISEÑADO
         ============================================ -->
-    <div
-      class="uk-background-cover uk-height-viewport uk-light navbar-ajuste-primer-hijo uk-flex uk-position-relative"
-      style="background-image: url('assets/img/coffe-soft-header.svg')"
-    >
-      <div class="uk-container uk-margin-large-top uk-height-1-1">
-        <div
-          class="uk-position-center-left uk-position-medium uk-width-1-2@m uk-padding"
-        >
-          <div
-            class="uk-position-relative uk-visible-toggle uk-light"
-            tabindex="-1"
-            uk-slideshow
-          >
-            <div class="uk-slideshow-items uk-border-rounded">
-              <div>
-                <img
-                  src="assets/img/blog/blog-background.jpg"
-                  alt=""
-                  uk-cover
-                />
-              </div>
-              <div>
-                <img
-                  src="assets/img/blog/blog-background.png"
-                  alt=""
-                  uk-cover
-                />
-              </div>
-              <div>
-                <img src="assets/img/blog/blog-example1.jpg" alt="" uk-cover />
+    <section class="hero-principal navbar-ajuste-primer-hijo">
+      <!-- Imagen de fondo -->
+      <img
+        src="assets/img/surtienvases/imagenes/SurtiImagen (8).jpg"
+        alt="Fondo SurtiEnvases"
+        class="hero-imagen-fondo"
+      />
+
+      <!-- Overlay -->
+      <div class="hero-overlay"></div>
+
+      <!-- Contenido -->
+      <div class="uk-container hero-contenido">
+        <div class="uk-grid-medium uk-flex-middle" uk-grid>
+          <!-- Columna de texto -->
+          <div class="uk-width-1-2@m uk-width-1-1">
+            <div
+              class="hero-tarjeta-texto"
+              uk-scrollspy="cls: uk-animation-slide-left; delay: 200"
+            >
+              <h1 class="uk-margin-remove-bottom">SurtiEnvases</h1>
+              <p class="uk-margin-medium-top">
+                Bienvenido a <strong>SurtiEnvases</strong>, tu aliado
+                estratégico en soluciones de empaque. Ofrecemos la más amplia
+                variedad de envases de vidrio, plástico y complementos para
+                todas las industrias: alimentos, farmacéutica, cosmética e
+                industrial. Calidad garantizada y entregas puntuales en Neiva y
+                el Huila.
+              </p>
+              <div class="uk-margin-medium-top">
+                <a
+                  href="catalogo.html"
+                  class="uk-button uk-button-secondary uk-button-large uk-border-rounded"
+                >
+                  <span uk-icon="search"></span> Ver Catálogo
+                </a>
+                <a
+                  href="contacto.html"
+                  class="uk-button uk-button-primary uk-button-large uk-border-rounded uk-margin-small-left"
+                >
+                  <span uk-icon="mail"></span> Contactar
+                </a>
               </div>
             </div>
-
-            <a
-              class="uk-position-center-left uk-position-small uk-hidden-hover"
-              href
-              uk-slidenav-previous
-              uk-slideshow-item="previous"
-            ></a>
-            <a
-              class="uk-position-center-right uk-position-small uk-hidden-hover"
-              href
-              uk-slidenav-next
-              uk-slideshow-item="next"
-            ></a>
           </div>
-        </div>
-        <div
-          class="uk-position-center-right uk-position-medium uk-width-1-2@m uk-padding"
-        >
-          <h1 class="uk-heading-large">SurtiEnvases</h1>
-          <div class="uk-overlay uk-overlay-primary uk-padding-small">
-            <p>
-              Bienvenido a <strong>SurtiEnvases</strong>, tu aliado estratégico
-              en soluciones de empaque. Ofrecemos la más amplia variedad de
-              envases de vidrio, plástico y complementos para todas las
-              industrias: alimentos, farmacéutica, cosmética e industrial.
-              Calidad garantizada y entregas puntuales en Neiva y el Huila.
-            </p>
+
+          <!-- Columna de video -->
+          <div class="uk-width-1-2@m uk-width-1-1">
+            <div
+              class="hero-video-container"
+              uk-scrollspy="cls: uk-animation-slide-right; delay: 300"
+            >
+              <video
+                src="assets/img/surtienvases/videos/SurtiVideo (6).mp4"
+                playsinline
+                loop
+                muted
+                autoplay
+                uk-video="autoplay: inview"
+              ></video>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Sección de características -->
-    <div class="uk-section uk-section-muted">
+    <!-- ============================================
+        SECCIÓN DE CARACTERÍSTICAS
+        ============================================ -->
+    <section class="uk-section uk-section-muted">
       <div class="uk-container">
-        <h2 class="uk-heading-line uk-text-center">
+        <h2
+          class="uk-heading-line uk-text-center"
+          uk-scrollspy="cls: uk-animation-fade; delay: 100"
+        >
           <span>¿Por qué elegir SurtiEnvases?</span>
         </h2>
-        <div class="uk-child-width-1-3@m uk-grid-match" uk-grid>
+        <div
+          class="uk-child-width-1-3@m uk-grid-match uk-margin-large-top"
+          uk-grid
+          uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div; delay: 150;"
+        >
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-text-center">
               <span uk-icon="icon: cart; ratio: 3" class="icono-verde"></span>
@@ -316,7 +331,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ========================================
          FOOTER
@@ -330,9 +345,9 @@
           <!-- Columna 1: Logo y descripción -->
           <div>
             <img
-              src="assets/img/logo/LogoFooter.png"
+              src="assets/img/surtienvases/logo/LogoFooter.png"
               alt="Logo"
-              class="imagen-logo-350 uk-margin-small-bottom"
+              class="imagen-logo-300 uk-margin-small-bottom"
             />
             <p class="uk-text-small uk-text-muted">
               Distribuidora de soluciones en empaque con amplia gama de envases
@@ -384,6 +399,7 @@
                 uk-icon="icon: facebook"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Facebook"
               ></a>
               <a
                 href="https://www.instagram.com/envases_surtienvases"
@@ -391,6 +407,7 @@
                 uk-icon="icon: instagram"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram"
               ></a>
             </div>
 
@@ -430,6 +447,23 @@
         </div>
       </div>
     </footer>
+
+    <!-- Carrito Flotante -->
+    <div class="carrito-flotante">
+      <button
+        class="carrito-boton-circular"
+        id="floating-cart-btn"
+        aria-label="Ver carrito de cotización"
+      >
+        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span
+          class="carrito-badge-contador"
+          id="cart-count-floating"
+          style="display: none"
+          >0</span
+        >
+      </button>
+    </div>
 
     <!-- WhatsApp Flotante -->
     <a

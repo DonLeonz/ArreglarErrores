@@ -1,6 +1,6 @@
 /* ========================================
-   SURTIENVASES - SISTEMA DE ESTILOS REFACTORIZADO
-   Versión Correcta - Solo Renombres Descriptivos
+   SURTIENVASES - SISTEMA DE ESTILOS PROFESIONAL
+   Versión 3.0 - Diseño Limpio y Moderno
    ======================================== */
 
 /* ========================================
@@ -12,7 +12,7 @@
    2. VARIABLES DE COLOR
    ======================================== */
 :root {
-  /* Colores principales */
+  /* Colores principales de marca */
   --surtienvases-naranja: #ee7622;
   --surtienvases-verde: #b7ce38;
   --surtienvases-morado: #904191;
@@ -27,11 +27,12 @@
   --morado-oscuro: #6b2f6b;
   --morado-claro: #a455a4;
 
-  /* Grises */
+  /* Grises profesionales */
   --gris-oscuro: #2c2c2c;
   --gris-medio: #666666;
   --gris-claro: #e5e5e5;
-  --gris-fondo: #f5f5f5;
+  --gris-fondo: #f9f9f9;
+  --blanco-puro: #ffffff;
 
   /* Transparencias */
   --naranja-transparente: rgba(238, 118, 34, 0.1);
@@ -50,7 +51,7 @@
 }
 
 body {
-  background-color: var(--gris-fondo) !important;
+  background-color: var(--blanco-puro) !important;
   color: var(--surtienvases-negro) !important;
 }
 
@@ -65,6 +66,22 @@ body {
   color: var(--surtienvases-blanco) !important;
 }
 
+.texto-gris {
+  color: var(--gris-medio) !important;
+}
+
+.texto-verde {
+  color: var(--surtienvases-verde) !important;
+}
+
+.texto-naranja {
+  color: var(--surtienvases-naranja) !important;
+}
+
+.texto-morado {
+  color: var(--surtienvases-morado) !important;
+}
+
 .texto-verde-muted {
   color: var(--surtienvases-verde) !important;
   font-size: 0.85rem !important;
@@ -72,10 +89,8 @@ body {
 }
 
 /* ========================================
-   5. NAVBAR
+   5. NAVBAR - SIN CAMBIOS, FUNCIONA BIEN
    ======================================== */
-
-/* Contenedor principal */
 .navbar-fondo-degradado {
   background: linear-gradient(
     135deg,
@@ -97,47 +112,48 @@ body {
   margin-top: -6rem !important;
 }
 
-/* Botones del navbar */
+.imagen-logo-300 {
+  max-width: 300px;
+  height: auto;
+  transition: all 0.3s ease !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.uk-navbar-item a:hover .imagen-logo-300 {
+  transform: scale(1.05) translateY(-3px) !important;
+  filter: drop-shadow(0 6px 12px rgba(183, 206, 56, 0.4));
+}
+
+.uk-navbar-left {
+  pointer-events: auto !important;
+  z-index: 1000 !important;
+}
+
+.uk-navbar-left .uk-navbar-item {
+  pointer-events: auto !important;
+}
+
 .uk-navbar-item .uk-button-secondary {
   background-color: var(--surtienvases-verde) !important;
   color: var(--surtienvases-negro) !important;
   border: none !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
-  position: relative !important;
 }
 
 .uk-navbar-item .uk-button-secondary:hover {
   background-color: var(--verde-oscuro) !important;
-  color: var(--surtienvases-negro) !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(183, 206, 56, 0.4) !important;
 }
 
-.uk-navbar-item .uk-button-secondary.active {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
-  border-radius: 6px !important;
-  font-weight: 700 !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
-}
-
 .uk-navbar-item .uk-button-text {
   color: var(--surtienvases-blanco) !important;
-  position: relative;
   transition: all 0.3s ease !important;
 }
 
 .uk-navbar-item .uk-button-text:hover {
   color: var(--surtienvases-verde) !important;
-}
-
-.uk-navbar-item .uk-button-text.active {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
-  border-radius: 6px !important;
-  padding: 8px 16px !important;
-  font-weight: 700 !important;
 }
 
 .uk-navbar-item .uk-button-text:not(.active)::after {
@@ -156,22 +172,142 @@ body {
 }
 
 /* ========================================
-   6. MENÚ HAMBURGUESA
+   6. HERO SECTION - MANTENIDO DE INDEX
+   ======================================== */
+.hero-principal {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: var(--gris-fondo);
+  overflow: hidden;
+}
+
+.hero-imagen-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 118, 34, 0.1),
+    rgba(144, 65, 145, 0.1)
+  );
+  z-index: 1;
+}
+
+.hero-contenido {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-tarjeta-texto {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.9)
+  ) !important;
+  border-left: 5px solid var(--surtienvases-naranja) !important;
+  border-radius: 12px !important;
+  padding: 2rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.hero-tarjeta-texto:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 50px rgba(238, 118, 34, 0.25) !important;
+}
+
+.hero-tarjeta-texto h1 {
+  color: var(--surtienvases-morado) !important;
+  font-weight: 700 !important;
+}
+
+.hero-tarjeta-texto p {
+  color: var(--surtienvases-negro) !important;
+  font-size: 1.1rem !important;
+}
+
+.hero-video-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 3px solid var(--surtienvases-verde);
+  transition: all 0.4s ease;
+}
+
+.hero-video-container:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(183, 206, 56, 0.4);
+}
+
+/* ========================================
+   7. SECCIONES PROFESIONALES - NUEVAS
    ======================================== */
 
-/* Botón toggle */
+/* Sección con fondo blanco limpio */
+.seccion-fondo-blanco {
+  background-color: var(--blanco-puro) !important;
+  padding: 60px 0 !important;
+}
+
+/* Sección con fondo gris claro */
+.seccion-fondo-gris {
+  background-color: var(--gris-fondo) !important;
+  padding: 60px 0 !important;
+}
+
+/* Sección con imagen de fondo sutil */
+.seccion-con-imagen {
+  position: relative;
+  background-color: var(--blanco-puro);
+  padding: 60px 0 !important;
+}
+
+.seccion-imagen-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.seccion-contenido {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   8. MENÚ HAMBURGUESA - SIN CAMBIOS
+   ======================================== */
 .uk-navbar-toggle {
   color: var(--surtienvases-blanco) !important;
   min-height: 40px !important;
+  z-index: 1001 !important;
 }
 
-/* Offcanvas container */
 #burger-menu.uk-offcanvas {
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
   z-index: 99999 !important;
   display: none !important;
 }
@@ -180,7 +316,6 @@ body {
   display: block !important;
 }
 
-/* Overlay oscuro */
 #burger-menu.uk-offcanvas::before {
   content: "" !important;
   position: fixed !important;
@@ -190,23 +325,19 @@ body {
   bottom: 0 !important;
   background: rgba(0, 0, 0, 0.7) !important;
   z-index: 1 !important;
-  width: 100vw !important;
-  height: 100vh !important;
 }
 
-/* Barra lateral del menú */
 #burger-menu .uk-offcanvas-bar {
   position: fixed !important;
   top: 0 !important;
   right: 0 !important;
-  bottom: 0 !important;
   width: 320px !important;
   max-width: 85vw !important;
   height: 100vh !important;
   background: linear-gradient(
     180deg,
-    rgba(144, 65, 145, 0.98) 0%,
-    rgba(238, 118, 34, 0.98) 100%
+    rgba(144, 65, 145, 0.98),
+    rgba(238, 118, 34, 0.98)
   ) !important;
   backdrop-filter: blur(10px) !important;
   padding: 40px 20px !important;
@@ -220,12 +351,10 @@ body {
   transform: translateX(0) !important;
 }
 
-/* Ocultar botón default de UIkit */
 #burger-menu .uk-offcanvas-close {
   display: none !important;
 }
 
-/* Botón de cerrar del menú hamburguesa */
 .boton-cerrar-menu {
   position: absolute !important;
   top: 20px !important;
@@ -241,15 +370,11 @@ body {
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   z-index: 1001 !important;
-  padding: 0 !important;
-  outline: none !important;
 }
 
 .boton-cerrar-menu:hover {
   background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
   transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
 }
 
 .boton-cerrar-menu::before,
@@ -270,61 +395,11 @@ body {
   transform: rotate(-45deg) !important;
 }
 
-/* Contenido del menú */
-#burger-menu .uk-margin-large-top {
-  margin-top: 70px !important;
-}
-
-#burger-menu a,
-#burger-menu button:not(.boton-cerrar-menu) {
-  display: block !important;
-  width: 100% !important;
-  padding: 14px 20px !important;
-  margin-bottom: 10px !important;
-  border-radius: 8px !important;
-  font-size: 1rem !important;
-  text-align: left !important;
-  transition: all 0.3s ease !important;
-  border: none !important;
-  text-decoration: none !important;
-  cursor: pointer !important;
-}
-
-#burger-menu .uk-button-secondary {
-  background-color: var(--surtienvases-verde) !important;
-  color: var(--surtienvases-negro) !important;
-  font-weight: 700 !important;
-}
-
-#burger-menu .uk-button-text {
-  background-color: transparent !important;
-  color: var(--surtienvases-blanco) !important;
-}
-
-#burger-menu a:hover,
-#burger-menu button:not(.boton-cerrar-menu):hover {
-  transform: translateX(8px) !important;
-}
-
-#burger-menu .uk-button-secondary:hover {
-  background-color: var(--verde-oscuro) !important;
-}
-
-#burger-menu .uk-button-text:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-}
-
-#burger-menu hr {
-  border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
-  margin: 20px 0 !important;
-}
-
 /* ========================================
-   7. BOTONES DE CERRAR MODALES
+   9. BOTONES DE CERRAR MODALES
    ======================================== */
-
-/* Botón de cerrar para modales de productos (40x40, naranja) */
-.boton-cerrar-modal-producto {
+.boton-cerrar-modal-producto,
+.boton-cerrar-modal-carrito {
   position: absolute !important;
   top: 20px !important;
   right: 20px !important;
@@ -339,19 +414,18 @@ body {
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   z-index: 100 !important;
-  padding: 0 !important;
-  outline: none !important;
 }
 
-.boton-cerrar-modal-producto:hover {
+.boton-cerrar-modal-producto:hover,
+.boton-cerrar-modal-carrito:hover {
   background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
   transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
 }
 
 .boton-cerrar-modal-producto::before,
-.boton-cerrar-modal-producto::after {
+.boton-cerrar-modal-producto::after,
+.boton-cerrar-modal-carrito::before,
+.boton-cerrar-modal-carrito::after {
   content: "" !important;
   position: absolute !important;
   width: 18px !important;
@@ -360,15 +434,16 @@ body {
   border-radius: 2px !important;
 }
 
-.boton-cerrar-modal-producto::before {
+.boton-cerrar-modal-producto::before,
+.boton-cerrar-modal-carrito::before {
   transform: rotate(45deg) !important;
 }
 
-.boton-cerrar-modal-producto::after {
+.boton-cerrar-modal-producto::after,
+.boton-cerrar-modal-carrito::after {
   transform: rotate(-45deg) !important;
 }
 
-/* Botón de cerrar para modal de imágenes (44x44, naranja) */
 .boton-cerrar-modal-imagen {
   position: absolute !important;
   top: 20px !important;
@@ -384,15 +459,11 @@ body {
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   z-index: 100 !important;
-  padding: 0 !important;
-  outline: none !important;
 }
 
 .boton-cerrar-modal-imagen:hover {
   background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
   transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.5) !important;
 }
 
 .boton-cerrar-modal-imagen::before,
@@ -413,62 +484,17 @@ body {
   transform: rotate(-45deg) !important;
 }
 
-/* Botón de cerrar para modal del carrito (40x40, morado) */
-.boton-cerrar-modal-carrito {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: rgba(144, 65, 145, 0.9) !important;
-  border: 2px solid rgba(183, 206, 56, 0.5) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-  outline: none !important;
-}
-
-.boton-cerrar-modal-carrito:hover {
-  background: var(--surtienvases-verde) !important;
-  border-color: var(--surtienvases-verde) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 15px rgba(183, 206, 56, 0.6) !important;
-}
-
-.boton-cerrar-modal-carrito::before,
-.boton-cerrar-modal-carrito::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 18px !important;
-  height: 2px !important;
-  background: white !important;
-  border-radius: 2px !important;
-}
-
-.boton-cerrar-modal-carrito::before {
-  transform: rotate(45deg) !important;
-}
-
-.boton-cerrar-modal-carrito::after {
-  transform: rotate(-45deg) !important;
-}
-
 /* ========================================
-   8. BOTONES GENERALES
+   10. BOTONES GENERALES
    ======================================== */
-
-/* Botones primarios y WhatsApp */
 .uk-button-primary,
 .boton-whatsapp {
   background-color: #25d366 !important;
   color: var(--surtienvases-blanco) !important;
   border: none !important;
-  font-weight: 500 !important;
+  padding: 3px 15px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
   transition: all 0.3s ease !important;
   border-radius: 6px !important;
 }
@@ -476,12 +502,10 @@ body {
 .uk-button-primary:hover,
 .boton-whatsapp:hover {
   background-color: #128c7e !important;
-  color: var(--surtienvases-blanco) !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
 }
 
-/* Botón default */
 .uk-button-default {
   background-color: transparent !important;
   color: var(--surtienvases-morado) !important;
@@ -494,7 +518,6 @@ body {
   color: var(--surtienvases-blanco) !important;
 }
 
-/* Botón secundario */
 .uk-button-secondary {
   background-color: var(--surtienvases-verde) !important;
   color: var(--surtienvases-negro) !important;
@@ -506,12 +529,10 @@ body {
 .uk-button-secondary:hover {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-blanco) !important;
-  border-color: var(--surtienvases-naranja) !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
 }
 
-/* Botón con outline verde y borde naranja */
 .boton-outline-verde-borde-naranja {
   color: var(--surtienvases-negro) !important;
   background-color: var(--surtienvases-verde) !important;
@@ -527,10 +548,8 @@ body {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-blanco) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 8px rgba(238, 118, 34, 0.3) !important;
 }
 
-/* Botones de filtro - UNIFICADOS (eran 100% idénticos: category-button, industry-button, industry-filter) */
 .boton-filtro-categoria-industria {
   background-color: rgba(255, 255, 255, 0.9) !important;
   color: var(--surtienvases-morado) !important;
@@ -548,7 +567,6 @@ body {
   background-color: var(--surtienvases-naranja) !important;
   color: white !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(238, 118, 34, 0.4) !important;
 }
 
 .boton-filtro-categoria-industria.active {
@@ -556,39 +574,65 @@ body {
   color: var(--surtienvases-negro) !important;
   border-color: var(--surtienvases-verde) !important;
   font-weight: bold !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.4) !important;
 }
 
-/* Botón transparente para imágenes */
 .boton-imagen-transparente {
   border: none !important;
   background: transparent !important;
   padding: 0 !important;
   cursor: pointer !important;
-  width: 100%;
-  height: 100%;
 }
 
 /* ========================================
-   9. CARDS Y CONTENEDORES
+   11. CARDS PROFESIONALES - ACTUALIZADAS
    ======================================== */
 
-/* Cards default */
+/* Card básica blanca con sombra */
 .uk-card-default {
-  background-color: var(--surtienvases-blanco) !important;
+  background-color: var(--blanco-puro) !important;
   border: 1px solid var(--gris-claro) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
   transition: all 0.3s ease !important;
+  color: var(--surtienvases-negro) !important;
 }
 
 .uk-card-default:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(238, 118, 34, 0.2) !important;
-  border-color: var(--surtienvases-naranja) !important;
 }
 
-/* Card degradado morado con borde naranja */
-.card-degradado-morado-borde-naranja {
+/* Card con borde de acento */
+.card-borde-naranja {
+  background: var(--blanco-puro) !important;
+  border-left: 5px solid var(--surtienvases-naranja) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.card-borde-verde {
+  background: var(--blanco-puro) !important;
+  border-left: 5px solid var(--surtienvases-verde) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.card-borde-morado {
+  background: var(--blanco-puro) !important;
+  border-left: 5px solid var(--surtienvases-morado) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Card degradado morado (para modales) */
+.card-degradado-morado-borde-naranja,
+.card-degradado-morado-borde-verde,
+.modal-degradado-morado {
   background: linear-gradient(
     135deg,
     var(--surtienvases-morado),
@@ -599,83 +643,27 @@ body {
   padding: 15px !important;
   box-shadow: 0 4px 15px rgba(144, 65, 145, 0.3) !important;
   transition: all 0.3s ease !important;
+  color: var(--surtienvases-blanco) !important;
 }
 
-.card-degradado-morado-borde-naranja:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 0 8px 20px rgba(238, 118, 34, 0.4) !important;
+.card-degradado-morado-borde-verde {
   border-color: var(--surtienvases-verde) !important;
 }
 
-/* Card degradado morado con borde verde */
-.card-degradado-morado-borde-verde {
-  background: linear-gradient(
-    135deg,
-    var(--morado-oscuro),
-    var(--surtienvases-morado)
-  ) !important;
-  border: 2px solid var(--surtienvases-verde) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 15px rgba(144, 65, 145, 0.3) !important;
-  transition: all 0.3s ease !important;
-}
-
-/* Modal degradado morado */
-.modal-degradado-morado {
-  background: linear-gradient(
-    135deg,
-    var(--surtienvases-morado),
-    var(--morado-oscuro)
-  ) !important;
-  border-radius: 8px !important;
-  border: 2px solid var(--surtienvases-naranja) !important;
-}
-
-.modal-degradado-morado .uk-modal-close-default {
-  color: var(--surtienvases-verde) !important;
-  background-color: rgba(183, 206, 56, 0.2) !important;
-  border-radius: 50% !important;
-  width: 40px !important;
-  height: 40px !important;
-}
-
-.modal-degradado-morado .uk-modal-close-default svg {
-  stroke: var(--surtienvases-verde) !important;
-  stroke-width: 2 !important;
-}
-
-.modal-degradado-morado .uk-modal-close-default:hover {
-  background-color: var(--surtienvases-verde) !important;
-}
-
-.modal-degradado-morado .uk-modal-close-default:hover svg {
-  stroke: var(--surtienvases-negro) !important;
-}
-
-/* Contenedor redondeado */
 .contenedor-redondeado {
   border-radius: 12px !important;
   overflow: hidden !important;
 }
 
 /* ========================================
-   10. BADGES Y LABELS
+   12. BADGES Y LABELS
    ======================================== */
-
-/* Labels básicos */
 .uk-label {
   background-color: var(--surtienvases-naranja) !important;
   color: var(--surtienvases-blanco) !important;
   font-weight: 600 !important;
 }
 
-.uk-badge {
-  background-color: var(--morado-transparente) !important;
-  color: var(--surtienvases-morado) !important;
-  border: 1px solid var(--surtienvases-morado) !important;
-}
-
-/* Badge de stock disponible (verde con gradiente) */
 .badge-stock-disponible {
   background: linear-gradient(135deg, #b7ce38, #94a82e) !important;
   color: #ffffff !important;
@@ -688,15 +676,8 @@ body {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  transition: all 0.3s ease !important;
 }
 
-.badge-stock-disponible:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(183, 206, 56, 0.5) !important;
-}
-
-/* Badge de material (morado con gradiente y borde verde) */
 .badge-material-producto {
   background: linear-gradient(135deg, #904191, #6b2f6b) !important;
   color: #ffffff !important;
@@ -709,16 +690,8 @@ body {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  transition: all 0.3s ease !important;
 }
 
-.badge-material-producto:hover {
-  border-color: var(--surtienvases-verde) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(144, 65, 145, 0.4) !important;
-}
-
-/* Badge de certificación (naranja con gradiente) */
 .badge-certificacion-producto {
   background: linear-gradient(135deg, #ee7622, #d45a0a) !important;
   color: #ffffff !important;
@@ -731,15 +704,8 @@ body {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  transition: all 0.3s ease !important;
 }
 
-.badge-certificacion-producto:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 12px rgba(238, 118, 34, 0.4) !important;
-}
-
-/* Badge pequeño de origen (morado transparente) */
 .badge-origen-pequeno {
   color: var(--surtienvases-blanco) !important;
   background-color: rgba(144, 65, 145, 0.8) !important;
@@ -748,16 +714,13 @@ body {
   padding: 2px 8px !important;
   margin-right: 8px !important;
   font-weight: 600 !important;
-  display: inline-block !important;
 }
 
-/* Iconos dentro de badges */
 .badge-icono {
   width: 16px !important;
   height: 16px !important;
 }
 
-/* Container de badges */
 .contenedor-badges {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -767,10 +730,8 @@ body {
 }
 
 /* ========================================
-   11. TEXTOS Y TÍTULOS
+   13. TÍTULOS Y TEXTOS
    ======================================== */
-
-/* Títulos generales */
 h1,
 h2,
 h3,
@@ -780,20 +741,16 @@ h6 {
   color: var(--surtienvases-morado) !important;
 }
 
-/* Título blanco con sombra */
 .titulo-blanco-sombra {
   color: var(--surtienvases-blanco) !important;
-  font-size: 1.2rem !important;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Título verde con sombra */
 .titulo-verde-sombra {
   color: var(--surtienvases-verde) !important;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Título verde con borde inferior naranja */
 .titulo-verde-borde-naranja {
   color: var(--surtienvases-verde) !important;
   border-bottom: 2px solid var(--surtienvases-naranja) !important;
@@ -801,7 +758,6 @@ h6 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Título decorativo verde con borde y letras espaciadas */
 .titulo-seccion-decorado-verde {
   border-bottom: 3px solid var(--surtienvases-naranja) !important;
   color: var(--surtienvases-verde) !important;
@@ -811,26 +767,54 @@ h6 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Título blanco con borde inferior verde */
 .titulo-blanco-borde-verde {
   border-bottom: 3px solid var(--surtienvases-verde) !important;
   color: var(--surtienvases-blanco) !important;
 }
 
-/* ========================================
-   12. IMÁGENES
-   ======================================== */
+/* Títulos para fondos blancos */
+.titulo-profesional {
+  color: var(--surtienvases-morado) !important;
+  font-weight: 600 !important;
+  border-left: 5px solid var(--surtienvases-naranja) !important;
+  padding-left: 15px !important;
+  margin-bottom: 20px !important;
+}
 
-/* Imagen circular pequeña (100x100) */
+.titulo-seccion {
+  color: var(--surtienvases-morado) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+  position: relative !important;
+  padding-bottom: 15px !important;
+}
+
+.titulo-seccion::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--surtienvases-naranja),
+    var(--surtienvases-verde)
+  );
+}
+
+/* ========================================
+   14. IMÁGENES
+   ======================================== */
 .imagen-circular-100 {
   width: 100px !important;
   height: 100px !important;
-  min-width: 80px !important;
   border: 3px solid var(--surtienvases-verde) !important;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Imagen circular grande (300x300) */
 .imagen-circular-300 {
   width: 300px !important;
   height: 300px !important;
@@ -838,7 +822,6 @@ h6 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Imagen con object-fit cover */
 .imagen-cover {
   width: 100% !important;
   height: 100% !important;
@@ -846,16 +829,14 @@ h6 {
   object-position: center !important;
 }
 
-/* Imagen de producto altura 120px */
 .imagen-producto-altura-120 {
   height: 120px !important;
   object-fit: cover !important;
   width: 100% !important;
 }
 
-/* Contenedor de imagen altura 350px */
-.contenedor-imagen-altura-350 {
-  height: 350px;
+.contenedor-imagen-altura-300 {
+  height: 300px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -863,42 +844,49 @@ h6 {
   position: relative;
 }
 
-/* ========================================
-   13. SECCIONES Y FONDOS
-   ======================================== */
+.contenedor-imagen-altura-350 {
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 12px;
+}
 
-/* Sección con degradado morado */ 
-.seccion-fondo-degradado-morado {
+/* Contenedor para imágenes placeholder */
+.placeholder-imagen {
+  background: linear-gradient(135deg, var(--gris-fondo), var(--gris-claro));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris-medio);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  min-height: 300px;
+}
+
+.placeholder-video {
   background: linear-gradient(
     135deg,
-    var(--morado-oscuro) 0%,
-    var(--surtienvases-morado) 50%,
-    var(--morado-oscuro) 100%
-  ) !important;
-}
-
-/* Fondo con imagen fija y overlay oscuro */
-.fondo-imagen-overlay-oscuro {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(../assets/img/blog/blog-background.jpg) !important;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
-  padding: 40px 0 !important;
-}
-
-/* Espaciado superior para formularios (80px) */
-.margen-superior-80 {
-  margin-top: 80px !important;
+    var(--morado-transparente),
+    var(--naranja-transparente)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--surtienvases-morado);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+  min-height: 400px;
+  border: 3px dashed var(--surtienvases-verde);
 }
 
 /* ========================================
-   14. FORMULARIOS
+   15. FORMULARIOS
    ======================================== */
-
-/* Inputs generales */
 .uk-input,
 .uk-textarea,
 .uk-select {
@@ -915,7 +903,6 @@ h6 {
   box-shadow: 0 0 0 3px rgba(238, 118, 34, 0.1) !important;
 }
 
-/* Input con fondo gris claro */
 .input-fondo-gris-claro {
   color: var(--surtienvases-negro) !important;
   border-radius: 10px !important;
@@ -934,18 +921,15 @@ h6 {
 }
 
 /* ========================================
-   15. CARRITO
+   16. CARRITO FLOTANTE
    ======================================== */
-
-/* Carrito flotante (bottom: 100px, right: 30px) */
 .carrito-flotante {
   position: fixed !important;
-  bottom: 100px !important;
+  bottom: 110px !important;
   right: 30px !important;
-  z-index: 998 !important;
+  z-index: 997 !important;
 }
 
-/* Botón circular del carrito (60x60, morado) */
 .carrito-boton-circular {
   width: 60px !important;
   height: 60px !important;
@@ -956,7 +940,6 @@ h6 {
   justify-content: center !important;
   box-shadow: 0 4px 12px rgba(144, 65, 145, 0.5) !important;
   transition: all 0.3s ease !important;
-  position: relative !important;
   border: none !important;
   cursor: pointer !important;
 }
@@ -967,7 +950,6 @@ h6 {
   box-shadow: 0 8px 20px rgba(238, 118, 34, 0.7) !important;
 }
 
-/* Badge contador del carrito */
 .carrito-badge-contador {
   position: absolute !important;
   top: -8px !important;
@@ -983,9 +965,9 @@ h6 {
   font-size: 0.7rem !important;
   font-weight: bold !important;
   z-index: 10 !important;
+  border: 2px solid white !important;
 }
 
-/* Item individual del carrito */
 .carrito-item {
   border-bottom: 1px solid var(--gris-claro) !important;
   padding: 15px 0 !important;
@@ -996,18 +978,15 @@ h6 {
 }
 
 /* ========================================
-   16. WHATSAPP FLOTANTE
+   17. WHATSAPP FLOTANTE
    ======================================== */
-
-/* WhatsApp flotante (bottom: 30px, right: 30px) */
 .whatsapp-flotante {
   position: fixed !important;
   bottom: 30px !important;
   right: 30px !important;
-  z-index: 999 !important;
+  z-index: 996 !important;
 }
 
-/* Botón circular de WhatsApp (60x60, verde) */
 .whatsapp-boton-circular {
   width: 60px !important;
   height: 60px !important;
@@ -1027,17 +1006,14 @@ h6 {
 }
 
 /* ========================================
-   17. MODALES
+   18. MODALES
    ======================================== */
-
-/* Modal general */
 .uk-modal-dialog {
   background-color: var(--surtienvases-blanco) !important;
   border-radius: 12px !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Títulos de modales */
 .uk-modal-title {
   color: var(--surtienvases-morado) !important;
   border-bottom: 3px solid var(--surtienvases-verde) !important;
@@ -1047,19 +1023,15 @@ h6 {
 .modal-degradado-morado .uk-modal-title {
   color: var(--surtienvases-blanco) !important;
   border-bottom: 3px solid var(--surtienvases-naranja) !important;
-  padding-bottom: 15px !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6) !important;
-  font-weight: 600 !important;
 }
 
 /* ========================================
-   18. FOOTER
+   19. FOOTER
    ======================================== */
-
 .footer-principal {
   background-color: #2f2c2c !important;
   width: 100% !important;
-  z-index: 10 !important;
 }
 
 .footer-titulo {
@@ -1084,13 +1056,11 @@ footer .uk-icon-button:hover {
   background-color: var(--surtienvases-verde) !important;
   color: var(--surtienvases-negro) !important;
   transform: translateY(-3px);
-  border-color: var(--surtienvases-verde) !important;
 }
 
 /* ========================================
-   19. ACORDEÓN (FAQ)
+   20. ACORDEÓN
    ======================================== */
-
 .uk-accordion-title {
   color: var(--surtienvases-morado) !important;
   background: linear-gradient(
@@ -1113,7 +1083,6 @@ footer .uk-icon-button:hover {
     transparent
   ) !important;
   color: var(--surtienvases-naranja) !important;
-  border-color: var(--naranja-transparente) !important;
 }
 
 .uk-open .uk-accordion-title {
@@ -1124,7 +1093,6 @@ footer .uk-icon-button:hover {
   ) !important;
   color: var(--surtienvases-negro) !important;
   border-color: var(--surtienvases-verde) !important;
-  box-shadow: 0 4px 12px rgba(183, 206, 56, 0.3) !important;
 }
 
 .uk-accordion-content {
@@ -1134,24 +1102,9 @@ footer .uk-icon-button:hover {
   border-radius: 0 0 8px 8px !important;
 }
 
-.card-degradado-morado-borde-verde .uk-accordion-title {
-  color: var(--surtienvases-verde) !important;
-  background: linear-gradient(
-    90deg,
-    rgba(183, 206, 56, 0.2),
-    transparent
-  ) !important;
-}
-
-.card-degradado-morado-borde-verde .uk-accordion-content {
-  color: var(--surtienvases-blanco) !important;
-  background-color: rgba(0, 0, 0, 0.2) !important;
-}
-
 /* ========================================
-   20. UTILIDADES
+   21. UTILIDADES
    ======================================== */
-
 .icono-verde {
   color: var(--surtienvases-verde) !important;
 }
@@ -1162,6 +1115,10 @@ footer .uk-icon-button:hover {
 
 .margen-superior-pequeno {
   margin-top: 0.5rem !important;
+}
+
+.margen-superior-80 {
+  margin-top: 80px !important;
 }
 
 .padding-grande {
@@ -1175,9 +1132,8 @@ footer .uk-icon-button:hover {
 }
 
 /* ========================================
-   21. ANIMACIONES
+   22. ANIMACIONES
    ======================================== */
-
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
@@ -1190,40 +1146,119 @@ footer .uk-icon-button:hover {
   }
 }
 
-/* Transiciones suaves */
-*[class*="uk-card"]:hover,
-*[class*="uk-button"]:hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
 /* ========================================
-   22. RESPONSIVE
+   23. RESPONSIVE - PUNTO DE QUIEBRE 1260px
    ======================================== */
 
+/* Forzar menú hamburguesa desde 1260px */
+@media (max-width: 1260px) {
+  .uk-navbar-center,
+  .uk-navbar-right.uk-visible\@l {
+    display: none !important;
+  }
+
+  .uk-hidden\@l.uk-navbar-right {
+    display: flex !important;
+  }
+
+  .hero-video-container {
+    margin: 1rem 0 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero-contenido {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hero-contenido .uk-grid-large {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .hero-contenido .uk-grid-large > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 1261px) {
+  .uk-navbar-center,
+  .uk-navbar-right.uk-visible\@l {
+    display: flex !important;
+  }
+
+  .uk-hidden\@l.uk-navbar-right {
+    display: none !important;
+  }
+}
+
+/* Móviles */
 @media (max-width: 640px) {
-  /* Navbar */
-  .uk-navbar-item .uk-button-secondary,
-  .uk-navbar-item .uk-button-text {
-    font-size: 0.9rem !important;
+  .imagen-logo-300 {
+    max-width: 200px;
   }
 
-  /* Cards */
-  .uk-card {
-    margin-bottom: 20px !important;
+  .hero-principal {
+    min-height: auto;
+    padding: 2rem 0;
   }
 
-  /* Menú hamburguesa */
-  #burger-menu .uk-offcanvas-bar {
-    width: 280px !important;
-    max-width: 90vw !important;
-    padding: 30px 15px !important;
+  .hero-imagen-fondo {
+    opacity: 0.2;
   }
 
-  /* Botones flotantes */
-  .carrito-flotante,
+  .hero-tarjeta-texto {
+    padding: 1.5rem !important;
+    margin: 1rem !important;
+  }
+
+  .hero-tarjeta-texto h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-video-container {
+    margin: 1rem 0 0 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .uk-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hero-principal .uk-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .carrito-flotante {
+    bottom: 100px !important;
+    right: 15px !important;
+  }
+
   .whatsapp-flotante {
     bottom: 20px !important;
-    right: 20px !important;
+    right: 15px !important;
+  }
+
+  .carrito-boton-circular,
+  .whatsapp-boton-circular {
+    width: 52px !important;
+    height: 52px !important;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .imagen-logo-300 {
+    max-width: 180px;
+  }
+
+  .hero-tarjeta-texto h1 {
+    font-size: 1.5rem !important;
   }
 
   .carrito-boton-circular,
@@ -1231,40 +1266,25 @@ footer .uk-icon-button:hover {
     width: 50px !important;
     height: 50px !important;
   }
+}
 
-  /* Badges de productos */
-  .badge-stock-disponible,
-  .badge-material-producto,
-  .badge-certificacion-producto {
-    font-size: 0.75rem !important;
-    padding: 4px 10px !important;
+/* Landscape móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-principal {
+    min-height: auto !important;
+    padding: 1rem 0 !important;
   }
 
-  /* Botones de cerrar */
-  .boton-cerrar-modal-producto,
-  .boton-cerrar-modal-carrito {
-    width: 36px !important;
-    height: 36px !important;
+  .navbar-ajuste-primer-hijo {
+    padding-top: 5rem !important;
   }
 
-  .boton-cerrar-modal-producto::before,
-  .boton-cerrar-modal-producto::after,
-  .boton-cerrar-modal-carrito::before,
-  .boton-cerrar-modal-carrito::after {
-    width: 16px !important;
+  .carrito-flotante {
+    bottom: 80px !important;
   }
 
-  .boton-cerrar-menu,
-  .boton-cerrar-modal-imagen {
-    width: 40px !important;
-    height: 40px !important;
-  }
-
-  .boton-cerrar-menu::before,
-  .boton-cerrar-menu::after,
-  .boton-cerrar-modal-imagen::before,
-  .boton-cerrar-modal-imagen::after {
-    width: 18px !important;
+  .whatsapp-flotante {
+    bottom: 10px !important;
   }
 }
 
