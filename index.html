@@ -47,7 +47,7 @@
             </div>
 
             <!-- Menú Desktop -->
-            <div class="uk-navbar-center uk-visible@m">
+            <div class="uk-navbar-center uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <a
                   class="uk-button uk-button-secondary uk-border-rounded"
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Botón Cotizar Desktop -->
-            <div class="uk-navbar-right uk-visible@m">
+            <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
                   class="uk-button uk-button-secondary uk-border-rounded"
@@ -118,7 +118,7 @@
             </div>
 
             <!-- Menú Hamburguesa -->
-            <div class="uk-hidden@m uk-navbar-right">
+            <div class="uk-hidden@l uk-navbar-right">
               <a
                 class="uk-navbar-toggle"
                 uk-navbar-toggle-icon
@@ -212,7 +212,7 @@
     </div>
 
     <!-- ============================================
-        HERO SECTION - REDISEÑADO
+        HERO SECTION - RESPONSIVE CON UIKIT
         ============================================ -->
     <section class="hero-principal navbar-ajuste-primer-hijo">
       <!-- Imagen de fondo -->
@@ -227,14 +227,19 @@
 
       <!-- Contenido -->
       <div class="uk-container hero-contenido">
-        <div class="uk-grid-medium uk-flex-middle" uk-grid>
+        <div class="uk-grid-medium uk-child-width-1-2@m uk-flex-middle" uk-grid>
           <!-- Columna de texto -->
-          <div class="uk-width-1-2@m uk-width-1-1">
+          <div>
             <div
-              class="hero-tarjeta-texto"
+              class="hero-tarjeta-texto uk-margin-bottom"
               uk-scrollspy="cls: uk-animation-slide-left; delay: 200"
             >
-              <h1 class="uk-margin-remove-bottom">SurtiEnvases</h1>
+              <h1 class="uk-margin-remove-bottom">
+                Soluciones Profesionales en Empaque
+              </h1>
+              <p class="uk-text-lead uk-margin-top">
+                La mejor selección de envases para tu negocio
+              </p>
               <p class="uk-margin-medium-top">
                 Bienvenido a <strong>SurtiEnvases</strong>, tu aliado
                 estratégico en soluciones de empaque. Ofrecemos la más amplia
@@ -243,27 +248,34 @@
                 industrial. Calidad garantizada y entregas puntuales en Neiva y
                 el Huila.
               </p>
-              <div class="uk-margin-medium-top">
-                <a
-                  href="catalogo.html"
-                  class="uk-button uk-button-secondary uk-button-large uk-border-rounded"
-                >
-                  <span uk-icon="search"></span> Ver Catálogo
-                </a>
-                <a
-                  href="contacto.html"
-                  class="uk-button uk-button-primary uk-button-large uk-border-rounded uk-margin-small-left"
-                >
-                  <span uk-icon="mail"></span> Contactar
-                </a>
+              <div
+                class="uk-margin-large-top uk-grid-small uk-child-width-1-1 uk-child-width-auto@s"
+                uk-grid
+              >
+                <div>
+                  <a
+                    href="catalogo.html"
+                    class="uk-button uk-button-secondary uk-button-large uk-border-rounded uk-width-1-1 uk-width-auto@s"
+                  >
+                    <span uk-icon="search"></span> Explorar Catálogo
+                  </a>
+                </div>
+                <div>
+                  <a
+                    href="contacto.html"
+                    class="uk-button uk-button-primary uk-button-large uk-border-rounded uk-width-1-1 uk-width-auto@s"
+                  >
+                    <span uk-icon="mail"></span> Contáctanos
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Columna de video -->
-          <div class="uk-width-1-2@m uk-width-1-1">
+          <div>
             <div
-              class="hero-video-container"
+              class="hero-video-container uk-margin-bottom"
               uk-scrollspy="cls: uk-animation-slide-right; delay: 300"
             >
               <video
@@ -273,6 +285,7 @@
                 muted
                 autoplay
                 uk-video="autoplay: inview"
+                class="uk-width-1-1"
               ></video>
             </div>
           </div>

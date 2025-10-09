@@ -187,7 +187,7 @@ class ProductsSystem {
     if (filteredProducts.length === 0) {
       productsGrid.innerHTML = `
         <div class="uk-width-1-1 uk-text-center uk-padding">
-          <p class="uk-text-lead texto-blanco">
+          <p class="uk-text-lead texto-negro">
             No se encontraron productos en esta categoría
           </p>
         </div>

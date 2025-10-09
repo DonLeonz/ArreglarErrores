@@ -3,16 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catálogo Digital - SurtiEnvases</title>
+    <meta
+      name="description"
+      content="Catalogo - SurtiEnvases en Neiva, Huila. Dos sedes para servirte mejor"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/img/surtienvases/logo/surtienvases.png"
+    />
 
     <!-- UIkit CSS -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/css/uikit.min.css"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css"
     />
 
-    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="assets/surtienvases-styles.css" />
+
+    <title>Catalogo - SurtiEnvases</title>
   </head>
 
   <body>
@@ -29,12 +38,11 @@
             <div class="uk-navbar-left">
               <div class="uk-navbar-item uk-light">
                 <a class="uk-flex uk-link-heading" href="index.html">
-                  <img src="assets/img/coffe-user-logo.svg" alt="Logo" />
-                  <button
-                    class="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link"
-                  >
-                    <strong>SurtiEnvases</strong>
-                  </button>
+                  <img
+                    src="assets/img/surtienvases/logo/SurtiLogo.PNG"
+                    alt="Logo SurtiEnvases"
+                    class="imagen-logo-300"
+                  />
                 </a>
               </div>
             </div>
@@ -207,20 +215,19 @@
     <!-- ============================================
          CONTENIDO PRINCIPAL
          ============================================ -->
-    <div
-      class="uk-background-cover navbar-ajuste-primer-hijo catalog-section"
-      style="
-        background-image: url('assets/img/fondo_6.jpg');
-        background-attachment: fixed;
-      "
-    >
-      <div class="uk-container uk-section">
-        <h1
-          class="uk-heading-line uk-text-center uk-margin-large-bottom texto-blanco"
-        >
-          <span>Catálogo Digital</span>
-        </h1>
+    <section class="seccion-fondo-blanco navbar-ajuste-primer-hijo">
+      <div class="uk-container">
+        <div class="uk-text-center">
+          <h1 class="titulo-seccion uk-heading-large">Catálogo Digital</h1>
+          <p class="uk-text-lead texto-gris uk-margin-medium-top">
+            Encuentra el envase perfecto para tu negocio
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <section class="seccion-fondo-gris">
+      <div class="uk-container uk-section">
         <!-- Acordeón de Búsquedas -->
         <ul uk-accordion="multiple: true">
           <!-- Buscador General -->
@@ -387,7 +394,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </section>
 
     <!-- ========================================
          FOOTER
@@ -401,9 +408,9 @@
           <!-- Columna 1: Logo y descripción -->
           <div>
             <img
-              src="assets/img/coffe-user-logo.svg"
-              alt="SurtiEnvases Logo"
-              class="uk-margin-small-bottom"
+              src="assets/img/surtienvases/logo/LogoFooter.png"
+              alt="Logo"
+              class="imagen-logo-300 uk-margin-small-bottom"
             />
             <p class="uk-text-small uk-text-muted">
               Distribuidora de soluciones en empaque con amplia gama de envases
@@ -455,6 +462,7 @@
                 uk-icon="icon: facebook"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Facebook"
               ></a>
               <a
                 href="https://www.instagram.com/envases_surtienvases"
@@ -462,6 +470,7 @@
                 uk-icon="icon: instagram"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram"
               ></a>
             </div>
 

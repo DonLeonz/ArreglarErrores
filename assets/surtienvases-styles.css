@@ -1446,5 +1446,142 @@ a[href*="instagram"].uk-icon-button:hover {
 }
 
 /* ========================================
+   MEJORAS PARA HERO VIDEO RESPONSIVE
+   Agregar al final del archivo CSS
+   ======================================== */
+
+/* Contenedor ajustado al video */
+.hero-video-container {
+  width: fit-content !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+/* Video centrado y responsive */
+.hero-video-container video {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+
+/* Desktop y tablets grandes - video más grande */
+@media (min-width: 961px) {
+  .hero-video-container {
+    max-width: 100% !important;
+  }
+
+  .hero-video-container video {
+    max-height: 500px !important;
+  }
+}
+
+/* Tablets medianas */
+@media (max-width: 960px) and (min-width: 641px) {
+  .hero-video-container video {
+    max-height: 400px !important;
+  }
+}
+
+/* Móviles - más espacio arriba del hero */
+@media (max-width: 640px) {
+  .hero-principal {
+    padding-top: 100px !important;
+  }
+
+  .hero-tarjeta-texto {
+    margin-top: 0 !important;
+  }
+
+  .hero-video-container video {
+    max-height: 300px !important;
+  }
+}
+
+/* Landscape móviles - padding reducido */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-principal {
+    padding-top: 80px !important;
+  }
+}
+
+/* ========================================
+   IMAGEN DE FONDO HERO RESPONSIVE
+   ======================================== */
+
+/* Imagen de fondo más visible y responsive */
+.hero-imagen-fondo {
+  opacity: 0.25 !important;
+}
+
+/* En tablets y móviles, ajustar la posición de la imagen */
+@media (max-width: 960px) {
+  .hero-imagen-fondo {
+    object-position: center center !important;
+    opacity: 0.2 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-imagen-fondo {
+    object-position: 60% center !important;
+    opacity: 0.15 !important;
+  }
+}
+
+/* ========================================
+   ICONOS DE REDES SOCIALES - COLORES VIBRANTES
+   ======================================== */
+
+/* Iconos de redes en TODAS las secciones (no solo footer) */
+a[href*="facebook"] .uk-icon-button,
+a[href*="facebook"].uk-icon-button {
+  background-color: #1877f2 !important;
+  border-color: #1877f2 !important;
+  color: white !important;
+}
+
+a[href*="facebook"] .uk-icon-button:hover,
+a[href*="facebook"].uk-icon-button:hover {
+  background-color: #145dbf !important;
+  border-color: #145dbf !important;
+  color: white !important;
+  transform: translateY(-3px);
+}
+
+a[href*="instagram"] .uk-icon-button,
+a[href*="instagram"].uk-icon-button {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  ) !important;
+  border: none !important;
+  color: white !important;
+}
+
+a[href*="instagram"] .uk-icon-button:hover,
+a[href*="instagram"].uk-icon-button:hover {
+  background: linear-gradient(
+    45deg,
+    #d07e2c 0%,
+    #c55a33 25%,
+    #b8213a 50%,
+    #a81d5a 75%,
+    #9a1475 100%
+  ) !important;
+  color: white !important;
+  transform: translateY(-3px);
+}
+
+/* ========================================
+   FIN DE MEJORAS
+   ======================================== */
+
+/* ========================================
    FIN DEL ARCHIVO
    ======================================== */
