@@ -24,7 +24,7 @@
     <title>Nosotros - SurtiEnvases</title>
   </head>
   <body>
-    <!-- NAVBAR (sin cambios) -->
+    <!-- NAVBAR -->
     <div
       uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
     >
@@ -97,15 +97,13 @@
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
-                  class="uk-button uk-button-secondary uk-border-rounded"
+                  class="uk-button uk-button-secondary uk-border-rounded position-relative"
                   id="navbar-quote-btn"
-                  style="position: relative"
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="carrito-badge-contador"
+                    class="carrito-badge-contador uk-hidden"
                     id="cart-count-navbar"
-                    style="display: none"
                     >0</span
                   >
                 </button>
@@ -208,19 +206,18 @@
           </p>
         </div>
 
-        <!-- Placeholder para video/imagen principal -->
-        <div class="uk-margin-large-top">
-          <div class="placeholder-video contenedor-redondeado">
-            <div class="uk-text-center">
-              <span uk-icon="icon: video-camera; ratio: 3"></span>
-              <p class="uk-margin-small-top">
-                Video institucional de SurtiEnvases
-              </p>
-              <p class="uk-text-small">
-                (Aquí irá tu video o imagen principal)
-              </p>
-            </div>
-          </div>
+        <!-- Video/Imagen institucional -->
+        <div
+          class="uk-margin-large-top contenedor-redondeado"
+          style="overflow: hidden"
+        >
+          <img
+            src="assets/img/surtienvases/imagenes/SurtiImagen (8).jpg"
+            alt="Instalaciones SurtiEnvases"
+            class="uk-width-1-1"
+            style="height: 400px; object-fit: cover"
+            uk-img
+          />
         </div>
       </div>
     </section>
@@ -269,14 +266,18 @@
           <!-- Sede 1 -->
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-              <!-- Placeholder imagen sede 1 -->
+              <!-- Imagen sede 1 -->
               <div
-                class="placeholder-imagen contenedor-redondeado uk-margin-bottom"
+                class="contenedor-redondeado uk-margin-bottom"
+                style="overflow: hidden"
               >
-                <div class="uk-text-center">
-                  <span uk-icon="icon: image; ratio: 2.5"></span>
-                  <p>Foto Sede 1</p>
-                </div>
+                <img
+                  src="assets/img/surtienvases/imagenes/SurtiImagen (1).jpg"
+                  alt="Sede 1 SurtiEnvases"
+                  class="uk-width-1-1"
+                  style="height: 300px; object-fit: cover"
+                  uk-img
+                />
               </div>
 
               <h3 class="titulo-profesional">🏢 Sede 1 - Centro</h3>
@@ -323,14 +324,18 @@
           <!-- Sede 2 -->
           <div>
             <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-              <!-- Placeholder imagen sede 2 -->
+              <!-- Imagen sede 2 -->
               <div
-                class="placeholder-imagen contenedor-redondeado uk-margin-bottom"
+                class="contenedor-redondeado uk-margin-bottom"
+                style="overflow: hidden"
               >
-                <div class="uk-text-center">
-                  <span uk-icon="icon: image; ratio: 2.5"></span>
-                  <p>Foto Sede 2</p>
-                </div>
+                <img
+                  src="assets/img/surtienvases/imagenes/SurtiImagen (19).jpg"
+                  alt="Sede 2 SurtiEnvases"
+                  class="uk-width-1-1"
+                  style="height: 300px; object-fit: cover"
+                  uk-img
+                />
               </div>
 
               <h3 class="titulo-profesional">🏪 Sede 2 - Centro</h3>
@@ -452,7 +457,7 @@
       </div>
     </section>
 
-    <!-- FOOTER (sin cambios) -->
+    <!-- FOOTER -->
     <footer class="uk-section uk-section-small footer-principal">
       <div class="uk-container">
         <div
@@ -564,11 +569,10 @@
         id="floating-cart-btn"
         aria-label="Ver carrito"
       >
-        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
         <span
-          class="carrito-badge-contador"
+          class="carrito-badge-contador uk-hidden"
           id="cart-count-floating"
-          style="display: none"
           >0</span
         >
       </button>
@@ -582,7 +586,7 @@
       rel="noopener noreferrer"
     >
       <div class="whatsapp-boton-circular">
-        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
       </div>
     </a>
 

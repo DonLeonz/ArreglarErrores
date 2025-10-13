@@ -102,15 +102,13 @@
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
-                  class="uk-button uk-button-secondary uk-border-rounded"
+                  class="uk-button uk-button-secondary uk-border-rounded position-relative"
                   id="navbar-quote-btn"
-                  style="position: relative"
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="carrito-badge-contador"
+                    class="carrito-badge-contador uk-hidden"
                     id="cart-count-navbar"
-                    style="display: none"
                     >0</span
                   >
                 </button>
@@ -212,9 +210,9 @@
     </div>
 
     <!-- ============================================
-        HERO SECTION - RESPONSIVE CON UIKIT
+        HERO SECTION - RESPONSIVE MEJORADO
         ============================================ -->
-    <section class="hero-principal navbar-ajuste-primer-hijo">
+    <section class="hero-principal navbar-ajuste-primer-hijo uk-padding-small uk-padding-remove-top">
       <!-- Imagen de fondo -->
       <img
         src="assets/img/surtienvases/imagenes/SurtiImagen (8).jpg"
@@ -227,11 +225,11 @@
 
       <!-- Contenido -->
       <div class="uk-container hero-contenido">
-        <div class="uk-grid-medium uk-child-width-1-2@m uk-flex-middle" uk-grid>
+        <div class="uk-grid-medium uk-child-width-1-1 uk-child-width-1-2@m uk-flex-middle" uk-grid>
           <!-- Columna de texto -->
-          <div>
+          <div class="uk-padding-small uk-padding-remove-vertical">
             <div
-              class="hero-tarjeta-texto uk-margin-bottom"
+              class="hero-tarjeta-texto"
               uk-scrollspy="cls: uk-animation-slide-left; delay: 200"
             >
               <h1 class="uk-margin-remove-bottom">
@@ -273,9 +271,9 @@
           </div>
 
           <!-- Columna de video -->
-          <div>
+          <div class="uk-padding-small uk-padding-remove-vertical">
             <div
-              class="hero-video-container uk-margin-bottom"
+              class="hero-video-container"
               uk-scrollspy="cls: uk-animation-slide-right; delay: 300"
             >
               <video
@@ -296,21 +294,21 @@
     <!-- ============================================
         SECCIÓN DE CARACTERÍSTICAS
         ============================================ -->
-    <section class="uk-section uk-section-muted">
+    <section class="uk-section uk-section-muted uk-padding-small">
       <div class="uk-container">
         <h2
-          class="uk-heading-line uk-text-center"
+          class="uk-heading-line uk-text-center uk-margin-medium-bottom"
           uk-scrollspy="cls: uk-animation-fade; delay: 100"
         >
           <span>¿Por qué elegir SurtiEnvases?</span>
         </h2>
         <div
-          class="uk-child-width-1-3@m uk-grid-match uk-margin-large-top"
+          class="uk-child-width-1-3@m uk-child-width-1-1 uk-grid-match uk-grid-small"
           uk-grid
           uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div; delay: 150;"
         >
           <div>
-            <div class="uk-card uk-card-default uk-card-body uk-text-center">
+            <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-small">
               <span uk-icon="icon: cart; ratio: 3" class="icono-verde"></span>
               <h3 class="uk-card-title">Amplio Catálogo</h3>
               <p>
@@ -320,7 +318,7 @@
             </div>
           </div>
           <div>
-            <div class="uk-card uk-card-default uk-card-body uk-text-center">
+            <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-small">
               <span
                 uk-icon="icon: location; ratio: 3"
                 class="icono-verde"
@@ -333,7 +331,7 @@
             </div>
           </div>
           <div>
-            <div class="uk-card uk-card-default uk-card-body uk-text-center">
+            <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-small">
               <span uk-icon="icon: check; ratio: 3" class="icono-verde"></span>
               <h3 class="uk-card-title">Calidad Certificada</h3>
               <p>
@@ -468,11 +466,10 @@
         id="floating-cart-btn"
         aria-label="Ver carrito de cotización"
       >
-        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
         <span
-          class="carrito-badge-contador"
+          class="carrito-badge-contador uk-hidden"
           id="cart-count-floating"
-          style="display: none"
           >0</span
         >
       </button>
@@ -487,7 +484,7 @@
       aria-label="Contactar por WhatsApp"
     >
       <div class="whatsapp-boton-circular">
-        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
       </div>
     </a>
 

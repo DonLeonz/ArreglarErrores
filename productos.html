@@ -97,15 +97,13 @@
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
-                  class="uk-button uk-button-secondary uk-border-rounded"
+                  class="uk-button uk-button-secondary uk-border-rounded position-relative"
                   id="navbar-quote-btn"
-                  style="position: relative"
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="carrito-badge-contador"
+                    class="carrito-badge-contador uk-hidden"
                     id="cart-count-navbar"
-                    style="display: none"
                     >0</span
                   >
                 </button>
@@ -208,19 +206,18 @@
           </p>
         </div>
 
-        <!-- Placeholder para imagen/video de productos -->
-        <div class="uk-margin-large-top">
-          <div class="placeholder-imagen contenedor-redondeado">
-            <div class="uk-text-center">
-              <span uk-icon="icon: image; ratio: 3"></span>
-              <p class="uk-margin-small-top">
-                Banner de productos o video institucional
-              </p>
-              <p class="uk-text-small">
-                (Coloca aquí una imagen destacada de tus productos)
-              </p>
-            </div>
-          </div>
+        <!-- Banner de productos -->
+        <div
+          class="uk-margin-large-top contenedor-redondeado"
+          style="overflow: hidden"
+        >
+          <img
+            src="assets/img/surtienvases/imagenes/SurtiImagen (3).jpg"
+            alt="Productos SurtiEnvases"
+            class="uk-width-1-1"
+            style="height: 400px; object-fit: cover"
+            uk-img
+          />
         </div>
       </div>
     </section>
@@ -404,11 +401,10 @@
         id="floating-cart-btn"
         aria-label="Ver carrito"
       >
-        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
         <span
-          class="carrito-badge-contador"
+          class="carrito-badge-contador uk-hidden"
           id="cart-count-floating"
-          style="display: none"
           >0</span
         >
       </button>
@@ -422,7 +418,7 @@
       rel="noopener noreferrer"
     >
       <div class="whatsapp-boton-circular">
-        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
       </div>
     </a>
 

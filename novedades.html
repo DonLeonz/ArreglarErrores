@@ -97,15 +97,13 @@
             <div class="uk-navbar-right uk-visible@l">
               <div class="uk-navbar-item uk-dark">
                 <button
-                  class="uk-button uk-button-secondary uk-border-rounded"
+                  class="uk-button uk-button-secondary uk-border-rounded position-relative"
                   id="navbar-quote-btn"
-                  style="position: relative"
                 >
                   <span uk-icon="cart"></span> Cotizar
                   <span
-                    class="carrito-badge-contador"
+                    class="carrito-badge-contador uk-hidden"
                     id="cart-count-navbar"
-                    style="display: none"
                     >0</span
                   >
                 </button>
@@ -208,103 +206,27 @@
           </p>
         </div>
 
-        <!-- Placeholder para imagen/video -->
-        <div class="uk-margin-large-top">
-          <div class="placeholder-imagen contenedor-redondeado">
-            <div class="uk-text-center">
-              <span uk-icon="icon: image; ratio: 3"></span>
-              <p class="uk-margin-small-top">
-                Banner de novedades o imagen destacada
-              </p>
-              <p class="uk-text-small">
-                (Coloca aquí una imagen relacionada con blog o noticias)
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FORMULARIO PARA PUBLICAR -->
-    <section class="seccion-fondo-gris">
-      <div class="uk-container">
+        <!-- Banner de novedades -->
         <div
-          class="uk-card uk-card-default uk-card-body card-borde-verde contenedor-redondeado"
+          class="uk-margin-large-top contenedor-redondeado"
+          style="overflow: hidden"
         >
-          <h3 class="titulo-profesional">
-            <span uk-icon="icon: pencil; ratio: 1.2" class="icono-verde"></span>
-            Publicar Artículo
-          </h3>
-          <form
-            class="uk-grid-small uk-margin-medium-top"
-            uk-grid
-            id="news-form"
-          >
-            <div class="uk-width-1-2@s">
-              <label class="uk-form-label texto-morado uk-text-bold"
-                >Título del artículo</label
-              >
-              <input
-                class="uk-input"
-                type="text"
-                placeholder="Título del artículo"
-                id="news-title"
-                required
-              />
-            </div>
-            <div class="uk-width-1-2@s">
-              <label class="uk-form-label texto-morado uk-text-bold"
-                >Autor</label
-              >
-              <input
-                class="uk-input"
-                type="text"
-                placeholder="Autor"
-                id="news-author"
-                value="Usuario Invitado"
-                required
-              />
-            </div>
-            <div class="uk-width-1-1">
-              <label class="uk-form-label texto-morado uk-text-bold"
-                >Resumen o introducción</label
-              >
-              <textarea
-                class="uk-textarea"
-                rows="3"
-                placeholder="Resumen o introducción del artículo"
-                id="news-excerpt"
-                required
-              ></textarea>
-            </div>
-            <div class="uk-width-1-1">
-              <label class="uk-form-label texto-morado uk-text-bold"
-                >Imagen (opcional)</label
-              >
-              <input
-                type="file"
-                accept="image/*"
-                id="news-image"
-                class="uk-input"
-              />
-            </div>
-            <div class="uk-width-1-1">
-              <button
-                type="submit"
-                class="uk-button uk-button-secondary contenedor-redondeado"
-              >
-                <span uk-icon="plus-circle"></span> Publicar artículo
-              </button>
-            </div>
-          </form>
+          <img
+            src="assets/img/surtienvases/imagenes/SurtiImagen (26).jpg"
+            alt="Banner de novedades"
+            class="uk-width-1-1"
+            style="height: 400px; object-fit: cover"
+            uk-img
+          />
         </div>
       </div>
     </section>
 
     <!-- CONTENEDOR DE ARTÍCULOS -->
-    <section class="seccion-fondo-blanco">
+    <section class="seccion-fondo-gris">
       <div class="uk-container">
         <h2 class="titulo-seccion uk-heading-medium">Artículos Recientes</h2>
+
         <div
           class="uk-child-width-1-2@s uk-grid-match"
           uk-grid="masonry: pack"
@@ -427,11 +349,10 @@
         id="floating-cart-btn"
         aria-label="Ver carrito"
       >
-        <span uk-icon="icon: cart; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
         <span
-          class="carrito-badge-contador"
+          class="carrito-badge-contador uk-hidden"
           id="cart-count-floating"
-          style="display: none"
           >0</span
         >
       </button>
@@ -445,7 +366,7 @@
       rel="noopener noreferrer"
     >
       <div class="whatsapp-boton-circular">
-        <span uk-icon="icon: whatsapp; ratio: 1.5" style="color: white"></span>
+        <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
       </div>
     </a>
 

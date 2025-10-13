@@ -43,7 +43,7 @@ class NovedadesSystem {
         title: "Cómo Reutilizar Envases Plásticos de Forma Segura",
         author: "Equipo SurtiEnvases",
         imageUrl: "assets/img/blog/blog-example1.jpg",
-        avatarUrl: "assets/img/avatars/default.jpg",
+        avatarUrl: "assets/img/surtienvases/avatars/default.jpg",
         excerpt:
           "Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.",
       },
@@ -52,7 +52,7 @@ class NovedadesSystem {
         title: "Ventajas de los Envases de Vidrio para Alimentos",
         author: "Usuario Invitado",
         imageUrl: "assets/img/blog/blog-example2.jpg",
-        avatarUrl: "assets/img/avatars/default.jpg",
+        avatarUrl: "assets/img/surtienvases/avatars/default.jpg",
         excerpt:
           "Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.",
       },
@@ -61,7 +61,7 @@ class NovedadesSystem {
         title: "Guía Completa: Elegir el Envase Correcto para tu Producto",
         author: "Usuario Invitado",
         imageUrl: "assets/img/blog/blog-example3.jpg",
-        avatarUrl: "assets/img/avatars/default.jpg",
+        avatarUrl: "assets/img/surtienvases/avatars/default.jpg",
         excerpt:
           "Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.",
       },
@@ -139,7 +139,7 @@ class NovedadesSystem {
       author: author,
       excerpt: excerpt,
       imageUrl: imageUrl,
-      avatarUrl: "assets/img/avatars/default.jpg",
+      avatarUrl: "assets/img/surtienvases/avatars/default.jpg",
     };
 
     this.news.unshift(newArticle);
@@ -229,7 +229,7 @@ class NovedadesSystem {
     return `
       <div class="uk-margin-top">
         <div class="uk-flex uk-flex-middle uk-margin">
-          <img src="assets/img/avatars/default.jpg" width="40" height="40"
+          <img src="assets/img/surtienvases/avatars/default.jpg" width="40" height="40"
                class="uk-border-circle" alt="Usuario">
           <span class="uk-margin-left">Usuario Invitado</span>
         </div>
@@ -259,7 +259,7 @@ class NovedadesSystem {
           <article class="uk-comment uk-margin-top">
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
-                   src="assets/img/avatars/default.jpg"
+                   src="assets/img/surtienvases/avatars/default.jpg"
                    width="40" height="40" alt="${comment.author}">
               <div class="uk-margin-small-left">
                 <h4 class="uk-comment-title uk-margin-remove texto-negro">
