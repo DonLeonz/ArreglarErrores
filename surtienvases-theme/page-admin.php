@@ -2,7 +2,7 @@
 /**
  * Template Name: Admin
  */
-require_once 'config.php';
+require_once get_template_directory() . '/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,39 +11,29 @@ require_once 'config.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Panel de Administración - SurtiEnvases en Neiva, Huila" />
-    <link rel="icon" type="image/png" href="assets/img/surtienvases/logo/surtienvases.png" />
-
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.1/dist/css/uikit.min.css" />
-
-    <link rel="stylesheet" href="assets/surtienvases-styles.css" />
-
-    <title>Panel de Administración - SurtiEnvases</title>
-
-    <!-- API Config -->
-    <script>
-        window.API_URL = '<?php echo dirname($_SERVER['PHP_SELF']); ?>/api.php';
-    </script>
+    <link rel="icon" type="image/png"
+        href="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/surtienvases.png" />
+    <?php wp_head(); ?>
 </head>
 
 <body>
-    <!-- NAVBAR -->
+    <!-- NAVBAR ESPECIAL DE ADMIN -->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
         <nav class="uk-navbar-container uk-navbar-transparent">
             <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
                 <div uk-navbar="mode: click" class="uk-flex">
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-light">
-                            <a class="uk-flex uk-link-heading" href="index.php">
-                                <img src="assets/img/surtienvases/logo/SurtiLogo.PNG" alt="Logo SurtiEnvases"
-                                    class="imagen-logo-300" />
+                            <a class="uk-flex uk-link-heading" href="<?php echo home_url(); ?>">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/SurtiLogo.PNG"
+                                    alt="Logo SurtiEnvases" class="imagen-logo-300" />
                             </a>
                         </div>
                     </div>
 
                     <div class="uk-navbar-right">
                         <div class="uk-navbar-item">
-                            <a href="index.php" class="uk-button uk-button-secondary uk-border-rounded">
+                            <a href="<?php echo home_url(); ?>" class="uk-button uk-button-secondary uk-border-rounded">
                                 <span uk-icon="home"></span> Volver al Sitio
                             </a>
                         </div>
@@ -52,6 +42,11 @@ require_once 'config.php';
             </div>
         </nav>
     </div>
+
+    <!-- API Config -->
+    <script>
+        window.API_URL = '<?php echo get_template_directory_uri(); ?>/api.php';
+    </script>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div class="navbar-ajuste-primer-hijo uk-section">
@@ -200,8 +195,25 @@ require_once 'config.php';
                                 <!-- Imagen -->
                                 <div class="uk-width-1-1 uk-margin-top">
                                     <h3 class="uk-h4">Imagen del Producto</h3>
-                                    <input class="uk-input" type="text" id="product-image"
-                                        placeholder="URL de la imagen o ruta: assets/img/productos/..." />
+
+                                    <div class="uk-grid-small" uk-grid>
+                                        <div class="uk-width-2-3@s">
+                                            <input class="uk-input" type="text" id="product-image" readonly
+                                                placeholder="La ruta se generará automáticamente al subir la imagen" />
+                                        </div>
+                                        <div class="uk-width-1-3@s">
+                                            <button type="button" class="uk-button uk-button-secondary uk-width-1-1"
+                                                id="upload-product-image-btn">
+                                                <span uk-icon="image"></span> Seleccionar Imagen
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Preview de la imagen -->
+                                    <div id="product-image-preview" class="uk-margin-top uk-hidden">
+                                        <img id="product-image-preview-img" src="" alt="Preview"
+                                            style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #b7ce38;">
+                                    </div>
                                 </div>
 
                                 <!-- Popular -->
@@ -251,7 +263,25 @@ require_once 'config.php';
                                     id="news-excerpt" required></textarea>
                             </div>
                             <div class="uk-width-1-1">
-                                <input type="text" placeholder="URL de la imagen" id="news-image" class="uk-input" />
+                                <label class="uk-form-label">Imagen del Artículo</label>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-2-3@s">
+                                        <input class="uk-input" type="text" id="news-image" readonly
+                                            placeholder="La ruta se generará automáticamente al subir la imagen" />
+                                    </div>
+                                    <div class="uk-width-1-3@s">
+                                        <button type="button" class="uk-button uk-button-secondary uk-width-1-1"
+                                            id="upload-news-image-btn">
+                                            <span uk-icon="image"></span> Seleccionar Imagen
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Preview de la imagen -->
+                                <div id="news-image-preview" class="uk-margin-top uk-hidden">
+                                    <img id="news-image-preview-img" src="" alt="Preview"
+                                        style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #b7ce38;">
+                                </div>
                             </div>
                             <div class="uk-width-1-1">
                                 <button type="submit" class="uk-button uk-button-primary">
@@ -343,16 +373,9 @@ require_once 'config.php';
     </div>
 
     <!-- FOOTER -->
-    <?php include 'includes/footer.php'; ?>
+    <?php get_template_part('includes/footer'); ?>
 
-    <!-- SCRIPTS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit-icons.min.js"></script>
-
-    <!-- Sistemas de administración PHP -->
-    <script src="js-php/admin-categorias-php.js"></script>
-    <script src="js-php/admin-productos-php.js"></script>
-    <script src="js-php/admin-novedades-php.js"></script>
+    <?php wp_footer(); ?>
 </body>
 
 </html>

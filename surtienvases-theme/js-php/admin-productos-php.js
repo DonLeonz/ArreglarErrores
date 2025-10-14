@@ -18,6 +18,7 @@ class ProductAdminPHP {
     await this.loadIndustries();
     this.setupForm();
     this.setupDynamicFields();
+    this.setupImageUploader();
     this.renderProductsList();
     this.populateSelects();
   }
@@ -124,6 +125,132 @@ class ProductAdminPHP {
         this.addBenefitField();
       });
     }
+  }
+
+  // ========================================
+  // SETUP IMAGE UPLOADER
+  // ========================================
+
+  setupImageUploader() {
+    const uploadBtn = document.getElementById("upload-product-image-btn");
+    if (!uploadBtn) return;
+
+    uploadBtn.addEventListener("click", () => {
+      this.openMediaUploader();
+    });
+  }
+
+  openMediaUploader() {
+    // Crear input file temporal
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Validar que sea imagen
+      if (!file.type.startsWith("image/")) {
+        UIkit.notification({
+          message: "Por favor selecciona un archivo de imagen válido",
+          status: "warning",
+          pos: "top-center",
+        });
+        return;
+      }
+
+      // Validar tamaño (máximo 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        UIkit.notification({
+          message: "La imagen no debe superar 5MB",
+          status: "warning",
+          pos: "top-center",
+        });
+        return;
+      }
+
+      // Mostrar loading
+      UIkit.notification({
+        message: "Subiendo imagen...",
+        status: "primary",
+        pos: "top-center",
+        timeout: 2000,
+      });
+
+      try {
+        const uploadedPath = await this.uploadImage(file);
+
+        // Actualizar input con la ruta
+        const imageInput = document.getElementById("product-image");
+        if (imageInput) {
+          imageInput.value = uploadedPath;
+        }
+
+        // Mostrar preview
+        this.showImagePreview(uploadedPath);
+
+        UIkit.notification({
+          message: "Imagen subida exitosamente",
+          status: "success",
+          pos: "top-center",
+        });
+      } catch (error) {
+        UIkit.notification({
+          message: "Error al subir la imagen: " + error.message,
+          status: "danger",
+          pos: "top-center",
+        });
+      }
+    };
+
+    input.click();
+  }
+
+  async uploadImage(file) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("action", "surtienvases_upload_product_image");
+    formData.append("nonce", this.getNonce());
+
+    const response = await fetch(surtienvases_vars.ajax_url, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      return data.data.url;
+    } else {
+      throw new Error(data.data.message || "Error al subir imagen");
+    }
+  }
+
+  showImagePreview(imagePath) {
+    const preview = document.getElementById("product-image-preview");
+    const previewImg = document.getElementById("product-image-preview-img");
+
+    if (preview && previewImg) {
+      // Convertir ruta relativa a URL completa
+      const fullUrl = window.location.origin + "/" + imagePath;
+      previewImg.src = fullUrl;
+      preview.classList.remove("uk-hidden");
+    }
+  }
+
+  getNonce() {
+    // WordPress genera el nonce para el media uploader
+    const nonceInput = document.querySelector('input[name="_wpnonce"]');
+    if (nonceInput) {
+      return nonceInput.value;
+    }
+    // Fallback: intentar obtener del meta tag
+    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
+    if (nonceMeta) {
+      return nonceMeta.content;
+    }
+    return "";
   }
 
   addSpecificationField() {
@@ -241,6 +368,12 @@ class ProductAdminPHP {
         document.getElementById("admin-product-form").reset();
         document.getElementById("specifications-container").innerHTML = "";
         document.getElementById("benefits-container").innerHTML = "";
+
+        // Ocultar preview de imagen
+        const preview = document.getElementById("product-image-preview");
+        if (preview) {
+          preview.classList.add("uk-hidden");
+        }
 
         document
           .getElementById("products-list")

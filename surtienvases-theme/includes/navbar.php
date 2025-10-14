@@ -8,9 +8,9 @@
                 <!-- Logo -->
                 <div class="uk-navbar-left">
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-flex uk-link-heading" href="index.php">
-                            <img src="assets/img/surtienvases/logo/SurtiLogo.PNG" alt="Logo SurtiEnvases"
-                                class="imagen-logo-300" />
+                        <a class="uk-flex uk-link-heading" href="<?php echo home_url(); ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/SurtiLogo.PNG"
+                                alt="Logo SurtiEnvases" class="imagen-logo-300" />
                         </a>
                     </div>
                 </div>
@@ -18,32 +18,38 @@
                 <!-- Menú Desktop -->
                 <div class="uk-navbar-center uk-visible@l">
                     <div class="uk-navbar-item uk-dark">
-                        <a class="uk-button uk-button-secondary uk-border-rounded" href="catalogo.php">
+                        <a class="uk-button uk-button-secondary uk-border-rounded"
+                            href="<?php echo home_url('/catalogo'); ?>">
                             Catálogo
                         </a>
                     </div>
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="productos.php">
+                        <a class="uk-text-capitalize uk-button uk-button-text uk-light"
+                            href="<?php echo home_url('/productos'); ?>">
                             Productos
                         </a>
                     </div>
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="novedades.php">
+                        <a class="uk-text-capitalize uk-button uk-button-text uk-light"
+                            href="<?php echo home_url('/novedades'); ?>">
                             Novedades
                         </a>
                     </div>
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="nosotros.php">
+                        <a class="uk-text-capitalize uk-button uk-button-text uk-light"
+                            href="<?php echo home_url('/nosotros'); ?>">
                             Nosotros
                         </a>
                     </div>
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="contacto.php">
+                        <a class="uk-text-capitalize uk-button uk-button-text uk-light"
+                            href="<?php echo home_url('/contacto'); ?>">
                             Contacto
                         </a>
                     </div>
                     <div class="uk-navbar-item uk-light">
-                        <a class="uk-text-capitalize uk-button uk-button-text uk-light" href="preguntas-frecuentes.php">
+                        <a class="uk-text-capitalize uk-button uk-button-text uk-light"
+                            href="<?php echo home_url('/preguntas-frecuentes'); ?>">
                             FAQ
                         </a>
                     </div>
@@ -72,37 +78,42 @@
                             <div class="uk-margin-large-top">
                                 <div class="uk-margin">
                                     <a class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                                        href="catalogo.php">
+                                        href="<?php echo home_url('/catalogo'); ?>">
                                         <strong>Catálogo</strong>
                                     </a>
                                 </div>
 
                                 <div class="uk-margin-small">
-                                    <a class="uk-button uk-button-text uk-width-1-1" href="productos.php">
+                                    <a class="uk-button uk-button-text uk-width-1-1"
+                                        href="<?php echo home_url('/productos'); ?>">
                                         Productos
                                     </a>
                                 </div>
 
                                 <div class="uk-margin-small">
-                                    <a class="uk-button uk-button-text uk-width-1-1" href="novedades.php">
+                                    <a class="uk-button uk-button-text uk-width-1-1"
+                                        href="<?php echo home_url('/novedades'); ?>">
                                         Novedades
                                     </a>
                                 </div>
 
                                 <div class="uk-margin-small">
-                                    <a class="uk-button uk-button-text uk-width-1-1" href="nosotros.php">
+                                    <a class="uk-button uk-button-text uk-width-1-1"
+                                        href="<?php echo home_url('/nosotros'); ?>">
                                         Nosotros
                                     </a>
                                 </div>
 
                                 <div class="uk-margin-small">
-                                    <a class="uk-button uk-button-text uk-width-1-1" href="contacto.php">
+                                    <a class="uk-button uk-button-text uk-width-1-1"
+                                        href="<?php echo home_url('/contacto'); ?>">
                                         Contacto
                                     </a>
                                 </div>
 
                                 <div class="uk-margin-small">
-                                    <a class="uk-button uk-button-text uk-width-1-1" href="preguntas-frecuentes.php">
+                                    <a class="uk-button uk-button-text uk-width-1-1"
+                                        href="<?php echo home_url('/preguntas-frecuentes'); ?>">
                                         FAQ
                                     </a>
                                 </div>

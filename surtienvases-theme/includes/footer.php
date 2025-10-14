@@ -6,8 +6,8 @@
         <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
             <!-- Columna 1: Logo y descripción -->
             <div>
-                <img src="assets/img/surtienvases/logo/LogoFooter.png" alt="Logo"
-                    class="imagen-logo-300 uk-margin-small-bottom" />
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/LogoFooter.png"
+                    alt="Logo" class="imagen-logo-300 uk-margin-small-bottom" />
                 <p class="uk-text-small uk-text-muted">
                     Distribuidora de soluciones en empaque con amplia gama de envases
                     en plástico y vidrio.
@@ -19,16 +19,16 @@
                 <h4 class="footer-titulo">Enlaces Rápidos</h4>
                 <ul class="uk-list uk-list-divider">
                     <li>
-                        <a href="catalogo.php" class="uk-link-muted">Catálogo</a>
+                        <a href="<?php echo home_url('/catalogo'); ?>" class="uk-link-muted">Catálogo</a>
                     </li>
                     <li>
-                        <a href="productos.php" class="uk-link-muted">Productos</a>
+                        <a href="<?php echo home_url('/productos'); ?>" class="uk-link-muted">Productos</a>
                     </li>
                     <li>
-                        <a href="nosotros.php" class="uk-link-muted">Quiénes Somos</a>
+                        <a href="<?php echo home_url('/nosotros'); ?>" class="uk-link-muted">Quiénes Somos</a>
                     </li>
                     <li>
-                        <a href="contacto.php" class="uk-link-muted">Contacto</a>
+                        <a href="<?php echo home_url('/contacto'); ?>" class="uk-link-muted">Contacto</a>
                     </li>
                 </ul>
             </div>
@@ -38,10 +38,11 @@
                 <h4 class="footer-titulo">Información</h4>
                 <ul class="uk-list uk-list-divider">
                     <li>
-                        <a href="preguntas-frecuentes.php" class="uk-link-muted">Preguntas Frecuentes</a>
+                        <a href="<?php echo home_url('/preguntas-frecuentes'); ?>" class="uk-link-muted">Preguntas
+                            Frecuentes</a>
                     </li>
                     <li>
-                        <a href="novedades.php" class="uk-link-muted">Novedades</a>
+                        <a href="<?php echo home_url('/novedades'); ?>" class="uk-link-muted">Novedades</a>
                     </li>
                 </ul>
             </div>
