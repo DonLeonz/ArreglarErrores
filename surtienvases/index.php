@@ -1,6 +1,6 @@
 <?php
 // index.php - Página principal
-require_once 'config.php';
+   require_once 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

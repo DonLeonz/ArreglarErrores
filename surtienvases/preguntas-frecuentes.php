@@ -415,7 +415,7 @@ require_once 'config.php';
                         </a>
                     </div>
                     <div>
-                        <a href="contacto.html" class="uk-button uk-button-secondary uk-width-1-1">
+                        <a href="contacto.php" class="uk-button uk-button-secondary uk-width-1-1">
                             <span uk-icon="mail"></span> Formulario de Contacto
                         </a>
                     </div>

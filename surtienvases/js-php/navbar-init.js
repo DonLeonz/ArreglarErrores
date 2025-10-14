@@ -29,7 +29,7 @@ class NavbarInit {
   // ========================================
   getCurrentPage() {
     const path = window.location.pathname;
-    const page = path.split("/").pop() || "index.html";
+    const page = path.split("/").pop() || "index.php";
     return page;
   }
 
