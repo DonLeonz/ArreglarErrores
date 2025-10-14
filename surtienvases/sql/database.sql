@@ -1,6 +1,6 @@
 -- ========================================
--- BASE DE DATOS SURTIENVASES
--- Estructura completa para migración
+-- BASE DE DATOS SURTIENVASES - COMPLETA
+-- Estructura + Datos Iniciales
 -- ========================================
 CREATE DATABASE IF NOT EXISTS surtienvases CHARACTER
 SET
@@ -9,7 +9,7 @@ SET
 USE surtienvases;
 
 -- ========================================
--- TABLA: categorias
+-- TABLAS
 -- ========================================
 CREATE TABLE
     categorias (
@@ -21,9 +21,6 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: industrias
--- ========================================
 CREATE TABLE
     industrias (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,9 +31,6 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: productos
--- ========================================
 CREATE TABLE
     productos (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,9 +51,6 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: especificaciones (relación 1:N con productos)
--- ========================================
 CREATE TABLE
     especificaciones (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -68,9 +59,6 @@ CREATE TABLE
         FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: beneficios (relación 1:N con productos)
--- ========================================
 CREATE TABLE
     beneficios (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -79,9 +67,6 @@ CREATE TABLE
         FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: noticias
--- ========================================
 CREATE TABLE
     noticias (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -94,9 +79,6 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- ========================================
--- TABLA: comentarios (relación 1:N con noticias)
--- ========================================
 CREATE TABLE
     comentarios (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -135,7 +117,7 @@ VALUES
     ('Industrial', 'industrial', '🏗️');
 
 -- ========================================
--- DATOS INICIALES: Productos
+-- DATOS INICIALES: Productos (10 productos)
 -- ========================================
 INSERT INTO
     productos (
@@ -249,7 +231,7 @@ VALUES
         '$2.100',
         'Nacional',
         'PET + Atomizador',
-        'Envases con Dispensador',
+        'Envases Plásticos',
         'Limpieza',
         'Botella con atomizador ajustable para productos de limpieza y jardinería.',
         'assets/img/productos/botella-spray-250.jpg',
@@ -264,7 +246,7 @@ VALUES
         '$1.500',
         'Importado',
         'Vidrio + Gotero',
-        'Envases Especializados',
+        'Envases Farmacéuticos',
         'Farmacéutica',
         'Frasco con gotero de precisión para aceites esenciales y medicamentos.',
         'assets/img/productos/frasco-gotero-30.jpg',
@@ -279,7 +261,7 @@ VALUES
         '$3.500',
         'Nacional',
         'PP + Silicona',
-        'Contenedores',
+        'Envases Plásticos',
         'Alimentos',
         'Contenedor hermético con cierre de seguridad para alimentos.',
         'assets/img/productos/contenedor-1000.jpg',
@@ -294,7 +276,7 @@ VALUES
         '$450',
         'Nacional',
         'Laminado Kraft',
-        'Empaques Flexibles',
+        'Envases Plásticos',
         'Alimentos',
         'Bolsa tipo doypack con zipper y ventana transparente.',
         'assets/img/productos/bolsa-standup-500.jpg',
@@ -305,4 +287,128 @@ VALUES
         'Por encargo'
     );
 
--- Especificaciones y beneficios para todos los productos (se continúa en siguiente comentario...)
+-- ========================================
+-- ESPECIFICACIONES (Producto ID 1-10)
+-- ========================================
+INSERT INTO
+    especificaciones (producto_id, specification)
+VALUES
+    -- Producto 1: Frasco de Vidrio 250ml
+    (1, 'Capacidad: 250ml'),
+    (1, 'Boca: 63mm'),
+    (1, 'Altura: 110mm'),
+    -- Producto 2: Botella PET 500ml
+    (2, 'Capacidad: 500ml'),
+    (2, 'Rosca: 28mm'),
+    (2, 'Peso: 25g'),
+    -- Producto 3: Tarro Cosmético 50g
+    (3, 'Capacidad: 50g'),
+    (3, 'Diámetro: 65mm'),
+    (3, 'Color: Transparente/Negro'),
+    -- Producto 4: Galón Industrial 4L
+    (4, 'Capacidad: 4 Litros'),
+    (4, 'Boca: 38mm'),
+    (4, 'Color: Natural/Blanco'),
+    -- Producto 5: Frasco Farmacéutico Ámbar 100ml
+    (5, 'Capacidad: 100ml'),
+    (5, 'Rosca: DIN18'),
+    (5, 'Color: Ámbar'),
+    -- Producto 6: Tapa Twist-Off 63mm
+    (6, 'Diámetro: 63mm'),
+    (6, 'Color: Dorado/Plateado'),
+    (6, 'Con pasteurización'),
+    -- Producto 7: Botella Spray 250ml
+    (7, 'Capacidad: 250ml'),
+    (7, 'Trigger spray'),
+    (7, 'Colores variados'),
+    -- Producto 8: Frasco Gotero 30ml
+    (8, 'Capacidad: 30ml'),
+    (8, 'Pipeta de vidrio'),
+    (8, 'Color: Transparente/Ámbar'),
+    -- Producto 9: Contenedor 1000ml Hermético
+    (9, 'Capacidad: 1000ml'),
+    (9, 'Rectangular'),
+    (9, 'Apilable'),
+    -- Producto 10: Bolsa Stand-Up 500g
+    (10, 'Capacidad: 500g'),
+    (10, 'Con ventana'),
+    (10, 'Válvula opcional');
+
+-- ========================================
+-- BENEFICIOS (Producto ID 1-10)
+-- ========================================
+INSERT INTO
+    beneficios (producto_id, benefit)
+VALUES
+    -- Producto 1: Frasco de Vidrio 250ml
+    (1, 'Apto para alimentos'),
+    (1, 'Esterilizable'),
+    (1, 'Reutilizable'),
+    -- Producto 2: Botella PET 500ml
+    (2, 'Ligero'),
+    (2, 'Irrompible'),
+    (2, '100% Reciclable'),
+    -- Producto 3: Tarro Cosmético 50g
+    (3, 'Doble pared'),
+    (3, 'Sellado hermético'),
+    (3, 'Diseño premium'),
+    -- Producto 4: Galón Industrial 4L
+    (4, 'Alta resistencia química'),
+    (4, 'Manija ergonómica'),
+    (4, 'Graduado'),
+    -- Producto 5: Frasco Farmacéutico Ámbar 100ml
+    (5, 'Protección UV'),
+    (5, 'Grado farmacéutico'),
+    (5, 'Hermético'),
+    -- Producto 6: Tapa Twist-Off 63mm
+    (6, 'Botón de seguridad'),
+    (6, 'Recubrimiento interno'),
+    (6, 'Reutilizable'),
+    -- Producto 7: Botella Spray 250ml
+    (7, 'Atomizador ajustable'),
+    (7, 'Resistente a químicos'),
+    (7, 'Ergonómico'),
+    -- Producto 8: Frasco Gotero 30ml
+    (8, 'Gotero de precisión'),
+    (8, 'Vidrio resistente'),
+    (8, 'Tapa de seguridad'),
+    -- Producto 9: Contenedor 1000ml Hermético
+    (9, 'Hermético 100%'),
+    (9, 'Apto microondas'),
+    (9, 'Libre de BPA'),
+    -- Producto 10: Bolsa Stand-Up 500g
+    (10, 'Barrera de oxígeno'),
+    (10, 'Zipper resellable'),
+    (10, 'Base estable');
+
+-- ========================================
+-- DATOS INICIALES: Noticias (3 artículos)
+-- ========================================
+INSERT INTO
+    noticias (title, author, excerpt, imageUrl, avatarUrl)
+VALUES
+    (
+        'Cómo Reutilizar Envases Plásticos de Forma Segura',
+        'Equipo SurtiEnvases',
+        'Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.',
+        'assets/img/blog/blog-example1.jpg',
+        'assets/img/surtienvases/avatars/default.jpg'
+    ),
+    (
+        'Ventajas de los Envases de Vidrio para Alimentos',
+        'Usuario Invitado',
+        'Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.',
+        'assets/img/blog/blog-example2.jpg',
+        'assets/img/surtienvases/avatars/default.jpg'
+    ),
+    (
+        'Guía Completa: Elegir el Envase Correcto para tu Producto',
+        'Usuario Invitado',
+        'Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.',
+        'assets/img/blog/blog-example3.jpg',
+        'assets/img/surtienvases/avatars/default.jpg'
+    );
+
+-- ========================================
+-- FIN DEL SCRIPT
+-- ========================================
