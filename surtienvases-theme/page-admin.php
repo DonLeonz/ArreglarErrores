@@ -374,8 +374,6 @@ require_once get_template_directory() . '/config.php';
 
     <!-- FOOTER -->
     <?php get_template_part('includes/footer'); ?>
-
-    <?php wp_footer(); ?>
 </body>
 
 </html>

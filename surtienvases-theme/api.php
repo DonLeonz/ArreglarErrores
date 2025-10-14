@@ -1,12 +1,97 @@
 <?php
 // ========================================
-// API REST COMPLETA - SURTIENVASES
-// Maneja: Productos, Categorías, Industrias, Noticias, Comentarios
+// API REST - SURTIENVASES
+// Usa la BD surtienvases directamente
 // ========================================
 
-require_once 'config.php';
+// Cargar WordPress
+$wp_load = dirname(__FILE__) . '/../../../wp-load.php';
 
-// Obtener el método HTTP y la acción
+if (file_exists($wp_load)) {
+    require_once($wp_load);
+} else {
+    http_response_code(500);
+    die(json_encode([
+        'success' => false,
+        'error' => 'No se pudo cargar WordPress'
+    ], JSON_UNESCAPED_UNICODE));
+}
+
+// Headers
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// IMPORTANTE: Conectar a la base de datos surtienvases
+global $wpdb;
+
+// Crear una nueva conexión a la base de datos surtienvases
+$surtidb = new wpdb(DB_USER, DB_PASSWORD, 'surtienvases', DB_HOST);
+
+// Verificar conexión
+if ($surtidb->error) {
+    errorResponse('Error de conexión a base de datos surtienvases: ' . $surtidb->error);
+}
+
+// NO usar prefijo porque las tablas no tienen prefijo
+$surtidb->prefix = '';
+
+// Funciones helper
+function jsonResponse($data, $status = 200)
+{
+    http_response_code($status);
+    echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit();
+}
+
+function errorResponse($message, $status = 400)
+{
+    jsonResponse([
+        'success' => false,
+        'error' => $message
+    ], $status);
+}
+
+function successResponse($data, $message = null)
+{
+    $response = [
+        'success' => true,
+        'data' => $data
+    ];
+    if ($message) {
+        $response['message'] = $message;
+    }
+    jsonResponse($response);
+}
+
+function sanitize($data)
+{
+    if (is_array($data)) {
+        return array_map('sanitize', $data);
+    }
+    return htmlspecialchars(strip_tags(trim($data)), ENT_QUOTES, 'UTF-8');
+}
+
+function validateRequired($data, $fields)
+{
+    $missing = [];
+    foreach ($fields as $field) {
+        if (!isset($data[$field]) || empty(trim($data[$field]))) {
+            $missing[] = $field;
+        }
+    }
+    if (!empty($missing)) {
+        errorResponse("Campos requeridos faltantes: " . implode(', ', $missing), 422);
+    }
+}
+
+// Obtener método y acción
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
 
@@ -99,9 +184,9 @@ try {
 
 function getProducts()
 {
-    $db = getDB();
+    global $surtidb;
 
-    $stmt = $db->query("
+    $query = "
         SELECT p.*, 
                GROUP_CONCAT(DISTINCT e.specification) as specifications,
                GROUP_CONCAT(DISTINCT b.benefit) as benefits
@@ -110,11 +195,10 @@ function getProducts()
         LEFT JOIN beneficios b ON p.id = b.producto_id
         GROUP BY p.id
         ORDER BY p.created_at DESC
-    ");
+    ";
 
-    $products = $stmt->fetchAll();
+    $products = $surtidb->get_results($query, ARRAY_A);
 
-    // Convertir strings separados por comas en arrays
     foreach ($products as &$product) {
         $product['specifications'] = $product['specifications'] ? explode(',', $product['specifications']) : [];
         $product['benefits'] = $product['benefits'] ? explode(',', $product['benefits']) : [];
@@ -126,31 +210,34 @@ function getProducts()
 
 function getProduct()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de producto requerido');
     }
 
-    $db = getDB();
-
-    $stmt = $db->prepare("SELECT * FROM productos WHERE id = ?");
-    $stmt->execute([$id]);
-    $product = $stmt->fetch();
+    $product = $surtidb->get_row(
+        $surtidb->prepare("SELECT * FROM productos WHERE id = %d", $id),
+        ARRAY_A
+    );
 
     if (!$product) {
         errorResponse('Producto no encontrado', 404);
     }
 
     // Obtener especificaciones
-    $stmt = $db->prepare("SELECT specification FROM especificaciones WHERE producto_id = ?");
-    $stmt->execute([$id]);
-    $product['specifications'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $specs = $surtidb->get_col(
+        $surtidb->prepare("SELECT specification FROM especificaciones WHERE producto_id = %d", $id)
+    );
+    $product['specifications'] = $specs;
 
     // Obtener beneficios
-    $stmt = $db->prepare("SELECT benefit FROM beneficios WHERE producto_id = ?");
-    $stmt->execute([$id]);
-    $product['benefits'] = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $benefits = $surtidb->get_col(
+        $surtidb->prepare("SELECT benefit FROM beneficios WHERE producto_id = %d", $id)
+    );
+    $product['benefits'] = $benefits;
 
     $product['isPopular'] = (bool) $product['isPopular'];
 
@@ -159,144 +246,160 @@ function getProduct()
 
 function createProduct()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     validateRequired($data, ['title', 'description']);
 
-    $db = getDB();
-    $db->beginTransaction();
+    $surtidb->query('START TRANSACTION');
 
     try {
         // Insertar producto
-        $stmt = $db->prepare("
-            INSERT INTO productos (title, price, origin, material, category, industry, 
-                                   description, img, isPopular, recommendation, 
-                                   minimumOrder, certification, stock)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+        $result = $surtidb->insert(
+            "productos",
+            [
+                'title' => sanitize($data['title']),
+                'price' => sanitize($data['price'] ?? ''),
+                'origin' => sanitize($data['origin'] ?? ''),
+                'material' => sanitize($data['material'] ?? ''),
+                'category' => sanitize($data['category'] ?? ''),
+                'industry' => sanitize($data['industry'] ?? ''),
+                'description' => sanitize($data['description']),
+                'img' => sanitize($data['img'] ?? 'assets/img/productos/default-product.jpg'),
+                'isPopular' => isset($data['isPopular']) ? (int) (bool) $data['isPopular'] : 0,
+                'recommendation' => sanitize($data['recommendation'] ?? ''),
+                'minimumOrder' => sanitize($data['minimumOrder'] ?? ''),
+                'certification' => sanitize($data['certification'] ?? ''),
+                'stock' => sanitize($data['stock'] ?? 'Disponible')
+            ]
+        );
 
-        $stmt->execute([
-            sanitize($data['title']),
-            sanitize($data['price'] ?? ''),
-            sanitize($data['origin'] ?? ''),
-            sanitize($data['material'] ?? ''),
-            sanitize($data['category'] ?? ''),
-            sanitize($data['industry'] ?? ''),
-            sanitize($data['description']),
-            sanitize($data['img'] ?? 'assets/img/productos/default-product.jpg'),
-            isset($data['isPopular']) ? (bool) $data['isPopular'] : false,
-            sanitize($data['recommendation'] ?? ''),
-            sanitize($data['minimumOrder'] ?? ''),
-            sanitize($data['certification'] ?? ''),
-            sanitize($data['stock'] ?? 'Disponible')
-        ]);
+        if ($result === false) {
+            throw new Exception('Error al insertar producto: ' . $surtidb->last_error);
+        }
 
-        $productId = $db->lastInsertId();
+        $productId = $surtidb->insert_id;
 
         // Insertar especificaciones
         if (!empty($data['specifications'])) {
-            $stmt = $db->prepare("INSERT INTO especificaciones (producto_id, specification) VALUES (?, ?)");
             foreach ($data['specifications'] as $spec) {
-                $stmt->execute([$productId, sanitize($spec)]);
+                $surtidb->insert(
+                    "especificaciones",
+                    [
+                        'producto_id' => $productId,
+                        'specification' => sanitize($spec)
+                    ]
+                );
             }
         }
 
         // Insertar beneficios
         if (!empty($data['benefits'])) {
-            $stmt = $db->prepare("INSERT INTO beneficios (producto_id, benefit) VALUES (?, ?)");
             foreach ($data['benefits'] as $benefit) {
-                $stmt->execute([$productId, sanitize($benefit)]);
+                $surtidb->insert(
+                    "beneficios",
+                    [
+                        'producto_id' => $productId,
+                        'benefit' => sanitize($benefit)
+                    ]
+                );
             }
         }
 
-        $db->commit();
+        $surtidb->query('COMMIT');
 
         successResponse(['id' => $productId], 'Producto creado exitosamente');
     } catch (Exception $e) {
-        $db->rollBack();
+        $surtidb->query('ROLLBACK');
         throw $e;
     }
 }
 
 function updateProduct()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!isset($data['id'])) {
         errorResponse('ID de producto requerido');
     }
 
-    $db = getDB();
-    $db->beginTransaction();
+    $surtidb->query('START TRANSACTION');
 
     try {
         // Actualizar producto
-        $stmt = $db->prepare("
-            UPDATE productos 
-            SET title = ?, price = ?, origin = ?, material = ?, category = ?, 
-                industry = ?, description = ?, img = ?, isPopular = ?, 
-                recommendation = ?, minimumOrder = ?, certification = ?, stock = ?
-            WHERE id = ?
-        ");
+        $surtidb->update(
+            "productos",
+            [
+                'title' => sanitize($data['title']),
+                'price' => sanitize($data['price'] ?? ''),
+                'origin' => sanitize($data['origin'] ?? ''),
+                'material' => sanitize($data['material'] ?? ''),
+                'category' => sanitize($data['category'] ?? ''),
+                'industry' => sanitize($data['industry'] ?? ''),
+                'description' => sanitize($data['description']),
+                'img' => sanitize($data['img'] ?? ''),
+                'isPopular' => isset($data['isPopular']) ? (int) (bool) $data['isPopular'] : 0,
+                'recommendation' => sanitize($data['recommendation'] ?? ''),
+                'minimumOrder' => sanitize($data['minimumOrder'] ?? ''),
+                'certification' => sanitize($data['certification'] ?? ''),
+                'stock' => sanitize($data['stock'] ?? 'Disponible')
+            ],
+            ['id' => $data['id']]
+        );
 
-        $stmt->execute([
-            sanitize($data['title']),
-            sanitize($data['price'] ?? ''),
-            sanitize($data['origin'] ?? ''),
-            sanitize($data['material'] ?? ''),
-            sanitize($data['category'] ?? ''),
-            sanitize($data['industry'] ?? ''),
-            sanitize($data['description']),
-            sanitize($data['img'] ?? ''),
-            isset($data['isPopular']) ? (bool) $data['isPopular'] : false,
-            sanitize($data['recommendation'] ?? ''),
-            sanitize($data['minimumOrder'] ?? ''),
-            sanitize($data['certification'] ?? ''),
-            sanitize($data['stock'] ?? 'Disponible'),
-            $data['id']
-        ]);
-
-        // Actualizar especificaciones (eliminar y reinsertar)
-        $db->prepare("DELETE FROM especificaciones WHERE producto_id = ?")->execute([$data['id']]);
+        // Actualizar especificaciones
+        $surtidb->delete("especificaciones", ['producto_id' => $data['id']]);
         if (!empty($data['specifications'])) {
-            $stmt = $db->prepare("INSERT INTO especificaciones (producto_id, specification) VALUES (?, ?)");
             foreach ($data['specifications'] as $spec) {
-                $stmt->execute([$data['id'], sanitize($spec)]);
+                $surtidb->insert(
+                    "especificaciones",
+                    [
+                        'producto_id' => $data['id'],
+                        'specification' => sanitize($spec)
+                    ]
+                );
             }
         }
 
         // Actualizar beneficios
-        $db->prepare("DELETE FROM beneficios WHERE producto_id = ?")->execute([$data['id']]);
+        $surtidb->delete("beneficios", ['producto_id' => $data['id']]);
         if (!empty($data['benefits'])) {
-            $stmt = $db->prepare("INSERT INTO beneficios (producto_id, benefit) VALUES (?, ?)");
             foreach ($data['benefits'] as $benefit) {
-                $stmt->execute([$data['id'], sanitize($benefit)]);
+                $surtidb->insert(
+                    "beneficios",
+                    [
+                        'producto_id' => $data['id'],
+                        'benefit' => sanitize($benefit)
+                    ]
+                );
             }
         }
 
-        $db->commit();
+        $surtidb->query('COMMIT');
 
         successResponse(['id' => $data['id']], 'Producto actualizado exitosamente');
     } catch (Exception $e) {
-        $db->rollBack();
+        $surtidb->query('ROLLBACK');
         throw $e;
     }
 }
 
 function deleteProduct()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de producto requerido');
     }
 
-    $db = getDB();
+    $result = $surtidb->delete("productos", ['id' => $id]);
 
-    $stmt = $db->prepare("DELETE FROM productos WHERE id = ?");
-    $stmt->execute([$id]);
-
-    if ($stmt->rowCount() === 0) {
+    if ($result === 0) {
         errorResponse('Producto no encontrado', 404);
     }
 
@@ -309,46 +412,50 @@ function deleteProduct()
 
 function getCategories()
 {
-    $db = getDB();
+    global $surtidb;
 
-    $stmt = $db->query("SELECT * FROM categorias ORDER BY name");
-    $categories = $stmt->fetchAll();
+    $categories = $surtidb->get_results("SELECT * FROM categorias ORDER BY name", ARRAY_A);
 
     successResponse($categories);
 }
 
 function createCategory()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     validateRequired($data, ['name', 'key']);
 
-    $db = getDB();
+    $result = $surtidb->insert(
+        "categorias",
+        [
+            'name' => sanitize($data['name']),
+            'key' => sanitize($data['key']),
+            'icon' => sanitize($data['icon'] ?? '📦')
+        ]
+    );
 
-    $stmt = $db->prepare("INSERT INTO categorias (name, `key`, icon) VALUES (?, ?, ?)");
-    $stmt->execute([
-        sanitize($data['name']),
-        sanitize($data['key']),
-        sanitize($data['icon'] ?? '📦')
-    ]);
+    if ($result === false) {
+        errorResponse('Error al crear categoría: ' . $surtidb->last_error);
+    }
 
-    successResponse(['id' => $db->lastInsertId()], 'Categoría creada exitosamente');
+    successResponse(['id' => $surtidb->insert_id], 'Categoría creada exitosamente');
 }
 
 function deleteCategory()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de categoría requerido');
     }
 
-    $db = getDB();
+    $result = $surtidb->delete("categorias", ['id' => $id]);
 
-    $stmt = $db->prepare("DELETE FROM categorias WHERE id = ?");
-    $stmt->execute([$id]);
-
-    if ($stmt->rowCount() === 0) {
+    if ($result === 0) {
         errorResponse('Categoría no encontrada', 404);
     }
 
@@ -361,46 +468,50 @@ function deleteCategory()
 
 function getIndustries()
 {
-    $db = getDB();
+    global $surtidb;
 
-    $stmt = $db->query("SELECT * FROM industrias ORDER BY name");
-    $industries = $stmt->fetchAll();
+    $industries = $surtidb->get_results("SELECT * FROM industrias ORDER BY name", ARRAY_A);
 
     successResponse($industries);
 }
 
 function createIndustry()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     validateRequired($data, ['name', 'key']);
 
-    $db = getDB();
+    $result = $surtidb->insert(
+        "industrias",
+        [
+            'name' => sanitize($data['name']),
+            'key' => sanitize($data['key']),
+            'icon' => sanitize($data['icon'] ?? '🏭')
+        ]
+    );
 
-    $stmt = $db->prepare("INSERT INTO industrias (name, `key`, icon) VALUES (?, ?, ?)");
-    $stmt->execute([
-        sanitize($data['name']),
-        sanitize($data['key']),
-        sanitize($data['icon'] ?? '🏭')
-    ]);
+    if ($result === false) {
+        errorResponse('Error al crear industria: ' . $surtidb->last_error);
+    }
 
-    successResponse(['id' => $db->lastInsertId()], 'Industria creada exitosamente');
+    successResponse(['id' => $surtidb->insert_id], 'Industria creada exitosamente');
 }
 
 function deleteIndustry()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de industria requerido');
     }
 
-    $db = getDB();
+    $result = $surtidb->delete("industrias", ['id' => $id]);
 
-    $stmt = $db->prepare("DELETE FROM industrias WHERE id = ?");
-    $stmt->execute([$id]);
-
-    if ($stmt->rowCount() === 0) {
+    if ($result === 0) {
         errorResponse('Industria no encontrada', 404);
     }
 
@@ -413,52 +524,52 @@ function deleteIndustry()
 
 function getNews()
 {
-    $db = getDB();
+    global $surtidb;
 
-    $stmt = $db->query("SELECT * FROM noticias ORDER BY created_at DESC");
-    $news = $stmt->fetchAll();
+    $news = $surtidb->get_results("SELECT * FROM noticias ORDER BY created_at DESC", ARRAY_A);
 
     successResponse($news);
 }
 
 function createNews()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     validateRequired($data, ['title', 'excerpt']);
 
-    $db = getDB();
+    $result = $surtidb->insert(
+        "noticias",
+        [
+            'title' => sanitize($data['title']),
+            'author' => sanitize($data['author'] ?? 'Usuario Invitado'),
+            'excerpt' => sanitize($data['excerpt']),
+            'imageUrl' => sanitize($data['imageUrl'] ?? 'assets/img/blog/blogDefault.jpg'),
+            'avatarUrl' => sanitize($data['avatarUrl'] ?? 'assets/img/surtienvases/avatars/default.jpg')
+        ]
+    );
 
-    $stmt = $db->prepare("
-        INSERT INTO noticias (title, author, excerpt, imageUrl, avatarUrl)
-        VALUES (?, ?, ?, ?, ?)
-    ");
+    if ($result === false) {
+        errorResponse('Error al crear noticia: ' . $surtidb->last_error);
+    }
 
-    $stmt->execute([
-        sanitize($data['title']),
-        sanitize($data['author'] ?? 'Usuario Invitado'),
-        sanitize($data['excerpt']),
-        sanitize($data['imageUrl'] ?? 'assets/img/blog/blogDefault.jpg'),
-        sanitize($data['avatarUrl'] ?? 'assets/img/surtienvases/avatars/default.jpg')
-    ]);
-
-    successResponse(['id' => $db->lastInsertId()], 'Noticia creada exitosamente');
+    successResponse(['id' => $surtidb->insert_id], 'Noticia creada exitosamente');
 }
 
 function deleteNews()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de noticia requerido');
     }
 
-    $db = getDB();
+    $result = $surtidb->delete("noticias", ['id' => $id]);
 
-    $stmt = $db->prepare("DELETE FROM noticias WHERE id = ?");
-    $stmt->execute([$id]);
-
-    if ($stmt->rowCount() === 0) {
+    if ($result === 0) {
         errorResponse('Noticia no encontrada', 404);
     }
 
@@ -471,57 +582,59 @@ function deleteNews()
 
 function getComments()
 {
+    global $surtidb;
+
     $newsId = $_GET['news_id'] ?? null;
 
     if (!$newsId) {
         errorResponse('ID de noticia requerido');
     }
 
-    $db = getDB();
-
-    $stmt = $db->prepare("SELECT * FROM comentarios WHERE noticia_id = ? ORDER BY created_at ASC");
-    $stmt->execute([$newsId]);
-    $comments = $stmt->fetchAll();
+    $comments = $surtidb->get_results(
+        $surtidb->prepare("SELECT * FROM comentarios WHERE noticia_id = %d ORDER BY created_at ASC", $newsId),
+        ARRAY_A
+    );
 
     successResponse($comments);
 }
 
 function createComment()
 {
+    global $surtidb;
+
     $data = json_decode(file_get_contents('php://input'), true);
 
     validateRequired($data, ['noticia_id', 'text']);
 
-    $db = getDB();
+    $result = $surtidb->insert(
+        "comentarios",
+        [
+            'noticia_id' => $data['noticia_id'],
+            'author' => sanitize($data['author'] ?? 'Usuario Invitado'),
+            'text' => sanitize($data['text'])
+        ]
+    );
 
-    $stmt = $db->prepare("
-        INSERT INTO comentarios (noticia_id, author, text)
-        VALUES (?, ?, ?)
-    ");
+    if ($result === false) {
+        errorResponse('Error al crear comentario: ' . $surtidb->last_error);
+    }
 
-    $stmt->execute([
-        $data['noticia_id'],
-        sanitize($data['author'] ?? 'Usuario Invitado'),
-        sanitize($data['text'])
-    ]);
-
-    successResponse(['id' => $db->lastInsertId()], 'Comentario creado exitosamente');
+    successResponse(['id' => $surtidb->insert_id], 'Comentario creado exitosamente');
 }
 
 function deleteComment()
 {
+    global $surtidb;
+
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
         errorResponse('ID de comentario requerido');
     }
 
-    $db = getDB();
+    $result = $surtidb->delete("comentarios", ['id' => $id]);
 
-    $stmt = $db->prepare("DELETE FROM comentarios WHERE id = ?");
-    $stmt->execute([$id]);
-
-    if ($stmt->rowCount() === 0) {
+    if ($result === 0) {
         errorResponse('Comentario no encontrado', 404);
     }
 

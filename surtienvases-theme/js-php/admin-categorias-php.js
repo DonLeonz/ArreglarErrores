@@ -289,96 +289,86 @@ class CategoryAdminPHP {
   // ELIMINAR CATEGORÍA
   // ========================================
 
-  async deleteCategory(categoryId) {
-    const confirmed = await UIkit.modal.confirm(
-      "¿Estás seguro de eliminar esta categoría?"
-    );
+  deleteCategory(categoryId) {
+    if (!window.confirm("¿Estás seguro de eliminar esta categoría?")) {
+      return;
+    }
 
-    if (!confirmed) return;
+    fetch(`${this.apiUrl}?action=delete_category&id=${categoryId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Categoría eliminada exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
 
-    try {
-      const response = await fetch(
-        `${this.apiUrl}?action=delete_category&id=${categoryId}`
-      );
-      const data = await response.json();
+          this.loadCategories().then(() => {
+            this.renderCategoriesList();
 
-      if (data.success) {
-        UIkit.notification({
-          message: "Categoría eliminada exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-
-        await this.loadCategories();
-        this.renderCategoriesList();
-
-        // Actualizar otros sistemas
-        if (window.productAdminPHP) {
-          await window.productAdminPHP.loadCategories();
-          window.productAdminPHP.populateSelects();
+            if (window.productAdminPHP) {
+              window.productAdminPHP.loadCategories().then(() => {
+                window.productAdminPHP.populateSelects();
+              });
+            }
+          });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
         }
-      } else {
+      })
+      .catch((error) => {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
-      }
-    } catch (error) {
-      UIkit.notification({
-        message: "Error de red: " + error.message,
-        status: "danger",
-        pos: "top-center",
       });
-    }
   }
 
-  // ========================================
-  // ELIMINAR INDUSTRIA
-  // ========================================
+  deleteIndustry(industryId) {
+    if (!window.confirm("¿Estás seguro de eliminar esta industria?")) {
+      return;
+    }
 
-  async deleteIndustry(industryId) {
-    const confirmed = await UIkit.modal.confirm(
-      "¿Estás seguro de eliminar esta industria?"
-    );
+    fetch(`${this.apiUrl}?action=delete_industry&id=${industryId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Industria eliminada exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
 
-    if (!confirmed) return;
+          this.loadIndustries().then(() => {
+            this.renderIndustriesList();
 
-    try {
-      const response = await fetch(
-        `${this.apiUrl}?action=delete_industry&id=${industryId}`
-      );
-      const data = await response.json();
-
-      if (data.success) {
-        UIkit.notification({
-          message: "Industria eliminada exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-
-        await this.loadIndustries();
-        this.renderIndustriesList();
-
-        // Actualizar otros sistemas
-        if (window.productAdminPHP) {
-          await window.productAdminPHP.loadIndustries();
-          window.productAdminPHP.populateSelects();
+            if (window.productAdminPHP) {
+              window.productAdminPHP.loadIndustries().then(() => {
+                window.productAdminPHP.populateSelects();
+              });
+            }
+          });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
         }
-      } else {
+      })
+      .catch((error) => {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
-      }
-    } catch (error) {
-      UIkit.notification({
-        message: "Error de red: " + error.message,
-        status: "danger",
-        pos: "top-center",
       });
-    }
   }
 
   // ========================================

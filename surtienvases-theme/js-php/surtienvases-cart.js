@@ -19,6 +19,7 @@ class SurtiEnvasesCart {
 
   setup() {
     this.injectCartHTML();
+    this.injectWhatsAppHTML();
     this.updateCartCount();
     this.setupEventListeners();
     this.syncWithOtherTabs();
@@ -58,27 +59,21 @@ class SurtiEnvasesCart {
   // INYECCIÓN DE HTML
   // ========================================
   injectCartHTML() {
-    if (document.getElementById("cart-floating-container")) {
+    // NO inyectar si ya existe
+    if (document.getElementById("cart-modal")) {
+      console.log("✓ Carrito ya existe, no se inyecta");
       return;
     }
 
     const cartHTML = `
-      <!-- Carrito Flotante -->
-      <div id="cart-floating-container" class="carrito-flotante">
-        <button class="carrito-boton-circular" id="toggle-cart-btn" aria-label="Ver carrito">
-          <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
-          <span class="carrito-badge-contador" id="cart-count" style="display: none;">0</span>
-        </button>
-      </div>
-
       <!-- Modal del Carrito -->
-<div id="cart-modal" uk-modal>
-  <div class="uk-modal-dialog uk-modal-body" style="position: relative;">
-    <button class="boton-cerrar-modal-carrito" type="button" 
-            onclick="UIkit.modal('#cart-modal').hide()"
-            aria-label="Cerrar carrito"></button>
-    <h2 class="uk-modal-title">Carrito de Cotización</h2>
-    <div id="cart-items-container"></div>
+      <div id="cart-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body" style="position: relative;">
+          <button class="boton-cerrar-modal-carrito" type="button" 
+                  onclick="UIkit.modal('#cart-modal').hide()"
+                  aria-label="Cerrar carrito"></button>
+          <h2 class="uk-modal-title">Carrito de Cotización</h2>
+          <div id="cart-items-container"></div>
           <div class="uk-text-center uk-margin-top">
             <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1" id="send-quote-btn">
               <span uk-icon="whatsapp"></span> Enviar Cotización por WhatsApp
@@ -89,6 +84,27 @@ class SurtiEnvasesCart {
     `;
 
     document.body.insertAdjacentHTML("beforeend", cartHTML);
+    console.log("✓ Modal de carrito inyectado");
+  }
+
+  injectWhatsAppHTML() {
+    // NO inyectar si ya existe
+    if (document.querySelector(".whatsapp-flotante")) {
+      console.log("✓ WhatsApp ya existe, no se inyecta");
+      return;
+    }
+
+    const whatsappHTML = `
+      <!-- WhatsApp Flotante -->
+      <a href="https://wa.me/${this.whatsappNumber}" class="whatsapp-flotante" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <div class="whatsapp-boton-circular">
+          <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
+        </div>
+      </a>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", whatsappHTML);
+    console.log("✓ WhatsApp flotante inyectado");
   }
 
   setupEventListeners() {
@@ -106,6 +122,11 @@ class SurtiEnvasesCart {
     if (navbarQuoteBtn) {
       navbarQuoteBtn.addEventListener("click", () => this.toggleCart());
     }
+
+    const mobileCartBtn = document.getElementById("mobile-cart-btn");
+    if (mobileCartBtn) {
+      mobileCartBtn.addEventListener("click", () => this.toggleCart());
+    }
   }
 
   // ========================================
@@ -113,6 +134,13 @@ class SurtiEnvasesCart {
   // ========================================
   addToCart(product) {
     let cart = this.loadCart();
+
+    // Asegurarse de que el producto tenga todos los campos necesarios
+    if (!product.id || !product.title) {
+      console.error("Producto inválido:", product);
+      return;
+    }
+
     const existingItem = cart.find((item) => item.id === product.id);
 
     if (existingItem) {
@@ -122,7 +150,7 @@ class SurtiEnvasesCart {
         id: product.id,
         title: product.title,
         minimumOrder: product.minimumOrder || "Consultar",
-        quantity: 1,
+        quantity: product.quantity || 1,
       });
     }
 
@@ -172,6 +200,7 @@ class SurtiEnvasesCart {
     const badges = [
       document.getElementById("cart-count"),
       document.getElementById("cart-count-navbar"),
+      document.getElementById("cart-count-floating"),
     ];
 
     badges.forEach((badge) => {

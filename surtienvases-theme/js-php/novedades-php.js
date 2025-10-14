@@ -158,7 +158,14 @@ class NovedadesSystemPHP {
         ${newsComments
           .map(
             (comment) => `
-          <article class="uk-comment uk-margin-top">
+          <article class="uk-comment uk-margin-top uk-position-relative">
+            <button class="boton-eliminar-comentario" 
+                    onclick="novedadesSystemPHP.deleteComment(${
+                      comment.id
+                    }, ${newsId})"
+                    aria-label="Eliminar comentario">
+            </button>
+            
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
                    src="assets/img/surtienvases/avatars/default.jpg"
@@ -260,6 +267,47 @@ class NovedadesSystemPHP {
       month: "long",
       day: "numeric",
     });
+  }
+
+  deleteComment(commentId, newsId) {
+    if (!window.confirm("¿Estás seguro de eliminar este comentario?")) {
+      return;
+    }
+
+    fetch(`${this.apiUrl}?action=delete_comment&id=${commentId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Comentario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+
+          // Recargar solo los comentarios de esta noticia
+          fetch(`${this.apiUrl}?action=get_comments&news_id=${newsId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                this.comments[newsId] = data.data;
+                this.renderNews();
+              }
+            });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
+        }
+      })
+      .catch((error) => {
+        UIkit.notification({
+          message: "Error de red: " + error.message,
+          status: "danger",
+          pos: "top-center",
+        });
+      });
   }
 }
 

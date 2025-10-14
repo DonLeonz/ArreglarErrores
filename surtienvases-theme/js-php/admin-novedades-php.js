@@ -129,23 +129,50 @@ class NovedadesAdminSystemPHP {
     input.click();
   }
 
+  getNonce() {
+    if (
+      typeof surtienvases_vars !== "undefined" &&
+      surtienvases_vars.upload_nonce
+    ) {
+      return surtienvases_vars.upload_nonce;
+    }
+
+    const nonceInput = document.querySelector('input[name="_wpnonce"]');
+    if (nonceInput) {
+      return nonceInput.value;
+    }
+
+    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
+    if (nonceMeta) {
+      return nonceMeta.content;
+    }
+
+    console.error("⚠️ No se encontró el nonce de seguridad");
+    return "";
+  }
+
   async uploadImage(file) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("action", "surtienvases_upload_news_image");
     formData.append("nonce", this.getNonce());
 
-    const response = await fetch(surtienvases_vars.ajax_url, {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch(surtienvases_vars.ajax_url, {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      return data.data.url;
-    } else {
-      throw new Error(data.data.message || "Error al subir imagen");
+      if (data.success) {
+        return data.data.url;
+      } else {
+        throw new Error(data.data.message || "Error al subir imagen");
+      }
+    } catch (error) {
+      console.error("Error en uploadImage:", error);
+      throw error;
     }
   }
 
@@ -154,25 +181,9 @@ class NovedadesAdminSystemPHP {
     const previewImg = document.getElementById("news-image-preview-img");
 
     if (preview && previewImg) {
-      // Convertir ruta relativa a URL completa
-      const fullUrl = window.location.origin + "/" + imagePath;
-      previewImg.src = fullUrl;
+      previewImg.src = imagePath;
       preview.classList.remove("uk-hidden");
     }
-  }
-
-  getNonce() {
-    // WordPress genera el nonce para el media uploader
-    const nonceInput = document.querySelector('input[name="_wpnonce"]');
-    if (nonceInput) {
-      return nonceInput.value;
-    }
-    // Fallback: intentar obtener del meta tag
-    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
-    if (nonceMeta) {
-      return nonceMeta.content;
-    }
-    return "";
   }
 
   // ========================================
@@ -309,42 +320,43 @@ class NovedadesAdminSystemPHP {
   // ELIMINAR NOTICIA
   // ========================================
 
-  async deleteArticle(articleId) {
-    const confirmed = await UIkit.modal.confirm(
-      "¿Estás seguro de eliminar este artículo? También se eliminarán todos sus comentarios."
-    );
+  deleteArticle(articleId) {
+    if (
+      !window.confirm(
+        "¿Estás seguro de eliminar este artículo? También se eliminarán todos sus comentarios."
+      )
+    ) {
+      return;
+    }
 
-    if (!confirmed) return;
+    fetch(`${this.apiUrl}?action=delete_news&id=${articleId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Artículo eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
 
-    try {
-      const response = await fetch(
-        `${this.apiUrl}?action=delete_news&id=${articleId}`
-      );
-      const data = await response.json();
-
-      if (data.success) {
+          this.loadNews().then(() => {
+            this.renderNews();
+          });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
+        }
+      })
+      .catch((error) => {
         UIkit.notification({
-          message: "Artículo eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-
-        await this.loadNews();
-        this.renderNews();
-      } else {
-        UIkit.notification({
-          message: "Error: " + data.error,
+          message: "Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
-      }
-    } catch (error) {
-      UIkit.notification({
-        message: "Error de red: " + error.message,
-        status: "danger",
-        pos: "top-center",
       });
-    }
   }
 
   // ========================================

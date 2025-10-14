@@ -207,23 +207,53 @@ class ProductAdminPHP {
     input.click();
   }
 
+  getNonce() {
+    // Primero intentar obtener del objeto localizado de WordPress
+    if (
+      typeof surtienvases_vars !== "undefined" &&
+      surtienvases_vars.upload_nonce
+    ) {
+      return surtienvases_vars.upload_nonce;
+    }
+
+    // Fallback: buscar en el DOM
+    const nonceInput = document.querySelector('input[name="_wpnonce"]');
+    if (nonceInput) {
+      return nonceInput.value;
+    }
+
+    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
+    if (nonceMeta) {
+      return nonceMeta.content;
+    }
+
+    console.error("⚠️ No se encontró el nonce de seguridad");
+    return "";
+  }
+
   async uploadImage(file) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("action", "surtienvases_upload_product_image");
-    formData.append("nonce", this.getNonce());
+    formData.append("nonce", this.getNonce()); // Asegúrate de que esto esté presente
 
-    const response = await fetch(surtienvases_vars.ajax_url, {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch(surtienvases_vars.ajax_url, {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      return data.data.url;
-    } else {
-      throw new Error(data.data.message || "Error al subir imagen");
+      if (data.success) {
+        // Usar la URL completa que viene del servidor
+        return data.data.url;
+      } else {
+        throw new Error(data.data.message || "Error al subir imagen");
+      }
+    } catch (error) {
+      console.error("Error en uploadImage:", error);
+      throw error;
     }
   }
 
@@ -232,25 +262,10 @@ class ProductAdminPHP {
     const previewImg = document.getElementById("product-image-preview-img");
 
     if (preview && previewImg) {
-      // Convertir ruta relativa a URL completa
-      const fullUrl = window.location.origin + "/" + imagePath;
-      previewImg.src = fullUrl;
+      // Usar directamente la URL que viene del servidor (ya es completa)
+      previewImg.src = imagePath;
       preview.classList.remove("uk-hidden");
     }
-  }
-
-  getNonce() {
-    // WordPress genera el nonce para el media uploader
-    const nonceInput = document.querySelector('input[name="_wpnonce"]');
-    if (nonceInput) {
-      return nonceInput.value;
-    }
-    // Fallback: intentar obtener del meta tag
-    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
-    if (nonceMeta) {
-      return nonceMeta.content;
-    }
-    return "";
   }
 
   addSpecificationField() {
@@ -472,47 +487,40 @@ class ProductAdminPHP {
   // ELIMINAR PRODUCTO
   // ========================================
 
-  async deleteProduct(productId) {
-    const confirmed = await UIkit.modal.confirm(
-      "¿Estás seguro de eliminar este producto?"
-    );
+  deleteProduct(productId) {
+    // Usar window.confirm en lugar de UIkit.modal.confirm
+    if (!window.confirm("¿Estás seguro de eliminar este producto?")) {
+      return;
+    }
 
-    if (!confirmed) return;
+    fetch(`${this.apiUrl}?action=delete_product&id=${productId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Producto eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
 
-    try {
-      const response = await fetch(
-        `${this.apiUrl}?action=delete_product&id=${productId}`,
-        {
-          method: "GET",
+          this.loadProducts().then(() => {
+            this.renderProductsList();
+          });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
         }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
+      })
+      .catch((error) => {
         UIkit.notification({
-          message: "Producto eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-
-        // Recargar productos
-        await this.loadProducts();
-        this.renderProductsList();
-      } else {
-        UIkit.notification({
-          message: "Error: " + data.error,
+          message: "Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
-      }
-    } catch (error) {
-      UIkit.notification({
-        message: "Error de red: " + error.message,
-        status: "danger",
-        pos: "top-center",
       });
-    }
   }
 }
 

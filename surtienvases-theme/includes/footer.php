@@ -1,6 +1,4 @@
-<!-- ========================================
-     FOOTER REUTILIZABLE
-     ======================================== -->
+<!-- FOOTER -->
 <footer class="uk-section uk-section-small footer-principal">
     <div class="uk-container">
         <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
@@ -93,3 +91,8 @@
         </div>
     </div>
 </footer>
+
+<?php wp_footer(); ?>
+</body>
+
+</html>

@@ -8,7 +8,6 @@ class ProductsSystemPHP {
     this.apiUrl = window.API_URL || "api.php";
     this.products = [];
     this.categories = [];
-    this.cart = JSON.parse(localStorage.getItem("cart")) || [];
     this.currentCategory = "todos";
     this.init();
   }
@@ -19,7 +18,6 @@ class ProductsSystemPHP {
     this.updateCategoryButtons();
     this.renderProducts();
     this.setupCategoryFilters();
-    this.updateCartCount();
   }
 
   // ========================================
@@ -340,50 +338,31 @@ class ProductsSystemPHP {
     if (modal) modal.show();
   }
 
+  // USAR SISTEMA DE CARRITO GLOBAL
   addToCart(productId) {
     const product = this.products.find((p) => p.id === productId);
-    if (!product) return;
-
-    const existingItem = this.cart.find((item) => item.id === productId);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      this.cart.push({
-        id: product.id,
-        title: product.title,
-        minimumOrder: product.minimumOrder || "Consultar",
-        quantity: 1,
-      });
+    if (!product) {
+      console.error("Producto no encontrado:", productId);
+      return;
     }
 
-    this.saveCart();
-    this.updateCartCount();
+    // Verificar que el sistema de carrito esté disponible
+    if (!window.surtienvases || !window.surtienvases.cart) {
+      console.error("Sistema de carrito no disponible");
+      UIkit.notification({
+        message: "Error: Sistema de carrito no disponible",
+        status: "danger",
+        pos: "top-center",
+      });
+      return;
+    }
 
-    UIkit.notification({
-      message: `${product.title} agregado al carrito`,
-      status: "success",
-      pos: "top-center",
-      timeout: 2000,
-    });
-  }
-
-  saveCart() {
-    localStorage.setItem("cart", JSON.stringify(this.cart));
-  }
-
-  updateCartCount() {
-    const count = this.cart.reduce((total, item) => total + item.quantity, 0);
-    const badges = [
-      document.getElementById("cart-count"),
-      document.getElementById("cart-count-navbar"),
-    ];
-
-    badges.forEach((badge) => {
-      if (badge) {
-        badge.textContent = count;
-        badge.style.display = count > 0 ? "flex" : "none";
-      }
+    // Pasar el objeto completo con todos los campos necesarios
+    window.surtienvases.cart.addToCart({
+      id: product.id,
+      title: product.title,
+      minimumOrder: product.minimumOrder || "Consultar",
+      quantity: 1,
     });
   }
 
