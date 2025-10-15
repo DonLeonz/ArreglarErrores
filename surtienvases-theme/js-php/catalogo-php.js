@@ -1,6 +1,5 @@
 // ========================================
-// SISTEMA DE CATÁLOGO - VERSIÓN PHP
-// Consume API REST en lugar de localStorage
+// SISTEMA DE CATÁLOGO - SOLUCIÓN DEFINITIVA
 // ========================================
 
 class CatalogoSystemPHP {
@@ -26,17 +25,17 @@ class CatalogoSystemPHP {
     console.log("✓ Sistema de catálogo PHP inicializado");
   }
 
-  // ========================================
-  // CARGAR DATOS DESDE API
-  // ========================================
-
   async loadProducts() {
     try {
       const response = await fetch(`${this.apiUrl}?action=get_products`);
       const data = await response.json();
       if (data.success) {
         this.products = data.data;
-        console.log(`✓ ${this.products.length} productos cargados`);
+        console.log(`✓ Catálogo: ${this.products.length} productos cargados`);
+        console.log(
+          "📦 IDs en catálogo:",
+          this.products.map((p) => `ID:${p.id}`)
+        );
       }
     } catch (error) {
       console.error("Error al cargar productos:", error);
@@ -68,10 +67,6 @@ class CatalogoSystemPHP {
       console.error("Error al cargar industrias:", error);
     }
   }
-
-  // ========================================
-  // ACTUALIZAR SELECTS Y BOTONES
-  // ========================================
 
   updateCategorySelect() {
     const select = document.getElementById("category-filter");
@@ -111,10 +106,6 @@ class CatalogoSystemPHP {
       </div>
     `;
   }
-
-  // ========================================
-  // BÚSQUEDA DE PRODUCTOS
-  // ========================================
 
   setupProductSearch() {
     const form = document.getElementById("product-search-form");
@@ -227,10 +218,6 @@ class CatalogoSystemPHP {
     `;
   }
 
-  // ========================================
-  // FILTROS POR INDUSTRIA
-  // ========================================
-
   setupIndustryFilters() {
     const buttons = document.querySelectorAll(
       ".boton-filtro-categoria-industria"
@@ -279,10 +266,6 @@ class CatalogoSystemPHP {
       `;
     }
   }
-
-  // ========================================
-  // PREVIEW DEL CARRITO
-  // ========================================
 
   renderCartPreview() {
     const container = document.getElementById("catalog-cart-items");
@@ -344,45 +327,95 @@ class CatalogoSystemPHP {
   }
 
   // ========================================
-  // ACCIONES DEL CARRITO
+  // MÉTODO CRÍTICO CORREGIDO - IGUAL QUE PRODUCTOS
   // ========================================
 
   addToCart(productId) {
-    const product = this.products.find((p) => p.id === productId);
-    if (!product) {
-      console.error("Producto no encontrado:", productId);
-      return;
-    }
+    console.log(
+      "🛒 CATÁLOGO - Agregando ID:",
+      productId,
+      "tipo:",
+      typeof productId
+    );
+    console.log("📦 Total productos en catálogo:", this.products.length);
+    console.log(
+      "📦 IDs disponibles:",
+      this.products.map((p) => p.id)
+    );
 
-    // Verificar que el sistema de carrito esté disponible
-    if (!window.surtienvases || !window.surtienvases.cart) {
-      console.error("Sistema de carrito no disponible");
+    // CRÍTICO: Convertir a número
+    const numericId = Number(productId);
+    console.log("🔢 ID convertido:", numericId);
+
+    // Buscar con conversión de tipos
+    const product = this.products.find((p) => Number(p.id) === numericId);
+
+    if (!product) {
+      console.error("❌ PRODUCTO NO ENCONTRADO EN CATÁLOGO");
+      console.error("   - ID buscado:", numericId);
+      console.error("   - Array productos:", this.products);
+
       UIkit.notification({
-        message: "Error: Sistema de carrito no disponible",
+        message: "Error: Producto no encontrado. Recarga la página.",
         status: "danger",
         pos: "top-center",
       });
       return;
     }
 
-    // Pasar el objeto completo con todos los campos necesarios
-    window.surtienvases.cart.addToCart({
-      id: product.id,
+    console.log("✅ Producto encontrado en catálogo:", product.title);
+
+    // Verificar sistema de carrito
+    if (!window.surtienvases || !window.surtienvases.cart) {
+      console.error("❌ Sistema de carrito no disponible");
+      UIkit.notification({
+        message: "Error: Sistema de carrito no disponible. Recarga la página.",
+        status: "danger",
+        pos: "top-center",
+      });
+      return;
+    }
+
+    console.log("✅ Sistema de carrito disponible");
+
+    // Preparar datos - IGUAL QUE EN PRODUCTOS
+    const productData = {
+      id: Number(product.id),
       title: product.title,
       minimumOrder: product.minimumOrder || "Consultar",
       quantity: 1,
-    });
+    };
+
+    console.log("📦 Datos a enviar:", productData);
+
+    try {
+      window.surtienvases.cart.addToCart(productData);
+      console.log("✅ Producto agregado desde catálogo");
+
+      // Actualizar preview del carrito en catálogo
+      this.renderCartPreview();
+      this.updateCartCount();
+    } catch (error) {
+      console.error("❌ Error al agregar:", error);
+      UIkit.notification({
+        message: "Error al agregar al carrito: " + error.message,
+        status: "danger",
+        pos: "top-center",
+      });
+    }
   }
 
   removeFromCart(productId) {
-    this.cart = this.cart.filter((item) => item.id !== productId);
+    this.cart = this.cart.filter(
+      (item) => Number(item.id) !== Number(productId)
+    );
     this.saveCart();
     this.renderCartPreview();
     this.updateCartCount();
   }
 
   updateQuantity(productId, change) {
-    const item = this.cart.find((i) => i.id === productId);
+    const item = this.cart.find((i) => Number(i.id) === Number(productId));
     if (item) {
       item.quantity += change;
       if (item.quantity <= 0) {
@@ -397,6 +430,7 @@ class CatalogoSystemPHP {
 
   saveCart() {
     localStorage.setItem("cart", JSON.stringify(this.cart));
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 
   getCart() {
@@ -404,10 +438,12 @@ class CatalogoSystemPHP {
   }
 
   updateCartCount() {
-    const count = this.cart.reduce((total, item) => total + item.quantity, 0);
+    const cart = this.getCart();
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
     const badges = [
       document.getElementById("cart-count"),
       document.getElementById("cart-count-navbar"),
+      document.getElementById("cart-count-floating"),
     ];
 
     badges.forEach((badge) => {
@@ -429,7 +465,9 @@ class CatalogoSystemPHP {
   }
 
   sendCartToWhatsApp() {
-    if (this.cart.length === 0) {
+    const cart = this.getCart();
+
+    if (cart.length === 0) {
       UIkit.notification({
         message: "El carrito está vacío",
         status: "warning",
@@ -441,13 +479,13 @@ class CatalogoSystemPHP {
     let message =
       "¡Hola! Me gustaría solicitar una cotización para los siguientes productos:\n\n";
 
-    this.cart.forEach((item, index) => {
+    cart.forEach((item, index) => {
       message += `${index + 1}. ${item.title}\n`;
       message += `   Cantidad: ${item.quantity}\n`;
       message += `   Pedido mínimo: ${item.minimumOrder}\n\n`;
     });
 
-    message += `Total de items: ${this.cart.reduce(
+    message += `Total de items: ${cart.reduce(
       (sum, item) => sum + item.quantity,
       0
     )}\n\n`;

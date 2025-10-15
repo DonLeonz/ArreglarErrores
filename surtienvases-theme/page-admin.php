@@ -17,11 +17,12 @@ require_once get_template_directory() . '/config.php';
 </head>
 
 <body>
-    <!-- NAVBAR ESPECIAL DE ADMIN -->
+    <!-- NAVBAR ESPECIAL DE ADMIN - ESTILO ORIGINAL -->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
         <nav class="uk-navbar-container uk-navbar-transparent">
             <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
                 <div uk-navbar="mode: click" class="uk-flex">
+                    <!-- Logo -->
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-light">
                             <a class="uk-flex uk-link-heading" href="<?php echo home_url(); ?>">
@@ -31,7 +32,18 @@ require_once get_template_directory() . '/config.php';
                         </div>
                     </div>
 
+                    <!-- Botones derecha -->
                     <div class="uk-navbar-right">
+                        <!-- Botón Cotizar -->
+                        <div class="uk-navbar-item uk-dark">
+                            <button class="uk-button uk-button-secondary uk-border-rounded position-relative"
+                                id="navbar-quote-btn">
+                                <span uk-icon="cart"></span> Cotizar
+                                <span class="carrito-badge-contador uk-hidden" id="cart-count-navbar">0</span>
+                            </button>
+                        </div>
+
+                        <!-- Botón Volver al Sitio - ESTILO ORIGINAL -->
                         <div class="uk-navbar-item">
                             <a href="<?php echo home_url(); ?>" class="uk-button uk-button-secondary uk-border-rounded">
                                 <span uk-icon="home"></span> Volver al Sitio

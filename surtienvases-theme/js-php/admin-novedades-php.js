@@ -1,17 +1,20 @@
 // ========================================
 // SISTEMA DE ADMINISTRACIÓN DE NOVEDADES - PHP
-// Consume API REST
+// CON BOTÓN ELIMINAR COMENTARIOS
 // ========================================
 
 class NovedadesAdminSystemPHP {
   constructor() {
     this.apiUrl = window.API_URL || "api.php";
     this.news = [];
+    this.comments = {};
+    this.visibleComments = {};
     this.init();
   }
 
   async init() {
     await this.loadNews();
+    await this.loadAllComments();
     this.renderNews();
     this.setupForm();
     this.setupImageUploader();
@@ -32,6 +35,24 @@ class NovedadesAdminSystemPHP {
       }
     } catch (error) {
       console.error("Error al cargar noticias:", error);
+    }
+  }
+
+  async loadAllComments() {
+    try {
+      for (const article of this.news) {
+        const response = await fetch(
+          `${this.apiUrl}?action=get_comments&news_id=${article.id}`
+        );
+        const data = await response.json();
+
+        if (data.success) {
+          this.comments[article.id] = data.data;
+        }
+      }
+      console.log("✓ Comentarios cargados");
+    } catch (error) {
+      console.error("Error al cargar comentarios:", error);
     }
   }
 
@@ -63,7 +84,6 @@ class NovedadesAdminSystemPHP {
   }
 
   openMediaUploader() {
-    // Crear input file temporal
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
@@ -72,7 +92,6 @@ class NovedadesAdminSystemPHP {
       const file = e.target.files[0];
       if (!file) return;
 
-      // Validar que sea imagen
       if (!file.type.startsWith("image/")) {
         UIkit.notification({
           message: "Por favor selecciona un archivo de imagen válido",
@@ -82,7 +101,6 @@ class NovedadesAdminSystemPHP {
         return;
       }
 
-      // Validar tamaño (máximo 5MB)
       if (file.size > 5 * 1024 * 1024) {
         UIkit.notification({
           message: "La imagen no debe superar 5MB",
@@ -92,7 +110,6 @@ class NovedadesAdminSystemPHP {
         return;
       }
 
-      // Mostrar loading
       UIkit.notification({
         message: "Subiendo imagen...",
         status: "primary",
@@ -103,13 +120,11 @@ class NovedadesAdminSystemPHP {
       try {
         const uploadedPath = await this.uploadImage(file);
 
-        // Actualizar input con la ruta
         const imageInput = document.getElementById("news-image");
         if (imageInput) {
           imageInput.value = uploadedPath;
         }
 
-        // Mostrar preview
         this.showImagePreview(uploadedPath);
 
         UIkit.notification({
@@ -232,15 +247,13 @@ class NovedadesAdminSystemPHP {
           pos: "top-center",
         });
 
-        // Recargar noticias
         await this.loadNews();
+        await this.loadAllComments();
         this.renderNews();
 
-        // Limpiar formulario
         document.getElementById("news-form").reset();
         document.getElementById("news-author").value = "Usuario Invitado";
 
-        // Ocultar preview de imagen
         const preview = document.getElementById("news-image-preview");
         if (preview) {
           preview.classList.add("uk-hidden");
@@ -262,7 +275,7 @@ class NovedadesAdminSystemPHP {
   }
 
   // ========================================
-  // RENDERIZAR NOTICIAS
+  // RENDERIZAR NOTICIAS CON COMENTARIOS
   // ========================================
 
   renderNews() {
@@ -284,6 +297,9 @@ class NovedadesAdminSystemPHP {
   }
 
   createArticleCard(article) {
+    const commentsVisible = this.visibleComments[article.id] || false;
+    const newsComments = this.comments[article.id] || [];
+
     return `
       <div>
         <div class="uk-card uk-card-default uk-card-hover contenedor-redondeado texto-negro uk-position-relative">
@@ -310,15 +326,87 @@ class NovedadesAdminSystemPHP {
             <p class="uk-text-meta uk-margin-small-top">
               Publicado: ${this.formatDate(article.created_at)}
             </p>
+
+            <!-- BOTÓN PARA VER/OCULTAR COMENTARIOS -->
+            <button class="uk-button uk-button-secondary uk-margin-small-top uk-border-rounded"
+                    onclick="novedadesAdminPHP.toggleComments(${article.id})">
+              ${commentsVisible ? "Ocultar comentarios" : "Ver comentarios"} (${
+      newsComments.length
+    })
+            </button>
+
+            <!-- SECCIÓN DE COMENTARIOS -->
+            ${commentsVisible ? this.renderCommentsSection(article.id) : ""}
           </div>
         </div>
       </div>
     `;
   }
 
+  renderCommentsSection(newsId) {
+    const newsComments = this.comments[newsId] || [];
+
+    if (newsComments.length === 0) {
+      return `
+        <div class="uk-margin-top uk-padding uk-background-muted uk-border-rounded">
+          <p class="uk-text-center uk-text-muted">No hay comentarios en este artículo</p>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="uk-margin-top">
+        <h4 class="uk-heading-line"><span>Comentarios (${
+          newsComments.length
+        })</span></h4>
+        
+        ${newsComments
+          .map(
+            (comment) => `
+          <article class="uk-comment uk-margin-small uk-padding-small uk-background-muted uk-border-rounded uk-position-relative">
+            
+            <!-- BOTÓN ELIMINAR COMENTARIO -->
+            <button class="boton-eliminar-comentario" 
+                    onclick="novedadesAdminPHP.deleteComment(${
+                      comment.id
+                    }, ${newsId})"
+                    aria-label="Eliminar comentario">
+            </button>
+            
+            <header class="uk-comment-header uk-flex uk-flex-middle">
+              <img class="uk-comment-avatar uk-border-circle"
+                   src="assets/img/surtienvases/avatars/default.jpg"
+                   width="40" height="40" alt="${comment.author}">
+              <div class="uk-margin-small-left">
+                <h4 class="uk-comment-title uk-margin-remove texto-negro">
+                  ${comment.author}
+                </h4>
+                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                  <li><span class="texto-gris">${this.formatDate(
+                    comment.created_at
+                  )}</span></li>
+                </ul>
+              </div>
+            </header>
+            <div class="uk-comment-body uk-margin-small-top">
+              <p class="texto-negro">${comment.text}</p>
+            </div>
+          </article>
+        `
+          )
+          .join("")}
+      </div>
+    `;
+  }
+
   // ========================================
-  // ELIMINAR NOTICIA
+  // ACCIONES
   // ========================================
+
+  toggleComments(newsId) {
+    this.visibleComments[newsId] = !this.visibleComments[newsId];
+    this.renderNews();
+  }
 
   deleteArticle(articleId) {
     if (
@@ -340,8 +428,51 @@ class NovedadesAdminSystemPHP {
           });
 
           this.loadNews().then(() => {
-            this.renderNews();
+            this.loadAllComments().then(() => {
+              this.renderNews();
+            });
           });
+        } else {
+          UIkit.notification({
+            message: "Error: " + data.error,
+            status: "danger",
+            pos: "top-center",
+          });
+        }
+      })
+      .catch((error) => {
+        UIkit.notification({
+          message: "Error de red: " + error.message,
+          status: "danger",
+          pos: "top-center",
+        });
+      });
+  }
+
+  deleteComment(commentId, newsId) {
+    if (!window.confirm("¿Estás seguro de eliminar este comentario?")) {
+      return;
+    }
+
+    fetch(`${this.apiUrl}?action=delete_comment&id=${commentId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          UIkit.notification({
+            message: "Comentario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+
+          // Recargar solo los comentarios de esta noticia
+          fetch(`${this.apiUrl}?action=get_comments&news_id=${newsId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                this.comments[newsId] = data.data;
+                this.renderNews();
+              }
+            });
         } else {
           UIkit.notification({
             message: "Error: " + data.error,

@@ -1,6 +1,6 @@
 // ========================================
-// SISTEMA DE ADMINISTRACIÓN DE PRODUCTOS - PHP
-// Consume API REST
+// SISTEMA DE ADMINISTRACIÓN DE PRODUCTOS - PHP CORREGIDO
+// Consume API REST + Funcionalidad completa de imágenes
 // ========================================
 
 class ProductAdminPHP {
@@ -21,6 +21,7 @@ class ProductAdminPHP {
     this.setupImageUploader();
     this.renderProductsList();
     this.populateSelects();
+    console.log("✅ Sistema de administración de productos inicializado");
   }
 
   // ========================================
@@ -34,10 +35,10 @@ class ProductAdminPHP {
 
       if (data.success) {
         this.products = data.data;
-        console.log(`✓ ${this.products.length} productos cargados`);
+        console.log(`✅ ${this.products.length} productos cargados`);
       }
     } catch (error) {
-      console.error("Error al cargar productos:", error);
+      console.error("❌ Error al cargar productos:", error);
     }
   }
 
@@ -48,10 +49,10 @@ class ProductAdminPHP {
 
       if (data.success) {
         this.categories = data.data;
-        console.log(`✓ ${this.categories.length} categorías cargadas`);
+        console.log(`✅ ${this.categories.length} categorías cargadas`);
       }
     } catch (error) {
-      console.error("Error al cargar categorías:", error);
+      console.error("❌ Error al cargar categorías:", error);
     }
   }
 
@@ -62,10 +63,10 @@ class ProductAdminPHP {
 
       if (data.success) {
         this.industries = data.data;
-        console.log(`✓ ${this.industries.length} industrias cargadas`);
+        console.log(`✅ ${this.industries.length} industrias cargadas`);
       }
     } catch (error) {
-      console.error("Error al cargar industrias:", error);
+      console.error("❌ Error al cargar industrias:", error);
     }
   }
 
@@ -83,6 +84,7 @@ class ProductAdminPHP {
             `<option value="${cat.name}">${cat.icon} ${cat.name}</option>`
         )
         .join("");
+      console.log("✅ Select de categorías poblado");
     }
 
     // Poblar select de industrias
@@ -94,6 +96,7 @@ class ProductAdminPHP {
             `<option value="${ind.name}">${ind.icon} ${ind.name}</option>`
         )
         .join("");
+      console.log("✅ Select de industrias poblado");
     }
   }
 
@@ -109,6 +112,7 @@ class ProductAdminPHP {
       e.preventDefault();
       this.handleProductSubmit();
     });
+    console.log("✅ Formulario de productos configurado");
   }
 
   setupDynamicFields() {
@@ -125,19 +129,25 @@ class ProductAdminPHP {
         this.addBenefitField();
       });
     }
+    console.log("✅ Campos dinámicos configurados");
   }
 
   // ========================================
-  // SETUP IMAGE UPLOADER
+  // SETUP IMAGE UPLOADER - CORREGIDO
   // ========================================
 
   setupImageUploader() {
     const uploadBtn = document.getElementById("upload-product-image-btn");
-    if (!uploadBtn) return;
+    if (!uploadBtn) {
+      console.warn("⚠️ Botón de subir imagen no encontrado");
+      return;
+    }
 
     uploadBtn.addEventListener("click", () => {
+      console.log("🖼️ Abriendo selector de imágenes...");
       this.openMediaUploader();
     });
+    console.log("✅ Uploader de imágenes configurado");
   }
 
   openMediaUploader() {
@@ -148,10 +158,16 @@ class ProductAdminPHP {
 
     input.onchange = async (e) => {
       const file = e.target.files[0];
-      if (!file) return;
+      if (!file) {
+        console.log("⚠️ No se seleccionó ningún archivo");
+        return;
+      }
+
+      console.log("📁 Archivo seleccionado:", file.name);
 
       // Validar que sea imagen
       if (!file.type.startsWith("image/")) {
+        console.error("❌ El archivo no es una imagen");
         UIkit.notification({
           message: "Por favor selecciona un archivo de imagen válido",
           status: "warning",
@@ -162,6 +178,7 @@ class ProductAdminPHP {
 
       // Validar tamaño (máximo 5MB)
       if (file.size > 5 * 1024 * 1024) {
+        console.error("❌ Archivo muy grande:", file.size);
         UIkit.notification({
           message: "La imagen no debe superar 5MB",
           status: "warning",
@@ -172,32 +189,36 @@ class ProductAdminPHP {
 
       // Mostrar loading
       UIkit.notification({
-        message: "Subiendo imagen...",
+        message: "⏳ Subiendo imagen...",
         status: "primary",
         pos: "top-center",
         timeout: 2000,
       });
 
       try {
+        console.log("⬆️ Iniciando subida de imagen...");
         const uploadedPath = await this.uploadImage(file);
+        console.log("✅ Imagen subida exitosamente:", uploadedPath);
 
         // Actualizar input con la ruta
         const imageInput = document.getElementById("product-image");
         if (imageInput) {
           imageInput.value = uploadedPath;
+          console.log("✅ Input actualizado con la ruta");
         }
 
         // Mostrar preview
         this.showImagePreview(uploadedPath);
 
         UIkit.notification({
-          message: "Imagen subida exitosamente",
+          message: "✅ Imagen subida exitosamente",
           status: "success",
           pos: "top-center",
         });
       } catch (error) {
+        console.error("❌ Error al subir imagen:", error);
         UIkit.notification({
-          message: "Error al subir la imagen: " + error.message,
+          message: "❌ Error al subir la imagen: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -208,22 +229,27 @@ class ProductAdminPHP {
   }
 
   getNonce() {
+    console.log("🔐 Obteniendo nonce de seguridad...");
+
     // Primero intentar obtener del objeto localizado de WordPress
     if (
       typeof surtienvases_vars !== "undefined" &&
       surtienvases_vars.upload_nonce
     ) {
+      console.log("✅ Nonce encontrado en surtienvases_vars");
       return surtienvases_vars.upload_nonce;
     }
 
     // Fallback: buscar en el DOM
     const nonceInput = document.querySelector('input[name="_wpnonce"]');
     if (nonceInput) {
+      console.log("✅ Nonce encontrado en input _wpnonce");
       return nonceInput.value;
     }
 
     const nonceMeta = document.querySelector('meta[name="csrf-token"]');
     if (nonceMeta) {
+      console.log("✅ Nonce encontrado en meta csrf-token");
       return nonceMeta.content;
     }
 
@@ -232,39 +258,64 @@ class ProductAdminPHP {
   }
 
   async uploadImage(file) {
+    console.log("📤 Preparando FormData para subir imagen...");
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("action", "surtienvases_upload_product_image");
-    formData.append("nonce", this.getNonce()); // Asegúrate de que esto esté presente
+
+    const nonce = this.getNonce();
+    if (!nonce) {
+      throw new Error(
+        "No se pudo obtener el nonce de seguridad. Recarga la página."
+      );
+    }
+    formData.append("nonce", nonce);
+
+    console.log("📤 Enviando imagen al servidor...");
 
     try {
-      const response = await fetch(surtienvases_vars.ajax_url, {
+      const ajaxUrl =
+        typeof surtienvases_vars !== "undefined"
+          ? surtienvases_vars.ajax_url
+          : "/wp-admin/admin-ajax.php";
+
+      console.log("🌐 URL AJAX:", ajaxUrl);
+
+      const response = await fetch(ajaxUrl, {
         method: "POST",
         body: formData,
       });
 
+      console.log("📥 Respuesta recibida del servidor");
       const data = await response.json();
+      console.log("📊 Datos de respuesta:", data);
 
       if (data.success) {
-        // Usar la URL completa que viene del servidor
+        console.log("✅ Imagen subida correctamente:", data.data.url);
         return data.data.url;
       } else {
+        console.error("❌ Error en la respuesta del servidor:", data);
         throw new Error(data.data.message || "Error al subir imagen");
       }
     } catch (error) {
-      console.error("Error en uploadImage:", error);
+      console.error("❌ Error en uploadImage:", error);
       throw error;
     }
   }
 
   showImagePreview(imagePath) {
+    console.log("🖼️ Mostrando preview de imagen:", imagePath);
+
     const preview = document.getElementById("product-image-preview");
     const previewImg = document.getElementById("product-image-preview-img");
 
     if (preview && previewImg) {
-      // Usar directamente la URL que viene del servidor (ya es completa)
       previewImg.src = imagePath;
       preview.classList.remove("uk-hidden");
+      console.log("✅ Preview mostrado");
+    } else {
+      console.warn("⚠️ Elementos de preview no encontrados");
     }
   }
 
@@ -321,6 +372,8 @@ class ProductAdminPHP {
   // ========================================
 
   async handleProductSubmit() {
+    console.log("📝 Procesando formulario de producto...");
+
     const formData = {
       title: document.getElementById("product-title").value.trim(),
       price: document.getElementById("product-price").value.trim(),
@@ -347,10 +400,12 @@ class ProductAdminPHP {
         "assets/img/productos/default-product.jpg",
     };
 
+    console.log("📊 Datos del producto:", formData);
+
     if (!formData.title || !formData.description) {
       UIkit.notification({
         message:
-          "Por favor completa los campos requeridos (título y descripción)",
+          "⚠️ Por favor completa los campos requeridos (título y descripción)",
         status: "warning",
         pos: "top-center",
       });
@@ -358,6 +413,7 @@ class ProductAdminPHP {
     }
 
     try {
+      console.log("📤 Enviando producto a la API...");
       const response = await fetch(`${this.apiUrl}?action=create_product`, {
         method: "POST",
         headers: {
@@ -367,10 +423,11 @@ class ProductAdminPHP {
       });
 
       const data = await response.json();
+      console.log("📥 Respuesta de la API:", data);
 
       if (data.success) {
         UIkit.notification({
-          message: "Producto agregado exitosamente",
+          message: "✅ Producto agregado exitosamente",
           status: "success",
           pos: "top-center",
         });
@@ -378,6 +435,12 @@ class ProductAdminPHP {
         // Recargar productos
         await this.loadProducts();
         this.renderProductsList();
+
+        // Actualizar en página de productos si está abierta
+        if (window.productsSystemPHP) {
+          await window.productsSystemPHP.refreshProducts();
+          console.log("✅ Productos actualizados en la página principal");
+        }
 
         // Limpiar formulario
         document.getElementById("admin-product-form").reset();
@@ -395,14 +458,15 @@ class ProductAdminPHP {
           ?.scrollIntoView({ behavior: "smooth" });
       } else {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "❌ Error: " + data.error,
           status: "danger",
           pos: "top-center",
         });
       }
     } catch (error) {
+      console.error("❌ Error al crear producto:", error);
       UIkit.notification({
-        message: "Error de red: " + error.message,
+        message: "❌ Error de red: " + error.message,
         status: "danger",
         pos: "top-center",
       });
@@ -447,6 +511,7 @@ class ProductAdminPHP {
           .join("")}
       </div>
     `;
+    console.log("✅ Lista de productos renderizada");
   }
 
   createProductCard(product) {
@@ -488,35 +553,48 @@ class ProductAdminPHP {
   // ========================================
 
   deleteProduct(productId) {
-    // Usar window.confirm en lugar de UIkit.modal.confirm
+    console.log("🗑️ Intentando eliminar producto ID:", productId);
+
     if (!window.confirm("¿Estás seguro de eliminar este producto?")) {
+      console.log("❌ Eliminación cancelada por el usuario");
       return;
     }
+
+    console.log("⏳ Eliminando producto...");
 
     fetch(`${this.apiUrl}?action=delete_product&id=${productId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("📥 Respuesta de eliminación:", data);
+
         if (data.success) {
           UIkit.notification({
-            message: "Producto eliminado exitosamente",
+            message: "✅ Producto eliminado exitosamente",
             status: "success",
             pos: "top-center",
           });
 
           this.loadProducts().then(() => {
             this.renderProductsList();
+
+            // Actualizar en página de productos si está abierta
+            if (window.productsSystemPHP) {
+              window.productsSystemPHP.refreshProducts();
+              console.log("✅ Productos actualizados en la página principal");
+            }
           });
         } else {
           UIkit.notification({
-            message: "Error: " + data.error,
+            message: "❌ Error: " + data.error,
             status: "danger",
             pos: "top-center",
           });
         }
       })
       .catch((error) => {
+        console.error("❌ Error al eliminar:", error);
         UIkit.notification({
-          message: "Error de red: " + error.message,
+          message: "❌ Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -524,6 +602,9 @@ class ProductAdminPHP {
   }
 }
 
-// Inicialización
+// ========================================
+// INICIALIZACIÓN
+// ========================================
+
 window.productAdminPHP = new ProductAdminPHP();
-console.log("✓ Sistema de administración de productos PHP inicializado");
+console.log("✅ Sistema de administración de productos PHP inicializado");

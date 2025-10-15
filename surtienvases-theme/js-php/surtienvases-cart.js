@@ -1,6 +1,6 @@
 // ========================================
-// SURTIENVASES - CARRITO UNIVERSAL
-// Funciona en todas las páginas
+// SURTIENVASES - CARRITO UNIVERSAL CORREGIDO
+// Funciona en TODAS las páginas
 // ========================================
 
 class SurtiEnvasesCart {
@@ -18,11 +18,13 @@ class SurtiEnvasesCart {
   }
 
   setup() {
+    console.log("🛒 Iniciando setup del carrito...");
     this.injectCartHTML();
     this.injectWhatsAppHTML();
     this.updateCartCount();
     this.setupEventListeners();
     this.syncWithOtherTabs();
+    console.log("✅ Setup del carrito completado");
   }
 
   // ========================================
@@ -41,6 +43,7 @@ class SurtiEnvasesCart {
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
       window.dispatchEvent(new Event("cartUpdated"));
+      this.updateCartCount(); // CRÍTICO: Actualizar contador inmediatamente
     } catch (e) {
       console.error("Error al guardar el carrito:", e);
     }
@@ -59,9 +62,8 @@ class SurtiEnvasesCart {
   // INYECCIÓN DE HTML
   // ========================================
   injectCartHTML() {
-    // NO inyectar si ya existe
     if (document.getElementById("cart-modal")) {
-      console.log("✓ Carrito ya existe, no se inyecta");
+      console.log("⚠️ Modal de carrito ya existe");
       return;
     }
 
@@ -84,18 +86,16 @@ class SurtiEnvasesCart {
     `;
 
     document.body.insertAdjacentHTML("beforeend", cartHTML);
-    console.log("✓ Modal de carrito inyectado");
+    console.log("✅ Modal de carrito inyectado");
   }
 
   injectWhatsAppHTML() {
-    // NO inyectar si ya existe
     if (document.querySelector(".whatsapp-flotante")) {
-      console.log("✓ WhatsApp ya existe, no se inyecta");
+      console.log("✅ WhatsApp ya existe, no se inyecta");
       return;
     }
 
     const whatsappHTML = `
-      <!-- WhatsApp Flotante -->
       <a href="https://wa.me/${this.whatsappNumber}" class="whatsapp-flotante" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
         <div class="whatsapp-boton-circular">
           <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
@@ -104,89 +104,115 @@ class SurtiEnvasesCart {
     `;
 
     document.body.insertAdjacentHTML("beforeend", whatsappHTML);
-    console.log("✓ WhatsApp flotante inyectado");
+    console.log("✅ WhatsApp flotante inyectado");
   }
 
   setupEventListeners() {
-    const toggleBtn = document.getElementById("toggle-cart-btn");
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => this.toggleCart());
-    }
+    console.log("🔌 Configurando event listeners...");
 
+    // Botón de enviar cotización
     const sendQuoteBtn = document.getElementById("send-quote-btn");
     if (sendQuoteBtn) {
       sendQuoteBtn.addEventListener("click", () => this.sendQuoteToWhatsApp());
+      console.log("✅ Listener de enviar cotización configurado");
     }
 
+    // Botón cotizar en navbar desktop
     const navbarQuoteBtn = document.getElementById("navbar-quote-btn");
     if (navbarQuoteBtn) {
-      navbarQuoteBtn.addEventListener("click", () => this.toggleCart());
+      navbarQuoteBtn.addEventListener("click", () => {
+        console.log("🖱️ Click en navbar-quote-btn");
+        this.toggleCart();
+      });
+      console.log("✅ Listener de navbar-quote-btn configurado");
     }
 
+    // Botón del carrito en menú móvil
     const mobileCartBtn = document.getElementById("mobile-cart-btn");
     if (mobileCartBtn) {
-      mobileCartBtn.addEventListener("click", () => this.toggleCart());
+      mobileCartBtn.addEventListener("click", () => {
+        console.log("🖱️ Click en mobile-cart-btn");
+        this.toggleCart();
+        UIkit.offcanvas("#burger-menu").hide();
+      });
+      console.log("✅ Listener de mobile-cart-btn configurado");
     }
+
+    // CRÍTICO: Botón flotante del carrito
+    const floatingCartBtn = document.getElementById("floating-cart-btn");
+    if (floatingCartBtn) {
+      floatingCartBtn.addEventListener("click", () => {
+        console.log("🖱️ Click en floating-cart-btn");
+        this.toggleCart();
+      });
+      console.log("✅ Listener de floating-cart-btn configurado");
+    } else {
+      console.warn("⚠️ floating-cart-btn NO encontrado");
+    }
+
+    console.log("✅ Event listeners configurados");
   }
 
   // ========================================
   // OPERACIONES DEL CARRITO
   // ========================================
   addToCart(product) {
+    console.log("📥 addToCart llamado con:", product);
+
     let cart = this.loadCart();
 
-    // Asegurarse de que el producto tenga todos los campos necesarios
     if (!product.id || !product.title) {
-      console.error("Producto inválido:", product);
+      console.error("❌ Producto inválido:", product);
       return;
     }
 
-    const existingItem = cart.find((item) => item.id === product.id);
+    const existingItem = cart.find(
+      (item) => Number(item.id) === Number(product.id)
+    );
 
     if (existingItem) {
       existingItem.quantity += 1;
+      console.log("✅ Cantidad actualizada del producto existente");
     } else {
       cart.push({
-        id: product.id,
+        id: Number(product.id),
         title: product.title,
         minimumOrder: product.minimumOrder || "Consultar",
         quantity: product.quantity || 1,
       });
+      console.log("✅ Nuevo producto agregado al carrito");
     }
 
     this.saveCart(cart);
-    this.updateCartCount();
     this.showNotification(`${product.title} agregado al carrito`, "success");
+    console.log("✅ Carrito guardado, contador actualizado");
   }
 
   removeFromCart(productId) {
     let cart = this.loadCart();
-    cart = cart.filter((item) => item.id !== productId);
+    cart = cart.filter((item) => Number(item.id) !== Number(productId));
     this.saveCart(cart);
-    this.updateCartCount();
     this.renderCart();
   }
 
   updateQuantity(productId, change) {
     let cart = this.loadCart();
-    const item = cart.find((i) => i.id === productId);
+    const item = cart.find((i) => Number(i.id) === Number(productId));
 
     if (item) {
       item.quantity += change;
 
       if (item.quantity <= 0) {
-        cart = cart.filter((i) => i.id !== productId);
+        cart = cart.filter((i) => Number(i.id) !== Number(productId));
       }
 
       this.saveCart(cart);
-      this.updateCartCount();
       this.renderCart();
     }
   }
 
   clearCart() {
     this.saveCart([]);
-    this.updateCartCount();
     this.renderCart();
   }
 
@@ -197,6 +223,8 @@ class SurtiEnvasesCart {
     const cart = this.loadCart();
     const count = cart.reduce((total, item) => total + item.quantity, 0);
 
+    console.log("🔢 Actualizando contador del carrito:", count);
+
     const badges = [
       document.getElementById("cart-count"),
       document.getElementById("cart-count-navbar"),
@@ -206,24 +234,53 @@ class SurtiEnvasesCart {
     badges.forEach((badge) => {
       if (badge) {
         badge.textContent = count;
-        badge.style.display = count > 0 ? "flex" : "none";
+        if (count > 0) {
+          badge.style.display = "flex";
+          badge.classList.remove("uk-hidden");
+        } else {
+          badge.style.display = "none";
+          badge.classList.add("uk-hidden");
+        }
       }
     });
   }
 
   toggleCart() {
+    console.log("🔄 toggleCart llamado");
+
+    const modal = document.getElementById("cart-modal");
+    if (!modal) {
+      console.error("❌ Modal #cart-modal NO encontrado en el DOM");
+      console.log("DOM actual:", document.body.innerHTML.substring(0, 500));
+      return;
+    }
+
+    console.log("✅ Modal encontrado, renderizando carrito...");
     this.renderCart();
-    const modal = UIkit.modal("#cart-modal");
-    if (modal) {
-      modal.show();
+
+    console.log("📂 Intentando abrir modal con UIkit...");
+    try {
+      const uikitModal = UIkit.modal("#cart-modal");
+      if (uikitModal) {
+        uikitModal.show();
+        console.log("✅ Modal abierto exitosamente");
+      } else {
+        console.error("❌ UIkit.modal devolvió null");
+      }
+    } catch (error) {
+      console.error("❌ Error al abrir modal:", error);
     }
   }
 
   renderCart() {
     const container = document.getElementById("cart-items-container");
-    if (!container) return;
+    if (!container) {
+      console.warn("⚠️ Contenedor cart-items-container no encontrado");
+      return;
+    }
 
     const cart = this.loadCart();
+    console.log("🛒 Renderizando carrito con", cart.length, "items");
 
     if (cart.length === 0) {
       container.innerHTML = `
@@ -271,6 +328,8 @@ class SurtiEnvasesCart {
     `
       )
       .join("");
+
+    console.log("✅ Carrito renderizado");
   }
 
   // ========================================

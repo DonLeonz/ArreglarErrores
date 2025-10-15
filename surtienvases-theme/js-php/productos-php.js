@@ -1,6 +1,5 @@
 // ========================================
-// SISTEMA DE PRODUCTOS - VERSIÓN PHP
-// Consume API REST en lugar de localStorage
+// SISTEMA DE PRODUCTOS - SOLUCIÓN DEFINITIVA
 // ========================================
 
 class ProductsSystemPHP {
@@ -18,11 +17,8 @@ class ProductsSystemPHP {
     this.updateCategoryButtons();
     this.renderProducts();
     this.setupCategoryFilters();
+    console.log("✓ Sistema de productos inicializado");
   }
-
-  // ========================================
-  // CARGAR DATOS DESDE API
-  // ========================================
 
   async loadProducts() {
     try {
@@ -31,8 +27,10 @@ class ProductsSystemPHP {
 
       if (data.success) {
         this.products = data.data;
+        console.log(`✓ ${this.products.length} productos cargados`);
         console.log(
-          `✓ ${this.products.length} productos cargados desde la base de datos`
+          "📦 Productos en memoria:",
+          this.products.map((p) => `ID:${p.id} - ${p.title}`)
         );
       } else {
         console.error("Error al cargar productos:", data.error);
@@ -51,9 +49,7 @@ class ProductsSystemPHP {
 
       if (data.success) {
         this.categories = data.data;
-        console.log(
-          `✓ ${this.categories.length} categorías cargadas desde la base de datos`
-        );
+        console.log(`✓ ${this.categories.length} categorías cargadas`);
       } else {
         console.error("Error al cargar categorías:", data.error);
         this.categories = [];
@@ -63,10 +59,6 @@ class ProductsSystemPHP {
       this.categories = [];
     }
   }
-
-  // ========================================
-  // ACTUALIZACIÓN DINÁMICA DE BOTONES
-  // ========================================
 
   updateCategoryButtons() {
     const container =
@@ -106,15 +98,9 @@ class ProductsSystemPHP {
 
     container.innerHTML = buttonsHTML;
     console.log(
-      `✓ Botones de categoría actualizados: ${
-        this.categories.length + 1
-      } botones`
+      `✓ Botones actualizados: ${this.categories.length + 1} botones`
     );
   }
-
-  // ========================================
-  // FILTROS
-  // ========================================
 
   setupCategoryFilters() {
     const buttons = document.querySelectorAll(
@@ -156,10 +142,6 @@ class ProductsSystemPHP {
       return false;
     });
   }
-
-  // ========================================
-  // RENDERIZADO
-  // ========================================
 
   renderProducts() {
     const productsGrid = document.getElementById("products-grid");
@@ -307,9 +289,9 @@ class ProductsSystemPHP {
               <div class="uk-margin-large-top uk-text-center uk-grid-small" uk-grid>
                 <div class="uk-width-1-2@s">
                   <button class="uk-button uk-button-primary boton-whatsapp uk-width-1-1 uk-border-rounded" 
-                          onclick="productsSystemPHP.addToCart(${
+                          onclick="productsSystemPHP.addToCartAndClose(${
                             item.id
-                          }); UIkit.modal('#modal-${index}').hide();">
+                          }, ${index})">
                     <span uk-icon="cart"></span> Agregar al Carrito
                   </button>
                 </div>
@@ -330,7 +312,7 @@ class ProductsSystemPHP {
   }
 
   // ========================================
-  // ACCIONES
+  // MÉTODO CRÍTICO CORREGIDO
   // ========================================
 
   showModal(index) {
@@ -338,32 +320,84 @@ class ProductsSystemPHP {
     if (modal) modal.show();
   }
 
-  // USAR SISTEMA DE CARRITO GLOBAL
   addToCart(productId) {
-    const product = this.products.find((p) => p.id === productId);
-    if (!product) {
-      console.error("Producto no encontrado:", productId);
-      return;
-    }
+    console.log(
+      "🛒 INICIO addToCart - ID recibido:",
+      productId,
+      "tipo:",
+      typeof productId
+    );
+    console.log("📊 Total productos en memoria:", this.products.length);
+    console.log(
+      "📦 IDs disponibles:",
+      this.products.map((p) => p.id)
+    );
 
-    // Verificar que el sistema de carrito esté disponible
-    if (!window.surtienvases || !window.surtienvases.cart) {
-      console.error("Sistema de carrito no disponible");
+    // CRÍTICO: Convertir a número si viene como string
+    const numericId = Number(productId);
+    console.log("🔢 ID convertido a número:", numericId);
+
+    // Buscar con conversión de tipos
+    const product = this.products.find((p) => Number(p.id) === numericId);
+
+    if (!product) {
+      console.error("❌ PRODUCTO NO ENCONTRADO");
+      console.error("   - ID buscado:", numericId);
+      console.error(
+        "   - IDs en array:",
+        this.products.map((p) => p.id)
+      );
+      console.error("   - Array completo:", this.products);
+
       UIkit.notification({
-        message: "Error: Sistema de carrito no disponible",
+        message: "Error: Producto no encontrado. Recarga la página.",
         status: "danger",
         pos: "top-center",
       });
       return;
     }
 
-    // Pasar el objeto completo con todos los campos necesarios
-    window.surtienvases.cart.addToCart({
-      id: product.id,
+    console.log("✅ Producto encontrado:", product.title);
+
+    // Verificar sistema de carrito
+    if (!window.surtienvases || !window.surtienvases.cart) {
+      console.error("❌ Sistema de carrito no disponible");
+      UIkit.notification({
+        message: "Error: Sistema de carrito no disponible. Recarga la página.",
+        status: "danger",
+        pos: "top-center",
+      });
+      return;
+    }
+
+    console.log("✅ Sistema de carrito disponible");
+
+    // Preparar datos del producto
+    const productData = {
+      id: Number(product.id), // ASEGURAR que sea número
       title: product.title,
       minimumOrder: product.minimumOrder || "Consultar",
       quantity: 1,
-    });
+    };
+
+    console.log("📦 Datos a enviar al carrito:", productData);
+
+    try {
+      window.surtienvases.cart.addToCart(productData);
+      console.log("✅ Producto agregado exitosamente al carrito");
+    } catch (error) {
+      console.error("❌ Error al agregar al carrito:", error);
+      UIkit.notification({
+        message: "Error al agregar al carrito: " + error.message,
+        status: "danger",
+        pos: "top-center",
+      });
+    }
+  }
+
+  addToCartAndClose(productId, modalIndex) {
+    this.addToCart(productId);
+    UIkit.modal(`#modal-${modalIndex}`).hide();
   }
 
   contactWhatsApp(productTitle) {
@@ -376,23 +410,19 @@ class ProductsSystemPHP {
     window.open(whatsappUrl, "_blank");
   }
 
-  // ========================================
-  // MÉTODO PÚBLICO PARA ACTUALIZAR DESDE ADMIN
-  // ========================================
-
   async refreshCategories() {
     console.log("🔄 Actualizando categorías...");
     await this.loadCategories();
     this.updateCategoryButtons();
     this.setupCategoryFilters();
-    console.log("✓ Categorías actualizadas correctamente");
+    console.log("✓ Categorías actualizadas");
   }
 
   async refreshProducts() {
     console.log("🔄 Actualizando productos...");
     await this.loadProducts();
     this.renderProducts();
-    console.log("✓ Productos actualizados correctamente");
+    console.log("✓ Productos actualizados");
   }
 }
 

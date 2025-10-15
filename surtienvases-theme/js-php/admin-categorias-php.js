@@ -1,6 +1,6 @@
 // ========================================
-// SISTEMA DE ADMINISTRACIÓN DE CATEGORÍAS - PHP
-// Consume API REST
+// SISTEMA DE ADMINISTRACIÓN DE CATEGORÍAS - PHP CORREGIDO
+// Consume API REST + Actualización en tiempo real
 // ========================================
 
 class CategoryAdminPHP {
@@ -17,6 +17,7 @@ class CategoryAdminPHP {
     this.setupForms();
     this.renderCategoriesList();
     this.renderIndustriesList();
+    console.log("✅ Sistema de administración de categorías inicializado");
   }
 
   // ========================================
@@ -30,10 +31,10 @@ class CategoryAdminPHP {
 
       if (data.success) {
         this.categories = data.data;
-        console.log(`✓ ${this.categories.length} categorías cargadas`);
+        console.log(`✅ ${this.categories.length} categorías cargadas`);
       }
     } catch (error) {
-      console.error("Error al cargar categorías:", error);
+      console.error("❌ Error al cargar categorías:", error);
     }
   }
 
@@ -44,10 +45,10 @@ class CategoryAdminPHP {
 
       if (data.success) {
         this.industries = data.data;
-        console.log(`✓ ${this.industries.length} industrias cargadas`);
+        console.log(`✅ ${this.industries.length} industrias cargadas`);
       }
     } catch (error) {
-      console.error("Error al cargar industrias:", error);
+      console.error("❌ Error al cargar industrias:", error);
     }
   }
 
@@ -71,6 +72,7 @@ class CategoryAdminPHP {
         this.handleIndustrySubmit();
       });
     }
+    console.log("✅ Formularios configurados");
   }
 
   // ========================================
@@ -78,12 +80,14 @@ class CategoryAdminPHP {
   // ========================================
 
   async handleCategorySubmit() {
+    console.log("📝 Procesando nueva categoría...");
+
     const name = document.getElementById("category-name").value.trim();
     const icon = document.getElementById("category-icon").value.trim() || "📦";
 
     if (!name) {
       UIkit.notification({
-        message: "Por favor ingresa un nombre para la categoría",
+        message: "⚠️ Por favor ingresa un nombre para la categoría",
         status: "warning",
         pos: "top-center",
       });
@@ -91,8 +95,10 @@ class CategoryAdminPHP {
     }
 
     const key = this.generateKey(name);
+    console.log("🔑 Key generada:", key);
 
     try {
+      console.log("📤 Enviando categoría a la API...");
       const response = await fetch(`${this.apiUrl}?action=create_category`, {
         method: "POST",
         headers: {
@@ -102,10 +108,11 @@ class CategoryAdminPHP {
       });
 
       const data = await response.json();
+      console.log("📥 Respuesta de la API:", data);
 
       if (data.success) {
         UIkit.notification({
-          message: "Categoría agregada exitosamente",
+          message: "✅ Categoría agregada exitosamente",
           status: "success",
           pos: "top-center",
         });
@@ -114,23 +121,38 @@ class CategoryAdminPHP {
         await this.loadCategories();
         this.renderCategoriesList();
 
-        // Actualizar otros sistemas
+        // IMPORTANTE: Actualizar otros sistemas en TIEMPO REAL
+        console.log("🔄 Actualizando otros sistemas...");
+
         if (window.productAdminPHP) {
           await window.productAdminPHP.loadCategories();
           window.productAdminPHP.populateSelects();
+          console.log("✅ Admin de productos actualizado");
+        }
+
+        if (window.productsSystemPHP) {
+          await window.productsSystemPHP.refreshCategories();
+          console.log("✅ Página de productos actualizada");
+        }
+
+        if (window.catalogoSystemPHP) {
+          await window.catalogoSystemPHP.loadCategories();
+          window.catalogoSystemPHP.updateCategorySelect();
+          console.log("✅ Catálogo actualizado");
         }
 
         document.getElementById("admin-category-form").reset();
       } else {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "❌ Error: " + data.error,
           status: "danger",
           pos: "top-center",
         });
       }
     } catch (error) {
+      console.error("❌ Error al crear categoría:", error);
       UIkit.notification({
-        message: "Error de red: " + error.message,
+        message: "❌ Error de red: " + error.message,
         status: "danger",
         pos: "top-center",
       });
@@ -142,12 +164,14 @@ class CategoryAdminPHP {
   // ========================================
 
   async handleIndustrySubmit() {
+    console.log("📝 Procesando nueva industria...");
+
     const name = document.getElementById("industry-name").value.trim();
     const icon = document.getElementById("industry-icon").value.trim() || "🏭";
 
     if (!name) {
       UIkit.notification({
-        message: "Por favor ingresa un nombre para la industria",
+        message: "⚠️ Por favor ingresa un nombre para la industria",
         status: "warning",
         pos: "top-center",
       });
@@ -155,8 +179,10 @@ class CategoryAdminPHP {
     }
 
     const key = this.generateKey(name);
+    console.log("🔑 Key generada:", key);
 
     try {
+      console.log("📤 Enviando industria a la API...");
       const response = await fetch(`${this.apiUrl}?action=create_industry`, {
         method: "POST",
         headers: {
@@ -166,10 +192,11 @@ class CategoryAdminPHP {
       });
 
       const data = await response.json();
+      console.log("📥 Respuesta de la API:", data);
 
       if (data.success) {
         UIkit.notification({
-          message: "Industria agregada exitosamente",
+          message: "✅ Industria agregada exitosamente",
           status: "success",
           pos: "top-center",
         });
@@ -178,23 +205,33 @@ class CategoryAdminPHP {
         await this.loadIndustries();
         this.renderIndustriesList();
 
-        // Actualizar otros sistemas
+        // IMPORTANTE: Actualizar otros sistemas en TIEMPO REAL
+        console.log("🔄 Actualizando otros sistemas...");
+
         if (window.productAdminPHP) {
           await window.productAdminPHP.loadIndustries();
           window.productAdminPHP.populateSelects();
+          console.log("✅ Admin de productos actualizado");
+        }
+
+        if (window.catalogoSystemPHP) {
+          await window.catalogoSystemPHP.loadIndustries();
+          window.catalogoSystemPHP.updateIndustryButtons();
+          console.log("✅ Catálogo actualizado");
         }
 
         document.getElementById("admin-industry-form").reset();
       } else {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "❌ Error: " + data.error,
           status: "danger",
           pos: "top-center",
         });
       }
     } catch (error) {
+      console.error("❌ Error al crear industria:", error);
       UIkit.notification({
-        message: "Error de red: " + error.message,
+        message: "❌ Error de red: " + error.message,
         status: "danger",
         pos: "top-center",
       });
@@ -232,6 +269,7 @@ class CategoryAdminPHP {
         ${this.categories.map((cat) => this.createCategoryCard(cat)).join("")}
       </div>
     `;
+    console.log("✅ Lista de categorías renderizada");
   }
 
   renderIndustriesList() {
@@ -249,6 +287,7 @@ class CategoryAdminPHP {
         ${this.industries.map((ind) => this.createIndustryCard(ind)).join("")}
       </div>
     `;
+    console.log("✅ Lista de industrias renderizada");
   }
 
   createCategoryCard(category) {
@@ -290,16 +329,23 @@ class CategoryAdminPHP {
   // ========================================
 
   deleteCategory(categoryId) {
+    console.log("🗑️ Intentando eliminar categoría ID:", categoryId);
+
     if (!window.confirm("¿Estás seguro de eliminar esta categoría?")) {
+      console.log("❌ Eliminación cancelada por el usuario");
       return;
     }
+
+    console.log("⏳ Eliminando categoría...");
 
     fetch(`${this.apiUrl}?action=delete_category&id=${categoryId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("📥 Respuesta de eliminación:", data);
+
         if (data.success) {
           UIkit.notification({
-            message: "Categoría eliminada exitosamente",
+            message: "✅ Categoría eliminada exitosamente",
             status: "success",
             pos: "top-center",
           });
@@ -307,23 +353,40 @@ class CategoryAdminPHP {
           this.loadCategories().then(() => {
             this.renderCategoriesList();
 
+            // IMPORTANTE: Actualizar otros sistemas en TIEMPO REAL
+            console.log("🔄 Actualizando otros sistemas tras eliminación...");
+
             if (window.productAdminPHP) {
               window.productAdminPHP.loadCategories().then(() => {
                 window.productAdminPHP.populateSelects();
+                console.log("✅ Admin de productos actualizado");
+              });
+            }
+
+            if (window.productsSystemPHP) {
+              window.productsSystemPHP.refreshCategories();
+              console.log("✅ Página de productos actualizada");
+            }
+
+            if (window.catalogoSystemPHP) {
+              window.catalogoSystemPHP.loadCategories().then(() => {
+                window.catalogoSystemPHP.updateCategorySelect();
+                console.log("✅ Catálogo actualizado");
               });
             }
           });
         } else {
           UIkit.notification({
-            message: "Error: " + data.error,
+            message: "❌ Error: " + data.error,
             status: "danger",
             pos: "top-center",
           });
         }
       })
       .catch((error) => {
+        console.error("❌ Error al eliminar:", error);
         UIkit.notification({
-          message: "Error de red: " + error.message,
+          message: "❌ Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -331,16 +394,23 @@ class CategoryAdminPHP {
   }
 
   deleteIndustry(industryId) {
+    console.log("🗑️ Intentando eliminar industria ID:", industryId);
+
     if (!window.confirm("¿Estás seguro de eliminar esta industria?")) {
+      console.log("❌ Eliminación cancelada por el usuario");
       return;
     }
+
+    console.log("⏳ Eliminando industria...");
 
     fetch(`${this.apiUrl}?action=delete_industry&id=${industryId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("📥 Respuesta de eliminación:", data);
+
         if (data.success) {
           UIkit.notification({
-            message: "Industria eliminada exitosamente",
+            message: "✅ Industria eliminada exitosamente",
             status: "success",
             pos: "top-center",
           });
@@ -348,23 +418,35 @@ class CategoryAdminPHP {
           this.loadIndustries().then(() => {
             this.renderIndustriesList();
 
+            // IMPORTANTE: Actualizar otros sistemas en TIEMPO REAL
+            console.log("🔄 Actualizando otros sistemas tras eliminación...");
+
             if (window.productAdminPHP) {
               window.productAdminPHP.loadIndustries().then(() => {
                 window.productAdminPHP.populateSelects();
+                console.log("✅ Admin de productos actualizado");
+              });
+            }
+
+            if (window.catalogoSystemPHP) {
+              window.catalogoSystemPHP.loadIndustries().then(() => {
+                window.catalogoSystemPHP.updateIndustryButtons();
+                console.log("✅ Catálogo actualizado");
               });
             }
           });
         } else {
           UIkit.notification({
-            message: "Error: " + data.error,
+            message: "❌ Error: " + data.error,
             status: "danger",
             pos: "top-center",
           });
         }
       })
       .catch((error) => {
+        console.error("❌ Error al eliminar:", error);
         UIkit.notification({
-          message: "Error de red: " + error.message,
+          message: "❌ Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -384,6 +466,9 @@ class CategoryAdminPHP {
   }
 }
 
-// Inicialización
+// ========================================
+// INICIALIZACIÓN
+// ========================================
+
 window.categoryAdminPHP = new CategoryAdminPHP();
-console.log("✓ Sistema de administración de categorías PHP inicializado");
+console.log("✅ Sistema de administración de categorías PHP inicializado");
