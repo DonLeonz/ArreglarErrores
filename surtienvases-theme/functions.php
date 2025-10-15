@@ -1,7 +1,7 @@
 <?php
 /**
  * SurtiEnvases Theme Functions
- * Version: 1.0.0
+ * Version: 2.0.0 - CON MODERN IMAGE UPLOADER
  */
 
 // Evitar acceso directo
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 function surtienvases_enqueue_assets()
 {
     $theme_uri = get_template_directory_uri();
-    $theme_version = '1.0.0';
+    $theme_version = '2.0.0';
 
     // UIkit CSS
     wp_enqueue_style(
@@ -49,12 +49,22 @@ function surtienvases_enqueue_assets()
     );
 
     // ========================================
-    // IMPORTANTE: Scripts del tema - SIEMPRE cargar en TODAS las páginas
+    // SCRIPTS CORE - SIEMPRE CARGAR
     // ========================================
+
+    // ✅ NUEVO: Modern Image Uploader (cargar primero)
+    wp_enqueue_script(
+        'modern-image-uploader',
+        $theme_uri . '/js-php/modern-image-uploader.js',
+        array('uikit-js'),
+        $theme_version,
+        true
+    );
+
     wp_enqueue_script(
         'surtienvases-cart',
         $theme_uri . '/js-php/surtienvases-cart.js',
-        array('uikit-js'),
+        array('modern-image-uploader'),
         $theme_version,
         true
     );
@@ -70,9 +80,9 @@ function surtienvases_enqueue_assets()
     // Pasar variables PHP a JavaScript
     wp_localize_script('surtienvases-cart', 'surtienvases_vars', array(
         'api_url' => $theme_uri . '/api.php',
+        'upload_url' => $theme_uri . '/upload-handler.php',
         'theme_url' => $theme_uri,
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'upload_nonce' => wp_create_nonce('surtienvases_upload_nonce')
+        'ajax_url' => admin_url('admin-ajax.php')
     ));
 
     // Scripts condicionales según la página
@@ -112,13 +122,11 @@ function surtienvases_enqueue_assets()
                 break;
 
             case 'admin':
-                // Cargar scripts del media uploader de WordPress
-                wp_enqueue_media();
-
+                // ✅ NUEVOS SCRIPTS DE ADMIN CON UPLOADER MODERNO
                 wp_enqueue_script(
                     'admin-productos-php',
                     $theme_uri . '/js-php/admin-productos-php.js',
-                    array('surtienvases-cart', 'jquery'),
+                    array('modern-image-uploader'),
                     $theme_version,
                     true
                 );
@@ -132,7 +140,7 @@ function surtienvases_enqueue_assets()
                 wp_enqueue_script(
                     'admin-novedades-php',
                     $theme_uri . '/js-php/admin-novedades-php.js',
-                    array('admin-categorias-php'),
+                    array('modern-image-uploader'),
                     $theme_version,
                     true
                 );
@@ -211,173 +219,14 @@ function surtienvases_debug($data)
 }
 
 // ========================================
-// AJAX: SUBIR IMAGEN DE PRODUCTO - ✅ MEJORADO
+// AUMENTAR LÍMITE DE UPLOAD EN PHP.INI
 // ========================================
-add_action('wp_ajax_surtienvases_upload_product_image', 'surtienvases_upload_product_image');
-
-function surtienvases_upload_product_image()
-{
-    // ✅ MEJORADO: Configurar header primero
-    header('Content-Type: application/json');
-
-    // ✅ MEJORADO: Manejo de errores más robusto
-    try {
-        // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'surtienvases_upload_nonce')) {
-            wp_send_json_error(array('message' => 'Error de seguridad: Nonce inválido'));
-            return;
-        }
-
-        // Verificar que el archivo fue enviado
-        if (!isset($_FILES['file'])) {
-            wp_send_json_error(array('message' => 'No se recibió ningún archivo'));
-            return;
-        }
-
-        // Cargar funciones de WordPress necesarias
-        if (!function_exists('wp_handle_upload')) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
-        }
-
-        // Configurar directorio de uploads
-        $upload_dir = wp_upload_dir();
-        $surtienvases_dir = $upload_dir['basedir'] . '/surtienvases/productos';
-        $surtienvases_url = $upload_dir['baseurl'] . '/surtienvases/productos';
-
-        // Crear directorio si no existe
-        if (!file_exists($surtienvases_dir)) {
-            wp_mkdir_p($surtienvases_dir);
-        }
-
-        // Obtener información del archivo
-        $uploaded_file = $_FILES['file'];
-        $filename = sanitize_file_name($uploaded_file['name']);
-
-        // Generar nombre único si ya existe
-        $target_file = $surtienvases_dir . '/' . $filename;
-        $counter = 1;
-        $file_info = pathinfo($filename);
-        $base_name = $file_info['filename'];
-        $extension = isset($file_info['extension']) ? '.' . $file_info['extension'] : '';
-
-        while (file_exists($target_file)) {
-            $filename = $base_name . '-' . $counter . $extension;
-            $target_file = $surtienvases_dir . '/' . $filename;
-            $counter++;
-        }
-
-        // Validar tipo de archivo
-        $allowed_types = array('image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp');
-
-        if (!in_array($uploaded_file['type'], $allowed_types)) {
-            wp_send_json_error(array('message' => 'Tipo de archivo no permitido. Solo se permiten imágenes (JPG, PNG, GIF, WEBP).'));
-            return;
-        }
-
-        // Validar tamaño (máximo 5MB)
-        if ($uploaded_file['size'] > 5 * 1024 * 1024) {
-            wp_send_json_error(array('message' => 'El archivo es demasiado grande. Máximo 5MB.'));
-            return;
-        }
-
-        // Mover archivo
-        if (move_uploaded_file($uploaded_file['tmp_name'], $target_file)) {
-            // Retornar URL completa
-            $file_url = $surtienvases_url . '/' . $filename;
-            wp_send_json_success(array(
-                'url' => $file_url,
-                'path' => 'wp-content/uploads/surtienvases/productos/' . $filename
-            ));
-        } else {
-            wp_send_json_error(array('message' => 'Error al subir la imagen. Verifica los permisos del directorio.'));
-        }
-    } catch (Exception $e) {
-        wp_send_json_error(array('message' => 'Error: ' . $e->getMessage()));
-    }
-}
+@ini_set('upload_max_filesize', '50M');
+@ini_set('post_max_size', '50M');
+@ini_set('max_execution_time', '300');
+@ini_set('max_input_time', '300');
 
 // ========================================
-// AJAX: SUBIR IMAGEN DE NOTICIA - ✅ MEJORADO
+// NOTA: Las antiguas funciones AJAX de upload
+// han sido removidas. Ahora se usa upload-handler.php
 // ========================================
-add_action('wp_ajax_surtienvases_upload_news_image', 'surtienvases_upload_news_image');
-
-function surtienvases_upload_news_image()
-{
-    // ✅ MEJORADO: Configurar header primero
-    header('Content-Type: application/json');
-
-    // ✅ MEJORADO: Manejo de errores más robusto
-    try {
-        // Verificar nonce
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'surtienvases_upload_nonce')) {
-            wp_send_json_error(array('message' => 'Error de seguridad: Nonce inválido'));
-            return;
-        }
-
-        // Verificar que el archivo fue enviado
-        if (!isset($_FILES['file'])) {
-            wp_send_json_error(array('message' => 'No se recibió ningún archivo'));
-            return;
-        }
-
-        // Cargar funciones de WordPress necesarias
-        if (!function_exists('wp_handle_upload')) {
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
-        }
-
-        // Configurar directorio de uploads
-        $upload_dir = wp_upload_dir();
-        $surtienvases_dir = $upload_dir['basedir'] . '/surtienvases/novedades';
-        $surtienvases_url = $upload_dir['baseurl'] . '/surtienvases/novedades';
-
-        // Crear directorio si no existe
-        if (!file_exists($surtienvases_dir)) {
-            wp_mkdir_p($surtienvases_dir);
-        }
-
-        // Obtener información del archivo
-        $uploaded_file = $_FILES['file'];
-        $filename = sanitize_file_name($uploaded_file['name']);
-
-        // Generar nombre único si ya existe
-        $target_file = $surtienvases_dir . '/' . $filename;
-        $counter = 1;
-        $file_info = pathinfo($filename);
-        $base_name = $file_info['filename'];
-        $extension = isset($file_info['extension']) ? '.' . $file_info['extension'] : '';
-
-        while (file_exists($target_file)) {
-            $filename = $base_name . '-' . $counter . $extension;
-            $target_file = $surtienvases_dir . '/' . $filename;
-            $counter++;
-        }
-
-        // Validar tipo de archivo
-        $allowed_types = array('image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp');
-
-        if (!in_array($uploaded_file['type'], $allowed_types)) {
-            wp_send_json_error(array('message' => 'Tipo de archivo no permitido. Solo se permiten imágenes.'));
-            return;
-        }
-
-        // Validar tamaño (máximo 5MB)
-        if ($uploaded_file['size'] > 5 * 1024 * 1024) {
-            wp_send_json_error(array('message' => 'El archivo es demasiado grande. Máximo 5MB.'));
-            return;
-        }
-
-        // Mover archivo
-        if (move_uploaded_file($uploaded_file['tmp_name'], $target_file)) {
-            // Retornar URL completa
-            $file_url = $surtienvases_url . '/' . $filename;
-            wp_send_json_success(array(
-                'url' => $file_url,
-                'path' => 'wp-content/uploads/surtienvases/novedades/' . $filename
-            ));
-        } else {
-            wp_send_json_error(array('message' => 'Error al subir la imagen'));
-        }
-    } catch (Exception $e) {
-        wp_send_json_error(array('message' => 'Error: ' . $e->getMessage()));
-    }
-}

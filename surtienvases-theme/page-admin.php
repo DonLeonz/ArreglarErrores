@@ -10,31 +10,28 @@ require_once get_template_directory() . '/config.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Panel de Administración - SurtiEnvases en Neiva, Huila" />
+    <meta name="description" content="Panel de Administración - SurtiEnvases" />
     <link rel="icon" type="image/png"
         href="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/surtienvases.png" />
     <?php wp_head(); ?>
 </head>
 
 <body>
-    <!-- NAVBAR ESPECIAL DE ADMIN - ESTILO ORIGINAL -->
+    <!-- NAVBAR ADMIN -->
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
         <nav class="uk-navbar-container uk-navbar-transparent">
             <div class="uk-container uk-width-1-1 navbar-fondo-degradado">
                 <div uk-navbar="mode: click" class="uk-flex">
-                    <!-- Logo -->
                     <div class="uk-navbar-left">
                         <div class="uk-navbar-item uk-light">
                             <a class="uk-flex uk-link-heading" href="<?php echo home_url(); ?>">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img/surtienvases/logo/SurtiLogo.PNG"
-                                    alt="Logo SurtiEnvases" class="imagen-logo-300" />
+                                    alt="Logo" class="imagen-logo-300" />
                             </a>
                         </div>
                     </div>
 
-                    <!-- Botones derecha -->
                     <div class="uk-navbar-right">
-                        <!-- Botón Cotizar -->
                         <div class="uk-navbar-item uk-dark">
                             <button class="uk-button uk-button-secondary uk-border-rounded position-relative"
                                 id="navbar-quote-btn">
@@ -42,8 +39,6 @@ require_once get_template_directory() . '/config.php';
                                 <span class="carrito-badge-contador uk-hidden" id="cart-count-navbar">0</span>
                             </button>
                         </div>
-
-                        <!-- Botón Volver al Sitio - ESTILO ORIGINAL -->
                         <div class="uk-navbar-item">
                             <a href="<?php echo home_url(); ?>" class="uk-button uk-button-secondary uk-border-rounded">
                                 <span uk-icon="home"></span> Volver al Sitio
@@ -60,9 +55,10 @@ require_once get_template_directory() . '/config.php';
         window.API_URL = '<?php echo get_template_directory_uri(); ?>/api.php';
     </script>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- CONTENIDO -->
     <div class="navbar-ajuste-primer-hijo uk-section">
         <div class="uk-container uk-container-large">
+
             <!-- Header -->
             <div
                 class="uk-text-center uk-padding uk-margin-bottom seccion-fondo-degradado-morado contenedor-redondeado">
@@ -83,16 +79,18 @@ require_once get_template_directory() . '/config.php';
 
             <!-- Tab Content -->
             <ul class="uk-switcher uk-margin">
-                <!-- TAB 1: PRODUCTOS -->
+
+                <!-- ========================================
+                     TAB 1: PRODUCTOS
+                     ======================================== -->
                 <li>
                     <div class="uk-card uk-card-default uk-card-body contenedor-redondeado">
-                        <h2 class="uk-heading-line">
-                            <span>Agregar Nuevo Producto</span>
-                        </h2>
+                        <h2 class="uk-heading-line"><span>Agregar Nuevo Producto</span></h2>
 
                         <form id="admin-product-form"
                             class="uk-padding uk-background-muted contenedor-redondeado uk-margin">
                             <div class="uk-grid-small" uk-grid>
+
                                 <!-- Información Básica -->
                                 <div class="uk-width-1-1">
                                     <h3 class="uk-h4">Información Básica</h3>
@@ -131,16 +129,12 @@ require_once get_template_directory() . '/config.php';
 
                                 <div class="uk-width-1-3@s">
                                     <label class="uk-form-label">Categoría</label>
-                                    <select class="uk-select" id="product-category">
-                                        <!-- Se carga dinámicamente desde la API -->
-                                    </select>
+                                    <select class="uk-select" id="product-category"></select>
                                 </div>
 
                                 <div class="uk-width-1-3@s">
                                     <label class="uk-form-label">Industria</label>
-                                    <select class="uk-select" id="product-industry">
-                                        <!-- Se carga dinámicamente desde la API -->
-                                    </select>
+                                    <select class="uk-select" id="product-industry"></select>
                                 </div>
 
                                 <div class="uk-width-1-3@s">
@@ -171,13 +165,13 @@ require_once get_template_directory() . '/config.php';
                                 <div class="uk-width-1-3@s">
                                     <label class="uk-form-label">Pedido Mínimo</label>
                                     <input class="uk-input" type="text" id="product-minimum-order"
-                                        placeholder="Ej: Caja x 24 unidades" />
+                                        placeholder="Ej: Caja x 24" />
                                 </div>
 
                                 <div class="uk-width-1-1">
                                     <label class="uk-form-label">Recomendación</label>
                                     <textarea class="uk-textarea" id="product-recommendation" rows="2"
-                                        placeholder="Texto de recomendación o uso sugerido"></textarea>
+                                        placeholder="Texto de recomendación"></textarea>
                                 </div>
 
                                 <!-- Especificaciones -->
@@ -204,29 +198,8 @@ require_once get_template_directory() . '/config.php';
                                     <div id="benefits-container" class="uk-margin-small-top"></div>
                                 </div>
 
-                                <!-- Imagen -->
-                                <div class="uk-width-1-1 uk-margin-top">
-                                    <h3 class="uk-h4">Imagen del Producto</h3>
-
-                                    <div class="uk-grid-small" uk-grid>
-                                        <div class="uk-width-2-3@s">
-                                            <input class="uk-input" type="text" id="product-image" readonly
-                                                placeholder="La ruta se generará automáticamente al subir la imagen" />
-                                        </div>
-                                        <div class="uk-width-1-3@s">
-                                            <button type="button" class="uk-button uk-button-secondary uk-width-1-1"
-                                                id="upload-product-image-btn">
-                                                <span uk-icon="image"></span> Seleccionar Imagen
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Preview de la imagen -->
-                                    <div id="product-image-preview" class="uk-margin-top uk-hidden">
-                                        <img id="product-image-preview-img" src="" alt="Preview"
-                                            style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #b7ce38;">
-                                    </div>
-                                </div>
+                                <!-- ✅ MODERN IMAGE UPLOADER SE INYECTA AQUÍ DINÁMICAMENTE -->
+                                <!-- El JavaScript admin-productos-php.js creará la sección automáticamente -->
 
                                 <!-- Popular -->
                                 <div class="uk-width-1-1 uk-margin-top">
@@ -236,7 +209,7 @@ require_once get_template_directory() . '/config.php';
                                     </label>
                                 </div>
 
-                                <!-- Botón Submit -->
+                                <!-- Submit -->
                                 <div class="uk-width-1-1 uk-margin-top">
                                     <button type="submit" class="uk-button uk-button-primary uk-button-large">
                                         <span uk-icon="plus-circle"></span> Crear Producto
@@ -246,19 +219,17 @@ require_once get_template_directory() . '/config.php';
                         </form>
 
                         <!-- Lista de Productos -->
-                        <h2 class="uk-heading-line uk-margin-large-top">
-                            <span>Productos Registrados</span>
-                        </h2>
+                        <h2 class="uk-heading-line uk-margin-large-top"><span>Productos Registrados</span></h2>
                         <div id="products-list"></div>
                     </div>
                 </li>
 
-                <!-- TAB 2: NOVEDADES -->
+                <!-- ========================================
+                     TAB 2: NOVEDADES
+                     ======================================== -->
                 <li>
                     <div class="uk-card uk-card-default uk-card-body contenedor-redondeado">
-                        <h2 class="uk-heading-line">
-                            <span>Publicar Artículo</span>
-                        </h2>
+                        <h2 class="uk-heading-line"><span>Publicar Artículo</span></h2>
 
                         <form class="uk-padding uk-background-muted contenedor-redondeado uk-margin" uk-grid
                             id="news-form">
@@ -271,30 +242,13 @@ require_once get_template_directory() . '/config.php';
                                     value="Usuario Invitado" required />
                             </div>
                             <div class="uk-width-1-1">
-                                <textarea class="uk-textarea" rows="3" placeholder="Resumen o introducción del artículo"
+                                <textarea class="uk-textarea" rows="3" placeholder="Resumen o introducción"
                                     id="news-excerpt" required></textarea>
                             </div>
-                            <div class="uk-width-1-1">
-                                <label class="uk-form-label">Imagen del Artículo</label>
-                                <div class="uk-grid-small" uk-grid>
-                                    <div class="uk-width-2-3@s">
-                                        <input class="uk-input" type="text" id="news-image" readonly
-                                            placeholder="La ruta se generará automáticamente al subir la imagen" />
-                                    </div>
-                                    <div class="uk-width-1-3@s">
-                                        <button type="button" class="uk-button uk-button-secondary uk-width-1-1"
-                                            id="upload-news-image-btn">
-                                            <span uk-icon="image"></span> Seleccionar Imagen
-                                        </button>
-                                    </div>
-                                </div>
 
-                                <!-- Preview de la imagen -->
-                                <div id="news-image-preview" class="uk-margin-top uk-hidden">
-                                    <img id="news-image-preview-img" src="" alt="Preview"
-                                        style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #b7ce38;">
-                                </div>
-                            </div>
+                            <!-- ✅ MODERN IMAGE UPLOADER SE INYECTA AQUÍ DINÁMICAMENTE -->
+                            <!-- El JavaScript admin-novedades-php.js creará la sección automáticamente -->
+
                             <div class="uk-width-1-1">
                                 <button type="submit" class="uk-button uk-button-primary">
                                     Publicar artículo
@@ -303,22 +257,19 @@ require_once get_template_directory() . '/config.php';
                         </form>
 
                         <!-- Lista de Novedades -->
-                        <h2 class="uk-heading-line uk-margin-top">
-                            <span>Artículos Publicados</span>
-                        </h2>
-                        <div class="uk-child-width-1-2@s" uk-grid id="news-container">
-                            <!-- Los artículos se cargan dinámicamente -->
-                        </div>
+                        <h2 class="uk-heading-line uk-margin-top"><span>Artículos Publicados</span></h2>
+                        <div class="uk-child-width-1-2@s" uk-grid id="news-container"></div>
                     </div>
                 </li>
 
-                <!-- TAB 3: CATEGORÍAS E INDUSTRIAS -->
+                <!-- ========================================
+                     TAB 3: CATEGORÍAS E INDUSTRIAS
+                     ======================================== -->
                 <li>
                     <div class="uk-card uk-card-default uk-card-body contenedor-redondeado">
+
                         <!-- Categorías -->
-                        <h2 class="uk-heading-line">
-                            <span>Gestionar Categorías</span>
-                        </h2>
+                        <h2 class="uk-heading-line"><span>Gestionar Categorías</span></h2>
 
                         <form id="admin-category-form"
                             class="uk-padding uk-background-muted contenedor-redondeado uk-margin">
@@ -348,9 +299,7 @@ require_once get_template_directory() . '/config.php';
                         <div id="categories-list"></div>
 
                         <!-- Industrias -->
-                        <h2 class="uk-heading-line uk-margin-large-top">
-                            <span>Gestionar Industrias</span>
-                        </h2>
+                        <h2 class="uk-heading-line uk-margin-large-top"><span>Gestionar Industrias</span></h2>
 
                         <form id="admin-industry-form"
                             class="uk-padding uk-background-muted contenedor-redondeado uk-margin">

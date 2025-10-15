@@ -1,6 +1,5 @@
 // ========================================
-// SISTEMA DE ADMINISTRACIÓN DE NOVEDADES - PHP
-// ✅ CORRECCIÓN FINAL - AVATAR + SUBIDA IMÁGENES
+// ADMIN NOVEDADES - CON MODERN IMAGE UPLOADER
 // ========================================
 
 class NovedadesAdminSystemPHP {
@@ -10,6 +9,7 @@ class NovedadesAdminSystemPHP {
     this.news = [];
     this.comments = {};
     this.visibleComments = {};
+    this.imageUploader = null; // Nuevo uploader
     this.init();
   }
 
@@ -33,9 +33,7 @@ class NovedadesAdminSystemPHP {
     return currentUrl + "/wp-content/themes/surtienvases-theme";
   }
 
-  // ✅ CORREGIDO: Manejo más estricto de valores vacíos
   getAvatarUrl(avatarUrl) {
-    // Verificar si es NULL, vacío, o string 'NULL'
     if (
       !avatarUrl ||
       avatarUrl === "" ||
@@ -44,23 +42,15 @@ class NovedadesAdminSystemPHP {
     ) {
       return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
     }
-
-    // Si ya tiene protocolo http/https, retornar tal cual
     if (avatarUrl.startsWith("http://") || avatarUrl.startsWith("https://")) {
       return avatarUrl;
     }
-
-    // Si empieza con /, es ruta absoluta desde el dominio
     if (avatarUrl.startsWith("/")) {
       return window.location.origin + avatarUrl;
     }
-
-    // Si es ruta relativa (assets/img/...), construir URL completa
     if (avatarUrl.startsWith("assets/")) {
       return `${this.themeUrl}/${avatarUrl}`;
     }
-
-    // Por defecto
     return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
   }
 
@@ -70,8 +60,65 @@ class NovedadesAdminSystemPHP {
     await this.loadAllComments();
     this.renderNews();
     this.setupForm();
-    this.setupImageUploader();
+    this.setupModernImageUploader(); // ✅ NUEVO
   }
+
+  // ========================================
+  // SETUP MODERN IMAGE UPLOADER
+  // ========================================
+  setupModernImageUploader() {
+    console.log("🖼️ Configurando Modern Image Uploader para novedades...");
+
+    if (typeof ModernImageUploader === "undefined") {
+      console.error("❌ ModernImageUploader no está cargado");
+      return;
+    }
+
+    const formContainer = document.getElementById("news-form");
+    if (!formContainer) return;
+
+    // Buscar el contenedor de imagen o crearlo
+    let imageSection = formContainer.querySelector(
+      ".news-image-upload-section"
+    );
+    if (!imageSection) {
+      // Buscar el contenedor original de imagen
+      const originalSection = Array.from(
+        formContainer.querySelectorAll(".uk-width-1-1")
+      ).find((el) => el.querySelector("#news-image"));
+
+      if (originalSection) {
+        // Reemplazar con el nuevo uploader
+        originalSection.innerHTML = `
+          <label class="uk-form-label">Imagen del Artículo</label>
+          <div id="news-image-uploader"></div>
+        `;
+        originalSection.classList.add("news-image-upload-section");
+      }
+    }
+
+    // Inicializar el uploader moderno
+    this.imageUploader = new ModernImageUploader({
+      entityType: "noticia",
+      autoCompress: true,
+      compressionQuality: 0.85,
+      maxWidth: 1200,
+      maxHeight: 800,
+      onUploadSuccess: (result) => {
+        console.log("✅ Imagen de noticia subida:", result.url);
+      },
+      onUploadError: (error) => {
+        console.error("❌ Error al subir imagen:", error);
+      },
+    });
+
+    this.imageUploader.init("news-image-uploader");
+    console.log("✅ Modern Image Uploader configurado para novedades");
+  }
+
+  // ========================================
+  // RESTO DEL CÓDIGO
+  // ========================================
 
   async loadNews() {
     try {
@@ -116,186 +163,17 @@ class NovedadesAdminSystemPHP {
     console.log("✓ Formulario configurado");
   }
 
-  setupImageUploader() {
-    const uploadBtn = document.getElementById("upload-news-image-btn");
-    if (!uploadBtn) {
-      console.warn("⚠️ Botón upload-news-image-btn no encontrado");
-      return;
-    }
-
-    console.log("✓ Configurando uploader de imágenes...");
-
-    uploadBtn.addEventListener("click", () => {
-      console.log("🖼️ Click en botón subir imagen");
-      this.openMediaUploader();
-    });
-
-    console.log("✓ Uploader de imágenes configurado");
-  }
-
-  openMediaUploader() {
-    console.log("📂 Abriendo selector de archivos...");
-
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "image/*";
-
-    input.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) {
-        console.log("⚠️ No se seleccionó archivo");
-        return;
-      }
-
-      console.log("📁 Archivo seleccionado:", file.name);
-
-      if (!file.type.startsWith("image/")) {
-        console.error("❌ No es una imagen");
-        UIkit.notification({
-          message: "Por favor selecciona un archivo de imagen válido",
-          status: "warning",
-          pos: "top-center",
-        });
-        return;
-      }
-
-      if (file.size > 5 * 1024 * 1024) {
-        console.error("❌ Archivo muy grande");
-        UIkit.notification({
-          message: "La imagen no debe superar 5MB",
-          status: "warning",
-          pos: "top-center",
-        });
-        return;
-      }
-
-      UIkit.notification({
-        message: "⏳ Subiendo imagen...",
-        status: "primary",
-        pos: "top-center",
-        timeout: 2000,
-      });
-
-      try {
-        console.log("⬆️ Iniciando subida...");
-        const uploadedPath = await this.uploadImage(file);
-        console.log("✅ Imagen subida:", uploadedPath);
-
-        const imageInput = document.getElementById("news-image");
-        if (imageInput) {
-          imageInput.value = uploadedPath;
-          console.log("✓ Input actualizado");
-        }
-
-        this.showImagePreview(uploadedPath);
-
-        UIkit.notification({
-          message: "✅ Imagen subida exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-      } catch (error) {
-        console.error("❌ Error al subir:", error);
-        UIkit.notification({
-          message: "❌ Error al subir la imagen: " + error.message,
-          status: "danger",
-          pos: "top-center",
-        });
-      }
-    };
-
-    input.click();
-  }
-
-  getNonce() {
-    if (
-      typeof surtienvases_vars !== "undefined" &&
-      surtienvases_vars.upload_nonce
-    ) {
-      return surtienvases_vars.upload_nonce;
-    }
-
-    const nonceInput = document.querySelector('input[name="_wpnonce"]');
-    if (nonceInput) {
-      return nonceInput.value;
-    }
-
-    const nonceMeta = document.querySelector('meta[name="csrf-token"]');
-    if (nonceMeta) {
-      return nonceMeta.content;
-    }
-
-    console.error("⚠️ No se encontró el nonce de seguridad");
-    return "";
-  }
-
-  // ✅ CORREGIDO: Mejor manejo de errores
-  async uploadImage(file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("action", "surtienvases_upload_news_image");
-    formData.append("nonce", this.getNonce());
-
-    try {
-      const ajaxUrl =
-        typeof surtienvases_vars !== "undefined"
-          ? surtienvases_vars.ajax_url
-          : "/wp-admin/admin-ajax.php";
-
-      console.log("🌐 Enviando a:", ajaxUrl);
-
-      const response = await fetch(ajaxUrl, {
-        method: "POST",
-        body: formData,
-      });
-
-      console.log("📥 Respuesta HTTP status:", response.status);
-
-      // ✅ CORREGIDO: Verificar si la respuesta es JSON válido
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const textResponse = await response.text();
-        console.error("❌ Respuesta no es JSON:", textResponse);
-        throw new Error(
-          "El servidor no devolvió JSON válido. Verifica los logs del servidor."
-        );
-      }
-
-      const data = await response.json();
-      console.log("📊 Datos:", data);
-
-      if (data.success) {
-        return data.data.url;
-      } else {
-        const errorMsg =
-          data.data?.message || data.message || "Error desconocido";
-        throw new Error(errorMsg);
-      }
-    } catch (error) {
-      console.error("❌ Error en uploadImage:", error);
-      throw error;
-    }
-  }
-
-  showImagePreview(imagePath) {
-    const preview = document.getElementById("news-image-preview");
-    const previewImg = document.getElementById("news-image-preview-img");
-
-    if (preview && previewImg) {
-      previewImg.src = imagePath;
-      preview.classList.remove("uk-hidden");
-      console.log("✓ Preview mostrado");
-    }
-  }
-
   async handleNewsSubmit() {
     const title = document.getElementById("news-title").value.trim();
     const author =
       document.getElementById("news-author").value.trim() || "Usuario Invitado";
     const excerpt = document.getElementById("news-excerpt").value.trim();
-    const imageUrl =
-      document.getElementById("news-image").value.trim() ||
-      `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
+
+    // ✅ Obtener URL de imagen del uploader moderno
+    const imageUrlInput = document.getElementById("uploaded-image-url");
+    const imageUrl = imageUrlInput
+      ? imageUrlInput.value
+      : `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
 
     if (!title || !excerpt) {
       UIkit.notification({
@@ -316,7 +194,7 @@ class NovedadesAdminSystemPHP {
           title,
           author,
           excerpt,
-          imageUrl,
+          imageUrl, // ✅ Usar la URL del nuevo uploader
           avatarUrl: `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`,
         }),
       });
@@ -337,9 +215,10 @@ class NovedadesAdminSystemPHP {
         document.getElementById("news-form").reset();
         document.getElementById("news-author").value = "Usuario Invitado";
 
-        const preview = document.getElementById("news-image-preview");
-        if (preview) {
-          preview.classList.add("uk-hidden");
+        // ✅ Reset del uploader moderno
+        if (this.imageUploader) {
+          const container = document.getElementById("news-image-uploader");
+          this.imageUploader.reset(container);
         }
       } else {
         UIkit.notification({
@@ -378,12 +257,7 @@ class NovedadesAdminSystemPHP {
   createArticleCard(article) {
     const commentsVisible = this.visibleComments[article.id] || false;
     const newsComments = this.comments[article.id] || [];
-    const avatarUrl = this.getAvatarUrl(article.avatarUrl); // ✅ CORREGIDO
-
-    console.log(`📸 Avatar para artículo ${article.id}:`, {
-      original: article.avatarUrl,
-      computed: avatarUrl,
-    });
+    const avatarUrl = this.getAvatarUrl(article.avatarUrl);
 
     return `
       <div>

@@ -1471,5 +1471,226 @@ a[href*="instagram"].uk-icon-button:hover {
 }
 
 /* ========================================
+   MODERN IMAGE UPLOADER - ESTILOS
+   ======================================== */
+
+.modern-uploader {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 3px dashed var(--surtienvases-verde);
+  border-radius: var(--border-radius-default);
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(183, 206, 56, 0.05),
+    rgba(238, 118, 34, 0.05)
+  );
+  cursor: pointer;
+  transition: var(--transition-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.upload-zone:hover {
+  border-color: var(--surtienvases-naranja);
+  background: linear-gradient(
+    135deg,
+    rgba(183, 206, 56, 0.1),
+    rgba(238, 118, 34, 0.1)
+  );
+  transform: translateY(-3px);
+}
+
+.upload-zone.drag-over {
+  border-color: var(--surtienvases-morado);
+  background: linear-gradient(
+    135deg,
+    rgba(144, 65, 145, 0.15),
+    rgba(238, 118, 34, 0.15)
+  );
+  transform: scale(1.02);
+}
+
+.upload-zone-content {
+  width: 100%;
+}
+
+.upload-icon {
+  color: var(--surtienvases-verde);
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.upload-title {
+  color: var(--surtienvases-morado);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.upload-subtitle {
+  color: var(--gris-medio);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.upload-info {
+  color: var(--gris-medio);
+  font-size: 0.85rem;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+#select-file-btn {
+  margin-top: 1rem;
+}
+
+/* Preview */
+.upload-preview {
+  width: 100%;
+}
+
+.preview-image-container {
+  position: relative;
+  border-radius: var(--border-radius-default);
+  overflow: hidden;
+  background: var(--gris-fondo);
+  max-width: 600px;
+  margin: 0 auto;
+  border: 3px solid var(--surtienvases-verde);
+}
+
+.preview-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.preview-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.9);
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-default);
+  z-index: 10;
+}
+
+.preview-remove:hover {
+  background: rgba(185, 28, 28, 1);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Progress Bar */
+.upload-progress {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--gris-fondo);
+  border-radius: var(--border-radius-card);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--gris-claro);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--surtienvases-verde),
+    var(--surtienvases-naranja)
+  );
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.progress-text {
+  text-align: center;
+  color: var(--surtienvases-morado);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Image Info */
+.image-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(183, 206, 56, 0.1);
+  border-radius: var(--border-radius-card);
+  border-left: 4px solid var(--surtienvases-verde);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  color: var(--surtienvases-negro);
+  font-size: 0.9rem;
+}
+
+.info-item span[uk-icon] {
+  color: var(--surtienvases-verde);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .upload-zone {
+    padding: 1.5rem;
+    min-height: 250px;
+  }
+
+  .upload-title {
+    font-size: 1.2rem;
+  }
+
+  .upload-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .upload-info {
+    font-size: 0.75rem;
+  }
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(183, 206, 56, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(183, 206, 56, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(183, 206, 56, 0);
+  }
+}
+
+.upload-zone.uploading {
+  animation: pulse 2s infinite;
+}
+
+/* ========================================
    FIN DEL ARCHIVO
    ======================================== */
