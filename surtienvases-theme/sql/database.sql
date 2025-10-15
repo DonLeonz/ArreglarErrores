@@ -1,6 +1,7 @@
 -- ========================================
 -- BASE DE DATOS SURTIENVASES - COMPLETA
 -- Estructura + Datos Iniciales
+-- ✅ AVATAR CORREGIDO
 -- ========================================
 CREATE DATABASE IF NOT EXISTS surtienvases CHARACTER
 SET
@@ -74,7 +75,7 @@ CREATE TABLE
         author VARCHAR(100) DEFAULT 'Usuario Invitado',
         excerpt TEXT NOT NULL,
         imageUrl VARCHAR(500),
-        avatarUrl VARCHAR(500) DEFAULT 'assets/img/surtienvases/avatars/default.jpg',
+        avatarUrl VARCHAR(500),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
@@ -383,6 +384,8 @@ VALUES
 
 -- ========================================
 -- DATOS INICIALES: Noticias (3 artículos)
+-- ✅ NOTA: avatarUrl se actualizará dinámicamente por JavaScript
+-- usando la ruta del tema de WordPress
 -- ========================================
 INSERT INTO
     noticias (title, author, excerpt, imageUrl, avatarUrl)
@@ -392,21 +395,21 @@ VALUES
         'Equipo SurtiEnvases',
         'Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.',
         'assets/img/blog/blog-example1.jpg',
-        'assets/img/surtienvases/avatars/default.jpg'
+        NULL
     ),
     (
         'Ventajas de los Envases de Vidrio para Alimentos',
         'Usuario Invitado',
         'Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.',
         'assets/img/blog/blog-example2.jpg',
-        'assets/img/surtienvases/avatars/default.jpg'
+        NULL
     ),
     (
         'Guía Completa: Elegir el Envase Correcto para tu Producto',
         'Usuario Invitado',
         'Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.',
         'assets/img/blog/blog-example3.jpg',
-        'assets/img/surtienvases/avatars/default.jpg'
+        NULL
     );
 
 -- ========================================

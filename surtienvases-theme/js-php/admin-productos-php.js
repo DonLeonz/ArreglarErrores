@@ -288,6 +288,18 @@ class ProductAdminPHP {
       });
 
       console.log("📥 Respuesta recibida del servidor");
+      console.log("📊 HTTP Status:", response.status);
+
+      // ✅ CORREGIDO: Verificar si la respuesta es JSON válido
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const textResponse = await response.text();
+        console.error("❌ Respuesta no es JSON:", textResponse);
+        throw new Error(
+          "El servidor no devolvió JSON válido. Verifica los logs del servidor."
+        );
+      }
+
       const data = await response.json();
       console.log("📊 Datos de respuesta:", data);
 
@@ -296,7 +308,9 @@ class ProductAdminPHP {
         return data.data.url;
       } else {
         console.error("❌ Error en la respuesta del servidor:", data);
-        throw new Error(data.data.message || "Error al subir imagen");
+        const errorMsg =
+          data.data?.message || data.message || "Error desconocido";
+        throw new Error(errorMsg);
       }
     } catch (error) {
       console.error("❌ Error en uploadImage:", error);

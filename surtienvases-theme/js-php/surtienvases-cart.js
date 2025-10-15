@@ -1,6 +1,6 @@
 // ========================================
-// SURTIENVASES - CARRITO UNIVERSAL CORREGIDO
-// Funciona en TODAS las páginas
+// SURTIENVASES - CARRITO UNIVERSAL
+// ✅ BADGE MÓVIL AGREGADO
 // ========================================
 
 class SurtiEnvasesCart {
@@ -27,9 +27,6 @@ class SurtiEnvasesCart {
     console.log("✅ Setup del carrito completado");
   }
 
-  // ========================================
-  // GESTIÓN DE DATOS
-  // ========================================
   loadCart() {
     try {
       return JSON.parse(localStorage.getItem("cart")) || [];
@@ -43,7 +40,7 @@ class SurtiEnvasesCart {
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
       window.dispatchEvent(new Event("cartUpdated"));
-      this.updateCartCount(); // CRÍTICO: Actualizar contador inmediatamente
+      this.updateCartCount();
     } catch (e) {
       console.error("Error al guardar el carrito:", e);
     }
@@ -58,9 +55,6 @@ class SurtiEnvasesCart {
     });
   }
 
-  // ========================================
-  // INYECCIÓN DE HTML
-  // ========================================
   injectCartHTML() {
     if (document.getElementById("cart-modal")) {
       console.log("⚠️ Modal de carrito ya existe");
@@ -68,7 +62,6 @@ class SurtiEnvasesCart {
     }
 
     const cartHTML = `
-      <!-- Modal del Carrito -->
       <div id="cart-modal" uk-modal>
         <div class="uk-modal-dialog uk-modal-body" style="position: relative;">
           <button class="boton-cerrar-modal-carrito" type="button" 
@@ -110,14 +103,12 @@ class SurtiEnvasesCart {
   setupEventListeners() {
     console.log("🔌 Configurando event listeners...");
 
-    // Botón de enviar cotización
     const sendQuoteBtn = document.getElementById("send-quote-btn");
     if (sendQuoteBtn) {
       sendQuoteBtn.addEventListener("click", () => this.sendQuoteToWhatsApp());
       console.log("✅ Listener de enviar cotización configurado");
     }
 
-    // Botón cotizar en navbar desktop
     const navbarQuoteBtn = document.getElementById("navbar-quote-btn");
     if (navbarQuoteBtn) {
       navbarQuoteBtn.addEventListener("click", () => {
@@ -127,18 +118,6 @@ class SurtiEnvasesCart {
       console.log("✅ Listener de navbar-quote-btn configurado");
     }
 
-    // Botón del carrito en menú móvil
-    const mobileCartBtn = document.getElementById("mobile-cart-btn");
-    if (mobileCartBtn) {
-      mobileCartBtn.addEventListener("click", () => {
-        console.log("🖱️ Click en mobile-cart-btn");
-        this.toggleCart();
-        UIkit.offcanvas("#burger-menu").hide();
-      });
-      console.log("✅ Listener de mobile-cart-btn configurado");
-    }
-
-    // CRÍTICO: Botón flotante del carrito
     const floatingCartBtn = document.getElementById("floating-cart-btn");
     if (floatingCartBtn) {
       floatingCartBtn.addEventListener("click", () => {
@@ -153,9 +132,6 @@ class SurtiEnvasesCart {
     console.log("✅ Event listeners configurados");
   }
 
-  // ========================================
-  // OPERACIONES DEL CARRITO
-  // ========================================
   addToCart(product) {
     console.log("📥 addToCart llamado con:", product);
 
@@ -189,25 +165,34 @@ class SurtiEnvasesCart {
   }
 
   removeFromCart(productId) {
+    console.log("🗑️ Eliminando producto ID:", productId);
     let cart = this.loadCart();
     cart = cart.filter((item) => Number(item.id) !== Number(productId));
     this.saveCart(cart);
     this.renderCart();
+    console.log("✅ Producto eliminado");
   }
 
   updateQuantity(productId, change) {
+    console.log("🔢 Actualizando cantidad - ID:", productId, "Cambio:", change);
+
     let cart = this.loadCart();
     const item = cart.find((i) => Number(i.id) === Number(productId));
 
     if (item) {
       item.quantity += change;
+      console.log("📊 Nueva cantidad:", item.quantity);
 
       if (item.quantity <= 0) {
+        console.log("🗑️ Cantidad <= 0, eliminando item...");
         cart = cart.filter((i) => Number(i.id) !== Number(productId));
       }
 
       this.saveCart(cart);
       this.renderCart();
+      console.log("✅ Cantidad actualizada");
+    } else {
+      console.warn("⚠️ Item no encontrado en carrito");
     }
   }
 
@@ -216,9 +201,7 @@ class SurtiEnvasesCart {
     this.renderCart();
   }
 
-  // ========================================
-  // UI - RENDERIZADO
-  // ========================================
+  // ✅ MEJORADO: Actualiza también badge móvil
   updateCartCount() {
     const cart = this.loadCart();
     const count = cart.reduce((total, item) => total + item.quantity, 0);
@@ -229,6 +212,7 @@ class SurtiEnvasesCart {
       document.getElementById("cart-count"),
       document.getElementById("cart-count-navbar"),
       document.getElementById("cart-count-floating"),
+      document.getElementById("cart-count-mobile"), // ✅ AGREGADO
     ];
 
     badges.forEach((badge) => {
@@ -251,7 +235,6 @@ class SurtiEnvasesCart {
     const modal = document.getElementById("cart-modal");
     if (!modal) {
       console.error("❌ Modal #cart-modal NO encontrado en el DOM");
-      console.log("DOM actual:", document.body.innerHTML.substring(0, 500));
       return;
     }
 
@@ -332,9 +315,6 @@ class SurtiEnvasesCart {
     console.log("✅ Carrito renderizado");
   }
 
-  // ========================================
-  // WHATSAPP
-  // ========================================
   sendQuoteToWhatsApp() {
     const cart = this.loadCart();
 
@@ -366,9 +346,6 @@ class SurtiEnvasesCart {
     this.showNotification("Redirigiendo a WhatsApp...", "success");
   }
 
-  // ========================================
-  // NOTIFICACIONES
-  // ========================================
   showNotification(message, status = "primary") {
     if (typeof UIkit !== "undefined") {
       UIkit.notification({
@@ -382,9 +359,6 @@ class SurtiEnvasesCart {
     }
   }
 
-  // ========================================
-  // API PÚBLICA
-  // ========================================
   getCart() {
     return this.loadCart();
   }
@@ -401,7 +375,6 @@ class SurtiEnvasesCart {
 window.surtienvases = window.surtienvases || {};
 window.surtienvases.cart = new SurtiEnvasesCart();
 
-// Funciones globales para compatibilidad
 window.toggleCart = () => window.surtienvases.cart.toggleCart();
 window.sendCartToWhatsApp = () =>
   window.surtienvases.cart.sendQuoteToWhatsApp();

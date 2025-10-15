@@ -111,27 +111,30 @@ get_header();
                     <form class="uk-form-stacked uk-margin-medium-top" id="contact-form">
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Nombre Completo *</label>
-                            <input class="uk-input" type="text" placeholder="Tu nombre" required />
+                            <input class="uk-input" type="text" id="contact-name" placeholder="Tu nombre" required />
                         </div>
 
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Empresa</label>
-                            <input class="uk-input" type="text" placeholder="Nombre de tu empresa" />
+                            <input class="uk-input" type="text" id="contact-company"
+                                placeholder="Nombre de tu empresa" />
                         </div>
 
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Correo Electrónico *</label>
-                            <input class="uk-input" type="email" placeholder="tu@email.com" required />
+                            <input class="uk-input" type="email" id="contact-email" placeholder="tu@email.com"
+                                required />
                         </div>
 
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Teléfono *</label>
-                            <input class="uk-input" type="tel" placeholder="+57 300 000 0000" required />
+                            <input class="uk-input" type="tel" id="contact-phone" placeholder="+57 300 000 0000"
+                                required />
                         </div>
 
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Asunto *</label>
-                            <select class="uk-select" required>
+                            <select class="uk-select" id="contact-subject" required>
                                 <option value="">Selecciona una opción</option>
                                 <option value="Cotización">Cotización</option>
                                 <option value="Información">
@@ -146,8 +149,8 @@ get_header();
 
                         <div class="uk-margin">
                             <label class="uk-form-label texto-morado uk-text-bold">Mensaje *</label>
-                            <textarea class="uk-textarea" rows="5" placeholder="Cuéntanos cómo podemos ayudarte..."
-                                required></textarea>
+                            <textarea class="uk-textarea" rows="5" id="contact-message"
+                                placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
                         </div>
 
                         <button class="uk-button uk-button-secondary uk-width-1-1" type="submit">
@@ -229,5 +232,68 @@ get_header();
         </div>
     </div>
 </section>
+
+<!-- ✅ SCRIPT PARA FORMULARIO FUNCIONAL -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const contactForm = document.getElementById('contact-form');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Obtener valores del formulario
+                const nombre = document.getElementById('contact-name').value.trim();
+                const empresa = document.getElementById('contact-company').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+                const telefono = document.getElementById('contact-phone').value.trim();
+                const asunto = document.getElementById('contact-subject').value;
+                const mensaje = document.getElementById('contact-message').value.trim();
+
+                // Validar campos requeridos
+                if (!nombre || !email || !telefono || !asunto || !mensaje) {
+                    UIkit.notification({
+                        message: '⚠️ Por favor completa todos los campos requeridos',
+                        status: 'warning',
+                        pos: 'top-center'
+                    });
+                    return;
+                }
+
+                // Construir mensaje para WhatsApp
+                let whatsappMessage = `*NUEVO MENSAJE DE CONTACTO*\n\n`;
+                whatsappMessage += `*Nombre:* ${nombre}\n`;
+                if (empresa) whatsappMessage += `*Empresa:* ${empresa}\n`;
+                whatsappMessage += `*Email:* ${email}\n`;
+                whatsappMessage += `*Teléfono:* ${telefono}\n`;
+                whatsappMessage += `*Asunto:* ${asunto}\n\n`;
+                whatsappMessage += `*Mensaje:*\n${mensaje}`;
+
+                // Codificar el mensaje
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+
+                // Número de WhatsApp principal
+                const whatsappNumber = '573153957275';
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+                // Abrir WhatsApp
+                window.open(whatsappUrl, '_blank');
+
+                // Notificación de éxito
+                UIkit.notification({
+                    message: '✅ Redirigiendo a WhatsApp...',
+                    status: 'success',
+                    pos: 'top-center',
+                    timeout: 3000
+                });
+
+                // Limpiar formulario después de 2 segundos
+                setTimeout(() => {
+                    contactForm.reset();
+                }, 2000);
+            });
+        }
+    });
+</script>
 
 <?php get_footer(); ?>

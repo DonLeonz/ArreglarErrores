@@ -1,28 +1,77 @@
 // ========================================
 // SISTEMA DE ADMINISTRACIÓN DE NOVEDADES - PHP
-// CON BOTÓN ELIMINAR COMENTARIOS
+// ✅ CORRECCIÓN FINAL - AVATAR + SUBIDA IMÁGENES
 // ========================================
 
 class NovedadesAdminSystemPHP {
   constructor() {
     this.apiUrl = window.API_URL || "api.php";
+    this.themeUrl = this.getThemeUrl();
     this.news = [];
     this.comments = {};
     this.visibleComments = {};
     this.init();
   }
 
+  getThemeUrl() {
+    if (
+      typeof surtienvases_vars !== "undefined" &&
+      surtienvases_vars.theme_url
+    ) {
+      return surtienvases_vars.theme_url;
+    }
+
+    const currentUrl = window.location.origin;
+    const pathParts = window.location.pathname.split("/");
+    const themeIndex = pathParts.indexOf("surtienvases-theme");
+
+    if (themeIndex !== -1) {
+      const themePath = pathParts.slice(0, themeIndex + 1).join("/");
+      return currentUrl + themePath;
+    }
+
+    return currentUrl + "/wp-content/themes/surtienvases-theme";
+  }
+
+  // ✅ CORREGIDO: Manejo más estricto de valores vacíos
+  getAvatarUrl(avatarUrl) {
+    // Verificar si es NULL, vacío, o string 'NULL'
+    if (
+      !avatarUrl ||
+      avatarUrl === "" ||
+      avatarUrl === "NULL" ||
+      avatarUrl === "null"
+    ) {
+      return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
+    }
+
+    // Si ya tiene protocolo http/https, retornar tal cual
+    if (avatarUrl.startsWith("http://") || avatarUrl.startsWith("https://")) {
+      return avatarUrl;
+    }
+
+    // Si empieza con /, es ruta absoluta desde el dominio
+    if (avatarUrl.startsWith("/")) {
+      return window.location.origin + avatarUrl;
+    }
+
+    // Si es ruta relativa (assets/img/...), construir URL completa
+    if (avatarUrl.startsWith("assets/")) {
+      return `${this.themeUrl}/${avatarUrl}`;
+    }
+
+    // Por defecto
+    return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
+  }
+
   async init() {
+    console.log("🎯 Theme URL:", this.themeUrl);
     await this.loadNews();
     await this.loadAllComments();
     this.renderNews();
     this.setupForm();
     this.setupImageUploader();
   }
-
-  // ========================================
-  // CARGAR DATOS DESDE API
-  // ========================================
 
   async loadNews() {
     try {
@@ -56,10 +105,6 @@ class NovedadesAdminSystemPHP {
     }
   }
 
-  // ========================================
-  // SETUP FORMULARIO
-  // ========================================
-
   setupForm() {
     const form = document.getElementById("news-form");
     if (!form) return;
@@ -68,31 +113,44 @@ class NovedadesAdminSystemPHP {
       e.preventDefault();
       this.handleNewsSubmit();
     });
+    console.log("✓ Formulario configurado");
   }
-
-  // ========================================
-  // SETUP IMAGE UPLOADER
-  // ========================================
 
   setupImageUploader() {
     const uploadBtn = document.getElementById("upload-news-image-btn");
-    if (!uploadBtn) return;
+    if (!uploadBtn) {
+      console.warn("⚠️ Botón upload-news-image-btn no encontrado");
+      return;
+    }
+
+    console.log("✓ Configurando uploader de imágenes...");
 
     uploadBtn.addEventListener("click", () => {
+      console.log("🖼️ Click en botón subir imagen");
       this.openMediaUploader();
     });
+
+    console.log("✓ Uploader de imágenes configurado");
   }
 
   openMediaUploader() {
+    console.log("📂 Abriendo selector de archivos...");
+
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
 
     input.onchange = async (e) => {
       const file = e.target.files[0];
-      if (!file) return;
+      if (!file) {
+        console.log("⚠️ No se seleccionó archivo");
+        return;
+      }
+
+      console.log("📁 Archivo seleccionado:", file.name);
 
       if (!file.type.startsWith("image/")) {
+        console.error("❌ No es una imagen");
         UIkit.notification({
           message: "Por favor selecciona un archivo de imagen válido",
           status: "warning",
@@ -102,6 +160,7 @@ class NovedadesAdminSystemPHP {
       }
 
       if (file.size > 5 * 1024 * 1024) {
+        console.error("❌ Archivo muy grande");
         UIkit.notification({
           message: "La imagen no debe superar 5MB",
           status: "warning",
@@ -111,30 +170,34 @@ class NovedadesAdminSystemPHP {
       }
 
       UIkit.notification({
-        message: "Subiendo imagen...",
+        message: "⏳ Subiendo imagen...",
         status: "primary",
         pos: "top-center",
         timeout: 2000,
       });
 
       try {
+        console.log("⬆️ Iniciando subida...");
         const uploadedPath = await this.uploadImage(file);
+        console.log("✅ Imagen subida:", uploadedPath);
 
         const imageInput = document.getElementById("news-image");
         if (imageInput) {
           imageInput.value = uploadedPath;
+          console.log("✓ Input actualizado");
         }
 
         this.showImagePreview(uploadedPath);
 
         UIkit.notification({
-          message: "Imagen subida exitosamente",
+          message: "✅ Imagen subida exitosamente",
           status: "success",
           pos: "top-center",
         });
       } catch (error) {
+        console.error("❌ Error al subir:", error);
         UIkit.notification({
-          message: "Error al subir la imagen: " + error.message,
+          message: "❌ Error al subir la imagen: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -166,6 +229,7 @@ class NovedadesAdminSystemPHP {
     return "";
   }
 
+  // ✅ CORREGIDO: Mejor manejo de errores
   async uploadImage(file) {
     const formData = new FormData();
     formData.append("file", file);
@@ -173,20 +237,42 @@ class NovedadesAdminSystemPHP {
     formData.append("nonce", this.getNonce());
 
     try {
-      const response = await fetch(surtienvases_vars.ajax_url, {
+      const ajaxUrl =
+        typeof surtienvases_vars !== "undefined"
+          ? surtienvases_vars.ajax_url
+          : "/wp-admin/admin-ajax.php";
+
+      console.log("🌐 Enviando a:", ajaxUrl);
+
+      const response = await fetch(ajaxUrl, {
         method: "POST",
         body: formData,
       });
 
+      console.log("📥 Respuesta HTTP status:", response.status);
+
+      // ✅ CORREGIDO: Verificar si la respuesta es JSON válido
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const textResponse = await response.text();
+        console.error("❌ Respuesta no es JSON:", textResponse);
+        throw new Error(
+          "El servidor no devolvió JSON válido. Verifica los logs del servidor."
+        );
+      }
+
       const data = await response.json();
+      console.log("📊 Datos:", data);
 
       if (data.success) {
         return data.data.url;
       } else {
-        throw new Error(data.data.message || "Error al subir imagen");
+        const errorMsg =
+          data.data?.message || data.message || "Error desconocido";
+        throw new Error(errorMsg);
       }
     } catch (error) {
-      console.error("Error en uploadImage:", error);
+      console.error("❌ Error en uploadImage:", error);
       throw error;
     }
   }
@@ -198,12 +284,9 @@ class NovedadesAdminSystemPHP {
     if (preview && previewImg) {
       previewImg.src = imagePath;
       preview.classList.remove("uk-hidden");
+      console.log("✓ Preview mostrado");
     }
   }
-
-  // ========================================
-  // CREAR NOTICIA
-  // ========================================
 
   async handleNewsSubmit() {
     const title = document.getElementById("news-title").value.trim();
@@ -212,7 +295,7 @@ class NovedadesAdminSystemPHP {
     const excerpt = document.getElementById("news-excerpt").value.trim();
     const imageUrl =
       document.getElementById("news-image").value.trim() ||
-      "assets/img/blog/blogDefault.jpg";
+      `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
 
     if (!title || !excerpt) {
       UIkit.notification({
@@ -234,7 +317,7 @@ class NovedadesAdminSystemPHP {
           author,
           excerpt,
           imageUrl,
-          avatarUrl: "assets/img/surtienvases/avatars/default.jpg",
+          avatarUrl: `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`,
         }),
       });
 
@@ -274,10 +357,6 @@ class NovedadesAdminSystemPHP {
     }
   }
 
-  // ========================================
-  // RENDERIZAR NOTICIAS CON COMENTARIOS
-  // ========================================
-
   renderNews() {
     const container = document.getElementById("news-container");
     if (!container) return;
@@ -299,6 +378,12 @@ class NovedadesAdminSystemPHP {
   createArticleCard(article) {
     const commentsVisible = this.visibleComments[article.id] || false;
     const newsComments = this.comments[article.id] || [];
+    const avatarUrl = this.getAvatarUrl(article.avatarUrl); // ✅ CORREGIDO
+
+    console.log(`📸 Avatar para artículo ${article.id}:`, {
+      original: article.avatarUrl,
+      computed: avatarUrl,
+    });
 
     return `
       <div>
@@ -318,8 +403,11 @@ class NovedadesAdminSystemPHP {
             <p>${article.excerpt}</p>
             
             <div class="uk-flex uk-flex-middle uk-margin-small-top">
-              <img src="${article.avatarUrl}" alt="${article.author}"
-                   class="uk-border-circle" width="40" height="40">
+              <img src="${avatarUrl}" alt="${article.author}"
+                   class="uk-border-circle" width="40" height="40"
+                   onerror="this.src='${
+                     this.themeUrl
+                   }/assets/img/surtienvases/avatars/default.jpg'">
               <span class="uk-margin-small-left">${article.author}</span>
             </div>
             
@@ -327,7 +415,6 @@ class NovedadesAdminSystemPHP {
               Publicado: ${this.formatDate(article.created_at)}
             </p>
 
-            <!-- BOTÓN PARA VER/OCULTAR COMENTARIOS -->
             <button class="uk-button uk-button-secondary uk-margin-small-top uk-border-rounded"
                     onclick="novedadesAdminPHP.toggleComments(${article.id})">
               ${commentsVisible ? "Ocultar comentarios" : "Ver comentarios"} (${
@@ -335,7 +422,6 @@ class NovedadesAdminSystemPHP {
     })
             </button>
 
-            <!-- SECCIÓN DE COMENTARIOS -->
             ${commentsVisible ? this.renderCommentsSection(article.id) : ""}
           </div>
         </div>
@@ -345,6 +431,7 @@ class NovedadesAdminSystemPHP {
 
   renderCommentsSection(newsId) {
     const newsComments = this.comments[newsId] || [];
+    const avatarUrl = this.getAvatarUrl(null);
 
     if (newsComments.length === 0) {
       return `
@@ -365,7 +452,6 @@ class NovedadesAdminSystemPHP {
             (comment) => `
           <article class="uk-comment uk-margin-small uk-padding-small uk-background-muted uk-border-rounded uk-position-relative">
             
-            <!-- BOTÓN ELIMINAR COMENTARIO -->
             <button class="boton-eliminar-comentario" 
                     onclick="novedadesAdminPHP.deleteComment(${
                       comment.id
@@ -375,8 +461,11 @@ class NovedadesAdminSystemPHP {
             
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
-                   src="assets/img/surtienvases/avatars/default.jpg"
-                   width="40" height="40" alt="${comment.author}">
+                   src="${avatarUrl}"
+                   width="40" height="40" alt="${comment.author}"
+                   onerror="this.src='${
+                     this.themeUrl
+                   }/assets/img/surtienvases/avatars/default.jpg'">
               <div class="uk-margin-small-left">
                 <h4 class="uk-comment-title uk-margin-remove texto-negro">
                   ${comment.author}
@@ -398,10 +487,6 @@ class NovedadesAdminSystemPHP {
       </div>
     `;
   }
-
-  // ========================================
-  // ACCIONES
-  // ========================================
 
   toggleComments(newsId) {
     this.visibleComments[newsId] = !this.visibleComments[newsId];
@@ -464,7 +549,6 @@ class NovedadesAdminSystemPHP {
             pos: "top-center",
           });
 
-          // Recargar solo los comentarios de esta noticia
           fetch(`${this.apiUrl}?action=get_comments&news_id=${newsId}`)
             .then((response) => response.json())
             .then((data) => {
@@ -490,10 +574,6 @@ class NovedadesAdminSystemPHP {
       });
   }
 
-  // ========================================
-  // UTILIDADES
-  // ========================================
-
   formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString("es-CO", {
@@ -504,6 +584,5 @@ class NovedadesAdminSystemPHP {
   }
 }
 
-// Inicialización
 window.novedadesAdminPHP = new NovedadesAdminSystemPHP();
 console.log("✓ Sistema de administración de novedades PHP inicializado");

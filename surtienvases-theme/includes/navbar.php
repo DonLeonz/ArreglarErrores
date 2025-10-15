@@ -1,5 +1,6 @@
 <!-- ========================================
      NAVBAR REUTILIZABLE
+     ✅ BOTÓN CARRITO HAMBURGUESA CORREGIDO
      ======================================== -->
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
     <nav class="uk-navbar-container uk-navbar-transparent">
@@ -120,10 +121,13 @@
 
                                 <hr class="uk-divider-icon" />
 
+                                <!-- ✅ CORREGIDO: Botón que SÍ abre el modal del carrito -->
                                 <div class="uk-margin">
-                                    <button class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                                        id="mobile-cart-btn">
+                                    <button
+                                        class="uk-button uk-button-secondary uk-border-rounded uk-width-1-1 position-relative"
+                                        onclick="window.surtienvases.cart.toggleCart(); UIkit.offcanvas('#burger-menu').hide();">
                                         <span uk-icon="cart"></span> Ver Carrito
+                                        <span class="carrito-badge-contador uk-hidden" id="cart-count-mobile">0</span>
                                     </button>
                                 </div>
                             </div>
