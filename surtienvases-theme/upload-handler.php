@@ -1,196 +1,206 @@
 <?php
 /**
  * ========================================
- * UPLOAD HANDLER ULTRA SIMPLIFICADO
- * Versión que SÍ O SÍ funciona
+ * UPLOAD HANDLER - CON BASE DE DATOS
+ * Guarda archivo físico + registro en tabla imagenes
  * ========================================
  */
 
-// CRÍTICO: Limpiar CUALQUIER output previo
-while (ob_get_level()) {
-    ob_end_clean();
+// ✅ PASO 1: Cargar WordPress
+$wp_load = dirname(__FILE__) . '/../../../wp-load.php';
+
+if (!file_exists($wp_load)) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'error' => 'No se pudo cargar WordPress. Verifica la ruta de wp-load.php'
+    ]);
+    exit;
 }
-ob_start();
 
-// Evitar warnings y notices
-error_reporting(E_ERROR | E_PARSE);
-ini_set('display_errors', 0);
+require_once($wp_load);
 
-// Headers ANTES de cualquier output
+// ✅ PASO 2: Headers
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    ob_end_clean();
     http_response_code(200);
-    exit();
+    exit;
 }
 
 /**
- * Función para devolver JSON limpio
+ * Función para responder con JSON
  */
 function sendJSON($data, $status = 200)
 {
-    ob_end_clean(); // Limpiar buffer
     http_response_code($status);
     echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    exit();
+    exit;
 }
 
-/**
- * ========================================
- * MANEJO DEL UPLOAD
- * ========================================
- */
-try {
-    // Validar método
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception('Método no permitido');
-    }
-
-    // Validar archivo
-    if (!isset($_FILES['file'])) {
-        throw new Exception('No se recibió archivo');
-    }
-
-    $file = $_FILES['file'];
-
-    // Validar error de upload
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        $errors = [
-            UPLOAD_ERR_INI_SIZE => 'Archivo muy grande (servidor)',
-            UPLOAD_ERR_FORM_SIZE => 'Archivo muy grande (formulario)',
-            UPLOAD_ERR_PARTIAL => 'Archivo subido parcialmente',
-            UPLOAD_ERR_NO_FILE => 'No se subió archivo',
-            UPLOAD_ERR_NO_TMP_DIR => 'Falta carpeta temporal',
-            UPLOAD_ERR_CANT_WRITE => 'Error al escribir',
-            UPLOAD_ERR_EXTENSION => 'Extensión bloqueó la subida'
-        ];
-        $errorMsg = isset($errors[$file['error']]) ? $errors[$file['error']] : 'Error desconocido';
-        throw new Exception($errorMsg);
-    }
-
-    // Obtener entity_type
-    $entityType = isset($_POST['entity_type']) ? $_POST['entity_type'] : 'otro';
-
-    // Validar tipo MIME
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
-
-    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    if (!in_array($mimeType, $allowedTypes)) {
-        throw new Exception('Tipo de archivo no permitido: ' . $mimeType);
-    }
-
-    // Obtener dimensiones
-    $imageInfo = @getimagesize($file['tmp_name']);
-    $width = $imageInfo ? $imageInfo[0] : 0;
-    $height = $imageInfo ? $imageInfo[1] : 0;
-
-    // Generar nombre único
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    if (!$extension) {
-        $extension = ($mimeType === 'image/jpeg' || $mimeType === 'image/jpg') ? 'jpg' : 'png';
-    }
-
-    $prefix = substr($entityType, 0, 4);
-    $timestamp = time();
-    $random = bin2hex(random_bytes(4));
-    $filename = "{$prefix}_{$timestamp}_{$random}.{$extension}";
-
-    // Determinar subdirectorio
-    $subdir = 'otros';
-    if ($entityType === 'producto') {
-        $subdir = 'productos';
-    } elseif ($entityType === 'noticia') {
-        $subdir = 'novedades';
-    }
-
-    // Rutas
-    $baseDir = __DIR__ . '/uploads';
-    $targetDir = $baseDir . '/' . $subdir;
-
-    // Crear directorio si no existe
-    if (!file_exists($targetDir)) {
-        @mkdir($targetDir, 0755, true);
-    }
-
-    $targetPath = $targetDir . '/' . $filename;
-
-    // Mover archivo
-    if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-        throw new Exception('Error al guardar archivo');
-    }
-
-    // Construir URL
-    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
-    $host = $_SERVER['HTTP_HOST'];
-    $baseUrl = $protocol . '://' . $host . '/wp-content/themes/surtienvases-theme/uploads';
-    $fullUrl = $baseUrl . '/' . $subdir . '/' . $filename;
-
-    // Intentar guardar en BD (opcional, no rompe si falla)
-    $imageId = null;
-    try {
-        // Cargar config y BD
-        if (file_exists(__DIR__ . '/config.php')) {
-            require_once __DIR__ . '/config.php';
-            $db = getDB();
-
-            $stmt = $db->prepare("
-                INSERT INTO imagenes (
-                    filename, original_filename, filepath, url,
-                    filesize, width, height, mime_type,
-                    entity_type, entity_id
-                ) VALUES (
-                    :filename, :original_filename, :filepath, :url,
-                    :filesize, :width, :height, :mime_type,
-                    :entity_type, :entity_id
-                )
-            ");
-
-            $stmt->execute([
-                'filename' => $filename,
-                'original_filename' => htmlspecialchars($file['name']),
-                'filepath' => $subdir . '/' . $filename,
-                'url' => $fullUrl,
-                'filesize' => $file['size'],
-                'width' => $width,
-                'height' => $height,
-                'mime_type' => $mimeType,
-                'entity_type' => $entityType,
-                'entity_id' => isset($_POST['entity_id']) ? intval($_POST['entity_id']) : null
-            ]);
-
-            $imageId = $db->lastInsertId();
-        }
-    } catch (Exception $e) {
-        // BD es opcional, continuar
-        error_log('Error BD (no crítico): ' . $e->getMessage());
-    }
-
-    // Respuesta exitosa
-    sendJSON([
-        'success' => true,
-        'data' => [
-            'id' => $imageId ? intval($imageId) : null,
-            'filename' => $filename,
-            'url' => $fullUrl,
-            'thumbnail' => null,
-            'width' => $width,
-            'height' => $height,
-            'size' => $file['size'],
-            'mime_type' => $mimeType
-        ],
-        'message' => 'Imagen subida exitosamente'
-    ]);
-
-} catch (Exception $e) {
-    sendJSON([
-        'success' => false,
-        'error' => $e->getMessage()
-    ], 400);
+// ✅ PASO 3: Validaciones básicas
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    sendJSON(['success' => false, 'error' => 'Método no permitido'], 405);
 }
-?>
+
+if (!isset($_FILES['file']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+    sendJSON(['success' => false, 'error' => 'No se recibió archivo válido'], 400);
+}
+
+$file = $_FILES['file'];
+
+// Validar errores de upload
+if ($file['error'] !== UPLOAD_ERR_OK) {
+    $errors = [
+        UPLOAD_ERR_INI_SIZE => 'Archivo muy grande (límite del servidor)',
+        UPLOAD_ERR_FORM_SIZE => 'Archivo muy grande (límite del formulario)',
+        UPLOAD_ERR_PARTIAL => 'Archivo subido parcialmente',
+        UPLOAD_ERR_NO_FILE => 'No se subió archivo',
+        UPLOAD_ERR_NO_TMP_DIR => 'Falta carpeta temporal',
+        UPLOAD_ERR_CANT_WRITE => 'No se pudo escribir el archivo',
+        UPLOAD_ERR_EXTENSION => 'Extensión bloqueada'
+    ];
+
+    $errorMsg = isset($errors[$file['error']]) ? $errors[$file['error']] : 'Error desconocido';
+    sendJSON(['success' => false, 'error' => $errorMsg], 400);
+}
+
+// ✅ PASO 4: Validar tipo MIME
+$allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+$finfo = finfo_open(FILEINFO_MIME_TYPE);
+$mimeType = finfo_file($finfo, $file['tmp_name']);
+finfo_close($finfo);
+
+if (!in_array($mimeType, $allowedTypes)) {
+    sendJSON(['success' => false, 'error' => 'Tipo de archivo no permitido: ' . $mimeType], 400);
+}
+
+// Validar tamaño (máximo 10MB)
+$maxSize = 10 * 1024 * 1024;
+if ($file['size'] > $maxSize) {
+    sendJSON(['success' => false, 'error' => 'Archivo muy grande (máximo 10MB)'], 400);
+}
+
+// ✅ PASO 5: Obtener entity_type
+$entityType = isset($_POST['entity_type']) ? sanitize_text_field($_POST['entity_type']) : 'otro';
+$entityId = isset($_POST['entity_id']) ? intval($_POST['entity_id']) : null;
+
+// ✅ PASO 6: Generar nombre único
+$extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+if (empty($extension)) {
+    $extension = ($mimeType === 'image/jpeg' || $mimeType === 'image/jpg') ? 'jpg' : 'png';
+}
+
+$timestamp = time();
+$random = bin2hex(random_bytes(4));
+$filename = "{$entityType}_{$timestamp}_{$random}.{$extension}";
+
+// ✅ PASO 7: Determinar subdirectorio
+$subdir = 'otros';
+if ($entityType === 'producto') {
+    $subdir = 'productos';
+} elseif ($entityType === 'noticia') {
+    $subdir = 'novedades';
+}
+
+// ✅ PASO 8: Crear estructura de directorios
+$baseDir = dirname(__FILE__) . '/uploads';
+$targetDir = $baseDir . '/' . $subdir;
+
+if (!file_exists($targetDir)) {
+    if (!mkdir($targetDir, 0755, true)) {
+        sendJSON(['success' => false, 'error' => 'No se pudo crear el directorio'], 500);
+    }
+}
+
+// ✅ PASO 9: Mover archivo
+$targetPath = $targetDir . '/' . $filename;
+
+if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+    sendJSON(['success' => false, 'error' => 'Error al guardar el archivo en el servidor'], 500);
+}
+
+// ✅ PASO 10: Obtener dimensiones
+$imageInfo = @getimagesize($targetPath);
+$width = $imageInfo ? $imageInfo[0] : 0;
+$height = $imageInfo ? $imageInfo[1] : 0;
+
+// ✅ PASO 11: Construir URL pública
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host = $_SERVER['HTTP_HOST'];
+$themePath = '/wp-content/themes/surtienvases-theme/uploads';
+$fullUrl = $protocol . '://' . $host . $themePath . '/' . $subdir . '/' . $filename;
+
+// Ruta relativa para la BD
+$filepath = 'uploads/' . $subdir . '/' . $filename;
+
+// ✅ PASO 12: Guardar en base de datos usando wpdb
+global $wpdb;
+
+// Usar la base de datos surtienvases
+$surtidb = new wpdb(DB_USER, DB_PASSWORD, 'surtienvases', DB_HOST);
+
+if ($surtidb->error) {
+    // Si falla la conexión, eliminar el archivo subido
+    @unlink($targetPath);
+    sendJSON(['success' => false, 'error' => 'Error de conexión a base de datos: ' . $surtidb->error], 500);
+}
+
+// Insertar en tabla imagenes
+$result = $surtidb->insert(
+    'imagenes',
+    [
+        'filename' => $filename,
+        'original_filename' => sanitize_text_field($file['name']),
+        'filepath' => $filepath,
+        'url' => $fullUrl,
+        'filesize' => $file['size'],
+        'width' => $width,
+        'height' => $height,
+        'mime_type' => $mimeType,
+        'entity_type' => $entityType,
+        'entity_id' => $entityId,
+        'uploaded_by' => 'admin'
+    ],
+    [
+        '%s', // filename
+        '%s', // original_filename
+        '%s', // filepath
+        '%s', // url
+        '%d', // filesize
+        '%d', // width
+        '%d', // height
+        '%s', // mime_type
+        '%s', // entity_type
+        '%d', // entity_id
+        '%s'  // uploaded_by
+    ]
+);
+
+if ($result === false) {
+    // Si falla la BD, eliminar el archivo subido
+    @unlink($targetPath);
+    sendJSON(['success' => false, 'error' => 'Error al guardar en base de datos: ' . $surtidb->last_error], 500);
+}
+
+$imageId = $surtidb->insert_id;
+
+// ✅ PASO 13: Respuesta exitosa
+sendJSON([
+    'success' => true,
+    'data' => [
+        'id' => $imageId,
+        'filename' => $filename,
+        'url' => $fullUrl,
+        'thumbnail' => null,
+        'width' => $width,
+        'height' => $height,
+        'size' => $file['size'],
+        'mime_type' => $mimeType
+    ],
+    'message' => 'Imagen subida y registrada en base de datos'
+], 200);

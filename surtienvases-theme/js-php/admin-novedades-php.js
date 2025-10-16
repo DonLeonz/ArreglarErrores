@@ -1,5 +1,6 @@
 // ========================================
-// ADMIN NOVEDADES - CON MODERN IMAGE UPLOADER
+// admin-novedades-php.js - VERSIÓN FINAL
+// Copiado exactamente de admin-productos-php.js
 // ========================================
 
 class NovedadesAdminSystemPHP {
@@ -9,7 +10,7 @@ class NovedadesAdminSystemPHP {
     this.news = [];
     this.comments = {};
     this.visibleComments = {};
-    this.imageUploader = null; // Nuevo uploader
+    this.imageUploader = null;
     this.init();
   }
 
@@ -20,52 +21,24 @@ class NovedadesAdminSystemPHP {
     ) {
       return surtienvases_vars.theme_url;
     }
-
     const currentUrl = window.location.origin;
     const pathParts = window.location.pathname.split("/");
     const themeIndex = pathParts.indexOf("surtienvases-theme");
-
     if (themeIndex !== -1) {
       const themePath = pathParts.slice(0, themeIndex + 1).join("/");
       return currentUrl + themePath;
     }
-
     return currentUrl + "/wp-content/themes/surtienvases-theme";
   }
 
-  getAvatarUrl(avatarUrl) {
-    if (
-      !avatarUrl ||
-      avatarUrl === "" ||
-      avatarUrl === "NULL" ||
-      avatarUrl === "null"
-    ) {
-      return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
-    }
-    if (avatarUrl.startsWith("http://") || avatarUrl.startsWith("https://")) {
-      return avatarUrl;
-    }
-    if (avatarUrl.startsWith("/")) {
-      return window.location.origin + avatarUrl;
-    }
-    if (avatarUrl.startsWith("assets/")) {
-      return `${this.themeUrl}/${avatarUrl}`;
-    }
-    return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
-  }
-
   async init() {
-    console.log("🎯 Theme URL:", this.themeUrl);
     await this.loadNews();
     await this.loadAllComments();
     this.renderNews();
     this.setupForm();
-    this.setupModernImageUploader(); // ✅ NUEVO
+    this.setupModernImageUploader();
   }
 
-  // ========================================
-  // SETUP MODERN IMAGE UPLOADER
-  // ========================================
   setupModernImageUploader() {
     console.log("🖼️ Configurando Modern Image Uploader para novedades...");
 
@@ -74,30 +47,12 @@ class NovedadesAdminSystemPHP {
       return;
     }
 
-    const formContainer = document.getElementById("news-form");
-    if (!formContainer) return;
-
-    // Buscar el contenedor de imagen o crearlo
-    let imageSection = formContainer.querySelector(
-      ".news-image-upload-section"
-    );
-    if (!imageSection) {
-      // Buscar el contenedor original de imagen
-      const originalSection = Array.from(
-        formContainer.querySelectorAll(".uk-width-1-1")
-      ).find((el) => el.querySelector("#news-image"));
-
-      if (originalSection) {
-        // Reemplazar con el nuevo uploader
-        originalSection.innerHTML = `
-          <label class="uk-form-label">Imagen del Artículo</label>
-          <div id="news-image-uploader"></div>
-        `;
-        originalSection.classList.add("news-image-upload-section");
-      }
+    const container = document.getElementById("news-image-uploader");
+    if (!container) {
+      console.error("❌ #news-image-uploader no encontrado");
+      return;
     }
 
-    // Inicializar el uploader moderno
     this.imageUploader = new ModernImageUploader({
       entityType: "noticia",
       autoCompress: true,
@@ -113,18 +68,13 @@ class NovedadesAdminSystemPHP {
     });
 
     this.imageUploader.init("news-image-uploader");
-    console.log("✅ Modern Image Uploader configurado para novedades");
+    console.log("✅ Modern Image Uploader configurado");
   }
-
-  // ========================================
-  // RESTO DEL CÓDIGO
-  // ========================================
 
   async loadNews() {
     try {
       const response = await fetch(`${this.apiUrl}?action=get_news`);
       const data = await response.json();
-
       if (data.success) {
         this.news = data.data;
         console.log(`✓ ${this.news.length} noticias cargadas`);
@@ -141,7 +91,6 @@ class NovedadesAdminSystemPHP {
           `${this.apiUrl}?action=get_comments&news_id=${article.id}`
         );
         const data = await response.json();
-
         if (data.success) {
           this.comments[article.id] = data.data;
         }
@@ -155,7 +104,6 @@ class NovedadesAdminSystemPHP {
   setupForm() {
     const form = document.getElementById("news-form");
     if (!form) return;
-
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       this.handleNewsSubmit();
@@ -163,47 +111,56 @@ class NovedadesAdminSystemPHP {
     console.log("✓ Formulario configurado");
   }
 
+  // ✅ CORREGIDO - IGUAL QUE PRODUCTOS
   async handleNewsSubmit() {
+    console.log("📝 Procesando formulario de noticia...");
+
     const title = document.getElementById("news-title").value.trim();
     const author =
       document.getElementById("news-author").value.trim() || "Usuario Invitado";
     const excerpt = document.getElementById("news-excerpt").value.trim();
 
-    // ✅ Obtener URL de imagen del uploader moderno
+    // ✅ OBTENER URL DE IMAGEN - EXACTAMENTE IGUAL QUE PRODUCTOS
     const imageUrlInput = document.getElementById("uploaded-image-url");
     const imageUrl = imageUrlInput
       ? imageUrlInput.value
       : `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
 
+    console.log("🖼️ URL de imagen obtenida:", imageUrl);
+
     if (!title || !excerpt) {
       UIkit.notification({
-        message: "Por favor completa todos los campos",
+        message: "⚠️ Por favor completa todos los campos",
         status: "warning",
         pos: "top-center",
       });
       return;
     }
 
+    const formData = {
+      title: title,
+      author: author,
+      excerpt: excerpt,
+      imageUrl: imageUrl, // ✅ La URL completa
+      avatarUrl: `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`,
+    };
+
+    console.log("📊 Datos de la noticia:", formData);
+
     try {
+      console.log("📤 Enviando noticia a la API...");
       const response = await fetch(`${this.apiUrl}?action=create_news`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          author,
-          excerpt,
-          imageUrl, // ✅ Usar la URL del nuevo uploader
-          avatarUrl: `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
+      console.log("📥 Respuesta de la API:", data);
 
       if (data.success) {
         UIkit.notification({
-          message: "Artículo publicado exitosamente",
+          message: "✅ Artículo publicado exitosamente",
           status: "success",
           pos: "top-center",
         });
@@ -215,21 +172,26 @@ class NovedadesAdminSystemPHP {
         document.getElementById("news-form").reset();
         document.getElementById("news-author").value = "Usuario Invitado";
 
-        // ✅ Reset del uploader moderno
+        // Reset del uploader
         if (this.imageUploader) {
           const container = document.getElementById("news-image-uploader");
           this.imageUploader.reset(container);
         }
+
+        document
+          .getElementById("news-container")
+          ?.scrollIntoView({ behavior: "smooth" });
       } else {
         UIkit.notification({
-          message: "Error: " + data.error,
+          message: "❌ Error: " + data.error,
           status: "danger",
           pos: "top-center",
         });
       }
     } catch (error) {
+      console.error("❌ Error al crear noticia:", error);
       UIkit.notification({
-        message: "Error de red: " + error.message,
+        message: "❌ Error de red: " + error.message,
         status: "danger",
         pos: "top-center",
       });
@@ -257,7 +219,6 @@ class NovedadesAdminSystemPHP {
   createArticleCard(article) {
     const commentsVisible = this.visibleComments[article.id] || false;
     const newsComments = this.comments[article.id] || [];
-    const avatarUrl = this.getAvatarUrl(article.avatarUrl);
 
     return `
       <div>
@@ -277,11 +238,13 @@ class NovedadesAdminSystemPHP {
             <p>${article.excerpt}</p>
             
             <div class="uk-flex uk-flex-middle uk-margin-small-top">
-              <img src="${avatarUrl}" alt="${article.author}"
-                   class="uk-border-circle" width="40" height="40"
-                   onerror="this.src='${
-                     this.themeUrl
-                   }/assets/img/surtienvases/avatars/default.jpg'">
+              <img src="${
+                article.avatarUrl ||
+                this.themeUrl + "/assets/img/surtienvases/avatars/default.jpg"
+              }" 
+                   alt="${
+                     article.author
+                   }" class="uk-border-circle" width="40" height="40">
               <span class="uk-margin-small-left">${article.author}</span>
             </div>
             
@@ -305,7 +268,6 @@ class NovedadesAdminSystemPHP {
 
   renderCommentsSection(newsId) {
     const newsComments = this.comments[newsId] || [];
-    const avatarUrl = this.getAvatarUrl(null);
 
     if (newsComments.length === 0) {
       return `
@@ -325,7 +287,6 @@ class NovedadesAdminSystemPHP {
           .map(
             (comment) => `
           <article class="uk-comment uk-margin-small uk-padding-small uk-background-muted uk-border-rounded uk-position-relative">
-            
             <button class="boton-eliminar-comentario" 
                     onclick="novedadesAdminPHP.deleteComment(${
                       comment.id
@@ -335,15 +296,14 @@ class NovedadesAdminSystemPHP {
             
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
-                   src="${avatarUrl}"
-                   width="40" height="40" alt="${comment.author}"
-                   onerror="this.src='${
+                   src="${
                      this.themeUrl
-                   }/assets/img/surtienvases/avatars/default.jpg'">
+                   }/assets/img/surtienvases/avatars/default.jpg"
+                   width="40" height="40" alt="${comment.author}">
               <div class="uk-margin-small-left">
-                <h4 class="uk-comment-title uk-margin-remove texto-negro">
-                  ${comment.author}
-                </h4>
+                <h4 class="uk-comment-title uk-margin-remove texto-negro">${
+                  comment.author
+                }</h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                   <li><span class="texto-gris">${this.formatDate(
                     comment.created_at
@@ -368,20 +328,27 @@ class NovedadesAdminSystemPHP {
   }
 
   deleteArticle(articleId) {
+    console.log("🗑️ Intentando eliminar artículo ID:", articleId);
+
     if (
       !window.confirm(
         "¿Estás seguro de eliminar este artículo? También se eliminarán todos sus comentarios."
       )
     ) {
+      console.log("❌ Eliminación cancelada por el usuario");
       return;
     }
+
+    console.log("⏳ Eliminando artículo...");
 
     fetch(`${this.apiUrl}?action=delete_news&id=${articleId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("📥 Respuesta de eliminación:", data);
+
         if (data.success) {
           UIkit.notification({
-            message: "Artículo eliminado exitosamente",
+            message: "✅ Artículo eliminado exitosamente",
             status: "success",
             pos: "top-center",
           });
@@ -393,15 +360,16 @@ class NovedadesAdminSystemPHP {
           });
         } else {
           UIkit.notification({
-            message: "Error: " + data.error,
+            message: "❌ Error: " + data.error,
             status: "danger",
             pos: "top-center",
           });
         }
       })
       .catch((error) => {
+        console.error("❌ Error al eliminar:", error);
         UIkit.notification({
-          message: "Error de red: " + error.message,
+          message: "❌ Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });
@@ -409,16 +377,23 @@ class NovedadesAdminSystemPHP {
   }
 
   deleteComment(commentId, newsId) {
+    console.log("🗑️ Intentando eliminar comentario ID:", commentId);
+
     if (!window.confirm("¿Estás seguro de eliminar este comentario?")) {
+      console.log("❌ Eliminación cancelada por el usuario");
       return;
     }
+
+    console.log("⏳ Eliminando comentario...");
 
     fetch(`${this.apiUrl}?action=delete_comment&id=${commentId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("📥 Respuesta de eliminación:", data);
+
         if (data.success) {
           UIkit.notification({
-            message: "Comentario eliminado exitosamente",
+            message: "✅ Comentario eliminado exitosamente",
             status: "success",
             pos: "top-center",
           });
@@ -433,15 +408,16 @@ class NovedadesAdminSystemPHP {
             });
         } else {
           UIkit.notification({
-            message: "Error: " + data.error,
+            message: "❌ Error: " + data.error,
             status: "danger",
             pos: "top-center",
           });
         }
       })
       .catch((error) => {
+        console.error("❌ Error al eliminar:", error);
         UIkit.notification({
-          message: "Error de red: " + error.message,
+          message: "❌ Error de red: " + error.message,
           status: "danger",
           pos: "top-center",
         });

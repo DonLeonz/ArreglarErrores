@@ -1,6 +1,5 @@
 // ========================================
-// SISTEMA DE NOVEDADES - VERSIÓN PÚBLICA
-// ✅ CORRECCIÓN FINAL - AVATAR
+// NOVEDADES-PHP.JS (FRONTEND - SIMPLE)
 // ========================================
 
 class NovedadesSystemPHP {
@@ -20,52 +19,17 @@ class NovedadesSystemPHP {
     ) {
       return surtienvases_vars.theme_url;
     }
-
     const currentUrl = window.location.origin;
     const pathParts = window.location.pathname.split("/");
     const themeIndex = pathParts.indexOf("surtienvases-theme");
-
     if (themeIndex !== -1) {
       const themePath = pathParts.slice(0, themeIndex + 1).join("/");
       return currentUrl + themePath;
     }
-
     return currentUrl + "/wp-content/themes/surtienvases-theme";
   }
 
-  // ✅ CORREGIDO: Manejo más estricto de valores vacíos
-  getAvatarUrl(avatarUrl) {
-    // Verificar si es NULL, vacío, o string 'NULL'
-    if (
-      !avatarUrl ||
-      avatarUrl === "" ||
-      avatarUrl === "NULL" ||
-      avatarUrl === "null"
-    ) {
-      return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
-    }
-
-    // Si ya tiene protocolo http/https, retornar tal cual
-    if (avatarUrl.startsWith("http://") || avatarUrl.startsWith("https://")) {
-      return avatarUrl;
-    }
-
-    // Si empieza con /, es ruta absoluta desde el dominio
-    if (avatarUrl.startsWith("/")) {
-      return window.location.origin + avatarUrl;
-    }
-
-    // Si es ruta relativa (assets/img/...), construir URL completa
-    if (avatarUrl.startsWith("assets/")) {
-      return `${this.themeUrl}/${avatarUrl}`;
-    }
-
-    // Por defecto
-    return `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`;
-  }
-
   async init() {
-    console.log("🎯 Theme URL:", this.themeUrl);
     await this.loadNews();
     await this.loadAllComments();
     this.renderNews();
@@ -75,7 +39,6 @@ class NovedadesSystemPHP {
     try {
       const response = await fetch(`${this.apiUrl}?action=get_news`);
       const data = await response.json();
-
       if (data.success) {
         this.news = data.data;
         console.log(`✓ ${this.news.length} artículos cargados`);
@@ -92,7 +55,6 @@ class NovedadesSystemPHP {
           `${this.apiUrl}?action=get_comments&news_id=${article.id}`
         );
         const data = await response.json();
-
         if (data.success) {
           this.comments[article.id] = data.data;
         }
@@ -123,12 +85,6 @@ class NovedadesSystemPHP {
 
   createArticleCard(article) {
     const commentsVisible = this.visibleComments[article.id] || false;
-    const avatarUrl = this.getAvatarUrl(article.avatarUrl); // ✅ CORREGIDO
-
-    console.log(`📸 Avatar para artículo ${article.id}:`, {
-      original: article.avatarUrl,
-      computed: avatarUrl,
-    });
 
     return `
       <div>
@@ -159,11 +115,13 @@ class NovedadesSystemPHP {
             <p>${article.excerpt}</p>
             
             <div class="uk-flex uk-flex-middle uk-margin-small-top">
-              <img src="${avatarUrl}" alt="${article.author}"
-                   class="uk-border-circle" width="40" height="40"
-                   onerror="this.src='${
-                     this.themeUrl
-                   }/assets/img/surtienvases/avatars/default.jpg'">
+              <img src="${
+                article.avatarUrl ||
+                this.themeUrl + "/assets/img/surtienvases/avatars/default.jpg"
+              }" 
+                   alt="${
+                     article.author
+                   }" class="uk-border-circle" width="40" height="40">
               <span class="uk-margin-small-left">${article.author}</span>
             </div>
             
@@ -181,16 +139,14 @@ class NovedadesSystemPHP {
 
   renderCommentsSection(newsId) {
     const newsComments = this.comments[newsId] || [];
-    const avatarUrl = this.getAvatarUrl(null);
 
     return `
       <div class="uk-margin-top">
         <div class="uk-flex uk-flex-middle uk-margin">
-          <img src="${avatarUrl}" width="40" height="40"
-               class="uk-border-circle" alt="Usuario"
-               onerror="this.src='${
-                 this.themeUrl
-               }/assets/img/surtienvases/avatars/default.jpg'">
+          <img src="${
+            this.themeUrl
+          }/assets/img/surtienvases/avatars/default.jpg" 
+               width="40" height="40" class="uk-border-circle" alt="Usuario">
           <span class="uk-margin-left">Usuario Invitado</span>
         </div>
         
@@ -219,15 +175,14 @@ class NovedadesSystemPHP {
           <article class="uk-comment uk-margin-top">
             <header class="uk-comment-header uk-flex uk-flex-middle">
               <img class="uk-comment-avatar uk-border-circle"
-                   src="${avatarUrl}"
-                   width="40" height="40" alt="${comment.author}"
-                   onerror="this.src='${
+                   src="${
                      this.themeUrl
-                   }/assets/img/surtienvases/avatars/default.jpg'">
+                   }/assets/img/surtienvases/avatars/default.jpg"
+                   width="40" height="40" alt="${comment.author}">
               <div class="uk-margin-small-left">
-                <h4 class="uk-comment-title uk-margin-remove texto-negro">
-                  ${comment.author}
-                </h4>
+                <h4 class="uk-comment-title uk-margin-remove texto-negro">${
+                  comment.author
+                }</h4>
                 <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                   <li><span class="texto-negro">${this.formatDate(
                     comment.created_at
@@ -265,9 +220,7 @@ class NovedadesSystemPHP {
     try {
       const response = await fetch(`${this.apiUrl}?action=create_comment`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           noticia_id: newsId,
           text: commentInput.value.trim(),
@@ -283,7 +236,6 @@ class NovedadesSystemPHP {
           status: "success",
           pos: "top-center",
         });
-
         await this.loadAllComments();
         this.renderNews();
       } else {

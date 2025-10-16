@@ -198,8 +198,11 @@ require_once get_template_directory() . '/config.php';
                                     <div id="benefits-container" class="uk-margin-small-top"></div>
                                 </div>
 
-                                <!-- ✅ MODERN IMAGE UPLOADER SE INYECTA AQUÍ DINÁMICAMENTE -->
-                                <!-- El JavaScript admin-productos-php.js creará la sección automáticamente -->
+                                <!-- ✅ IMAGEN DEL PRODUCTO -->
+                                <div class="uk-width-1-1 uk-margin-top">
+                                    <h3 class="uk-h4">Imagen del Producto</h3>
+                                    <div id="product-image-uploader"></div>
+                                </div>
 
                                 <!-- Popular -->
                                 <div class="uk-width-1-1 uk-margin-top">
@@ -234,24 +237,30 @@ require_once get_template_directory() . '/config.php';
                         <form class="uk-padding uk-background-muted contenedor-redondeado uk-margin" uk-grid
                             id="news-form">
                             <div class="uk-width-1-2@s">
+                                <label class="uk-form-label">Título del artículo *</label>
                                 <input class="uk-input" type="text" placeholder="Título del artículo" id="news-title"
                                     required />
                             </div>
                             <div class="uk-width-1-2@s">
+                                <label class="uk-form-label">Autor</label>
                                 <input class="uk-input" type="text" placeholder="Autor" id="news-author"
                                     value="Usuario Invitado" required />
                             </div>
                             <div class="uk-width-1-1">
+                                <label class="uk-form-label">Resumen o introducción *</label>
                                 <textarea class="uk-textarea" rows="3" placeholder="Resumen o introducción"
                                     id="news-excerpt" required></textarea>
                             </div>
 
-                            <!-- ✅ MODERN IMAGE UPLOADER SE INYECTA AQUÍ DINÁMICAMENTE -->
-                            <!-- El JavaScript admin-novedades-php.js creará la sección automáticamente -->
+                            <!-- ✅ IMAGEN DEL ARTÍCULO -->
+                            <div class="uk-width-1-1">
+                                <label class="uk-form-label">Imagen del Artículo</label>
+                                <div id="news-image-uploader"></div>
+                            </div>
 
                             <div class="uk-width-1-1">
                                 <button type="submit" class="uk-button uk-button-primary">
-                                    Publicar artículo
+                                    <span uk-icon="file-edit"></span> Publicar artículo
                                 </button>
                             </div>
                         </form>
@@ -332,6 +341,22 @@ require_once get_template_directory() . '/config.php';
             </ul>
         </div>
     </div>
+
+    <!-- ✅ CARRITO FLOTANTE (Inyectado manualmente) -->
+    <div class="carrito-flotante">
+        <button class="carrito-boton-circular" id="floating-cart-btn" aria-label="Ver carrito de cotización">
+            <span uk-icon="icon: cart; ratio: 1.5" class="texto-blanco"></span>
+            <span class="carrito-badge-contador uk-hidden" id="cart-count-floating">0</span>
+        </button>
+    </div>
+
+    <!-- ✅ WHATSAPP FLOTANTE (Inyectado manualmente) -->
+    <a href="https://wa.me/573153957275" class="whatsapp-flotante" target="_blank" rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp">
+        <div class="whatsapp-boton-circular">
+            <span uk-icon="icon: whatsapp; ratio: 1.5" class="texto-blanco"></span>
+        </div>
+    </a>
 
     <!-- FOOTER -->
     <?php get_template_part('includes/footer'); ?>

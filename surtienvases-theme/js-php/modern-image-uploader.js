@@ -1,14 +1,12 @@
 // ========================================
-// MODERN IMAGE UPLOADER - VERSIÓN DEBUG
-// Para ver qué está devolviendo el servidor
+// MODERN IMAGE UPLOADER - VERSIÓN CORREGIDA
 // ========================================
 
 class ModernImageUploader {
   constructor(options = {}) {
-    this.uploadUrl =
-      options.uploadUrl ||
-      window.location.origin +
-        "/wp-content/themes/surtienvases-theme/upload-handler.php?action=upload";
+    // ✅ CORREGIDO: Obtener URL correcta
+    this.uploadUrl = this.getUploadUrl(options.uploadUrl);
+
     this.entityType = options.entityType || "otro";
     this.entityId = options.entityId || null;
     this.maxFiles = options.maxFiles || 1;
@@ -34,6 +32,42 @@ class ModernImageUploader {
 
     console.log("✅ ModernImageUploader inicializado");
     console.log("🔗 Upload URL:", this.uploadUrl);
+  }
+
+  // ✅ NUEVO: Método para obtener la URL correcta
+  getUploadUrl(customUrl) {
+    // 1. Si se pasó una URL personalizada, usarla
+    if (customUrl) {
+      console.log("📌 Usando URL personalizada:", customUrl);
+      return customUrl;
+    }
+
+    // 2. Intentar usar la variable de WordPress
+    if (
+      typeof surtienvases_vars !== "undefined" &&
+      surtienvases_vars.upload_url
+    ) {
+      console.log("📌 Usando URL de WordPress:", surtienvases_vars.upload_url);
+      return surtienvases_vars.upload_url;
+    }
+
+    // 3. Construir URL usando la ubicación actual (sin parámetros extra)
+    const origin = window.location.origin;
+    const pathname = window.location.pathname;
+
+    // Detectar si estamos en wp-admin o en frontend
+    let basePath = "/wp-content/themes/surtienvases-theme";
+
+    // Si la URL contiene wp-content, extraer la ruta base
+    if (pathname.includes("/wp-content/")) {
+      const parts = pathname.split("/wp-content/");
+      basePath = parts[0] + "/wp-content/themes/surtienvases-theme";
+    }
+
+    const fallbackUrl = origin + basePath + "/upload-handler.php";
+    console.log("📌 Usando URL fallback:", fallbackUrl);
+
+    return fallbackUrl;
   }
 
   init(containerId) {
@@ -300,7 +334,7 @@ class ModernImageUploader {
       }
 
       console.log("📤 Subiendo a:", this.uploadUrl);
-      console.log("📦 FormData:", {
+      console.log("📦 Datos:", {
         file: file.name,
         entity_type: this.entityType,
         entity_id: this.entityId,
@@ -359,12 +393,8 @@ class ModernImageUploader {
       });
 
       xhr.addEventListener("load", () => {
-        console.log("📥 Respuesta HTTP Status:", xhr.status);
-        console.log(
-          "📥 Respuesta Content-Type:",
-          xhr.getResponseHeader("Content-Type")
-        );
-        console.log("📥 Respuesta RAW:", xhr.responseText);
+        console.log("📥 HTTP Status:", xhr.status);
+        console.log("📥 Response:", xhr.responseText.substring(0, 500));
 
         if (xhr.status === 200) {
           try {
@@ -378,41 +408,23 @@ class ModernImageUploader {
             }
           } catch (e) {
             console.error("❌ ERROR AL PARSEAR JSON");
-            console.error(
-              "Texto recibido:",
-              xhr.responseText.substring(0, 500)
-            );
-            console.error("Error de parse:", e);
-
-            // Mostrar en pantalla para debugging
-            alert(
-              "ERROR: El servidor no devolvió JSON válido.\n\nRevisa la consola para ver qué devolvió."
-            );
-
-            reject(
-              new Error(
-                "El servidor no devolvió JSON válido. Verifica la consola."
-              )
-            );
+            console.error("Response:", xhr.responseText);
+            reject(new Error("El servidor no devolvió JSON válido"));
           }
         } else {
-          console.error("❌ HTTP Error:", xhr.status, xhr.statusText);
-          reject(
-            new Error(`Error del servidor: ${xhr.status} ${xhr.statusText}`)
-          );
+          reject(new Error(`Error del servidor: ${xhr.status}`));
         }
       });
 
       xhr.addEventListener("error", () => {
-        console.error("❌ Error de red");
         reject(new Error("Error de red"));
       });
 
       xhr.addEventListener("abort", () => {
-        console.error("❌ Upload cancelado");
         reject(new Error("Upload cancelado"));
       });
 
+      // ✅ CORREGIDO: URL limpia, sin parámetros extra
       xhr.open("POST", this.uploadUrl);
       xhr.send(formData);
     });
@@ -450,8 +462,6 @@ class ModernImageUploader {
         pos: "top-center",
         timeout: 3000,
       });
-    } else {
-      console.log("✅", message);
     }
   }
 
@@ -463,8 +473,6 @@ class ModernImageUploader {
         pos: "top-center",
         timeout: 4000,
       });
-    } else {
-      console.error("❌", message);
     }
   }
 
@@ -485,4 +493,4 @@ class ModernImageUploader {
 }
 
 window.ModernImageUploader = ModernImageUploader;
-console.log("✅ ModernImageUploader DEBUG cargado");
+console.log("✅ ModernImageUploader CORREGIDO cargado");

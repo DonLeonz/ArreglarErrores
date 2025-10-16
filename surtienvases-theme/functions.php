@@ -78,7 +78,7 @@ function surtienvases_enqueue_assets()
     );
 
     // Pasar variables PHP a JavaScript
-    wp_localize_script('surtienvases-cart', 'surtienvases_vars', array(
+    wp_localize_script('modern-image-uploader', 'surtienvases_vars', array(
         'api_url' => $theme_uri . '/api.php',
         'upload_url' => $theme_uri . '/upload-handler.php',
         'theme_url' => $theme_uri,
