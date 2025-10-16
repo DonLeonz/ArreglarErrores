@@ -1,7 +1,6 @@
 -- ========================================
--- BASE DE DATOS SURTIENVASES - COMPLETA
--- Estructura + Datos Iniciales
--- ✅ AVATAR CORREGIDO
+-- BASE DE DATOS SURTIENVASES - ARQUITECTURA RELACIONAL
+-- ✅ CORREGIDO: Foreign Keys, sin campos duplicados
 -- ========================================
 CREATE DATABASE IF NOT EXISTS surtienvases CHARACTER
 SET
@@ -10,10 +9,38 @@ SET
 USE surtienvases;
 
 -- ========================================
--- TABLAS
+-- TABLA: imagenes (SIMPLIFICADA)
 -- ========================================
 CREATE TABLE
-    categorias (
+    IF NOT EXISTS imagenes (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        -- Información del archivo
+        filename VARCHAR(255) NOT NULL,
+        original_filename VARCHAR(255) NOT NULL,
+        filepath VARCHAR(500) NOT NULL,
+        url VARCHAR(500) NOT NULL,
+        -- Metadatos
+        filesize INT NOT NULL COMMENT 'Tamaño en bytes',
+        width INT,
+        height INT,
+        mime_type VARCHAR(50) NOT NULL,
+        -- Tipo de imagen (para saber dónde se usa)
+        entity_type ENUM ('producto', 'noticia', 'categoria', 'otro') DEFAULT 'otro',
+        -- Auditoría
+        uploaded_by VARCHAR(100) DEFAULT 'admin',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        -- Índices
+        INDEX idx_filename (filename),
+        INDEX idx_entity_type (entity_type),
+        INDEX idx_created (created_at)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- ========================================
+-- TABLA: categorias
+-- ========================================
+CREATE TABLE
+    IF NOT EXISTS categorias (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(100) NOT NULL,
         `key` VARCHAR(50) NOT NULL UNIQUE,
@@ -22,8 +49,11 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: industrias
+-- ========================================
 CREATE TABLE
-    industrias (
+    IF NOT EXISTS industrias (
         id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(100) NOT NULL,
         `key` VARCHAR(50) NOT NULL UNIQUE,
@@ -32,8 +62,11 @@ CREATE TABLE
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: productos (SIN CAMPO img, CON FK)
+-- ========================================
 CREATE TABLE
-    productos (
+    IF NOT EXISTS productos (
         id INT PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(255) NOT NULL,
         price VARCHAR(50),
@@ -42,46 +75,68 @@ CREATE TABLE
         category VARCHAR(100),
         industry VARCHAR(100),
         description TEXT,
-        img VARCHAR(500),
+        -- ✅ FOREIGN KEY hacia imagenes
+        imagen_id INT DEFAULT NULL,
         isPopular BOOLEAN DEFAULT FALSE,
         recommendation TEXT,
         minimumOrder VARCHAR(100),
         certification VARCHAR(100),
         stock VARCHAR(50) DEFAULT 'Disponible',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        -- ✅ Relación con imagenes
+        FOREIGN KEY (imagen_id) REFERENCES imagenes (id) ON DELETE SET NULL,
+        INDEX idx_category (category),
+        INDEX idx_industry (industry),
+        INDEX idx_popular (isPopular)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: especificaciones
+-- ========================================
 CREATE TABLE
-    especificaciones (
+    IF NOT EXISTS especificaciones (
         id INT PRIMARY KEY AUTO_INCREMENT,
         producto_id INT NOT NULL,
         specification TEXT NOT NULL,
         FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: beneficios
+-- ========================================
 CREATE TABLE
-    beneficios (
+    IF NOT EXISTS beneficios (
         id INT PRIMARY KEY AUTO_INCREMENT,
         producto_id INT NOT NULL,
         benefit TEXT NOT NULL,
         FOREIGN KEY (producto_id) REFERENCES productos (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: noticias (SIN CAMPO imageUrl, CON FK)
+-- ========================================
 CREATE TABLE
-    noticias (
+    IF NOT EXISTS noticias (
         id INT PRIMARY KEY AUTO_INCREMENT,
         title VARCHAR(255) NOT NULL,
         author VARCHAR(100) DEFAULT 'Usuario Invitado',
         excerpt TEXT NOT NULL,
-        imageUrl VARCHAR(500),
+        -- ✅ FOREIGN KEY hacia imagenes
+        imagen_id INT DEFAULT NULL,
         avatarUrl VARCHAR(500),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        -- ✅ Relación con imagenes
+        FOREIGN KEY (imagen_id) REFERENCES imagenes (id) ON DELETE SET NULL,
+        INDEX idx_created (created_at)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ========================================
+-- TABLA: comentarios
+-- ========================================
 CREATE TABLE
-    comentarios (
+    IF NOT EXISTS comentarios (
         id INT PRIMARY KEY AUTO_INCREMENT,
         noticia_id INT NOT NULL,
         author VARCHAR(100) DEFAULT 'Usuario Invitado',
@@ -118,7 +173,211 @@ VALUES
     ('Industrial', 'industrial', '🏗️');
 
 -- ========================================
--- DATOS INICIALES: Productos (10 productos)
+-- DATOS INICIALES: Imágenes predeterminadas
+-- ========================================
+-- Imágenes para noticias (3 imágenes)
+INSERT INTO
+    imagenes (
+        filename,
+        original_filename,
+        filepath,
+        url,
+        filesize,
+        width,
+        height,
+        mime_type,
+        entity_type
+    )
+VALUES
+    (
+        'surtiNoticia_1.jpg',
+        'surtiNoticia (1).jpg',
+        'assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (1).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (1).jpg',
+        80000,
+        1200,
+        800,
+        'image/jpeg',
+        'noticia'
+    ),
+    (
+        'surtiNoticia_2.jpg',
+        'surtiNoticia (2).jpg',
+        'assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (2).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (2).jpg',
+        85000,
+        1200,
+        800,
+        'image/jpeg',
+        'noticia'
+    ),
+    (
+        'surtiNoticia_3.jpg',
+        'surtiNoticia (3).jpg',
+        'assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (3).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/noticiasPredeterminadas/surtiNoticia (3).jpg',
+        90000,
+        1200,
+        800,
+        'image/jpeg',
+        'noticia'
+    );
+
+-- Imágenes para productos (10 imágenes)
+INSERT INTO
+    imagenes (
+        filename,
+        original_filename,
+        filepath,
+        url,
+        filesize,
+        width,
+        height,
+        mime_type,
+        entity_type
+    )
+VALUES
+    (
+        'surtiProducto_1.jpg',
+        'surtiProducto (1).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (1).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (1).jpg',
+        60000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_2.jpg',
+        'surtiProducto (2).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (2).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (2).jpg',
+        65000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_3.jpg',
+        'surtiProducto (3).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (3).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (3).jpg',
+        70000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_4.jpg',
+        'surtiProducto (4).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (4).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (4).jpg',
+        55000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_5.jpg',
+        'surtiProducto (5).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (5).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (5).jpg',
+        62000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_6.jpg',
+        'surtiProducto (6).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (6).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (6).jpg',
+        58000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_7.jpg',
+        'surtiProducto (7).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (7).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (7).jpg',
+        67000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_8.jpg',
+        'surtiProducto (8).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (8).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (8).jpg',
+        63000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_9.jpg',
+        'surtiProducto (9).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (9).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (9).jpg',
+        69000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    ),
+    (
+        'surtiProducto_10.jpg',
+        'surtiProducto (10).jpg',
+        'assets/img/surtienvases/productosPredeterminados/surtiProducto (10).jpg',
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/productosPredeterminados/surtiProducto (10).jpg',
+        64000,
+        800,
+        800,
+        'image/jpeg',
+        'producto'
+    );
+
+-- ========================================
+-- DATOS INICIALES: Noticias (con avatarUrl completo y vinculadas a imágenes)
+-- ========================================
+INSERT INTO
+    noticias (title, author, excerpt, imagen_id, avatarUrl)
+VALUES
+    (
+        'Cómo Reutilizar Envases Plásticos de Forma Segura',
+        'Equipo SurtiEnvases',
+        'Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.',
+        1,
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/avatars/default.jpg'
+    ),
+    (
+        'Ventajas de los Envases de Vidrio para Alimentos',
+        'Usuario Invitado',
+        'Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.',
+        2,
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/avatars/default.jpg'
+    ),
+    (
+        'Guía Completa: Elegir el Envase Correcto para tu Producto',
+        'Usuario Invitado',
+        'Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.',
+        3,
+        'http://surtienvases.local/wp-content/themes/surtienvases-theme/assets/img/surtienvases/avatars/default.jpg'
+    );
+
+-- ========================================
+-- DATOS INICIALES: Productos (10 productos con imágenes)
 -- ========================================
 INSERT INTO
     productos (
@@ -129,7 +388,7 @@ INSERT INTO
         category,
         industry,
         description,
-        img,
+        imagen_id,
         isPopular,
         recommendation,
         minimumOrder,
@@ -145,7 +404,7 @@ VALUES
         'Envases de Vidrio',
         'Alimentos',
         'Frasco de vidrio transparente ideal para conservas, mermeladas y salsas.',
-        'assets/img/productos/frasco-vidrio-250.jpg',
+        4,
         TRUE,
         'Perfecto para pequeños emprendimientos de conservas artesanales. Incluye tapa twist-off.',
         'Caja x 24 unidades',
@@ -160,7 +419,7 @@ VALUES
         'Envases Plásticos',
         'Bebidas',
         'Botella PET transparente con tapa rosca, ideal para jugos y bebidas.',
-        'assets/img/productos/botella-pet-500.jpg',
+        5,
         TRUE,
         'La opción más económica para envasar bebidas. Excelente claridad y resistencia.',
         'Paquete x 50 unidades',
@@ -175,7 +434,7 @@ VALUES
         'Envases Cosméticos',
         'Cosmética',
         'Tarro de alta calidad con doble pared para cremas y productos cosméticos.',
-        'assets/img/productos/tarro-cosmetico-50.jpg',
+        6,
         FALSE,
         'Diseño elegante que realza la presentación de productos premium.',
         'Caja x 100 unidades',
@@ -190,7 +449,7 @@ VALUES
         'Envases Industriales',
         'Químicos',
         'Galón resistente para productos químicos y de limpieza industrial.',
-        'assets/img/productos/galon-industrial-4l.jpg',
+        7,
         FALSE,
         'Resistente a químicos, ideal para productos de limpieza y desinfectantes.',
         'Paquete x 25 unidades',
@@ -205,7 +464,7 @@ VALUES
         'Envases Farmacéuticos',
         'Farmacéutica',
         'Frasco ámbar que protege de la luz UV, ideal para medicamentos.',
-        'assets/img/productos/frasco-ambar-100.jpg',
+        8,
         TRUE,
         'Cumple todas las normas farmacéuticas. Protección UV garantizada.',
         'Caja x 48 unidades',
@@ -220,7 +479,7 @@ VALUES
         'Tapas y Complementos',
         'Alimentos',
         'Tapa metálica con botón de seguridad para frascos de conserva.',
-        'assets/img/productos/tapa-twist-63.jpg',
+        9,
         FALSE,
         'Compatible con todos nuestros frascos de boca 63mm. Sellado al vacío garantizado.',
         'Bolsa x 100 unidades',
@@ -235,7 +494,7 @@ VALUES
         'Envases Plásticos',
         'Limpieza',
         'Botella con atomizador ajustable para productos de limpieza y jardinería.',
-        'assets/img/productos/botella-spray-250.jpg',
+        10,
         TRUE,
         'Atomizador de alta calidad con múltiples configuraciones de spray.',
         'Paquete x 24 unidades',
@@ -250,7 +509,7 @@ VALUES
         'Envases Farmacéuticos',
         'Farmacéutica',
         'Frasco con gotero de precisión para aceites esenciales y medicamentos.',
-        'assets/img/productos/frasco-gotero-30.jpg',
+        11,
         FALSE,
         'Ideal para aceites esenciales, tinturas y medicamentos líquidos.',
         'Caja x 100 unidades',
@@ -265,7 +524,7 @@ VALUES
         'Envases Plásticos',
         'Alimentos',
         'Contenedor hermético con cierre de seguridad para alimentos.',
-        'assets/img/productos/contenedor-1000.jpg',
+        12,
         TRUE,
         'Sistema de cierre hermético con 4 pestañas. Apto para microondas y congelador.',
         'Caja x 36 unidades',
@@ -280,7 +539,7 @@ VALUES
         'Envases Plásticos',
         'Alimentos',
         'Bolsa tipo doypack con zipper y ventana transparente.',
-        'assets/img/productos/bolsa-standup-500.jpg',
+        13,
         TRUE,
         'Perfecta para café, snacks y productos gourmet. Excelente presentación en góndola.',
         'Paquete x 100 unidades',
@@ -289,7 +548,7 @@ VALUES
     );
 
 -- ========================================
--- ESPECIFICACIONES (Producto ID 1-10)
+-- ESPECIFICACIONES (10 productos completos)
 -- ========================================
 INSERT INTO
     especificaciones (producto_id, specification)
@@ -336,7 +595,7 @@ VALUES
     (10, 'Válvula opcional');
 
 -- ========================================
--- BENEFICIOS (Producto ID 1-10)
+-- BENEFICIOS (10 productos completos)
 -- ========================================
 INSERT INTO
     beneficios (producto_id, benefit)
@@ -381,36 +640,6 @@ VALUES
     (10, 'Barrera de oxígeno'),
     (10, 'Zipper resellable'),
     (10, 'Base estable');
-
--- ========================================
--- DATOS INICIALES: Noticias (3 artículos)
--- ✅ NOTA: avatarUrl se actualizará dinámicamente por JavaScript
--- usando la ruta del tema de WordPress
--- ========================================
-INSERT INTO
-    noticias (title, author, excerpt, imageUrl, avatarUrl)
-VALUES
-    (
-        'Cómo Reutilizar Envases Plásticos de Forma Segura',
-        'Equipo SurtiEnvases',
-        'Aprende las mejores prácticas para darle una segunda vida a tus envases plásticos sin comprometer la seguridad alimentaria.',
-        'assets/img/blog/blog-example1.jpg',
-        NULL
-    ),
-    (
-        'Ventajas de los Envases de Vidrio para Alimentos',
-        'Usuario Invitado',
-        'Descubre por qué el vidrio sigue siendo la mejor opción para conservar alimentos y bebidas manteniendo su calidad.',
-        'assets/img/blog/blog-example2.jpg',
-        NULL
-    ),
-    (
-        'Guía Completa: Elegir el Envase Correcto para tu Producto',
-        'Usuario Invitado',
-        'Factores clave a considerar al seleccionar envases: material, tamaño, certificaciones y compatibilidad con tu producto.',
-        'assets/img/blog/blog-example3.jpg',
-        NULL
-    );
 
 -- ========================================
 -- FIN DEL SCRIPT

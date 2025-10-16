@@ -1,6 +1,5 @@
 // ========================================
-// admin-novedades-php.js - VERSIÓN FINAL
-// Copiado exactamente de admin-productos-php.js
+// ADMIN NOVEDADES - VERSIÓN CORREGIDA CON IMAGEN_ID
 // ========================================
 
 class NovedadesAdminSystemPHP {
@@ -60,7 +59,7 @@ class NovedadesAdminSystemPHP {
       maxWidth: 1200,
       maxHeight: 800,
       onUploadSuccess: (result) => {
-        console.log("✅ Imagen de noticia subida:", result.url);
+        console.log("✅ Imagen de noticia subida:", result);
       },
       onUploadError: (error) => {
         console.error("❌ Error al subir imagen:", error);
@@ -111,7 +110,7 @@ class NovedadesAdminSystemPHP {
     console.log("✓ Formulario configurado");
   }
 
-  // ✅ CORREGIDO - IGUAL QUE PRODUCTOS
+  // ✅ CORREGIDO - Envía imagen_id en lugar de imageUrl
   async handleNewsSubmit() {
     console.log("📝 Procesando formulario de noticia...");
 
@@ -120,13 +119,17 @@ class NovedadesAdminSystemPHP {
       document.getElementById("news-author").value.trim() || "Usuario Invitado";
     const excerpt = document.getElementById("news-excerpt").value.trim();
 
-    // ✅ OBTENER URL DE IMAGEN - EXACTAMENTE IGUAL QUE PRODUCTOS
-    const imageUrlInput = document.getElementById("uploaded-image-url");
-    const imageUrl = imageUrlInput
-      ? imageUrlInput.value
-      : `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
+    // ✅ BUSCAR EL INPUT DENTRO DEL CONTENEDOR ESPECÍFICO DE NOVEDADES
+    const newsUploadContainer = document.getElementById("news-image-uploader");
+    const imageIdInput = newsUploadContainer
+      ? newsUploadContainer.querySelector("#uploaded-image-id")
+      : null;
+    const imagenId =
+      imageIdInput && imageIdInput.value ? parseInt(imageIdInput.value) : null;
 
-    console.log("🖼️ URL de imagen obtenida:", imageUrl);
+    console.log("🖼️ Contenedor encontrado:", newsUploadContainer ? "SÍ" : "NO");
+    console.log("🖼️ Input encontrado:", imageIdInput ? "SÍ" : "NO");
+    console.log("🖼️ ID de imagen obtenido:", imagenId);
 
     if (!title || !excerpt) {
       UIkit.notification({
@@ -137,11 +140,12 @@ class NovedadesAdminSystemPHP {
       return;
     }
 
+    // ✅ Enviar imagen_id (puede ser null si no subió imagen)
     const formData = {
       title: title,
       author: author,
       excerpt: excerpt,
-      imageUrl: imageUrl, // ✅ La URL completa
+      imagen_id: imagenId, // ✅ Campo correcto
       avatarUrl: `${this.themeUrl}/assets/img/surtienvases/avatars/default.jpg`,
     };
 
@@ -220,6 +224,10 @@ class NovedadesAdminSystemPHP {
     const commentsVisible = this.visibleComments[article.id] || false;
     const newsComments = this.comments[article.id] || [];
 
+    // ✅ Usar imageUrl que viene del JOIN en la API
+    const imageUrl =
+      article.imageUrl || `${this.themeUrl}/assets/img/blog/blogDefault.jpg`;
+
     return `
       <div>
         <div class="uk-card uk-card-default uk-card-hover contenedor-redondeado texto-negro uk-position-relative">
@@ -230,7 +238,7 @@ class NovedadesAdminSystemPHP {
           </button>
           
           <div class="uk-card-media-top contenedor-imagen-altura-350">
-            <img src="${article.imageUrl}" alt="${article.title}">
+            <img src="${imageUrl}" alt="${article.title}">
           </div>
           
           <div class="uk-card-body">
@@ -328,31 +336,17 @@ class NovedadesAdminSystemPHP {
   }
 
   deleteArticle(articleId) {
-    console.log("🗑️ Intentando eliminar artículo ID:", articleId);
-
-    if (
-      !window.confirm(
-        "¿Estás seguro de eliminar este artículo? También se eliminarán todos sus comentarios."
-      )
-    ) {
-      console.log("❌ Eliminación cancelada por el usuario");
-      return;
-    }
-
-    console.log("⏳ Eliminando artículo...");
+    if (!window.confirm("¿Estás seguro de eliminar este artículo?")) return;
 
     fetch(`${this.apiUrl}?action=delete_news&id=${articleId}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("📥 Respuesta de eliminación:", data);
-
         if (data.success) {
           UIkit.notification({
             message: "✅ Artículo eliminado exitosamente",
             status: "success",
             pos: "top-center",
           });
-
           this.loadNews().then(() => {
             this.loadAllComments().then(() => {
               this.renderNews();
@@ -368,36 +362,21 @@ class NovedadesAdminSystemPHP {
       })
       .catch((error) => {
         console.error("❌ Error al eliminar:", error);
-        UIkit.notification({
-          message: "❌ Error de red: " + error.message,
-          status: "danger",
-          pos: "top-center",
-        });
       });
   }
 
   deleteComment(commentId, newsId) {
-    console.log("🗑️ Intentando eliminar comentario ID:", commentId);
-
-    if (!window.confirm("¿Estás seguro de eliminar este comentario?")) {
-      console.log("❌ Eliminación cancelada por el usuario");
-      return;
-    }
-
-    console.log("⏳ Eliminando comentario...");
+    if (!window.confirm("¿Estás seguro de eliminar este comentario?")) return;
 
     fetch(`${this.apiUrl}?action=delete_comment&id=${commentId}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("📥 Respuesta de eliminación:", data);
-
         if (data.success) {
           UIkit.notification({
-            message: "✅ Comentario eliminado exitosamente",
+            message: "✅ Comentario eliminado",
             status: "success",
             pos: "top-center",
           });
-
           fetch(`${this.apiUrl}?action=get_comments&news_id=${newsId}`)
             .then((response) => response.json())
             .then((data) => {
@@ -406,21 +385,7 @@ class NovedadesAdminSystemPHP {
                 this.renderNews();
               }
             });
-        } else {
-          UIkit.notification({
-            message: "❌ Error: " + data.error,
-            status: "danger",
-            pos: "top-center",
-          });
         }
-      })
-      .catch((error) => {
-        console.error("❌ Error al eliminar:", error);
-        UIkit.notification({
-          message: "❌ Error de red: " + error.message,
-          status: "danger",
-          pos: "top-center",
-        });
       });
   }
 

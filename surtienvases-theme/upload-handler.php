@@ -1,7 +1,7 @@
 <?php
 /**
  * ========================================
- * UPLOAD HANDLER - CON BASE DE DATOS
+ * UPLOAD HANDLER - CORREGIDO SIN entity_id
  * Guarda archivo físico + registro en tabla imagenes
  * ========================================
  */
@@ -85,9 +85,8 @@ if ($file['size'] > $maxSize) {
     sendJSON(['success' => false, 'error' => 'Archivo muy grande (máximo 10MB)'], 400);
 }
 
-// ✅ PASO 5: Obtener entity_type
+// ✅ PASO 5: Obtener entity_type (ya NO guardamos entity_id)
 $entityType = isset($_POST['entity_type']) ? sanitize_text_field($_POST['entity_type']) : 'otro';
-$entityId = isset($_POST['entity_id']) ? intval($_POST['entity_id']) : null;
 
 // ✅ PASO 6: Generar nombre único
 $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -138,7 +137,7 @@ $fullUrl = $protocol . '://' . $host . $themePath . '/' . $subdir . '/' . $filen
 // Ruta relativa para la BD
 $filepath = 'uploads/' . $subdir . '/' . $filename;
 
-// ✅ PASO 12: Guardar en base de datos usando wpdb
+// ✅ PASO 12: Guardar en base de datos usando wpdb (SIN entity_id)
 global $wpdb;
 
 // Usar la base de datos surtienvases
@@ -150,7 +149,7 @@ if ($surtidb->error) {
     sendJSON(['success' => false, 'error' => 'Error de conexión a base de datos: ' . $surtidb->error], 500);
 }
 
-// Insertar en tabla imagenes
+// ✅ Insertar en tabla imagenes (SIN entity_id)
 $result = $surtidb->insert(
     'imagenes',
     [
@@ -163,7 +162,6 @@ $result = $surtidb->insert(
         'height' => $height,
         'mime_type' => $mimeType,
         'entity_type' => $entityType,
-        'entity_id' => $entityId,
         'uploaded_by' => 'admin'
     ],
     [
@@ -176,7 +174,6 @@ $result = $surtidb->insert(
         '%d', // height
         '%s', // mime_type
         '%s', // entity_type
-        '%d', // entity_id
         '%s'  // uploaded_by
     ]
 );

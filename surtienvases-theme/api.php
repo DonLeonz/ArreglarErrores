@@ -1,7 +1,7 @@
 <?php
 // ========================================
-// API REST - SURTIENVASES
-// Usa la BD surtienvases directamente
+// API REST - SURTIENVASES (CORREGIDA CON JOINS)
+// ✅ Usa imagen_id con FOREIGN KEY
 // ========================================
 
 // Cargar WordPress
@@ -28,18 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// IMPORTANTE: Conectar a la base de datos surtienvases
+// Conexión a BD surtienvases
 global $wpdb;
-
-// Crear una nueva conexión a la base de datos surtienvases
 $surtidb = new wpdb(DB_USER, DB_PASSWORD, 'surtienvases', DB_HOST);
 
-// Verificar conexión
 if ($surtidb->error) {
     errorResponse('Error de conexión a base de datos surtienvases: ' . $surtidb->error);
 }
 
-// NO usar prefijo porque las tablas no tienen prefijo
 $surtidb->prefix = '';
 
 // Funciones helper
@@ -98,79 +94,57 @@ $action = $_GET['action'] ?? '';
 // Enrutador principal
 try {
     switch ($action) {
-        // ========== PRODUCTOS ==========
         case 'get_products':
             getProducts();
             break;
-
         case 'get_product':
             getProduct();
             break;
-
         case 'create_product':
             createProduct();
             break;
-
         case 'update_product':
             updateProduct();
             break;
-
         case 'delete_product':
             deleteProduct();
             break;
-
-        // ========== CATEGORÍAS ==========
         case 'get_categories':
             getCategories();
             break;
-
         case 'create_category':
             createCategory();
             break;
-
         case 'delete_category':
             deleteCategory();
             break;
-
-        // ========== INDUSTRIAS ==========
         case 'get_industries':
             getIndustries();
             break;
-
         case 'create_industry':
             createIndustry();
             break;
-
         case 'delete_industry':
             deleteIndustry();
             break;
-
-        // ========== NOTICIAS ==========
         case 'get_news':
             getNews();
             break;
-
         case 'create_news':
             createNews();
             break;
-
         case 'delete_news':
             deleteNews();
             break;
-
-        // ========== COMENTARIOS ==========
         case 'get_comments':
             getComments();
             break;
-
         case 'create_comment':
             createComment();
             break;
-
         case 'delete_comment':
             deleteComment();
             break;
-
         default:
             errorResponse('Acción no válida', 404);
     }
@@ -179,18 +153,21 @@ try {
 }
 
 // ========================================
-// FUNCIONES DE PRODUCTOS
+// FUNCIONES DE PRODUCTOS (CON JOIN)
 // ========================================
 
 function getProducts()
 {
     global $surtidb;
 
+    // ✅ JOIN con tabla imagenes para obtener la URL
     $query = "
         SELECT p.*, 
+               i.url as img,
                GROUP_CONCAT(DISTINCT e.specification) as specifications,
                GROUP_CONCAT(DISTINCT b.benefit) as benefits
         FROM productos p
+        LEFT JOIN imagenes i ON p.imagen_id = i.id
         LEFT JOIN especificaciones e ON p.id = e.producto_id
         LEFT JOIN beneficios b ON p.id = b.producto_id
         GROUP BY p.id
@@ -203,6 +180,11 @@ function getProducts()
         $product['specifications'] = $product['specifications'] ? explode(',', $product['specifications']) : [];
         $product['benefits'] = $product['benefits'] ? explode(',', $product['benefits']) : [];
         $product['isPopular'] = (bool) $product['isPopular'];
+
+        // ✅ Si no tiene imagen, usar default
+        if (empty($product['img'])) {
+            $product['img'] = 'assets/img/productos/default-product.jpg';
+        }
     }
 
     successResponse($products);
@@ -218,8 +200,14 @@ function getProduct()
         errorResponse('ID de producto requerido');
     }
 
+    // ✅ JOIN con imagenes
     $product = $surtidb->get_row(
-        $surtidb->prepare("SELECT * FROM productos WHERE id = %d", $id),
+        $surtidb->prepare("
+            SELECT p.*, i.url as img
+            FROM productos p
+            LEFT JOIN imagenes i ON p.imagen_id = i.id
+            WHERE p.id = %d
+        ", $id),
         ARRAY_A
     );
 
@@ -241,6 +229,11 @@ function getProduct()
 
     $product['isPopular'] = (bool) $product['isPopular'];
 
+    // ✅ Default image
+    if (empty($product['img'])) {
+        $product['img'] = 'assets/img/productos/default-product.jpg';
+    }
+
     successResponse($product);
 }
 
@@ -255,7 +248,7 @@ function createProduct()
     $surtidb->query('START TRANSACTION');
 
     try {
-        // Insertar producto
+        // ✅ Usar imagen_id en lugar de img
         $result = $surtidb->insert(
             "productos",
             [
@@ -266,7 +259,7 @@ function createProduct()
                 'category' => sanitize($data['category'] ?? ''),
                 'industry' => sanitize($data['industry'] ?? ''),
                 'description' => sanitize($data['description']),
-                'img' => sanitize($data['img'] ?? 'assets/img/productos/default-product.jpg'),
+                'imagen_id' => isset($data['imagen_id']) ? (int) $data['imagen_id'] : null,
                 'isPopular' => isset($data['isPopular']) ? (int) (bool) $data['isPopular'] : 0,
                 'recommendation' => sanitize($data['recommendation'] ?? ''),
                 'minimumOrder' => sanitize($data['minimumOrder'] ?? ''),
@@ -329,7 +322,7 @@ function updateProduct()
     $surtidb->query('START TRANSACTION');
 
     try {
-        // Actualizar producto
+        // ✅ Actualizar con imagen_id
         $surtidb->update(
             "productos",
             [
@@ -340,7 +333,7 @@ function updateProduct()
                 'category' => sanitize($data['category'] ?? ''),
                 'industry' => sanitize($data['industry'] ?? ''),
                 'description' => sanitize($data['description']),
-                'img' => sanitize($data['img'] ?? ''),
+                'imagen_id' => isset($data['imagen_id']) ? (int) $data['imagen_id'] : null,
                 'isPopular' => isset($data['isPopular']) ? (int) (bool) $data['isPopular'] : 0,
                 'recommendation' => sanitize($data['recommendation'] ?? ''),
                 'minimumOrder' => sanitize($data['minimumOrder'] ?? ''),
@@ -407,24 +400,20 @@ function deleteProduct()
 }
 
 // ========================================
-// FUNCIONES DE CATEGORÍAS
+// FUNCIONES DE CATEGORÍAS (sin cambios)
 // ========================================
 
 function getCategories()
 {
     global $surtidb;
-
     $categories = $surtidb->get_results("SELECT * FROM categorias ORDER BY name", ARRAY_A);
-
     successResponse($categories);
 }
 
 function createCategory()
 {
     global $surtidb;
-
     $data = json_decode(file_get_contents('php://input'), true);
-
     validateRequired($data, ['name', 'key']);
 
     $result = $surtidb->insert(
@@ -446,7 +435,6 @@ function createCategory()
 function deleteCategory()
 {
     global $surtidb;
-
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
@@ -463,24 +451,20 @@ function deleteCategory()
 }
 
 // ========================================
-// FUNCIONES DE INDUSTRIAS
+// FUNCIONES DE INDUSTRIAS (sin cambios)
 // ========================================
 
 function getIndustries()
 {
     global $surtidb;
-
     $industries = $surtidb->get_results("SELECT * FROM industrias ORDER BY name", ARRAY_A);
-
     successResponse($industries);
 }
 
 function createIndustry()
 {
     global $surtidb;
-
     $data = json_decode(file_get_contents('php://input'), true);
-
     validateRequired($data, ['name', 'key']);
 
     $result = $surtidb->insert(
@@ -502,7 +486,6 @@ function createIndustry()
 function deleteIndustry()
 {
     global $surtidb;
-
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
@@ -519,14 +502,29 @@ function deleteIndustry()
 }
 
 // ========================================
-// FUNCIONES DE NOTICIAS
+// FUNCIONES DE NOTICIAS (CON JOIN)
 // ========================================
 
 function getNews()
 {
     global $surtidb;
 
-    $news = $surtidb->get_results("SELECT * FROM noticias ORDER BY created_at DESC", ARRAY_A);
+    // ✅ JOIN con tabla imagenes
+    $query = "
+        SELECT n.*, i.url as imageUrl
+        FROM noticias n
+        LEFT JOIN imagenes i ON n.imagen_id = i.id
+        ORDER BY n.created_at DESC
+    ";
+
+    $news = $surtidb->get_results($query, ARRAY_A);
+
+    // ✅ Default image si no tiene
+    foreach ($news as &$article) {
+        if (empty($article['imageUrl'])) {
+            $article['imageUrl'] = 'assets/img/blog/blogDefault.jpg';
+        }
+    }
 
     successResponse($news);
 }
@@ -539,13 +537,14 @@ function createNews()
 
     validateRequired($data, ['title', 'excerpt']);
 
+    // ✅ Usar imagen_id
     $result = $surtidb->insert(
         "noticias",
         [
             'title' => sanitize($data['title']),
             'author' => sanitize($data['author'] ?? 'Usuario Invitado'),
             'excerpt' => sanitize($data['excerpt']),
-            'imageUrl' => sanitize($data['imageUrl'] ?? 'assets/img/blog/blogDefault.jpg'),
+            'imagen_id' => isset($data['imagen_id']) ? (int) $data['imagen_id'] : null,
             'avatarUrl' => sanitize($data['avatarUrl'] ?? 'assets/img/surtienvases/avatars/default.jpg')
         ]
     );
@@ -577,7 +576,7 @@ function deleteNews()
 }
 
 // ========================================
-// FUNCIONES DE COMENTARIOS
+// FUNCIONES DE COMENTARIOS (sin cambios)
 // ========================================
 
 function getComments()

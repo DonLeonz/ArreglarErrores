@@ -1,5 +1,5 @@
 // ========================================
-// ADMIN PRODUCTOS - CON MODERN IMAGE UPLOADER
+// ADMIN PRODUCTOS - CORREGIDO CON IMAGEN_ID
 // ========================================
 
 class ProductAdminPHP {
@@ -8,7 +8,7 @@ class ProductAdminPHP {
     this.products = [];
     this.categories = [];
     this.industries = [];
-    this.imageUploader = null; // Nuevo uploader
+    this.imageUploader = null;
     this.init();
   }
 
@@ -18,32 +18,25 @@ class ProductAdminPHP {
     await this.loadIndustries();
     this.setupForm();
     this.setupDynamicFields();
-    this.setupModernImageUploader(); // ✅ NUEVO
+    this.setupModernImageUploader();
     this.renderProductsList();
     this.populateSelects();
     console.log("✅ Sistema de administración de productos inicializado");
   }
 
-  // ========================================
-  // SETUP MODERN IMAGE UPLOADER
-  // ========================================
   setupModernImageUploader() {
     console.log("🖼️ Configurando Modern Image Uploader...");
 
-    // Verificar que la clase existe
     if (typeof ModernImageUploader === "undefined") {
       console.error("❌ ModernImageUploader no está cargado");
       return;
     }
 
-    // Crear contenedor si no existe
     const formContainer = document.getElementById("admin-product-form");
     if (!formContainer) return;
 
-    // Buscar el contenedor de imagen o crearlo
     let imageSection = formContainer.querySelector(".image-upload-section");
     if (!imageSection) {
-      // Crear sección de imagen antes del botón submit
       const submitSection =
         formContainer.querySelector('[type="submit"]').parentElement;
       imageSection = document.createElement("div");
@@ -56,7 +49,6 @@ class ProductAdminPHP {
       submitSection.parentElement.insertBefore(imageSection, submitSection);
     }
 
-    // Inicializar el uploader moderno
     this.imageUploader = new ModernImageUploader({
       entityType: "producto",
       autoCompress: true,
@@ -64,8 +56,7 @@ class ProductAdminPHP {
       maxWidth: 1200,
       maxHeight: 1200,
       onUploadSuccess: (result) => {
-        console.log("✅ Imagen de producto subida:", result.url);
-        // El URL ya se guarda automáticamente en #uploaded-image-url
+        console.log("✅ Imagen de producto subida:", result);
       },
       onUploadError: (error) => {
         console.error("❌ Error al subir imagen:", error);
@@ -75,10 +66,6 @@ class ProductAdminPHP {
     this.imageUploader.init("product-image-uploader");
     console.log("✅ Modern Image Uploader configurado para productos");
   }
-
-  // ========================================
-  // RESTO DEL CÓDIGO (sin cambios)
-  // ========================================
 
   async loadProducts() {
     try {
@@ -222,11 +209,12 @@ class ProductAdminPHP {
   async handleProductSubmit() {
     console.log("📝 Procesando formulario de producto...");
 
-    // Obtener URL de imagen del uploader moderno
-    const imageUrlInput = document.getElementById("uploaded-image-url");
-    const imageUrl = imageUrlInput
-      ? imageUrlInput.value
-      : "assets/img/productos/default-product.jpg";
+    // ✅ Obtener ID de imagen (no URL)
+    const imageIdInput = document.getElementById("uploaded-image-id");
+    const imagenId =
+      imageIdInput && imageIdInput.value ? parseInt(imageIdInput.value) : null;
+
+    console.log("🖼️ ID de imagen obtenido:", imagenId);
 
     const formData = {
       title: document.getElementById("product-title").value.trim(),
@@ -249,7 +237,7 @@ class ProductAdminPHP {
       isPopular: document.getElementById("product-popular").checked,
       specifications: this.getSpecifications(),
       benefits: this.getBenefits(),
-      img: imageUrl, // ✅ Usar la URL del nuevo uploader
+      imagen_id: imagenId, // ✅ Enviar ID, no URL
     };
 
     console.log("📊 Datos del producto:", formData);
@@ -296,7 +284,6 @@ class ProductAdminPHP {
         document.getElementById("specifications-container").innerHTML = "";
         document.getElementById("benefits-container").innerHTML = "";
 
-        // ✅ Reset del uploader moderno
         if (this.imageUploader) {
           const container = document.getElementById("product-image-uploader");
           this.imageUploader.reset(container);
@@ -442,8 +429,5 @@ class ProductAdminPHP {
   }
 }
 
-// ========================================
-// INICIALIZACIÓN
-// ========================================
 window.productAdminPHP = new ProductAdminPHP();
 console.log("✅ Sistema de administración de productos PHP inicializado");
