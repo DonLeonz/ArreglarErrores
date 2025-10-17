@@ -1,0 +1,227 @@
+/* ========================================
+   MODAL DE LOGIN/REGISTRO - MEJORADO
+   ======================================== */
+
+/* Modal display */
+.login-modal-display {
+  display: block !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Container mejorado */
+.login-modal-container {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.98),
+    rgba(30, 30, 30, 0.98)
+  ) !important;
+  color: #f5f5f5 !important;
+  border: 3px solid rgba(212, 167, 98, 0.5) !important;
+  border-radius: 20px !important;
+  margin: auto !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(10px);
+  animation: modal-appear 0.4s ease;
+  position: relative;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Título del modal */
+.login-modal-container .uk-modal-title {
+  color: #d4a762 !important;
+  text-align: center;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(212, 167, 98, 0.3);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+/* Label de formulario */
+.login-modal-container .uk-form-label {
+  color: #d4a762 !important;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Input fields mejorados */
+.login-modal-input {
+  color: #f5f5f5 !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 2px solid rgba(212, 167, 98, 0.3) !important;
+  padding: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+.login-modal-input::placeholder {
+  color: rgba(245, 245, 245, 0.5) !important;
+}
+
+.login-modal-input:focus {
+  outline: none !important;
+  border-color: #d4a762 !important;
+  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.2) !important;
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Botón principal mejorado */
+.login-modal-container .uk-button-primary {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 12px 24px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-modal-container .uk-button-primary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.login-modal-container .uk-button-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.login-modal-container .uk-button-primary:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 167, 98, 0.5);
+}
+
+/* Botón link mejorado */
+.login-modal-container .uk-button-link {
+  color: #d4a762 !important;
+  transition: all 0.3s ease !important;
+  text-decoration: underline;
+}
+
+.login-modal-container .uk-button-link:hover {
+  color: #f5d98d !important;
+  transform: translateX(3px);
+  display: inline-block;
+}
+
+/* Botón cerrar personalizado (estilo SurtiEnvases) */
+.login-modal-close {
+  position: absolute !important;
+  top: 15px !important;
+  right: 15px !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(212, 167, 98, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 1 !important;
+  padding: 0 !important;
+}
+
+.login-modal-close::before,
+.login-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: #2c1608 !important;
+  border-radius: 2px !important;
+}
+
+.login-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.login-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+.login-modal-close:hover {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5);
+}
+
+/* Modal center position */
+.login-modal-center {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1010 !important;
+  max-width: 450px;
+  width: 90%;
+}
+
+/* Overlay mejorado */
+.login-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(5px);
+  z-index: 1000 !important;
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .login-modal-center {
+    width: 95%;
+    max-width: 100%;
+  }
+
+  .login-modal-container {
+    border-width: 2px !important;
+  }
+
+  .login-modal-close {
+    width: 35px !important;
+    height: 35px !important;
+    top: 10px !important;
+    right: 10px !important;
+  }
+
+  .login-modal-close::before,
+  .login-modal-close::after {
+    width: 16px !important;
+  }
+}

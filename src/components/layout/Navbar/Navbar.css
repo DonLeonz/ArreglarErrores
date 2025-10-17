@@ -1,0 +1,231 @@
+/* ========================================
+   NAVBAR - MEJORADO
+   ======================================== */
+
+/* Contenedor del navbar con gradiente animado */
+.uk-navbar-container {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.1),
+    rgba(94, 43, 22, 0.15)
+  ) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.uk-navbar-container:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(94, 43, 22, 0.2)
+  ) !important;
+}
+
+/* Logo mejorado con animación */
+.uk-navbar-item img {
+  max-width: 200px;
+  height: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  filter: drop-shadow(0 2px 8px rgba(212, 167, 98, 0.3));
+}
+
+.uk-navbar-item a:hover img {
+  transform: scale(1.08) translateY(-3px) !important;
+  filter: drop-shadow(0 6px 16px rgba(212, 167, 98, 0.6));
+}
+
+/* Nombre del usuario con efecto */
+.uk-navbar-item .uk-button-link {
+  transition: all 0.3s ease !important;
+  position: relative;
+}
+
+.uk-navbar-item .uk-button-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4a762, #f5d98d);
+  transition: width 0.3s ease;
+}
+
+.uk-navbar-item .uk-button-link:hover::after {
+  width: 100%;
+}
+
+.uk-navbar-item .uk-button-link:hover {
+  color: #d4a762 !important;
+  transform: translateY(-2px);
+}
+
+/* Botones del navbar mejorados */
+.uk-navbar-center .uk-button,
+.uk-navbar-right .uk-button {
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.uk-navbar-center .uk-button::before,
+.uk-navbar-right .uk-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.uk-navbar-center .uk-button:hover::before,
+.uk-navbar-right .uk-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Botón secundario del navbar */
+.uk-navbar-center .uk-button-secondary,
+.uk-navbar-right .uk-button-secondary {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  border: none !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
+}
+
+.uk-navbar-center .uk-button-secondary:hover,
+.uk-navbar-right .uk-button-secondary:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
+}
+
+/* Botón texto del navbar */
+.uk-navbar-center .uk-button-text,
+.uk-navbar-right .uk-button-text {
+  color: #f5f5f5 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+}
+
+.uk-navbar-center .uk-button-text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4a762, #f5d98d);
+  transition: width 0.3s ease;
+}
+
+.uk-navbar-center .uk-button-text:hover::after {
+  width: 100%;
+}
+
+.uk-navbar-center .uk-button-text:hover {
+  color: #d4a762 !important;
+  transform: translateY(-2px);
+}
+
+/* Indicador de página activa */
+.uk-navbar-center .uk-button.active {
+  color: #d4a762 !important;
+  font-weight: 700 !important;
+}
+
+.uk-navbar-center .uk-button-text.active::after {
+  width: 100% !important;
+  height: 3px !important;
+  box-shadow: 0 2px 8px rgba(212, 167, 98, 0.5) !important;
+}
+
+/* Toggle del navbar mobile mejorado */
+.uk-navbar-toggle {
+  color: #d4a762 !important;
+  transition: all 0.3s ease !important;
+  animation: float 3s ease-in-out infinite;
+}
+
+.uk-navbar-toggle:hover {
+  color: #f5d98d !important;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Offcanvas del menú hamburguesa */
+.uk-offcanvas-bar {
+  background: linear-gradient(
+    180deg,
+    rgba(44, 44, 44, 0.98),
+    rgba(30, 30, 30, 0.98)
+  ) !important;
+  backdrop-filter: blur(10px) !important;
+  border-left: 3px solid #d4a762;
+}
+
+/* Botones del menú móvil mejorados */
+#burger-menu .uk-button {
+  transition: all 0.3s ease !important;
+  border-radius: 8px !important;
+}
+
+#burger-menu .uk-button:hover {
+  transform: translateX(5px);
+  background: rgba(212, 167, 98, 0.1) !important;
+}
+
+#burger-menu .uk-button-secondary {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  box-shadow: 0 3px 10px rgba(212, 167, 98, 0.4);
+}
+
+#burger-menu .uk-button-secondary:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  box-shadow: 0 5px 15px rgba(212, 167, 98, 0.6);
+}
+
+#burger-menu .uk-button-text {
+  color: #f5f5f5 !important;
+}
+
+#burger-menu .uk-button-text:hover {
+  color: #d4a762 !important;
+}
+
+/* Botón cerrar del offcanvas */
+.uk-offcanvas-close {
+  color: #d4a762 !important;
+  transition: all 0.3s ease !important;
+}
+
+.uk-offcanvas-close:hover {
+  color: #f5d98d !important;
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Iconos del navbar animados */
+[data-uk-icon] {
+  transition: all 0.3s ease !important;
+}
+
+.uk-button:hover [data-uk-icon] {
+  transform: scale(1.15);
+}
+
+/* Divisor del menú móvil */
+#burger-menu .uk-divider-icon {
+  border-color: rgba(212, 167, 98, 0.3) !important;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .uk-navbar-item img {
+    max-width: 150px;
+  }
+}

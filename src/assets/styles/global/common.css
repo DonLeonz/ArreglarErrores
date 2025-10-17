@@ -1,0 +1,405 @@
+/* ========================================
+   ESTILOS COMUNES Y UTILIDADES - MEJORADO
+   ======================================== */
+
+/* ========================================
+   VARIABLES CSS
+   ======================================== */
+:root {
+  /* Colores principales */
+  --coffee-golden: #d4a762;
+  --coffee-dark: #2c1608;
+  --coffee-brown: #5e2b16;
+  --coffee-cream: #f5f5f5;
+  --coffee-bg-dark: #1e1e1e;
+  --coffee-bg-secondary: #2c2c2c;
+
+  /* Variaciones */
+  --golden-light: #f5d98d;
+  --golden-dark: #b8935a;
+  --brown-dark: #4a2212;
+
+  /* Transparencias */
+  --golden-transparent: rgba(212, 167, 98, 0.1);
+  --golden-semi: rgba(212, 167, 98, 0.15);
+
+  /* Utilidades */
+  --border-radius-default: 12px;
+  --border-radius-card: 8px;
+  --border-radius-button: 6px;
+  --box-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.2);
+  --box-shadow-hover: 0 10px 30px rgba(212, 167, 98, 0.3);
+  --transition-default: all 0.3s ease;
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-golden {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 167, 98, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(212, 167, 98, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 167, 98, 0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   GRADIENTES DE FONDO
+   ======================================== */
+.bg-gradient-dark {
+  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
+}
+
+.bg-gradient-coffee {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.1),
+    rgba(94, 43, 22, 0.1)
+  ) !important;
+}
+
+.bg-gradient-golden {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+}
+
+.bg-dark-primary {
+  background-color: #1e1e1e !important;
+}
+
+.bg-dark-secondary {
+  background-color: #2c2c2c !important;
+}
+
+/* ========================================
+   COLORES DE TEXTO
+   ======================================== */
+.text-golden {
+  color: #d4a762 !important;
+}
+
+.text-white {
+  color: #f5f5f5 !important;
+}
+
+.text-white-muted {
+  color: rgba(245, 245, 245, 0.8) !important;
+}
+
+.text-white-subtle {
+  color: rgba(245, 245, 245, 0.85) !important;
+}
+
+.text-dark-golden {
+  color: #2c1608 !important;
+}
+
+.text-brown {
+  color: #5e2b16 !important;
+}
+
+/* ========================================
+   TAMAÑOS DE FUENTE
+   ======================================== */
+.text-size-xs {
+  font-size: 0.7rem !important;
+}
+
+.text-size-sm {
+  font-size: 0.85rem !important;
+}
+
+.text-size-md {
+  font-size: 0.9rem !important;
+}
+
+.text-size-base {
+  font-size: 0.95rem !important;
+}
+
+.text-size-lg {
+  font-size: 1rem !important;
+}
+
+.text-size-xl {
+  font-size: 1.2rem !important;
+}
+
+.text-size-2xl {
+  font-size: 2rem !important;
+}
+
+.text-size-3xl {
+  font-size: 2.5rem !important;
+}
+
+/* ========================================
+   ESPACIADOS
+   ======================================== */
+.padding-section {
+  padding: 60px 0 !important;
+}
+
+.padding-card {
+  padding: 20px !important;
+}
+
+.padding-small {
+  padding: 15px !important;
+}
+
+/* ========================================
+   LÍNEAS DE ALTURA
+   ======================================== */
+.line-height-normal {
+  line-height: 1.5 !important;
+}
+
+.line-height-relaxed {
+  line-height: 1.6 !important;
+}
+
+/* ========================================
+   UTILIDADES DE FLEXBOX
+   ======================================== */
+.flex-center-all {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.flex-column-full {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* ========================================
+   BORDES DECORATIVOS
+   ======================================== */
+.border-bottom-golden {
+  border-bottom: 2px solid rgba(212, 167, 98, 0.7) !important;
+}
+
+.border-bottom-golden-subtle {
+  border-bottom: 2px solid #d4a762 !important;
+}
+
+.border-golden-subtle {
+  border: 1px solid rgba(212, 167, 98, 0.1) !important;
+}
+
+.border-left-golden {
+  border-left: 5px solid #d4a762 !important;
+}
+
+/* ========================================
+   LETTER SPACING
+   ======================================== */
+.letter-spacing-sm {
+  letter-spacing: 2px !important;
+}
+
+.letter-spacing-md {
+  letter-spacing: 3px !important;
+}
+
+/* ========================================
+   FONT WEIGHT
+   ======================================== */
+.font-light {
+  font-weight: 300 !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
+
+/* ========================================
+   MÁRGENES
+   ======================================== */
+.margin-bottom-sm {
+  margin-bottom: 10px !important;
+}
+
+.margin-top-lg {
+  margin-top: 40px !important;
+}
+
+/* ========================================
+   ANCHOS
+   ======================================== */
+.width-full {
+  width: 100% !important;
+}
+
+.max-width-container {
+  max-width: 960px !important;
+}
+
+/* ========================================
+   HEIGHTS
+   ======================================== */
+.height-full {
+  height: 100% !important;
+}
+
+.min-height-card {
+  min-height: 350px !important;
+}
+
+.min-height-card-team {
+  min-height: 450px !important;
+}
+
+/* ========================================
+   Z-INDEX
+   ======================================== */
+.z-10 {
+  z-index: 10 !important;
+}
+
+/* ========================================
+   OVERFLOW
+   ======================================== */
+.overflow-hidden-rounded {
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+/* ========================================
+   TRANSICIONES Y ANIMACIONES
+   ======================================== */
+.transition-smooth {
+  transition: var(--transition-smooth) !important;
+}
+
+.transition-default {
+  transition: var(--transition-default) !important;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* ========================================
+   SOMBRAS
+   ======================================== */
+.shadow-card {
+  box-shadow: var(--box-shadow-card) !important;
+}
+
+.shadow-hover {
+  box-shadow: var(--box-shadow-hover) !important;
+}
+
+/* ========================================
+   BACKGROUNDS FIJOS
+   ======================================== */
+.bg-fixed {
+  background-attachment: fixed !important;
+}
+
+/* ========================================
+   NÚMEROS GRANDES (ESTADÍSTICAS)
+   ======================================== */
+.stat-number {
+  font-size: 2.5rem !important;
+  font-weight: bold !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* ========================================
+   TÍTULOS DE SECCIÓN
+   ======================================== */
+.section-title {
+  color: var(--coffee-golden) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+  position: relative !important;
+  padding-bottom: 15px !important;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coffee-golden), var(--coffee-brown));
+}
+
+/* ========================================
+   ICONOS ANIMADOS
+   ======================================== */
+.icon-golden {
+  color: var(--coffee-golden) !important;
+}
+
+.icon-animated {
+  transition: var(--transition-default);
+}
+
+.icon-animated:hover {
+  color: var(--golden-light) !important;
+  transform: scale(1.1) translateY(-2px);
+}
+
+/* ========================================
+   POSICIONES
+   ======================================== */
+.position-center-right {
+  max-width: 50% !important;
+  padding: 20px !important;
+}
+
+.position-relative {
+  position: relative !important;
+}

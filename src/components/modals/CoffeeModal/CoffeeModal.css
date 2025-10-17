@@ -1,0 +1,59 @@
+/* src/components/modals/CoffeeModal/CoffeeModal.css */
+
+/* Modal específico de Coffee */
+.coffee-modal-body {
+  background-color: #2c2c2c !important;
+  border-radius: 8px !important;
+}
+
+.coffee-modal-close {
+  color: #d4a762 !important;
+}
+
+.coffee-modal-close:hover {
+  color: #f5d98d !important;
+}
+
+.coffee-modal-image-container {
+  width: 300px !important;
+  height: 300px !important;
+  border: 3px solid #d4a762 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+
+.coffee-modal-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+.coffee-modal-title {
+  color: #d4a762 !important;
+  border-bottom: 1px solid rgba(212, 167, 98, 0.3) !important;
+  padding-bottom: 10px !important;
+}
+
+.coffee-modal-section-title {
+  color: #f5f5f5 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 15px !important;
+}
+
+.coffee-modal-list {
+  color: rgba(245, 245, 245, 0.8) !important;
+}
+
+.coffee-modal-text {
+  color: rgba(245, 245, 245, 0.8) !important;
+  line-height: 1.6 !important;
+}
+
+.coffee-modal-label {
+  background-color: rgba(212, 167, 98, 0.15) !important;
+  color: #d4a762 !important;
+  font-size: 0.9rem !important;
+  padding: 5px 10px !important;
+}

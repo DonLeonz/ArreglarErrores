@@ -1,0 +1,23 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/mangadex/:path*",
+            "destination": "https://api.mangadex.org/:path*"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/api/mangadex/:path*",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                },
+                {
+                    "key": "Access-Control-Allow-Methods",
+                    "value": "GET, OPTIONS"
+                }
+            ]
+        }
+    ]
+}

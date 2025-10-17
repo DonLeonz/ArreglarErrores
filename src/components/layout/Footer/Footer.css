@@ -1,0 +1,271 @@
+/* ========================================
+   FOOTER - ESTILO SURTIENVASES ADAPTADO
+   ======================================== */
+
+.footer-container {
+  background: linear-gradient(to bottom, #2c2c2c, #1e1e1e) !important;
+  width: 100% !important;
+  z-index: 10 !important;
+  position: relative;
+  border-top: 3px solid rgba(212, 167, 98, 0.3);
+  transition: all 0.3s ease;
+}
+
+.footer-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(212, 167, 98, 0.05),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ========================================
+   LOGO DEL FOOTER
+   ======================================== */
+.footer-logo {
+  max-width: 180px;
+  transition: all 0.4s ease !important;
+  filter: drop-shadow(0 2px 8px rgba(212, 167, 98, 0.3));
+}
+
+.footer-logo:hover {
+  transform: scale(1.08) translateY(-3px) !important;
+  filter: drop-shadow(0 6px 16px rgba(212, 167, 98, 0.6));
+}
+
+/* ========================================
+   TÍTULOS Y TEXTO
+   ======================================== */
+.footer-title {
+  color: #d4a762 !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+  font-size: 1.1rem;
+  border-bottom: 2px solid rgba(212, 167, 98, 0.3);
+  padding-bottom: 8px;
+}
+
+.footer-text {
+  color: rgba(245, 245, 245, 0.8) !important;
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+.footer-text:hover {
+  color: rgba(245, 245, 245, 1) !important;
+}
+
+/* ========================================
+   LISTA Y ENLACES
+   ======================================== */
+.footer-list {
+  border-color: rgba(212, 167, 98, 0.1) !important;
+}
+
+.footer-link {
+  color: rgba(245, 245, 245, 0.8) !important;
+  transition: all 0.3s ease !important;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: #d4a762 !important;
+  transform: translateX(5px);
+  text-decoration: none;
+}
+
+/* ========================================
+   ICONOS INLINE
+   ======================================== */
+.footer-icon-inline {
+  color: #d4a762 !important;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ========================================
+   ICONOS DE REDES SOCIALES - CON COLORES ESPECÍFICOS
+   ======================================== */
+.footer-social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Estilos base para todos los iconos */
+.footer-container .uk-icon-button {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.2),
+    rgba(94, 43, 22, 0.2)
+  ) !important;
+  color: #d4a762 !important;
+  border: 2px solid rgba(212, 167, 98, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+}
+
+.footer-container .uk-icon-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+}
+
+.footer-container .uk-icon-button:hover::before {
+  width: 100px;
+  height: 100px;
+}
+
+.footer-container .uk-icon-button [data-uk-icon] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Facebook - Azul #1877f2 */
+.footer-icon-facebook:hover {
+  background: linear-gradient(135deg, #1877f2, #145dbf) !important;
+  color: white !important;
+  transform: translateY(-5px) scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.5);
+  border-color: #1877f2 !important;
+}
+
+/* Instagram - Gradiente multicolor */
+.footer-icon-instagram:hover {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  ) !important;
+  color: white !important;
+  transform: translateY(-5px) scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 20px rgba(188, 24, 136, 0.5);
+  border-color: transparent !important;
+}
+
+/* YouTube - Rojo #ff0000 */
+.footer-icon-youtube:hover {
+  background: linear-gradient(135deg, #ff0000, #cc0000) !important;
+  color: white !important;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.5);
+  border-color: #ff0000 !important;
+}
+
+/* Twitter/X - Celeste #1da1f2 */
+.footer-icon-twitter:hover {
+  background: linear-gradient(135deg, #1da1f2, #1a8cd8) !important;
+  color: white !important;
+  transform: translateY(-5px) scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(29, 161, 242, 0.5);
+  border-color: #1da1f2 !important;
+}
+
+/* LinkedIn - Azul profesional #0077b5 */
+.footer-icon-linkedin:hover {
+  background: linear-gradient(135deg, #0077b5, #005e93) !important;
+  color: white !important;
+  transform: translateY(-5px) scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 20px rgba(0, 119, 181, 0.5);
+  border-color: #0077b5 !important;
+}
+
+/* Animación de icono al hover */
+.footer-container .uk-icon-button:hover [data-uk-icon] {
+  animation: icon-bounce 0.6s ease;
+}
+
+@keyframes icon-bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* ========================================
+   DIVISOR
+   ======================================== */
+.footer-divisor {
+  margin: 2rem 0 !important;
+  border-color: rgba(212, 167, 98, 0.2) !important;
+}
+
+/* ========================================
+   COPYRIGHT
+   ======================================== */
+.footer-copyright {
+  color: rgba(245, 245, 245, 0.6) !important;
+}
+
+.footer-copyright p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 960px) {
+  .footer-logo {
+    max-width: 150px;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .footer-social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-container .uk-container > .uk-grid {
+    text-align: center;
+  }
+
+  .footer-logo {
+    max-width: 140px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .footer-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-social-icons {
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  .footer-container .uk-icon-button {
+    width: 36px;
+    height: 36px;
+  }
+}

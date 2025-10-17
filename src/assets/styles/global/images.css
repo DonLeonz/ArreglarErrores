@@ -1,0 +1,159 @@
+/* ========================================
+   IMÁGENES REUTILIZABLES - MEJORADO
+   ======================================== */
+
+/* Imagen circular con borde dorado mejorado */
+.img-circle-golden {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 80px !important;
+  border: 3px solid #d4a762 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.img-circle-golden:hover {
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 8px 20px rgba(212, 167, 98, 0.5) !important;
+  border-color: #f5d98d !important;
+}
+
+/* Imagen circular grande con borde dorado */
+.img-circle-golden-large {
+  width: 220px !important;
+  height: 220px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  border: 4px solid #d4a762 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.img-circle-golden-large:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(212, 167, 98, 0.5) !important;
+  border-color: #f5d98d !important;
+}
+
+/* Imagen circular extra grande para modales */
+.img-circle-golden-xl {
+  width: 300px !important;
+  height: 300px !important;
+  border: 4px solid #d4a762 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.img-circle-golden-xl:hover {
+  box-shadow: 0 12px 30px rgba(212, 167, 98, 0.6) !important;
+}
+
+/* Imagen de cover para cards */
+.img-cover {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform 0.4s ease !important;
+}
+
+/* Contenedor de imagen circular */
+.img-circle-container {
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+/* Efecto hover para imágenes en cards */
+.img-hover-zoom {
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+.img-hover-zoom img {
+  transition: transform 0.4s ease !important;
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.1);
+}
+
+/* Overlay para imágenes */
+.img-overlay-golden {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-overlay-golden::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.3),
+    rgba(94, 43, 22, 0.3)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.img-overlay-golden:hover::after {
+  opacity: 1;
+}
+
+/* Imagen con sombra dorada */
+.img-shadow-golden {
+  box-shadow: 0 4px 15px rgba(212, 167, 98, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.img-shadow-golden:hover {
+  box-shadow: 0 8px 25px rgba(212, 167, 98, 0.5) !important;
+}
+
+/* Contenedor de imagen con altura fija */
+.img-container-fixed {
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.05),
+    rgba(94, 43, 22, 0.05)
+  );
+}
+
+.img-container-fixed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.img-container-fixed:hover img {
+  transform: scale(1.05);
+}
+
+/* Imagen de logo mejorada */
+.img-logo {
+  max-width: 200px;
+  height: auto;
+  transition: all 0.3s ease !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.img-logo:hover {
+  transform: scale(1.05) translateY(-3px) !important;
+  filter: drop-shadow(0 6px 12px rgba(212, 167, 98, 0.5));
+}

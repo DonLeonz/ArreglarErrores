@@ -1,0 +1,366 @@
+/* ========================================
+   CARDS REUTILIZABLES - MEJORADO
+   ======================================== */
+
+/* ========================================
+   CARD OSCURA BASE
+   ======================================== */
+.card-dark {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border-radius: 12px !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card-dark:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ========================================
+   CARD OSCURA CON BORDE DORADO
+   ======================================== */
+.card-dark-bordered {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-dark-bordered::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #d4a762, #b8935a, #d4a762);
+  background-size: 200% 200%;
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.card-dark-bordered:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
+  border-color: #d4a762 !important;
+}
+
+.card-dark-bordered:hover::before {
+  opacity: 0.3;
+}
+
+/* ========================================
+   CARD REDONDEADA GRANDE
+   ======================================== */
+.card-rounded-large {
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.card-rounded-large:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ========================================
+   CARD DE PRODUCTO DEL MENÚ
+   ======================================== */
+.card-menu-item {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card-menu-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
+  border-color: #d4a762 !important;
+}
+
+/* ========================================
+   CARD HOVER CON SHADOW GRANDE
+   ======================================== */
+.card-hover-shadow:hover {
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
+  transform: translateY(-5px);
+}
+
+/* ========================================
+   CARD DE MANGA/API
+   ======================================== */
+.card-manga {
+  height: 100% !important;
+  transition: all 0.3s ease !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 2px solid rgba(212, 167, 98, 0.1) !important;
+}
+
+.card-manga:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.3) !important;
+  border-color: rgba(212, 167, 98, 0.5) !important;
+}
+
+.card-manga-image-container {
+  height: 350px !important;
+  overflow: hidden !important;
+  position: relative;
+}
+
+.card-manga-image-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.2),
+    rgba(94, 43, 22, 0.2)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-manga:hover .card-manga-image-container::after {
+  opacity: 1;
+}
+
+.card-manga-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+  transition: transform 0.4s ease !important;
+}
+
+.card-manga:hover .card-manga-image {
+  transform: scale(1.1);
+}
+
+.card-manga-body {
+  flex-grow: 1 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  transition: all 0.3s ease;
+}
+
+.card-manga:hover .card-manga-body {
+  background: linear-gradient(
+    135deg,
+    rgba(50, 50, 50, 0.95),
+    rgba(35, 35, 35, 0.95)
+  ) !important;
+}
+
+/* ========================================
+   CARD DEL EQUIPO EN NOSOTROS
+   ======================================== */
+.card-team-member {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  height: 100% !important;
+  min-height: 450px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: all 0.4s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+}
+
+.card-team-member:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(212, 167, 98, 0.5) !important;
+  border-color: #d4a762 !important;
+}
+
+.card-team-image {
+  width: 100% !important;
+  height: 250px !important;
+  object-fit: cover !important;
+  transition: transform 0.4s ease !important;
+}
+
+.card-team-member:hover .card-team-image {
+  transform: scale(1.15);
+}
+
+.card-team-body {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  flex-grow: 1;
+  padding: 25px !important;
+  transition: all 0.3s ease;
+}
+
+.card-team-member:hover .card-team-body {
+  background: linear-gradient(
+    135deg,
+    rgba(50, 50, 50, 0.95),
+    rgba(35, 35, 35, 0.95)
+  ) !important;
+}
+
+/* ========================================
+   TÍTULOS DE CARDS
+   ======================================== */
+.card-title-white {
+  color: #f5f5f5 !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+}
+
+.card-dark:hover .card-title-white,
+.card-dark-bordered:hover .card-title-white {
+  color: #d4a762 !important;
+  transform: translateX(3px);
+}
+
+.card-title-golden {
+  color: #d4a762 !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+}
+
+.card-dark:hover .card-title-golden,
+.card-dark-bordered:hover .card-title-golden {
+  color: #f5d98d !important;
+  transform: translateX(3px);
+}
+
+/* ========================================
+   DESCRIPCIÓN DE CARD
+   ======================================== */
+.card-description {
+  color: rgba(245, 245, 245, 0.85) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  transition: all 0.3s ease;
+}
+
+.card-dark:hover .card-description,
+.card-dark-bordered:hover .card-description {
+  color: rgba(245, 245, 245, 1) !important;
+}
+
+/* ========================================
+   EFECTOS ADICIONALES
+   ======================================== */
+
+/* Efecto de brillo en cards */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(212, 167, 98, 0.1) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s;
+  pointer-events: none;
+}
+
+.card-shine:hover::after {
+  left: 100%;
+}
+
+/* Borde animado en hover */
+.card-animated-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-animated-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #d4a762, #b8935a, #d4a762, #b8935a);
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.card-animated-border:hover::before {
+  opacity: 1;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 960px) {
+  .card-team-member {
+    min-height: auto;
+  }
+
+  .card-team-image {
+    height: 200px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-dark,
+  .card-dark-bordered,
+  .card-menu-item {
+    padding: 15px !important;
+  }
+
+  .card-team-member {
+    min-height: auto;
+  }
+
+  .card-team-image {
+    height: 180px !important;
+  }
+}
