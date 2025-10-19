@@ -1,13 +1,9 @@
 /* ========================================
-   PÁGINA BLOG
+   PÁGINA BLOG - COLORES INVERTIDOS Y MEJORADO
    ======================================== */
 
-.color-text-black {
-  color: black !important;
-}
-
 .blog-background {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(../../assets/img/blog/blog-background.jpg) !important;
   background-size: cover;
   background-position: center;
@@ -22,129 +18,213 @@
   overflow: hidden !important;
 }
 
-/* Modal de login */
-.blog-login-display {
-  display: block !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-.blog-login-container {
-  background: white !important;
-  color: black !important;
-  border-radius: 20px !important;
-  margin: auto !important;
-}
-
-.blog-login-input {
-  color: black !important;
-  border-radius: 10px !important;
-  background-color: #e7e3e3 !important;
-  padding: 8px !important;
-  border: 1px solid #ccc !important;
-}
-
-/* Contenedor de imagen del blog */
-.blog-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.blog-image-container {
-  height: 350px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-/* Botón de imagen sin estilos */
-.blog-image-button {
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  cursor: pointer !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Espaciado del formulario */
+/* ========================================
+   FORMULARIO DE BLOG
+   ======================================== */
 .blog-form-spacing {
   margin-top: 80px;
+  animation: slide-up 0.6s ease;
 }
 
-/* Card del blog */
-.blog-card {
-  background-color: white !important;
-}
-
-/* Estilos para los comentarios */
-.blog-comment-textarea {
-  color: black !important;
-  border-radius: 10px !important;
-  background-color: #e7e3e3 !important;
-  padding: 8px !important;
-  border: 1px solid #ccc !important;
-}
-
-/* Botones del blog */
-.blog-button-secondary {
-  background-color: #222 !important;
-  color: white !important;
+/* Card del formulario con colores invertidos */
+.blog-form-card {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border: 2px solid rgba(212, 167, 98, 0.3) !important;
   border-radius: 12px !important;
+  padding: 25px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  transition: all 0.3s ease !important;
 }
 
-.blog-button-primary {
-  background-color: #1e87f0 !important;
-  color: white !important;
-  border-radius: 12px !important;
+.blog-form-card:hover {
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.3) !important;
+  transform: translateY(-3px);
+  border-color: rgba(212, 167, 98, 0.5) !important;
 }
 
-/* Centrar el modal */
-.blog-modal-center {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: 1010 !important;
+.blog-form-card h3 {
+  color: #d4a762 !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+  border-bottom: 2px solid rgba(212, 167, 98, 0.3);
+  padding-bottom: 10px;
 }
 
-/* Estilo del botón de cerrar */
-.blog-modal-close {
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  color: black !important;
-  background: none !important;
-  border: none !important;
-  font-size: 1.5rem !important;
-  cursor: pointer !important;
-  z-index: 1 !important;
+/* Inputs del formulario mejorados */
+.blog-login-input {
+  color: #f5f5f5 !important;
+  border-radius: 8px !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  padding: 10px !important;
+  border: 2px solid rgba(212, 167, 98, 0.3) !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Input del formulario del blog */
-.blog-form-input {
-  width: 100% !important;
+.blog-login-input::placeholder {
+  color: rgba(245, 245, 245, 0.5) !important;
+}
+
+.blog-login-input:focus {
+  border-color: #d4a762 !important;
+  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.2) !important;
+  transform: scale(1.01);
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* ========================================
-   MEJORAS PARA BLOG
+   MODERN IMAGE UPLOADER PARA BLOG
    ======================================== */
+.blog-uploader {
+  width: 100%;
+  margin: 1rem 0;
+}
 
-/* Mejorar la card del blog con hovers */
+.blog-upload-zone {
+  border: 3px dashed #d4a762;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.05),
+    rgba(94, 43, 22, 0.05)
+  );
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+
+.blog-upload-zone:hover {
+  border-color: #f5d98d;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.1),
+    rgba(94, 43, 22, 0.1)
+  );
+  transform: translateY(-3px);
+}
+
+.blog-upload-zone.drag-over {
+  border-color: #b8935a;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(94, 43, 22, 0.15)
+  );
+  transform: scale(1.02);
+}
+
+.blog-upload-icon {
+  color: #d4a762;
+  margin-bottom: 1rem;
+}
+
+.blog-upload-title {
+  color: #d4a762;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0.5rem 0;
+}
+
+.blog-upload-subtitle {
+  color: rgba(245, 245, 245, 0.7);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.blog-upload-info {
+  color: rgba(245, 245, 245, 0.6);
+  font-size: 0.85rem;
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.blog-preview-image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin: 0 auto;
+  border: 3px solid #d4a762;
+}
+
+.blog-preview-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.blog-preview-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.9);
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.blog-preview-remove::before,
+.blog-preview-remove::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+}
+
+.blog-preview-remove::before {
+  transform: rotate(45deg);
+}
+
+.blog-preview-remove::after {
+  transform: rotate(-45deg);
+}
+
+.blog-preview-remove:hover {
+  background: rgba(185, 28, 28, 1);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.6);
+}
+
+/* ========================================
+   CARDS DEL BLOG - COLORES INVERTIDOS
+   ======================================== */
 .blog-card {
-  background-color: white !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
   border-radius: 12px !important;
   overflow: hidden !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  color: #f5f5f5 !important;
 }
 
 .blog-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
+  border-color: rgba(212, 167, 98, 0.5) !important;
 }
 
 /* Contenedor de imagen mejorado */
@@ -156,6 +236,7 @@
   align-items: center;
   position: relative;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .blog-image-container::after {
@@ -167,14 +248,30 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0.1)
+    rgba(212, 167, 98, 0.2),
+    rgba(94, 43, 22, 0.2)
   );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .blog-image-container:hover::after {
+  opacity: 1;
+}
+
+.blog-image-container::before {
+  content: "🔍";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.blog-image-container:hover::before {
   opacity: 1;
 }
 
@@ -189,7 +286,7 @@
   transform: scale(1.1);
 }
 
-/* Botón de imagen mejorado */
+/* Botón de imagen sin estilos */
 .blog-image-button {
   border: none !important;
   background: transparent !important;
@@ -197,120 +294,29 @@
   cursor: pointer !important;
   width: 100% !important;
   height: 100% !important;
-  position: relative;
+  display: block !important;
 }
 
-.blog-image-button::before {
-  content: "🔍";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.blog-image-button:hover::before {
-  opacity: 1;
-}
-
-/* Formulario de blog mejorado */
-.blog-form-spacing {
-  margin-top: 80px;
-  animation: slide-up 0.6s ease;
-}
-
-/* Card del formulario */
-.blog-container-round {
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s ease !important;
-}
-
-.blog-container-round:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-  transform: translateY(-3px);
-}
-
-/* Inputs mejorados */
-.blog-login-input {
-  color: black !important;
-  border-radius: 10px !important;
-  background-color: #e7e3e3 !important;
-  padding: 8px !important;
-  border: 1px solid #ccc !important;
-  transition: all 0.3s ease !important;
-}
-
-.blog-login-input:focus {
-  border-color: #1e87f0 !important;
-  box-shadow: 0 0 0 3px rgba(30, 135, 240, 0.1) !important;
-  transform: scale(1.01);
-}
-
-/* Botones mejorados */
-.blog-button-secondary {
-  background-color: #222 !important;
-  color: white !important;
-  border-radius: 12px !important;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
-}
-
-.blog-button-secondary::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
-}
-
-.blog-button-secondary:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
-.blog-button-secondary:hover {
-  background-color: #333 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.blog-button-primary {
-  background-color: #1e87f0 !important;
-  color: white !important;
-  border-radius: 12px !important;
-  transition: all 0.3s ease !important;
-}
-
-.blog-button-primary:hover {
-  background-color: #1670d6 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(30, 135, 240, 0.3);
-}
-
-/* Título del blog mejorado */
+/* Título del blog */
 .blog-card .uk-card-title {
-  color: #222 !important;
+  color: #d4a762 !important;
   font-weight: 700 !important;
   transition: all 0.3s ease;
+  margin-bottom: 10px !important;
 }
 
 .blog-card:hover .uk-card-title {
-  color: #1e87f0 !important;
+  color: #f5d98d !important;
   transform: translateX(5px);
 }
 
-/* Sección de autor mejorada */
+/* Texto del blog */
+.blog-card p {
+  color: rgba(245, 245, 245, 0.85) !important;
+  line-height: 1.6 !important;
+}
+
+/* Sección de autor */
 .blog-card .uk-flex.uk-flex-middle {
   transition: all 0.3s ease;
 }
@@ -321,32 +327,172 @@
 
 .blog-card .uk-border-circle {
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 2px solid #d4a762;
 }
 
 .blog-card:hover .uk-border-circle {
   transform: scale(1.1);
-  border-color: #1e87f0;
-  box-shadow: 0 4px 12px rgba(30, 135, 240, 0.3);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5);
+  border-color: #f5d98d;
 }
 
-/* Sección de comentarios mejorada */
+.blog-card .uk-flex span {
+  color: rgba(245, 245, 245, 0.9) !important;
+}
+
+/* ========================================
+   BOTONES DEL BLOG - TEXTO NEGRO
+   ======================================== */
+.blog-button-secondary,
+.uk-button-primary.blog-button-comment {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  border-radius: 12px !important;
+  border: none !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-button-secondary::before,
+.uk-button-primary.blog-button-comment::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.blog-button-secondary:hover::before,
+.uk-button-primary.blog-button-comment:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.blog-button-secondary:hover,
+.uk-button-primary.blog-button-comment:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5);
+  color: #2c1608 !important;
+}
+
+/* ========================================
+   SECCIÓN DE COMENTARIOS
+   ======================================== */
 .uk-comment {
   transition: all 0.3s ease;
   padding: 15px;
   border-radius: 8px;
+  background: rgba(212, 167, 98, 0.05);
+  margin-top: 15px !important;
+  border-left: 3px solid #d4a762;
 }
 
 .uk-comment:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(212, 167, 98, 0.1);
   transform: translateX(5px);
 }
 
-/* Animación de entrada para los blogs */
-@keyframes blog-fade-in {
+.uk-comment-title {
+  color: #d4a762 !important;
+}
+
+.uk-comment-meta span {
+  color: rgba(245, 245, 245, 0.7) !important;
+}
+
+.uk-comment-body p {
+  color: rgba(245, 245, 245, 0.85) !important;
+}
+
+/* ========================================
+   BOTONES DE CERRAR MODALES - ESTILO SURTIENVASES
+   ======================================== */
+.blog-image-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(212, 167, 98, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+}
+
+.blog-image-modal-close::before,
+.blog-image-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 20px !important;
+  height: 3px !important;
+  background: #2c1608 !important;
+  border-radius: 2px !important;
+}
+
+.blog-image-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.blog-image-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+.blog-image-modal-close:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 640px) {
+  .blog-form-card {
+    padding: 20px !important;
+  }
+
+  .blog-upload-zone {
+    min-height: 200px;
+    padding: 1.5rem;
+  }
+
+  .blog-upload-title {
+    font-size: 1.1rem;
+  }
+
+  .blog-image-container {
+    height: 250px;
+  }
+
+  .blog-image-modal-close {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .blog-image-modal-close::before,
+  .blog-image-modal-close::after {
+    width: 18px !important;
+  }
+}
+
+@keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -354,17 +500,7 @@
   }
 }
 
-.blog-card {
-  animation: blog-fade-in 0.6s ease forwards;
-}
-
-/* Modal de imagen mejorado */
-.uk-modal-dialog img {
-  border-radius: 8px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-.uk-modal-dialog img:hover {
-  transform: scale(1.02);
+/* Color de texto negro para elementos antiguos que no se actualizaron */
+.color-text-black {
+  color: #f5f5f5 !important;
 }

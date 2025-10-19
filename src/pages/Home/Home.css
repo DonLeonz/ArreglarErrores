@@ -1,5 +1,5 @@
 /* ========================================
-   PÁGINA HOME - MEJORADO
+   PÁGINA HOME - HERO SECTION COMPLETAMENTE ARREGLADO
    ======================================== */
 
 /* ========================================
@@ -8,6 +8,10 @@
 .hero-section {
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
 }
 
 .hero-overlay {
@@ -27,11 +31,17 @@
 .hero-content {
   position: relative;
   z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5%;
 }
 
 .home-hero-container {
-  max-width: 50% !important;
-  padding: 30px !important;
+  max-width: 550px !important;
+  width: 100%;
+  padding: 40px !important;
   background: linear-gradient(
     135deg,
     rgba(30, 30, 30, 0.95),
@@ -54,6 +64,8 @@
   font-weight: 700 !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px !important;
+  font-size: 2.5rem !important;
+  line-height: 1.2 !important;
 }
 
 .hero-description {
@@ -61,10 +73,26 @@
   border-left: 3px solid #d4a762;
   border-radius: 8px !important;
   color: #f5f5f5 !important;
+  padding: 20px !important;
+  margin-bottom: 25px !important;
+  line-height: 1.6 !important;
+}
+
+.hero-description p {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
 }
 
 .hero-buttons {
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.hero-buttons .uk-button {
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
 
 /* ========================================
@@ -82,6 +110,10 @@
   padding: 30px 20px !important;
   transition: all 0.3s ease !important;
   min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .feature-card:hover {
@@ -176,23 +208,121 @@
 /* ========================================
    RESPONSIVE
    ======================================== */
-@media (max-width: 960px) {
+
+/* Tablets grandes y escritorios pequeños */
+@media (max-width: 1200px) {
   .home-hero-container {
-    max-width: 80% !important;
+    max-width: 500px !important;
+    padding: 35px !important;
+  }
+
+  .hero-title {
+    font-size: 2.2rem !important;
+  }
+
+  .hero-content {
+    padding-right: 3%;
+  }
+}
+
+/* Tablets */
+@media (max-width: 960px) {
+  .hero-section {
+    min-height: auto;
+    padding: 120px 0 40px 0 !important;
+  }
+
+  .hero-content {
+    justify-content: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .home-hero-container {
+    max-width: 90% !important;
+    padding: 30px !important;
   }
 
   .hero-title {
     font-size: 2rem !important;
   }
 
+  .hero-description p {
+    font-size: 1rem !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-buttons .uk-button {
+    width: 100%;
+    justify-content: center;
+  }
+
   .stat-number {
     font-size: 2.5rem !important;
   }
+
+  .feature-card {
+    min-height: auto;
+    padding: 25px 15px !important;
+  }
 }
 
+/* Móviles grandes */
 @media (max-width: 640px) {
+  .hero-section {
+    padding: 100px 0 30px 0 !important;
+  }
+
   .home-hero-container {
     max-width: 95% !important;
+    padding: 25px !important;
+    border-left-width: 3px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .hero-description {
+    padding: 15px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero-description p {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .hero-buttons {
+    gap: 12px;
+  }
+
+  .hero-buttons .uk-button {
+    font-size: 0.9rem !important;
+    padding: 10px 20px !important;
+  }
+
+  .stat-number {
+    font-size: 2rem !important;
+  }
+
+  .feature-card {
+    padding: 20px !important;
+  }
+
+  .cta-card {
+    padding: 30px 20px !important;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .home-hero-container {
     padding: 20px !important;
   }
 
@@ -200,16 +330,57 @@
     font-size: 1.5rem !important;
   }
 
-  .feature-card {
-    min-height: auto;
-    padding: 20px !important;
+  .hero-description p {
+    font-size: 0.9rem !important;
+  }
+
+  .hero-buttons .uk-button {
+    font-size: 0.85rem !important;
+    padding: 8px 16px !important;
   }
 
   .stat-number {
-    font-size: 2rem !important;
+    font-size: 1.75rem !important;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .home-hero-container {
+    padding: 15px !important;
   }
 
-  .cta-card {
-    padding: 30px 20px !important;
+  .hero-title {
+    font-size: 1.3rem !important;
+  }
+
+  .hero-description {
+    padding: 12px !important;
+  }
+
+  .hero-description p {
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto !important;
+    padding: 80px 0 20px 0 !important;
+  }
+
+  .home-hero-container {
+    padding: 20px !important;
+  }
+
+  .hero-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .hero-description {
+    padding: 12px !important;
+    margin-bottom: 15px !important;
   }
 }

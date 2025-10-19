@@ -1,5 +1,5 @@
 /* ========================================
-   NAVBAR - MEJORADO
+   NAVBAR - STICKY ARREGLADO
    ======================================== */
 
 /* Contenedor del navbar con gradiente animado */
@@ -88,7 +88,7 @@
   height: 300px;
 }
 
-/* Botón secundario del navbar */
+/* Botón secundario del navbar (botón API) */
 .uk-navbar-center .uk-button-secondary,
 .uk-navbar-right .uk-button-secondary {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -103,6 +103,16 @@
   background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
+}
+
+/* FIX: BOTÓN API/SECONDARY ACTIVO - TEXTO NEGRO */
+.uk-navbar-center .uk-button-secondary.active,
+.uk-navbar-right .uk-button-secondary.active {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  opacity: 0.85 !important;
+  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.4) !important;
+  transform: scale(1.02) !important;
 }
 
 /* Botón texto del navbar */
@@ -157,6 +167,15 @@
   transform: scale(1.1) rotate(90deg);
 }
 
+/* ========================================
+   OFFCANVAS CON OVERLAY
+   ======================================== */
+
+/* Overlay oscuro para el offcanvas */
+.uk-offcanvas-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
 /* Offcanvas del menú hamburguesa */
 .uk-offcanvas-bar {
   background: linear-gradient(
@@ -190,12 +209,25 @@
   box-shadow: 0 5px 15px rgba(212, 167, 98, 0.6);
 }
 
+#burger-menu .uk-button-secondary.active {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  opacity: 0.85 !important;
+  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.4) inset !important;
+}
+
 #burger-menu .uk-button-text {
   color: #f5f5f5 !important;
 }
 
 #burger-menu .uk-button-text:hover {
   color: #d4a762 !important;
+}
+
+#burger-menu .uk-button-text.active {
+  color: #d4a762 !important;
+  background: rgba(212, 167, 98, 0.15) !important;
+  font-weight: 700 !important;
 }
 
 /* Botón cerrar del offcanvas */

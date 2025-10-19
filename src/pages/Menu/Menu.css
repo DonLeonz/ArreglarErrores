@@ -702,3 +702,64 @@
     font-size: 1.1rem !important;
   }
 }
+
+/* ========================================
+   BADGES MEJORADOS - MENÚ
+   ======================================== */
+
+/* Badge de origen con texto blanco siempre */
+.menu-product-origin {
+  background: linear-gradient(135deg, #704214, #8b4513) !important;
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  padding: 5px 12px !important;
+  margin-right: 8px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 6px rgba(112, 66, 20, 0.5);
+}
+
+.menu-product-card:hover .menu-product-origin {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(212, 167, 98, 0.5);
+  text-shadow: none;
+}
+
+/* Badge bestseller con texto blanco siempre */
+.menu-product-bestseller {
+  background: linear-gradient(135deg, #ff1744, #dc143c) !important;
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  padding: 5px 12px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 10px rgba(255, 23, 68, 0.6) !important;
+  animation: pulse-golden 2s infinite;
+  transition: all 0.3s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.menu-product-card:hover .menu-product-bestseller {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 23, 68, 0.8) !important;
+  background: linear-gradient(135deg, #ff4569, #ff1744) !important;
+  color: #ffffff !important;
+}
+
+@keyframes pulse-golden {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 23, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0);
+  }
+}

@@ -316,3 +316,51 @@
     padding: 12px !important;
   }
 }
+
+/* ========================================
+   BADGES MEJORADOS - RECOMENDADO
+   ======================================== */
+
+/* Badge Popular con texto blanco siempre */
+.recomendado-popular {
+  background: linear-gradient(135deg, #ff1744, #dc143c) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(255, 23, 68, 0.6) !important;
+  animation: pulse-golden 2s infinite;
+  transition: all 0.3s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+}
+
+.recomendado-card:hover .recomendado-popular {
+  transform: scale(1.15);
+  box-shadow: 0 6px 18px rgba(255, 23, 68, 0.8) !important;
+  background: linear-gradient(135deg, #ff4569, #ff1744) !important;
+  color: #ffffff !important;
+}
+
+/* Badge de Origen con texto blanco siempre */
+.recomendado-origin-badge {
+  background: linear-gradient(135deg, #704214, #8b4513) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 6px 14px !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease !important;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(112, 66, 20, 0.5);
+}
+
+.recomendado-card:hover .recomendado-origin-badge {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5);
+  text-shadow: none;
+}

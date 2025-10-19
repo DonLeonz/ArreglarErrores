@@ -6,45 +6,47 @@ const Home = () => {
     <>
       {/* HERO SECTION */}
       <div
-        className="uk-background-cover uk-height-viewport uk-light first-child-adjustment uk-flex uk-position-relative hero-section"
+        className="uk-background-cover uk-light first-child-adjustment hero-section"
         style={{ backgroundImage: `url(${mainCoffeBackground})` }}
       >
         <div className="hero-overlay"></div>
-        <div className="uk-container uk-margin-large-top uk-height-1-1 uk-position-relative">
-          <div className="uk-position-center-right uk-position-medium home-hero-container hero-content">
-            <h1
-              className="uk-heading-large hero-title"
-              data-uk-scrollspy="cls: uk-animation-slide-right; delay: 200"
-            >
-              Coffee Shop SPA
-            </h1>
-            <div
-              className="uk-overlay uk-overlay-primary uk-padding-small hero-description"
-              data-uk-scrollspy="cls: uk-animation-slide-left; delay: 300"
-            >
-              <p>
-                Bienvenido a <strong>Chocolate Coffee</strong>, un lugar donde
-                cada taza de café cuenta una historia. Aquí encontrarás la
-                combinación perfecta de calidad, comodidad y calidez para hacer
-                de tus mañanas algo especial.
-              </p>
-            </div>
-            <div
-              className="uk-margin-top uk-flex uk-flex-center uk-flex-wrap hero-buttons"
-              data-uk-scrollspy="cls: uk-animation-fade; delay: 400"
-            >
-              <a
-                href="/menu"
-                className="uk-button btn-golden-primary uk-margin-small-right uk-margin-small-bottom"
+        <div className="uk-container uk-height-1-1">
+          <div className="hero-content">
+            <div className="home-hero-container">
+              <h1
+                className="uk-heading-large hero-title"
+                data-uk-scrollspy="cls: uk-animation-slide-right; delay: 200"
               >
-                <span data-uk-icon="icon: search"></span> Ver Menú
-              </a>
-              <a
-                href="/suggest"
-                className="uk-button btn-coffee-secondary uk-margin-small-bottom"
+                Coffee Shop SPA
+              </h1>
+              <div
+                className="uk-overlay uk-overlay-primary uk-padding-small hero-description"
+                data-uk-scrollspy="cls: uk-animation-slide-left; delay: 300"
               >
-                <span data-uk-icon="icon: star"></span> Recomendación del Día
-              </a>
+                <p>
+                  Bienvenido a <strong>Chocolate Coffee</strong>, un lugar donde
+                  cada taza de café cuenta una historia. Aquí encontrarás la
+                  combinación perfecta de calidad, comodidad y calidez para
+                  hacer de tus mañanas algo especial.
+                </p>
+              </div>
+              <div
+                className="uk-margin-top hero-buttons"
+                data-uk-scrollspy="cls: uk-animation-fade; delay: 400"
+              >
+                <a
+                  href="/menu"
+                  className="uk-button btn-golden-primary uk-margin-small-bottom"
+                >
+                  <span data-uk-icon="icon: search"></span> Ver Menú
+                </a>
+                <a
+                  href="/suggest"
+                  className="uk-button btn-coffee-secondary uk-margin-small-bottom"
+                >
+                  <span data-uk-icon="icon: star"></span> Recomendación del Día
+                </a>
+              </div>
             </div>
           </div>
         </div>

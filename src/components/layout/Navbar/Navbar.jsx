@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoginModal from "../../modals/LoginModal/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
+
 const Navbar = () => {
   const { currentUser, login, logout } = useAuth();
   const [showModal, setShowModal] = useState(false);
@@ -28,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
       <nav className="uk-navbar-container uk-navbar-transparent">
         <div className="uk-container uk-width-1-1 background-opaque">
           <div data-uk-navbar="mode: click" className="uk-flex">
