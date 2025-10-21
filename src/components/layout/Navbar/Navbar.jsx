@@ -28,6 +28,14 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
+  // FIX: Función para cerrar el offcanvas usando el botón personalizado
+  const handleCloseOffcanvas = () => {
+    const offcanvas = document.getElementById("burger-menu");
+    if (offcanvas && window.UIkit) {
+      window.UIkit.offcanvas(offcanvas).hide();
+    }
+  };
+
   return (
     <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
       <nav className="uk-navbar-container uk-navbar-transparent">
@@ -137,11 +145,14 @@ const Navbar = () => {
                 data-uk-offcanvas="overlay: true; flip: true"
               >
                 <div className="uk-offcanvas-bar">
+                  {/* FIX: Botón cerrar personalizado estilo SurtiEnvases */}
                   <button
-                    className="uk-offcanvas-close"
+                    className="navbar-offcanvas-close"
                     type="button"
-                    data-uk-close=""
-                  />
+                    onClick={handleCloseOffcanvas}
+                    aria-label="Cerrar menú"
+                  ></button>
+
                   <div
                     className="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
                     data-uk-grid=""

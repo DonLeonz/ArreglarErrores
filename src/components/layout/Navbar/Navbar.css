@@ -1,5 +1,5 @@
 /* ========================================
-   NAVBAR - BOTÓN API PRESIONADO ARREGLADO
+   NAVBAR - OPACIDAD CORRECTA EN TODA LA PÁGINA
    ======================================== */
 
 /* Contenedor del navbar con gradiente animado */
@@ -105,17 +105,16 @@
   box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
 }
 
-/* FIX CRÍTICO: Botón API PRESIONADO - Mantener texto NEGRO y solo cambiar opacidad */
+/* FIX CRÍTICO: Botón API PRESIONADO */
 .uk-navbar-center .uk-button-secondary.active,
 .uk-navbar-right .uk-button-secondary.active {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  color: #2c1608 !important; /* TEXTO NEGRO SIEMPRE */
+  color: #2c1608 !important;
   opacity: 0.85 !important;
   box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.4) !important;
   transform: scale(1.02) !important;
 }
 
-/* IMPORTANTE: Prevenir que otras clases cambien el color del texto del botón API */
 .uk-navbar-center .uk-button-secondary.active *,
 .uk-navbar-right .uk-button-secondary.active * {
   color: #2c1608 !important;
@@ -149,7 +148,7 @@
   transform: translateY(-2px);
 }
 
-/* Indicador de página activa para botones de TEXTO (no API) */
+/* Indicador de página activa para botones de TEXTO */
 .uk-navbar-center .uk-button-text.active {
   color: #d4a762 !important;
   font-weight: 700 !important;
@@ -174,10 +173,10 @@
 }
 
 /* ========================================
-   OFFCANVAS CON OVERLAY - ARREGLADO PARA TODA LA PÁGINA
+   OFFCANVAS - OPACIDAD EN TODA LA PÁGINA
    ======================================== */
 
-/* Overlay oscuro para el offcanvas que cubre toda la página */
+/* FIX: Overlay oscuro del offcanvas - IGUAL QUE EL ORIGINAL */
 .uk-offcanvas-overlay {
   background: rgba(0, 0, 0, 0.7) !important;
   position: fixed !important;
@@ -188,7 +187,7 @@
   z-index: 1000 !important;
 }
 
-/* Offcanvas del menú hamburguesa que cubre toda la página */
+/* Offcanvas bar - El menú en sí */
 .uk-offcanvas-bar {
   background: linear-gradient(
     180deg,
@@ -227,7 +226,6 @@
   box-shadow: 0 5px 15px rgba(212, 167, 98, 0.6);
 }
 
-/* FIX: Botón API activo en menú móvil también */
 #burger-menu .uk-button-secondary.active {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
@@ -249,15 +247,59 @@
   font-weight: 700 !important;
 }
 
-/* Botón cerrar del offcanvas */
-.uk-offcanvas-close {
-  color: #d4a762 !important;
+/* ========================================
+   BOTÓN CERRAR PERSONALIZADO
+   ======================================== */
+.navbar-offcanvas-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(212, 167, 98, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
   transition: all 0.3s ease !important;
+  z-index: 1002 !important;
+  padding: 0 !important;
 }
 
-.uk-offcanvas-close:hover {
-  color: #f5d98d !important;
-  transform: rotate(90deg) scale(1.1);
+.navbar-offcanvas-close::before,
+.navbar-offcanvas-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 20px !important;
+  height: 3px !important;
+  background: #2c1608 !important;
+  border-radius: 2px !important;
+}
+
+.navbar-offcanvas-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.navbar-offcanvas-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+.navbar-offcanvas-close:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
+}
+
+/* Ocultar el botón de cerrar por defecto de UIkit */
+.uk-offcanvas-close {
+  display: none !important;
+}
+
+/* Divisor del menú móvil */
+#burger-menu .uk-divider-icon {
+  border-color: rgba(212, 167, 98, 0.3) !important;
 }
 
 /* Iconos del navbar animados */
@@ -269,15 +311,24 @@
   transform: scale(1.15);
 }
 
-/* Divisor del menú móvil */
-#burger-menu .uk-divider-icon {
-  border-color: rgba(212, 167, 98, 0.3) !important;
-}
-
 /* Responsive */
 @media (max-width: 960px) {
   .uk-navbar-item img {
     max-width: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-offcanvas-close {
+    width: 38px !important;
+    height: 38px !important;
+    top: 15px !important;
+    right: 15px !important;
+  }
+
+  .navbar-offcanvas-close::before,
+  .navbar-offcanvas-close::after {
+    width: 18px !important;
   }
 }
 

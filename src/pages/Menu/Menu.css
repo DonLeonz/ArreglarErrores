@@ -704,61 +704,44 @@
 }
 
 /* ========================================
-   BADGES MEJORADOS - MENÚ (Solo los badges)
+   BADGES MEJORADOS - MENÚ (TEXTO VISIBLE CORREGIDO)
    ======================================== */
 
-/* FIX: Badge de origen con colores visibles y texto blanco */
+/* ========================================
+   FIX DE BADGES - SOLO CAMBIO DE COLOR
+   Agregar esto al FINAL de Menu.css
+   ======================================== */
+
+/* FIX: Solo cambiar el color del badge de origen en estado normal */
 .menu-product-origin {
-  background: linear-gradient(135deg, #b8935a, #d4a762) !important;
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
-  font-size: 0.75rem !important;
-  padding: 5px 12px !important;
-  margin-right: 8px !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(212, 167, 98, 0.4) !important;
-  font-weight: 700 !important;
-  text-shadow: none !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 2px 6px rgba(212, 167, 98, 0.4);
 }
 
+/* Prevenir que otras clases cambien el color */
+.menu-product-origin,
+.menu-product-origin * {
+  color: #2c1608 !important;
+}
+
+/* El hover ya estaba bien, pero lo aseguramos */
 .menu-product-card:hover .menu-product-origin {
   background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   color: #2c1608 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(212, 167, 98, 0.6);
 }
 
-/* FIX: Badge bestseller con colores visibles y texto blanco */
-.menu-product-bestseller {
-  background: linear-gradient(135deg, #ff4569, #ff1744) !important;
-  color: #ffffff !important;
-  font-size: 0.75rem !important;
-  padding: 5px 12px !important;
-  border-radius: 12px !important;
-  font-weight: 700 !important;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 10px rgba(255, 23, 68, 0.5) !important;
-  animation: pulse-golden 2s infinite;
-  transition: all 0.3s ease !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.menu-product-card:hover .menu-product-bestseller {
-  transform: scale(1.1);
-  box-shadow: 0 5px 15px rgba(255, 23, 68, 0.7) !important;
-  background: linear-gradient(135deg, #ff6b8a, #ff4569) !important;
+/* FIX: Asegurar que el bestseller mantenga texto blanco */
+.menu-product-bestseller,
+.menu-product-bestseller * {
   color: #ffffff !important;
 }
 
-@keyframes pulse-golden {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(255, 23, 68, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0);
-  }
+/* Prevenir que las clases de UIkit afecten los colores */
+.uk-badge.menu-product-origin {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+}
+
+.uk-badge.menu-product-bestseller {
+  color: #ffffff !important;
 }

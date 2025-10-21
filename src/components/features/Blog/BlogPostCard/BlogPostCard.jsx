@@ -13,16 +13,10 @@ const BlogPostCard = ({
     if (modal) modal.show();
   };
 
-  const handleCloseModal = () => {
-    const modal = window.UIkit?.modal(
-      document.getElementById(`modal-media-image-${blog.id}`)
-    );
-    if (modal) modal.hide();
-  };
-
+  // FIX: Usar data-uk-toggle para cerrar el modal correctamente
   return (
     <div className="uk-card uk-card-default uk-card-hover blog-container-round blog-card">
-      {/* FIX: Imagen clickeable usando div con cursor pointer */}
+      {/* Imagen clickeable */}
       <div
         className="uk-card-media-top blog-image-container"
         onClick={handleImageClick}
@@ -31,7 +25,7 @@ const BlogPostCard = ({
         <img src={blog.imageUrl} alt={blog.title} />
       </div>
 
-      {/* FIX: Modal con botón de cerrar personalizado */}
+      {/* Modal con botón de cerrar funcional */}
       <div
         id={`modal-media-image-${blog.id}`}
         className="uk-modal uk-flex-top"
@@ -41,11 +35,11 @@ const BlogPostCard = ({
           className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
           style={{ position: "relative" }}
         >
-          {/* FIX: Botón cerrar personalizado estilo SurtiEnvases */}
+          {/* FIX: Botón cerrar con data-uk-toggle en lugar de onClick */}
           <button
             className="blog-image-modal-close"
             type="button"
-            onClick={handleCloseModal}
+            data-uk-toggle={`target: #modal-media-image-${blog.id}`}
             aria-label="Cerrar"
           />
           <img
