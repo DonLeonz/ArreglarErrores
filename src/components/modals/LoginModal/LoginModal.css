@@ -1,12 +1,24 @@
 /* ========================================
-   MODAL DE LOGIN/REGISTRO - OPACIDAD IGUAL QUE MENÚ
+   MODAL DE LOGIN/REGISTRO - USANDO OVERLAY DE UIKIT
    ======================================== */
 
 /* Modal display */
 .login-modal-display {
-  display: block !important;
+  display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+}
+
+/* FIX CRÍTICO: Controlar el overlay de UIkit directamente */
+.login-modal-display::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4) !important; /* Opacidad controlada */
+  z-index: -1;
 }
 
 /* Container con tamaño aumentado */
@@ -24,6 +36,7 @@
   backdrop-filter: blur(10px);
   animation: modal-appear 0.4s ease;
   position: relative;
+  z-index: 1;
 }
 
 @keyframes modal-appear {
@@ -143,6 +156,7 @@
   transition: all 0.3s ease !important;
   z-index: 1 !important;
   padding: 0 !important;
+  border: none;
 }
 
 .login-modal-close::before,
@@ -171,35 +185,9 @@
 
 /* Modal center position */
 .login-modal-center {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: 1010 !important;
   max-width: 550px !important;
   width: 90%;
   padding: 30px !important;
-}
-
-/* FIX: Overlay con LA MISMA OPACIDAD que el menú hamburguesa */
-.login-modal-overlay {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.7) !important;
-  z-index: 1000 !important;
-  animation: fade-in 0.3s ease;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 /* Responsive */

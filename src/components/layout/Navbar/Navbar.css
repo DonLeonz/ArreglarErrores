@@ -1,5 +1,5 @@
 /* ========================================
-   NAVBAR - OPACIDAD CORRECTA EN TODA LA PÁGINA
+   NAVBAR - STICKY CONTROLADO
    ======================================== */
 
 /* Contenedor del navbar con gradiente animado */
@@ -19,6 +19,17 @@
     rgba(212, 167, 98, 0.15),
     rgba(94, 43, 22, 0.2)
   ) !important;
+}
+
+/* FIX CRÍTICO: Controlar el navbar cuando está sticky */
+.uk-navbar-sticky {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(94, 43, 22, 0.2)
+  ) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Logo mejorado con animación */
@@ -105,7 +116,7 @@
   box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
 }
 
-/* FIX CRÍTICO: Botón API PRESIONADO */
+/* Botón API PRESIONADO */
 .uk-navbar-center .uk-button-secondary.active,
 .uk-navbar-right .uk-button-secondary.active {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -173,21 +184,10 @@
 }
 
 /* ========================================
-   OFFCANVAS - OPACIDAD EN TODA LA PÁGINA
+   OFFCANVAS - OVERLAY DETRÁS DEL MENÚ
    ======================================== */
 
-/* FIX: Overlay oscuro del offcanvas - IGUAL QUE EL ORIGINAL */
-.uk-offcanvas-overlay {
-  background: rgba(0, 0, 0, 0.7) !important;
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 1000 !important;
-}
-
-/* Offcanvas bar - El menú en sí */
+/* La barra del menú debe estar por ENCIMA del overlay */
 .uk-offcanvas-bar {
   background: linear-gradient(
     180deg,
@@ -201,7 +201,7 @@
   bottom: 0 !important;
   right: 0 !important;
   height: 100vh !important;
-  z-index: 1001 !important;
+  z-index: 1001 !important; /* Por ENCIMA del overlay */
 }
 
 /* Botones del menú móvil mejorados */

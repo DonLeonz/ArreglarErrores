@@ -4,13 +4,14 @@ import "./Home.css";
 const Home = () => {
   return (
     <>
-      {/* HERO SECTION */}
+      {/* HERO SECTION - Replicando comportamiento del CTA */}
       <div
-        className="uk-background-cover uk-light first-child-adjustment hero-section"
+        className="uk-background-cover uk-light first-child-adjustment hero-section uk-flex uk-flex-middle"
         style={{ backgroundImage: `url(${mainCoffeBackground})` }}
       >
         <div className="hero-overlay"></div>
-        <div className="uk-container uk-height-1-1">
+        {/* FIX: Estructura simple que se comporta como el CTA */}
+        <div className="uk-width-1-1 hero-content-wrapper">
           <div className="hero-content">
             <div className="home-hero-container">
               <h1

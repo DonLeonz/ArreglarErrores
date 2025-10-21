@@ -1,9 +1,5 @@
 /* ========================================
-   PÁGINA HOME - HERO SECTION COMPLETAMENTE ARREGLADO
-   ======================================== */
-
-/* ========================================
-   PÁGINA HOME - HERO SECTION ALINEADO A LA DERECHA
+   PÁGINA HOME - HERO CON UIKIT FLEX
    ======================================== */
 
 /* ========================================
@@ -13,9 +9,6 @@
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 0 !important;
 }
 
 .hero-overlay {
@@ -32,19 +25,31 @@
   z-index: 1;
 }
 
-/* FIX: Hero content SIEMPRE alineado a la DERECHA */
-.hero-content {
+/* FIX: Wrapper que replica el comportamiento del CTA */
+.hero-content-wrapper {
   position: relative;
   z-index: 2;
+  display: flex !important;
+  justify-content: flex-end !important; /* Derecha en desktop */
+  align-items: center !important;
+  padding: 0 8% 0 5% !important;
+}
+
+/* Cuando aparece el menú hamburguesa (menos de 1200px) - CENTRAR */
+@media (max-width: 1199px) {
+  .hero-content-wrapper {
+    justify-content: center !important; /* Centro igual que el CTA */
+    padding: 0 5% !important;
+  }
+}
+
+/* Contenido del hero */
+.hero-content {
+  max-width: 550px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end !important;
-  padding-right: 5%;
 }
 
 .home-hero-container {
-  max-width: 550px !important;
   width: 100%;
   padding: 40px !important;
   background: linear-gradient(
@@ -214,346 +219,18 @@
    RESPONSIVE
    ======================================== */
 
-/* Tablets grandes y escritorios pequeños */
-@media (max-width: 1200px) {
-  .home-hero-container {
-    max-width: 500px !important;
-    padding: 35px !important;
-  }
-
-  .hero-title {
-    font-size: 2.2rem !important;
-  }
-
-  .hero-content {
-    padding-right: 3%;
-  }
-}
-
-/* Tablets - MANTENER ALINEACIÓN A LA DERECHA */
-@media (max-width: 960px) {
+/* Desktop grande - 1200px+ (menú normal visible) */
+@media (max-width: 1199px) {
   .hero-section {
     min-height: auto;
     padding: 120px 0 40px 0 !important;
   }
 
-  /* FIX: En tablets, MANTENER alineado a la derecha */
   .hero-content {
-    justify-content: flex-end !important;
-    padding-right: 5%;
-    padding-left: 0;
+    max-width: 90%;
   }
 
   .home-hero-container {
-    max-width: 85% !important;
-    padding: 30px !important;
-  }
-
-  .hero-title {
-    font-size: 2rem !important;
-  }
-
-  .hero-description p {
-    font-size: 1rem !important;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .hero-buttons .uk-button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .stat-number {
-    font-size: 2.5rem !important;
-  }
-
-  .feature-card {
-    min-height: auto;
-    padding: 25px 15px !important;
-  }
-}
-
-/* Móviles grandes - CENTRAR en móviles */
-@media (max-width: 640px) {
-  .hero-section {
-    padding: 100px 0 30px 0 !important;
-  }
-
-  /* En móviles sí centramos para mejor legibilidad */
-  .hero-content {
-    justify-content: center !important;
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  .home-hero-container {
-    max-width: 95% !important;
-    padding: 25px !important;
-    border-left-width: 3px;
-  }
-
-  .hero-title {
-    font-size: 1.75rem !important;
-    margin-bottom: 15px !important;
-  }
-
-  .hero-description {
-    padding: 15px !important;
-    margin-bottom: 20px !important;
-  }
-
-  .hero-description p {
-    font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-  }
-
-  .hero-buttons {
-    gap: 12px;
-  }
-
-  .hero-buttons .uk-button {
-    font-size: 0.9rem !important;
-    padding: 10px 20px !important;
-  }
-
-  .stat-number {
-    font-size: 2rem !important;
-  }
-
-  .feature-card {
-    padding: 20px !important;
-  }
-
-  .cta-card {
-    padding: 30px 20px !important;
-  }
-}
-
-/* Móviles pequeños */
-@media (max-width: 480px) {
-  .home-hero-container {
-    padding: 20px !important;
-  }
-
-  .hero-title {
-    font-size: 1.5rem !important;
-  }
-
-  .hero-description p {
-    font-size: 0.9rem !important;
-  }
-
-  .hero-buttons .uk-button {
-    font-size: 0.85rem !important;
-    padding: 8px 16px !important;
-  }
-
-  .stat-number {
-    font-size: 1.75rem !important;
-  }
-}
-
-/* Pantallas muy pequeñas */
-@media (max-width: 360px) {
-  .home-hero-container {
-    padding: 15px !important;
-  }
-
-  .hero-title {
-    font-size: 1.3rem !important;
-  }
-
-  .hero-description {
-    padding: 12px !important;
-  }
-
-  .hero-description p {
-    font-size: 0.85rem !important;
-  }
-}
-
-/* Landscape en móviles */
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero-section {
-    min-height: auto !important;
-    padding: 80px 0 20px 0 !important;
-  }
-
-  .home-hero-container {
-    padding: 20px !important;
-  }
-
-  .hero-title {
-    font-size: 1.5rem !important;
-    margin-bottom: 10px !important;
-  }
-
-  .hero-description {
-    padding: 12px !important;
-    margin-bottom: 15px !important;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* ========================================
-   CARACTERÍSTICAS SECTION
-   ======================================== */
-.features-section {
-  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
-  padding: 60px 0 !important;
-}
-
-.feature-card {
-  background-color: #2c2c2c !important;
-  border: 1px solid rgba(212, 167, 98, 0.1) !important;
-  border-radius: 12px !important;
-  padding: 30px 20px !important;
-  transition: all 0.3s ease !important;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(212, 167, 98, 0.3) !important;
-  border-color: rgba(212, 167, 98, 0.5) !important;
-  background-color: #333 !important;
-}
-
-.feature-icon-container {
-  margin-bottom: 20px;
-  animation: float 3s ease-in-out infinite;
-}
-
-/* ========================================
-   ESTADÍSTICAS SECTION
-   ======================================== */
-.stats-section {
-  background: linear-gradient(135deg, #2c2c2c, #1e1e1e) !important;
-  padding: 60px 0 !important;
-  position: relative;
-}
-
-.stats-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(212, 167, 98, 0.05),
-    transparent
-  );
-  pointer-events: none;
-}
-
-.stat-card {
-  background-color: #1e1e1e !important;
-  border: 2px solid rgba(212, 167, 98, 0.2) !important;
-  border-radius: 12px !important;
-  padding: 30px 15px !important;
-  transition: all 0.3s ease !important;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(212, 167, 98, 0.4) !important;
-  border-color: #d4a762 !important;
-  background: linear-gradient(135deg, #2c2c2c, #1e1e1e) !important;
-}
-
-.stat-number {
-  font-size: 3rem !important;
-  font-weight: bold !important;
-  margin: 0 !important;
-  line-height: 1 !important;
-  background: linear-gradient(135deg, #d4a762, #f5d98d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ========================================
-   LLAMADO A LA ACCIÓN SECTION
-   ======================================== */
-.cta-section {
-  background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
-  padding: 80px 0 !important;
-}
-
-.cta-card {
-  background: linear-gradient(
-    135deg,
-    rgba(212, 167, 98, 0.15),
-    rgba(94, 43, 22, 0.15)
-  ) !important;
-  border: 2px solid rgba(212, 167, 98, 0.3) !important;
-  border-radius: 16px !important;
-  padding: 50px 30px !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
-  transition: all 0.4s ease !important;
-}
-
-.cta-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 60px rgba(212, 167, 98, 0.4) !important;
-  border-color: #d4a762 !important;
-}
-
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-
-/* Tablets grandes y escritorios pequeños */
-@media (max-width: 1200px) {
-  .home-hero-container {
-    max-width: 500px !important;
-    padding: 35px !important;
-  }
-
-  .hero-title {
-    font-size: 2.2rem !important;
-  }
-
-  .hero-content {
-    padding-right: 3%;
-  }
-}
-
-/* Tablets */
-@media (max-width: 960px) {
-  .hero-section {
-    min-height: auto;
-    padding: 120px 0 40px 0 !important;
-  }
-
-  /* FIX: En tablets, centrar el hero */
-  .hero-content {
-    justify-content: center !important;
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  .home-hero-container {
-    max-width: 90% !important;
     padding: 30px !important;
   }
 
@@ -591,8 +268,11 @@
     padding: 100px 0 30px 0 !important;
   }
 
+  .hero-content {
+    max-width: 95%;
+  }
+
   .home-hero-container {
-    max-width: 95% !important;
     padding: 25px !important;
     border-left-width: 3px;
   }

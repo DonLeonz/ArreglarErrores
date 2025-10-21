@@ -35,8 +35,20 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     onClose();
   };
 
+  // FIX: Cerrar modal al hacer click en el fondo oscuro
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className="uk-modal uk-open login-modal-display">
+    // FIX CRÍTICO: Usar SOLO el overlay de UIkit, sin custom overlay
+    <div
+      className="uk-modal uk-open login-modal-display"
+      onClick={handleBackdropClick}
+      style={{ display: "flex" }}
+    >
       <div
         className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center"
         onClick={(e) => e.stopPropagation()}
@@ -99,7 +111,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </div>
         </div>
       </div>
-      <div className="login-modal-overlay" onClick={handleClose} />
     </div>
   );
 };

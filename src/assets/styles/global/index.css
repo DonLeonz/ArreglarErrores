@@ -23,3 +23,38 @@
   padding-top: 6rem !important;
   margin-top: -6rem !important;
 }
+
+/* ========================================
+   OVERRIDE CRÍTICO DE UIKIT - AGREGAR AL FINAL
+   ======================================== */
+
+/* FIX CRÍTICO: Overlay del offcanvas DETRÁS del menú pero ENCIMA del contenido */
+.uk-offcanvas.uk-open {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  z-index: 1000 !important; /* DETRÁS del menú */
+  pointer-events: auto !important;
+}
+
+/* La barra del menú por ENCIMA del overlay */
+.uk-offcanvas-bar {
+  z-index: 1001 !important; /* Por ENCIMA del overlay */
+  pointer-events: auto !important;
+}
+
+/* FIX: Controlar el modal de UIkit directamente */
+.uk-modal.uk-open {
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Asegurar que el contenido del modal esté por encima */
+.uk-modal-dialog {
+  position: relative;
+  z-index: 1;
+}

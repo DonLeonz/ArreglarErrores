@@ -140,12 +140,13 @@ const Navbar = () => {
                 data-uk-navbar-toggle-icon=""
                 data-uk-toggle="target: #burger-menu"
               ></a>
+              {/* FIX CRÍTICO: bg-close: true; overlay: true aseguran el overlay correcto */}
               <div
                 id="burger-menu"
-                data-uk-offcanvas="overlay: true; flip: true"
+                data-uk-offcanvas="overlay: true; flip: true; bg-close: true"
               >
                 <div className="uk-offcanvas-bar">
-                  {/* FIX: Botón cerrar personalizado estilo SurtiEnvases */}
+                  {/* Botón cerrar personalizado estilo SurtiEnvases */}
                   <button
                     className="navbar-offcanvas-close"
                     type="button"
