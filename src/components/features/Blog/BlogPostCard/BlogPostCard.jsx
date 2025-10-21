@@ -22,42 +22,42 @@ const BlogPostCard = ({
 
   return (
     <div className="uk-card uk-card-default uk-card-hover blog-container-round blog-card">
-      <div className="uk-card-media-top blog-image-container">
-        <button
-          type="button"
-          onClick={handleImageClick}
-          className="blog-image-button"
-        >
-          <img src={blog.imageUrl} alt={blog.title} />
-        </button>
+      {/* FIX: Imagen clickeable usando div con cursor pointer */}
+      <div
+        className="uk-card-media-top blog-image-container"
+        onClick={handleImageClick}
+        style={{ cursor: "pointer" }}
+      >
+        <img src={blog.imageUrl} alt={blog.title} />
+      </div>
 
-        {/* Modal para ver imagen en grande */}
+      {/* FIX: Modal con botón de cerrar personalizado */}
+      <div
+        id={`modal-media-image-${blog.id}`}
+        className="uk-modal uk-flex-top"
+        data-uk-modal="true"
+      >
         <div
-          id={`modal-media-image-${blog.id}`}
-          className="uk-modal uk-flex-top"
-          data-uk-modal="true"
+          className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
+          style={{ position: "relative" }}
         >
-          <div
-            className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
-            style={{ position: "relative" }}
-          >
-            <button
-              className="blog-image-modal-close"
-              type="button"
-              onClick={handleCloseModal}
-              aria-label="Cerrar"
-            />
-            <img
-              src={blog.imageUrl}
-              alt={blog.title}
-              style={{
-                maxWidth: "90vw",
-                maxHeight: "90vh",
-                borderRadius: "12px",
-                display: "block",
-              }}
-            />
-          </div>
+          {/* FIX: Botón cerrar personalizado estilo SurtiEnvases */}
+          <button
+            className="blog-image-modal-close"
+            type="button"
+            onClick={handleCloseModal}
+            aria-label="Cerrar"
+          />
+          <img
+            src={blog.imageUrl}
+            alt={blog.title}
+            style={{
+              maxWidth: "90vw",
+              maxHeight: "90vh",
+              borderRadius: "12px",
+              display: "block",
+            }}
+          />
         </div>
       </div>
 

@@ -504,3 +504,62 @@
 .color-text-black {
   color: #f5f5f5 !important;
 }
+
+/* ========================================
+   BOTÓN DE PUBLICAR BLOG - DISEÑO MEJORADO
+   Agregar este CSS al final de Blog.css
+   ======================================== */
+
+/* FIX: Botón principal de publicar blog */
+.blog-button-primary {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  border-radius: 12px !important;
+  border: none !important;
+  font-weight: 700 !important;
+  padding: 12px 24px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4);
+}
+
+.blog-button-primary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+  z-index: 0;
+}
+
+.blog-button-primary:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.blog-button-primary:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(212, 167, 98, 0.6);
+  color: #2c1608 !important;
+}
+
+.blog-button-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .blog-button-primary {
+    padding: 10px 20px !important;
+    font-size: 0.95rem !important;
+  }
+}

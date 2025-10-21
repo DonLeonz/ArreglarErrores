@@ -318,49 +318,60 @@
 }
 
 /* ========================================
-   BADGES MEJORADOS - RECOMENDADO
+   BADGES MEJORADOS - RECOMENDADO (Solo los badges)
    ======================================== */
 
-/* Badge Popular con texto blanco siempre */
+/* FIX: Badge Popular con colores visibles y texto blanco */
 .recomendado-popular {
-  background: linear-gradient(135deg, #ff1744, #dc143c) !important;
+  background: linear-gradient(135deg, #ff4569, #ff1744) !important;
   color: #ffffff !important;
   border-radius: 20px !important;
   padding: 8px 16px !important;
   font-weight: 700 !important;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 4px 12px rgba(255, 23, 68, 0.6) !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 23, 68, 0.5) !important;
   animation: pulse-golden 2s infinite;
   transition: all 0.3s ease !important;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: inline-block;
 }
 
 .recomendado-card:hover .recomendado-popular {
   transform: scale(1.15);
-  box-shadow: 0 6px 18px rgba(255, 23, 68, 0.8) !important;
-  background: linear-gradient(135deg, #ff4569, #ff1744) !important;
+  box-shadow: 0 6px 18px rgba(255, 23, 68, 0.7) !important;
+  background: linear-gradient(135deg, #ff6b8a, #ff4569) !important;
   color: #ffffff !important;
 }
 
-/* Badge de Origen con texto blanco siempre */
+/* FIX: Badge de Origen con colores visibles */
 .recomendado-origin-badge {
-  background: linear-gradient(135deg, #704214, #8b4513) !important;
-  color: #ffffff !important;
-  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  background: linear-gradient(135deg, #b8935a, #d4a762) !important;
+  color: #2c1608 !important;
+  border: 2px solid rgba(212, 167, 98, 0.4) !important;
   border-radius: 12px !important;
   padding: 6px 14px !important;
   font-weight: 700 !important;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: none !important;
   transition: all 0.3s ease !important;
   display: inline-block;
-  box-shadow: 0 2px 6px rgba(112, 66, 20, 0.5);
+  box-shadow: 0 2px 6px rgba(212, 167, 98, 0.4);
 }
 
 .recomendado-card:hover .recomendado-origin-badge {
-  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   color: #2c1608 !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5);
-  text-shadow: none;
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.6);
+}
+
+@keyframes pulse-golden {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 23, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 23, 68, 0);
+  }
 }

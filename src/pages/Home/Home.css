@@ -28,13 +28,14 @@
   z-index: 1;
 }
 
+/* FIX: Hero content alineado a la DERECHA */
 .hero-content {
   position: relative;
   z-index: 2;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-end !important;
   padding-right: 5%;
 }
 
@@ -232,8 +233,9 @@
     padding: 120px 0 40px 0 !important;
   }
 
+  /* FIX: En tablets, centrar el hero */
   .hero-content {
-    justify-content: center;
+    justify-content: center !important;
     padding-right: 0;
     padding-left: 0;
   }
@@ -382,5 +384,15 @@
   .hero-description {
     padding: 12px !important;
     margin-bottom: 15px !important;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

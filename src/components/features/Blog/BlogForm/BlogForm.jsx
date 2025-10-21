@@ -42,7 +42,6 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
   const removeImage = () => {
     setImagePreview(null);
     setNewBlog({ ...newBlog, image: null });
-    // Reset file input
     const fileInput = document.getElementById("blog-file-input");
     if (fileInput) fileInput.value = "";
   };
@@ -164,12 +163,17 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             </div>
           </div>
 
+          {/* FIX: Botón de publicar con diseño mejorado */}
           <div className="uk-width-1-1">
             <button
               type="submit"
               className="uk-button blog-button-primary uk-width-1-1"
             >
-              <span uk-icon="icon: file-edit"></span> Publicar blog
+              <span
+                uk-icon="icon: file-edit"
+                className="uk-margin-small-right"
+              ></span>
+              Publicar blog
             </button>
           </div>
         </div>
