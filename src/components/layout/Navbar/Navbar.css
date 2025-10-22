@@ -1,8 +1,7 @@
 /* ========================================
-   NAVBAR - STICKY CONTROLADO
+   NAVBAR CONTAINER Y STICKY
    ======================================== */
 
-/* Contenedor del navbar con gradiente animado */
 .uk-navbar-container {
   background: linear-gradient(
     135deg,
@@ -21,7 +20,6 @@
   ) !important;
 }
 
-/* FIX CRÍTICO: Controlar el navbar cuando está sticky */
 .uk-navbar-sticky {
   background: linear-gradient(
     135deg,
@@ -32,7 +30,10 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Logo mejorado con animación */
+/* ========================================
+   LOGO Y ELEMENTOS DEL NAVBAR
+   ======================================== */
+
 .uk-navbar-item img {
   max-width: 200px;
   height: auto;
@@ -45,7 +46,6 @@
   filter: drop-shadow(0 6px 16px rgba(212, 167, 98, 0.6));
 }
 
-/* Nombre del usuario con efecto */
 .uk-navbar-item .uk-button-link {
   transition: all 0.3s ease !important;
   position: relative;
@@ -71,7 +71,10 @@
   transform: translateY(-2px);
 }
 
-/* Botones del navbar mejorados */
+/* ========================================
+   BOTONES DEL NAVBAR
+   ======================================== */
+
 .uk-navbar-center .uk-button,
 .uk-navbar-right .uk-button {
   transition: all 0.3s ease !important;
@@ -99,7 +102,6 @@
   height: 300px;
 }
 
-/* Botón secundario del navbar (botón API) */
 .uk-navbar-center .uk-button-secondary,
 .uk-navbar-right .uk-button-secondary {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -116,7 +118,6 @@
   box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
 }
 
-/* Botón API PRESIONADO */
 .uk-navbar-center .uk-button-secondary.active,
 .uk-navbar-right .uk-button-secondary.active {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -131,7 +132,6 @@
   color: #2c1608 !important;
 }
 
-/* Botón texto del navbar */
 .uk-navbar-center .uk-button-text,
 .uk-navbar-right .uk-button-text {
   color: #f5f5f5 !important;
@@ -159,7 +159,6 @@
   transform: translateY(-2px);
 }
 
-/* Indicador de página activa para botones de TEXTO */
 .uk-navbar-center .uk-button-text.active {
   color: #d4a762 !important;
   font-weight: 700 !important;
@@ -171,7 +170,10 @@
   box-shadow: 0 2px 8px rgba(212, 167, 98, 0.5) !important;
 }
 
-/* Toggle del navbar mobile mejorado */
+/* ========================================
+   TOGGLE MENÚ MÓVIL
+   ======================================== */
+
 .uk-navbar-toggle {
   color: #d4a762 !important;
   transition: all 0.3s ease !important;
@@ -184,10 +186,9 @@
 }
 
 /* ========================================
-   OFFCANVAS - OVERLAY DETRÁS DEL MENÚ
+   OFFCANVAS (MENÚ MÓVIL)
    ======================================== */
 
-/* La barra del menú debe estar por ENCIMA del overlay */
 .uk-offcanvas-bar {
   background: linear-gradient(
     180deg,
@@ -201,10 +202,9 @@
   bottom: 0 !important;
   right: 0 !important;
   height: 100vh !important;
-  z-index: 1001 !important; /* Por ENCIMA del overlay */
+  z-index: 1001 !important;
 }
 
-/* Botones del menú móvil mejorados */
 #burger-menu .uk-button {
   transition: all 0.3s ease !important;
   border-radius: 8px !important;
@@ -292,17 +292,18 @@
   box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
 }
 
-/* Ocultar el botón de cerrar por defecto de UIkit */
 .uk-offcanvas-close {
   display: none !important;
 }
 
-/* Divisor del menú móvil */
 #burger-menu .uk-divider-icon {
   border-color: rgba(212, 167, 98, 0.3) !important;
 }
 
-/* Iconos del navbar animados */
+/* ========================================
+   ICONOS Y ANIMACIONES
+   ======================================== */
+
 [data-uk-icon] {
   transition: all 0.3s ease !important;
 }
@@ -311,7 +312,10 @@
   transform: scale(1.15);
 }
 
-/* Responsive */
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
 @media (max-width: 960px) {
   .uk-navbar-item img {
     max-width: 150px;
@@ -329,15 +333,5 @@
   .navbar-offcanvas-close::before,
   .navbar-offcanvas-close::after {
     width: 18px !important;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }

@@ -1,3 +1,7 @@
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
 .hero-section {
   position: relative;
   overflow: hidden;
@@ -21,25 +25,15 @@
   z-index: 1;
 }
 
-/* FIX: Wrapper que replica el comportamiento del CTA */
 .hero-content-wrapper {
   position: relative;
   z-index: 2;
   display: flex !important;
-  justify-content: flex-end !important; /* Derecha en desktop */
+  justify-content: flex-end !important;
   align-items: center !important;
   padding: 0 8% 0 5% !important;
 }
 
-/* Cuando aparece el menú hamburguesa (menos de 1200px) - CENTRAR */
-@media (max-width: 1199px) {
-  .hero-content-wrapper {
-    justify-content: center !important; /* Centro igual que el CTA */
-    padding: 0 5% !important;
-  }
-}
-
-/* Contenido del hero */
 .hero-content {
   max-width: 550px;
   width: 100%;
@@ -104,6 +98,7 @@
 /* ========================================
    CARACTERÍSTICAS SECTION
    ======================================== */
+
 .features-section {
   background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
   padding: 60px 0 !important;
@@ -137,6 +132,7 @@
 /* ========================================
    ESTADÍSTICAS SECTION
    ======================================== */
+
 .stats-section {
   background: linear-gradient(135deg, #2c2c2c, #1e1e1e) !important;
   padding: 60px 0 !important;
@@ -187,6 +183,7 @@
 /* ========================================
    LLAMADO A LA ACCIÓN SECTION
    ======================================== */
+
 .cta-section {
   background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
   padding: 80px 0 !important;
@@ -215,8 +212,13 @@
    RESPONSIVE
    ======================================== */
 
-/* Desktop grande - 1200px+ (menú normal visible) */
+/* Tablet y menú hamburguesa - 1199px */
 @media (max-width: 1199px) {
+  .hero-content-wrapper {
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+
   .hero-section {
     min-height: auto;
     padding: 120px 0 40px 0 !important;
@@ -224,6 +226,7 @@
 
   .hero-content {
     max-width: 90%;
+    margin: 0 auto;
   }
 
   .home-hero-container {
@@ -258,7 +261,7 @@
   }
 }
 
-/* Móviles grandes */
+/* Móviles grandes - 640px */
 @media (max-width: 640px) {
   .hero-section {
     padding: 100px 0 30px 0 !important;
@@ -310,7 +313,7 @@
   }
 }
 
-/* Móviles pequeños */
+/* Móviles pequeños - 480px */
 @media (max-width: 480px) {
   .home-hero-container {
     padding: 20px !important;
@@ -334,7 +337,7 @@
   }
 }
 
-/* Pantallas muy pequeñas */
+/* Pantallas muy pequeñas - 360px */
 @media (max-width: 360px) {
   .home-hero-container {
     padding: 15px !important;
@@ -374,4 +377,3 @@
     margin-bottom: 15px !important;
   }
 }
-

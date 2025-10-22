@@ -1,5 +1,5 @@
 /* ========================================
-   PÁGINA RECOMENDADO - MEJORADO
+   PÁGINA RECOMENDADO
    ======================================== */
 
 .recomendado-container {
@@ -317,41 +317,28 @@
   }
 }
 
-/* ========================================
-   BADGES MEJORADOS - RECOMENDADO (TEXTO VISIBLE CORREGIDO)
-   ======================================== */
-
-/* ========================================
-   FIX DE BADGES - SOLO CAMBIO DE COLOR
-   Agregar esto al FINAL de Recomendado.css
-   ======================================== */
-
-/* FIX: Solo cambiar el color del badge de origen */
+/* Override para badges específicos */
 .recomendado-origin-badge {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
   text-shadow: none !important;
 }
 
-/* Prevenir que otras clases cambien el color */
 .recomendado-origin-badge,
 .recomendado-origin-badge * {
   color: #2c1608 !important;
 }
 
-/* El hover ya estaba bien, pero lo aseguramos */
 .recomendado-card:hover .recomendado-origin-badge {
   background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   color: #2c1608 !important;
 }
 
-/* FIX: Asegurar que el popular mantenga texto blanco */
 .recomendado-popular,
 .recomendado-popular * {
   color: #ffffff !important;
 }
 
-/* Prevenir que las clases de UIkit afecten los colores */
 .uk-label.recomendado-popular {
   color: #ffffff !important;
 }
