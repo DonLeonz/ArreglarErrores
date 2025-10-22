@@ -14,30 +14,34 @@ const BlogPostCard = ({
   };
 
   return (
-    <div className="uk-card uk-card-default uk-card-hover blog-container-round color-text-black">
-      <div className="uk-card-media-top blog-image-container">
-        <button
-          type="button"
-          onClick={handleImageClick}
-          className="blog-image-button"
-        >
-          <img src={blog.imageUrl} alt={blog.title} />
-        </button>
-        <div
-          id={`modal-media-image-${blog.id}`}
-          className="uk-flex-top"
-          data-uk-modal="true"
-        >
-          <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
-            <button
-              className="uk-modal-close-outside"
-              type="button"
-              data-uk-close="true"
-            ></button>
-            <img src={blog.imageUrl} alt={blog.title} />
-          </div>
+    <div className="uk-card uk-card-default uk-card-hover blog-container-round blog-card">
+      <div
+        className="uk-card-media-top blog-image-container blog-image-clickable"
+        onClick={handleImageClick}
+      >
+        <img src={blog.imageUrl} alt={blog.title} />
+      </div>
+
+      <div
+        id={`modal-media-image-${blog.id}`}
+        className="uk-modal uk-flex-top"
+        data-uk-modal="true"
+      >
+        <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative">
+          <button
+            className="blog-image-modal-close"
+            type="button"
+            data-uk-toggle={`target: #modal-media-image-${blog.id}`}
+            aria-label="Cerrar"
+          />
+          <img
+            src={blog.imageUrl}
+            alt={blog.title}
+            className="blog-modal-image"
+          />
         </div>
       </div>
+
       <div className="uk-card-body">
         <h3 className="uk-card-title">{blog.title}</h3>
         <p>{blog.excerpt}</p>
@@ -52,7 +56,7 @@ const BlogPostCard = ({
           <span className="uk-margin-small-left">{blog.author}</span>
         </div>
         <button
-          className="uk-button uk-button-secondary uk-margin-small-top blog-container-round"
+          className="uk-button blog-button-secondary uk-margin-small-top blog-container-round"
           onClick={onToggleComments}
         >
           {isCommentsVisible ? "Cerrar comentarios" : "Ver comentarios"}

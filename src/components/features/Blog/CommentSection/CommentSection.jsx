@@ -17,7 +17,9 @@ const CommentSection = ({
           className="uk-border-circle"
           alt="Usuario"
         />
-        <span className="uk-margin-left">{currentUser || "Invitado"}</span>
+        <span className="uk-margin-left blog-user-text">
+          {currentUser || "Invitado"}
+        </span>
       </div>
       <textarea
         className="uk-textarea uk-placeholder blog-login-input"
@@ -27,7 +29,7 @@ const CommentSection = ({
         onChange={(e) => onCommentChange(e.target.value)}
       ></textarea>
       <button
-        className="uk-button uk-button-primary uk-margin-top blog-container-round"
+        className="uk-button uk-button-primary uk-margin-top blog-button-comment"
         onClick={onCommentSubmit}
       >
         Comentar
@@ -43,12 +45,12 @@ const CommentSection = ({
               alt={comment.author}
             />
             <div className="uk-margin-small-left">
-              <h4 className="uk-comment-title uk-margin-remove color-text-black">
+              <h4 className="uk-comment-title uk-margin-remove">
                 {comment.author}
               </h4>
               <ul className="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                 <li>
-                  <span className="color-text-black">Hace un momento</span>
+                  <span>Hace un momento</span>
                 </li>
               </ul>
             </div>

@@ -1,125 +1,363 @@
 /* ========================================
-   PÁGINA MENÚ
+   SECCIÓN PRINCIPAL
    ======================================== */
-
 .menu-section {
   background: linear-gradient(to bottom, #1e1e1e, #2c2c2c) !important;
+  position: relative;
+  overflow: hidden;
 }
 
+.menu-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(212, 167, 98, 0.03),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
 .menu-header-title {
-  letter-spacing: 3px !important;
+  letter-spacing: 4px !important;
   font-weight: 300 !important;
-  margin-bottom: 10px !important;
+  margin-bottom: 15px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: slide-up 0.8s ease;
 }
 
 .menu-header-underline {
-  border-bottom: 2px solid rgba(212, 167, 98, 0.7) !important;
+  border-bottom: 3px solid rgba(212, 167, 98, 0.8) !important;
   color: #f5f5f5 !important;
+  display: inline-block;
+  position: relative;
+}
+
+.menu-header-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #d4a762, #f5d98d, #d4a762);
+  background-size: 200% 100%;
+  animation: gradient-shift 3s linear infinite;
 }
 
 .menu-header-subtitle {
   color: #d4a762 !important;
+  font-size: 1.2rem !important;
+  font-weight: 400 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  animation: slide-up 0.8s ease 0.2s backwards;
 }
 
 .menu-grid {
-  margin-top: 20px !important;
+  margin-top: 30px !important;
 }
 
-/* Card de producto del menú */
+/* ========================================
+   CARD DE PRODUCTO
+   ======================================== */
 .menu-product-card {
-  background-color: #2c2c2c !important;
-  border: 1px solid rgba(212, 167, 98, 0.1) !important;
-  border-radius: 8px !important;
-  padding: 15px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  ) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Imagen de producto */
+.menu-product-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #d4a762, #b8935a, #d4a762);
+  background-size: 200% 200%;
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.menu-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
+  border-color: #d4a762 !important;
+  background: linear-gradient(
+    135deg,
+    rgba(50, 50, 50, 0.95),
+    rgba(35, 35, 35, 0.95)
+  ) !important;
+}
+
+.menu-product-card:hover::before {
+  opacity: 0.3;
+}
+
+/* ========================================
+   CONTENEDOR DE IMAGEN
+   ======================================== */
 .menu-product-image-container {
   width: 100px !important;
   height: 100px !important;
   min-width: 80px !important;
-  border: 2px solid #d4a762 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  border: 3px solid #d4a762 !important;
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4) !important;
+  transition: all 0.4s ease !important;
+  position: relative;
+  overflow: hidden;
 }
 
+.menu-product-image-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 167, 98, 0.4),
+    transparent
+  );
+  transition: left 0.6s;
+}
+
+.menu-product-card:hover .menu-product-image-container {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 20px rgba(212, 167, 98, 0.6) !important;
+  border-color: #f5d98d !important;
+}
+
+.menu-product-card:hover .menu-product-image-container::after {
+  left: 100%;
+}
+
+/* ========================================
+   IMAGEN DEL PRODUCTO
+   ======================================== */
 .menu-product-image {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
   object-position: center !important;
+  transition: transform 0.4s ease !important;
 }
 
-/* Información del producto */
+.menu-product-card:hover .menu-product-image {
+  transform: scale(1.15);
+}
+
+/* ========================================
+   INFORMACIÓN DEL PRODUCTO
+   ======================================== */
 .menu-product-info {
   flex-grow: 1 !important;
+  transition: all 0.3s ease;
+}
+
+.menu-product-card:hover .menu-product-info {
+  transform: translateX(3px);
 }
 
 .menu-product-title {
   color: #f5f5f5 !important;
-  font-size: 1.2rem !important;
+  font-size: 1.3rem !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+.menu-product-card:hover .menu-product-title {
+  color: #d4a762 !important;
+  transform: translateX(3px);
+}
+
+/* ========================================
+   PRECIO
+   ======================================== */
 .menu-product-price {
-  background-color: rgba(212, 167, 98, 0.9) !important;
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
-  padding: 3px 10px !important;
-  border-radius: 12px !important;
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
   font-weight: bold !important;
-  font-size: 0.9rem !important;
+  font-size: 1rem !important;
+  box-shadow: 0 3px 10px rgba(212, 167, 98, 0.4) !important;
+  transition: all 0.3s ease !important;
+  display: inline-block;
 }
 
+.menu-product-card:hover .menu-product-price {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(212, 167, 98, 0.6) !important;
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+}
+
+/* ========================================
+   BADGES
+   ======================================== */
 .menu-product-origin {
-  background-color: rgba(94, 43, 22, 0.7) !important;
-  color: #f5f5f5 !important;
-  font-size: 0.7rem !important;
-  padding: 2px 8px !important;
+  background: linear-gradient(135deg, #8b4513, #654321) !important;
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  padding: 5px 12px !important;
   margin-right: 8px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 6px rgba(139, 69, 19, 0.4);
+}
+
+.menu-product-card:hover .menu-product-origin {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(212, 167, 98, 0.5);
 }
 
 .menu-product-bestseller {
-  background-color: rgba(165, 42, 42, 0.7) !important;
-  color: white !important;
-  font-size: 0.7rem !important;
-  padding: 2px 8px !important;
+  background: linear-gradient(135deg, #dc143c, #b22222) !important;
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  padding: 5px 12px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 3px 10px rgba(220, 20, 60, 0.5) !important;
+  animation: pulse-golden 2s infinite;
+  transition: all 0.3s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.menu-product-card:hover .menu-product-bestseller {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(220, 20, 60, 0.7) !important;
+  background: linear-gradient(135deg, #ff1744, #dc143c) !important;
+}
+
+/* ========================================
+   DESCRIPCIÓN
+   ======================================== */
 .menu-product-description {
-  color: rgba(245, 245, 245, 0.8) !important;
-  font-size: 0.85rem !important;
-  line-height: 1.5 !important;
+  color: rgba(245, 245, 245, 0.85) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+  transition: all 0.3s ease;
 }
 
-/* Botón de detalles */
+.menu-product-card:hover .menu-product-description {
+  color: rgba(245, 245, 245, 1) !important;
+}
+
+/* ========================================
+   BOTÓN DE DETALLES
+   ======================================== */
 .menu-details-button {
   color: #d4a762 !important;
   background-color: transparent !important;
-  border: 1px solid rgba(212, 167, 98, 0.5) !important;
-  border-radius: 6px !important;
-  padding: 3px 15px !important;
-  font-size: 0.85rem !important;
-  transition: all 0.3s !important;
+  border: 2px solid rgba(212, 167, 98, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-details-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(212, 167, 98, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.menu-details-button:hover::before {
+  width: 200px;
+  height: 200px;
 }
 
 .menu-details-button:hover {
-  background-color: rgba(212, 167, 98, 0.1) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(94, 43, 22, 0.15)
+  ) !important;
   border-color: #d4a762 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4);
+  color: #f5d98d !important;
 }
 
-/* Modal de producto */
+/* ========================================
+   MODAL DE PRODUCTO
+   ======================================== */
 .menu-modal-body {
-  background-color: #2c2c2c !important;
-  border-radius: 8px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.98),
+    rgba(30, 30, 30, 0.98)
+  ) !important;
+  border-radius: 16px !important;
+  border: 3px solid rgba(212, 167, 98, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
 }
 
 .menu-modal-close {
   color: #d4a762 !important;
+  transition: all 0.3s ease !important;
 }
 
+.menu-modal-close:hover {
+  color: #f5d98d !important;
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* ========================================
+   IMAGEN DEL MODAL
+   ======================================== */
 .menu-modal-image-container {
   width: 300px !important;
   height: 300px !important;
-  border: 3px solid #d4a762 !important;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  border: 5px solid #d4a762 !important;
+  box-shadow: 0 8px 25px rgba(212, 167, 98, 0.5) !important;
+  transition: all 0.4s ease !important;
+  animation: float 3s ease-in-out infinite;
+}
+
+.menu-modal-image-container:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(212, 167, 98, 0.7) !important;
+  border-color: #f5d98d !important;
 }
 
 .menu-modal-image {
@@ -127,32 +365,173 @@
   height: 100% !important;
   object-fit: cover !important;
   object-position: center !important;
+  transition: transform 0.4s ease !important;
 }
 
+.menu-modal-image-container:hover .menu-modal-image {
+  transform: scale(1.1);
+}
+
+/* ========================================
+   CONTENIDO DEL MODAL
+   ======================================== */
 .menu-modal-title {
   color: #d4a762 !important;
-  border-bottom: 1px solid rgba(212, 167, 98, 0.3) !important;
-  padding-bottom: 10px !important;
+  border-bottom: 2px solid rgba(212, 167, 98, 0.5) !important;
+  padding-bottom: 15px !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .menu-modal-section-title {
   color: #f5f5f5 !important;
-  font-size: 1.2rem !important;
+  font-size: 1.3rem !important;
   margin-bottom: 15px !important;
+  font-weight: 600 !important;
+  position: relative;
+  padding-left: 15px;
+}
+
+.menu-modal-section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 80%;
+  background: linear-gradient(to bottom, #d4a762, #b8935a);
+  border-radius: 2px;
 }
 
 .menu-modal-list {
-  color: rgba(245, 245, 245, 0.8) !important;
+  color: rgba(245, 245, 245, 0.85) !important;
+  line-height: 1.8 !important;
+}
+
+.menu-modal-list li {
+  transition: all 0.3s ease;
+  padding-left: 5px;
+}
+
+.menu-modal-list li:hover {
+  color: rgba(245, 245, 245, 1) !important;
+  transform: translateX(5px);
 }
 
 .menu-modal-text {
-  color: rgba(245, 245, 245, 0.8) !important;
-  line-height: 1.6 !important;
+  color: rgba(245, 245, 245, 0.85) !important;
+  line-height: 1.8 !important;
 }
 
+/* ========================================
+   LABELS DEL MODAL
+   ======================================== */
 .menu-modal-label {
-  background-color: rgba(212, 167, 98, 0.15) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.2),
+    rgba(94, 43, 22, 0.2)
+  ) !important;
   color: #d4a762 !important;
-  font-size: 0.9rem !important;
-  padding: 5px 10px !important;
+  font-size: 0.95rem !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(212, 167, 98, 0.4) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.menu-modal-label:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.3),
+    rgba(94, 43, 22, 0.3)
+  ) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 960px) {
+  .menu-header-title {
+    font-size: 1.8rem !important;
+    letter-spacing: 3px !important;
+  }
+
+  .menu-product-card {
+    padding: 15px !important;
+  }
+
+  .menu-modal-image-container {
+    width: 250px !important;
+    height: 250px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .menu-header-title {
+    font-size: 1.5rem !important;
+    letter-spacing: 2px !important;
+  }
+
+  .menu-product-image-container {
+    width: 80px !important;
+    height: 80px !important;
+    min-width: 70px !important;
+  }
+
+  .menu-product-title {
+    font-size: 1.1rem !important;
+  }
+
+  .menu-product-price {
+    font-size: 0.9rem !important;
+    padding: 5px 12px !important;
+  }
+
+  .menu-modal-image-container {
+    width: 200px !important;
+    height: 200px !important;
+    border-width: 3px !important;
+  }
+
+  .menu-modal-section-title {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* ========================================
+   OVERRIDE PARA BADGES ESPECIFICOS
+   ======================================== */
+
+.menu-product-origin {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+}
+
+.menu-product-origin,
+.menu-product-origin * {
+  color: #2c1608 !important;
+}
+
+.menu-product-card:hover .menu-product-origin {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  color: #2c1608 !important;
+}
+
+.menu-product-bestseller,
+.menu-product-bestseller * {
+  color: #ffffff !important;
+}
+
+.uk-badge.menu-product-origin {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+}
+
+.uk-badge.menu-product-bestseller {
+  color: #ffffff !important;
 }
