@@ -1,15 +1,11 @@
 import GitHubSearch from "../../components/features/ApiSearch/GitHubSearch/GitHubSearch";
 import MangaDexSearch from "../../components/features/ApiSearch/MangaDexSearch/MangaDexSearch";
 import AccordionItem from "../../components/common/AccordionItem/AccordionItem";
-import animeBackground from "../../assets/img/fondo_6.jpg";
 import "./Api.css";
 
 const Api = () => {
   return (
-    <div
-      className="uk-background-cover first-child-adjustment uk-height-viewport api-background"
-      style={{ backgroundImage: `url(${animeBackground})` }}
-    >
+    <div className="uk-background-cover first-child-adjustment uk-height-viewport api-background">
       <div className="uk-container uk-section">
         <h1 className="uk-heading-line uk-text-center uk-margin-large-bottom api-title">
           Explora APIs

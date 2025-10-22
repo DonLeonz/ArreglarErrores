@@ -1,8 +1,7 @@
-/* ========================================
-   PÁGINA API - MEJORADO
-   ======================================== */
-
 .api-background {
+  background-image: url('../../assets/img/fondo_6.jpg');
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed !important;
   position: relative;
   min-height: 100vh;

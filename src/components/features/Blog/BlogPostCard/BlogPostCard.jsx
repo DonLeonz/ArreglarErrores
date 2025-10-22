@@ -13,29 +13,21 @@ const BlogPostCard = ({
     if (modal) modal.show();
   };
 
-  // FIX: Usar data-uk-toggle para cerrar el modal correctamente
   return (
     <div className="uk-card uk-card-default uk-card-hover blog-container-round blog-card">
-      {/* Imagen clickeable */}
       <div
-        className="uk-card-media-top blog-image-container"
+        className="uk-card-media-top blog-image-container blog-image-clickable"
         onClick={handleImageClick}
-        style={{ cursor: "pointer" }}
       >
         <img src={blog.imageUrl} alt={blog.title} />
       </div>
 
-      {/* Modal con botón de cerrar funcional */}
       <div
         id={`modal-media-image-${blog.id}`}
         className="uk-modal uk-flex-top"
         data-uk-modal="true"
       >
-        <div
-          className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical"
-          style={{ position: "relative" }}
-        >
-          {/* FIX: Botón cerrar con data-uk-toggle en lugar de onClick */}
+        <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative">
           <button
             className="blog-image-modal-close"
             type="button"
@@ -45,12 +37,7 @@ const BlogPostCard = ({
           <img
             src={blog.imageUrl}
             alt={blog.title}
-            style={{
-              maxWidth: "90vw",
-              maxHeight: "90vh",
-              borderRadius: "12px",
-              display: "block",
-            }}
+            className="blog-modal-image"
           />
         </div>
       </div>

@@ -1,16 +1,10 @@
-import mainCoffeBackground from "../../assets/img/coffe-soft-header.svg";
 import "./Home.css";
 
 const Home = () => {
   return (
     <>
-      {/* HERO SECTION - Replicando comportamiento del CTA */}
-      <div
-        className="uk-background-cover uk-light first-child-adjustment hero-section uk-flex uk-flex-middle"
-        style={{ backgroundImage: `url(${mainCoffeBackground})` }}
-      >
+      <div className="uk-background-cover uk-light first-child-adjustment hero-section uk-flex uk-flex-middle">
         <div className="hero-overlay"></div>
-        {/* FIX: Estructura simple que se comporta como el CTA */}
         <div className="uk-width-1-1 hero-content-wrapper">
           <div className="hero-content">
             <div className="home-hero-container">
@@ -53,7 +47,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* CARACTERÍSTICAS */}
       <section className="uk-section uk-section-default features-section">
         <div className="uk-container">
           <h2
@@ -119,7 +112,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ESTADÍSTICAS */}
       <section className="uk-section stats-section">
         <div className="uk-container">
           <h2
@@ -169,7 +161,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* LLAMADO A LA ACCIÓN */}
       <section className="uk-section cta-section">
         <div className="uk-container">
           <div

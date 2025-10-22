@@ -17,10 +17,7 @@ const CommentSection = ({
           className="uk-border-circle"
           alt="Usuario"
         />
-        <span
-          className="uk-margin-left"
-          style={{ color: "rgba(245, 245, 245, 0.9)" }}
-        >
+        <span className="uk-margin-left blog-user-text">
           {currentUser || "Invitado"}
         </span>
       </div>

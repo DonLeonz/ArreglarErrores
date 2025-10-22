@@ -1,14 +1,10 @@
-/* ========================================
-   PÁGINA HOME - HERO CON UIKIT FLEX
-   ======================================== */
-
-/* ========================================
-   HERO SECTION
-   ======================================== */
 .hero-section {
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+  background-image: url('../../assets/img/coffe-soft-header.svg');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-overlay {
@@ -182,10 +178,10 @@
   font-weight: bold !important;
   margin: 0 !important;
   line-height: 1 !important;
-  background: linear-gradient(135deg, #d4a762, #f5d98d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: linear-gradient(135deg, #d4a762, #f5d98d) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
 }
 
 /* ========================================
@@ -379,12 +375,3 @@
   }
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}

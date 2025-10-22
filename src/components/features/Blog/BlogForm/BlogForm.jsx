@@ -52,7 +52,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
       <form onSubmit={onSubmit}>
         <div className="uk-grid-small" data-uk-grid>
           <div className="uk-width-1-2@s">
-            <label className="uk-form-label" style={{ color: "#d4a762" }}>
+            <label className="uk-form-label blog-form-label">
               Título del blog
             </label>
             <input
@@ -67,7 +67,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             />
           </div>
           <div className="uk-width-1-2@s">
-            <label className="uk-form-label" style={{ color: "#d4a762" }}>
+            <label className="uk-form-label blog-form-label">
               Autor
             </label>
             <input
@@ -82,7 +82,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             />
           </div>
           <div className="uk-width-1-1">
-            <label className="uk-form-label" style={{ color: "#d4a762" }}>
+            <label className="uk-form-label blog-form-label">
               Resumen o introducción
             </label>
             <textarea
@@ -97,9 +97,8 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             ></textarea>
           </div>
 
-          {/* Modern Image Uploader */}
           <div className="uk-width-1-1">
-            <label className="uk-form-label" style={{ color: "#d4a762" }}>
+            <label className="uk-form-label blog-form-label">
               Imagen del Artículo
             </label>
             <div className="blog-uploader">
@@ -158,12 +157,11 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
                 type="file"
                 accept="image/*"
                 onChange={handleFileSelect}
-                style={{ display: "none" }}
+                className="blog-file-input-hidden"
               />
             </div>
           </div>
 
-          {/* FIX: Botón de publicar con diseño mejorado */}
           <div className="uk-width-1-1">
             <button
               type="submit"

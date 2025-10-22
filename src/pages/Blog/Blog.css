@@ -563,3 +563,36 @@
     font-size: 0.95rem !important;
   }
 }
+
+/* Clase para labels del formulario */
+.blog-form-label {
+  color: #d4a762;
+}
+
+/* Clase para inputs de archivo ocultos */
+.blog-file-input-hidden {
+  display: none;
+}
+
+/* Clase para imagen clickeable */
+.blog-image-clickable {
+  cursor: pointer;
+}
+
+/* Clase para modal dialog con position relative */
+.blog-modal-dialog-relative {
+  position: relative;
+}
+
+/* Clase para imagen en modal */
+.blog-modal-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Clase para texto de usuario */
+.blog-user-text {
+  color: rgba(245, 245, 245, 0.9);
+}

@@ -66,7 +66,6 @@ const Nosotros = () => {
   return (
     <div className="first-child-adjustment uk-section uk-padding-small nosotros-background">
       <div className="uk-container uk-container-large uk-padding uk-light nosotros-container">
-        {/* TÍTULO PRINCIPAL */}
         <div
           className="uk-text-center uk-margin-large-bottom"
           data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
@@ -81,7 +80,6 @@ const Nosotros = () => {
           </p>
         </div>
 
-        {/* CARDS DE INFORMACIÓN */}
         <div
           className="uk-grid-medium uk-child-width-1-3@m uk-child-width-1-1"
           data-uk-grid
@@ -105,7 +103,6 @@ const Nosotros = () => {
           ))}
         </div>
 
-        {/* NUESTRAS SEDES */}
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"
@@ -166,7 +163,6 @@ const Nosotros = () => {
                       src={location.mapUrl}
                       width="100%"
                       height="250"
-                      style={{ border: 0 }}
                       allowFullScreen=""
                       loading="lazy"
                       className="nosotros-map"
@@ -188,7 +184,6 @@ const Nosotros = () => {
           </div>
         </div>
 
-        {/* EQUIPO */}
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"
@@ -212,7 +207,6 @@ const Nosotros = () => {
           </div>
         </div>
 
-        {/* VALORES */}
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"

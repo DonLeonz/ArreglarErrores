@@ -9,7 +9,6 @@ const Footer = () => {
           className="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s"
           data-uk-grid
         >
-          {/* Columna 1: Logo y descripción */}
           <div>
             <img
               src={coffeLogo}
@@ -22,7 +21,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Columna 2: Enlaces rápidos */}
           <div>
             <h4 className="footer-title">Enlaces Rápidos</h4>
             <ul className="uk-list uk-list-divider footer-list">
@@ -49,7 +47,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Columna 3: Información */}
           <div>
             <h4 className="footer-title">Información</h4>
             <ul className="uk-list uk-list-divider footer-list">
@@ -71,7 +68,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Columna 4: Redes y contacto */}
           <div>
             <h4 className="footer-title">Síguenos</h4>
             <div className="uk-margin-small-top footer-social-icons">
