@@ -3,6 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
 import LoginModal from "../../modals/LoginModal/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { currentUser, login, logout } = useAuth();
@@ -27,8 +28,13 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
+  const handleCloseOffcanvas = () => {
+    const offcanvas = document.getElementById("burger-menu");
+    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
+  };
+
   return (
-    <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+    <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
       <nav className="uk-navbar-container uk-navbar-transparent">
         <div className="uk-container uk-width-1-1 background-opaque">
           <div data-uk-navbar="mode: click" className="uk-flex">
@@ -133,14 +139,16 @@ const Navbar = () => {
               ></a>
               <div
                 id="burger-menu"
-                data-uk-offcanvas="overlay: true; flip: true"
+                data-uk-offcanvas="overlay: true; flip: true; bg-close: true"
               >
                 <div className="uk-offcanvas-bar">
                   <button
-                    className="uk-offcanvas-close"
+                    className="navbar-offcanvas-close"
                     type="button"
-                    data-uk-close=""
-                  />
+                    onClick={handleCloseOffcanvas}
+                    aria-label="Cerrar menú"
+                  ></button>
+
                   <div
                     className="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
                     data-uk-grid=""

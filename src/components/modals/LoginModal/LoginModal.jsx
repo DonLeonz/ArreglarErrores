@@ -35,25 +35,32 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     onClose();
   };
 
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) handleClose();
+  };
+
   return (
-    <div className="uk-modal uk-open login-modal-display">
+    <div
+      className="uk-modal uk-open login-modal-display"
+      onClick={handleBackdropClick}
+    >
       <div
         className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="uk-modal-close-default color-text-black login-modal-close"
+          className="login-modal-close"
           type="button"
-          data-uk-close="true"
           onClick={handleClose}
-          aria-label="Close"
+          aria-label="Cerrar"
         ></button>
-        <h2 className="uk-modal-title color-text-black">
+
+        <h2 className="uk-modal-title">
           {isRegistering ? "Registrarse" : "Iniciar Sesión"}
         </h2>
         <div className="uk-form-stacked">
           <div className="uk-margin">
-            <label className="uk-form-label color-text-black">Usuario</label>
+            <label className="uk-form-label">Usuario</label>
             <input
               className="uk-input login-modal-input"
               type="text"
@@ -63,10 +70,11 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               onKeyPress={(e) => {
                 if (e.key === "Enter") handleSubmit(e);
               }}
+              placeholder="Ingresa tu usuario"
             />
           </div>
           <div className="uk-margin">
-            <label className="uk-form-label color-text-black">Contraseña</label>
+            <label className="uk-form-label">Contraseña</label>
             <input
               className="uk-input login-modal-input"
               type="password"
@@ -76,18 +84,19 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               onKeyPress={(e) => {
                 if (e.key === "Enter") handleSubmit(e);
               }}
+              placeholder="Ingresa tu contraseña"
             />
           </div>
-          <div className="uk-flex uk-flex-between">
+          <div className="uk-flex uk-flex-between uk-flex-middle">
             <button
-              className="uk-button uk-button-primary blog-container-round"
+              className="uk-button uk-button-primary"
               type="button"
               onClick={handleSubmit}
             >
               {isRegistering ? "Registrarse" : "Iniciar Sesión"}
             </button>
             <button
-              className="uk-button uk-button-link color-text-black"
+              className="uk-button uk-button-link"
               type="button"
               onClick={() => setIsRegistering(!isRegistering)}
             >
@@ -96,7 +105,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </div>
         </div>
       </div>
-      <div className="login-modal-overlay" onClick={handleClose} />
     </div>
   );
 };

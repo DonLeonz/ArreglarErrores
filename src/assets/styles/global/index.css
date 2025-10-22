@@ -1,7 +1,15 @@
+/* ========================================
+   IMPORTS
+   ======================================== */
+
 @import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap");
 @import "./buttons.css";
 @import "./common.css";
 @import "./images.css";
+
+/* ========================================
+   FUENTES GLOBALES
+   ======================================== */
 
 * {
   font-family: "Lexend Deca", sans-serif !important;
@@ -10,16 +18,51 @@
   font-style: normal;
 }
 
+/* ========================================
+   BACKGROUNDS Y OVERLAYS
+   ======================================== */
+
 .background-opaque {
   background: rgba(82, 69, 69, 0.4);
 }
 
-/**
-    Útil para que el primer hijo de un elemento con el estilo anterior se ajuste
-    al tamaño del navbar y pueda mostrar bien su contenido
-**/
+/* ========================================
+   AJUSTES DE LAYOUT
+   ======================================== */
+
 .first-child-adjustment {
   height: 100%;
   padding-top: 6rem !important;
   margin-top: -6rem !important;
+}
+
+/* ========================================
+   OVERRIDES DE UIKIT
+   ======================================== */
+
+.uk-offcanvas.uk-open {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+}
+
+.uk-offcanvas-bar {
+  z-index: 1001 !important;
+  pointer-events: auto !important;
+}
+
+.uk-modal.uk-open {
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.uk-modal-dialog {
+  position: relative;
+  z-index: 1;
 }
