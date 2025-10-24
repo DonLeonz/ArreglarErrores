@@ -1,20 +1,14 @@
 import { NavLink } from "react-router";
-import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
 import LoginModal from "../../modals/LoginModal/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
+import { useAuth } from "../../../context/AuthContext";
 
 const Navbar = () => {
-  const { currentUser, login, logout } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-
-  const handleLogin = (username) => {
-    login(username);
-    setShowModal(false);
-    setShowRegisterModal(false);
-  };
+  const { user, isAuth, logout } = useAuth();
 
   const handleOpenLogin = () => {
     setShowModal(true);
@@ -32,6 +26,8 @@ const Navbar = () => {
     const offcanvas = document.getElementById("burger-menu");
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
+
+  const currentUser = user == null ? null : user.username;
 
   return (
     <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
@@ -100,11 +96,11 @@ const Navbar = () => {
               </div>
             </div>
             <div className="uk-navbar-right uk-visible@l">
-              {currentUser ? (
+              {isAuth ? (
                 <div className="uk-navbar-item uk-light">
                   <button
                     className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
-                    onClick={logout}
+                    onClick={() => logout()}
                   >
                     Cerrar Sesión
                   </button>
@@ -199,13 +195,13 @@ const Navbar = () => {
                       </NavLink>
                     </div>
                     <hr className="uk-divider-icon" />
-                    {currentUser ? (
+                    {isAuth ? (
                       <div className="uk-light">
                         <button
                           className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                          onClick={logout}
+                          onClick={() => logout()}
                         >
-                          Cerrar Sesión ({currentUser})
+                          Cerrar Sesión
                         </button>
                       </div>
                     ) : (
@@ -237,11 +233,15 @@ const Navbar = () => {
       </nav>
       <LoginModal
         isOpen={showModal || showRegisterModal}
+        mode={showRegisterModal ? "register" : "login"}
         onClose={() => {
           setShowModal(false);
           setShowRegisterModal(false);
         }}
-        onLogin={handleLogin}
+        onOpenRegister={() => {
+          setShowModal(false);
+          setShowRegisterModal(true);
+        }}
       />
     </div>
   );

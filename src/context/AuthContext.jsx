@@ -1,5 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginRequest, registerRequest, verifyToken } from "../api/requests/users.request";
+import {
+  loginRequest,
+  registerRequest,
+  verifyToken,
+} from "../api/requests/users.request";
 
 const AuthContext = createContext();
 
@@ -7,7 +11,7 @@ export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
-}
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -31,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         console.log("Registered User: ", res.data);
         return true;
       }
-    } catch(error) {
+    } catch (error) {
       console.log(error);
       setErrors([error.response]);
       return false;
@@ -41,22 +45,24 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (loginData) => {
     try {
       const res = await loginRequest(loginData);
-      console.log(res.data);
-      if (res.status === 200 && res.data);
-      localStorage.setItem("token", res.data);
-      setIsAuth(true);
-    } catch(error) {
-      console.log(error.response.data.message);
-      setErrors([error.response])
+      if (res.status === 200 && res.data) {
+        localStorage.setItem("token", res.data);
+        setIsAuth(true);
+        return true;
+      }
+    } catch (error) {
+      console.log(error.message);
+      setErrors([error.message]);
       return false;
     }
   };
 
   const logout = () => {
+    console.log("LOGOUT!!!");
     localStorage.removeItem("token");
     setUser(null);
     setIsAuth(false);
-  }
+  };
 
   // Verify Token at App Start
   useEffect(() => {
@@ -70,7 +76,6 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const res = await verifyToken();
-        console.log("user", res.data);
         setUser(res.data);
         setIsAuth(true);
       } catch (error) {
@@ -86,15 +91,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ 
-      user,
-      isAuth,
-      loading,
-      errors,
-      signUp,
-      signIn,
-      logout
-     }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuth,
+        loading,
+        errors,
+        signUp,
+        signIn,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

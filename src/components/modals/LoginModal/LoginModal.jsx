@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import "./LoginModal.css";
+import { useAuth } from "../../../context/AuthContext";
 
-const LoginModal = ({ isOpen, onClose, onLogin }) => {
-  const [isRegistering, setIsRegistering] = useState(false);
+const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
+  const [isRegistering, setIsRegistering] = useState(mode === "register");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { signIn, signUp, errors } = useAuth();
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsRegistering(mode === "register");
+  }, [mode]);
 
   useEffect(() => {
     if (isOpen) {
@@ -19,13 +29,24 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) return;
-    onLogin(username);
+
+    if (isRegistering) {
+      const success = await signUp({ username, password });
+      if (success) {
+        setIsRegistering(false);
+      }
+    } else {
+      const success = await signIn({ username, password });
+      console.log(success);
+      if (success) {
+        handleClose();
+      }
+    }
     setUsername("");
     setPassword("");
-    setIsRegistering(false);
   };
 
   const handleClose = () => {
@@ -67,9 +88,6 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") handleSubmit(e);
-              }}
               placeholder="Ingresa tu usuario"
             />
           </div>
@@ -81,12 +99,16 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") handleSubmit(e);
-              }}
               placeholder="Ingresa tu contraseña"
             />
           </div>
+
+          {errors?.length > 0 && (
+            <div className="uk-text-danger uk-margin-small-bottom">
+              {errors.map((err, idx) => <div key={idx}>{err}</div>)}
+            </div>
+          )}
+
           <div className="uk-flex uk-flex-between uk-flex-middle">
             <button
               className="uk-button uk-button-primary"
