@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
 import "./LoginModal.css";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -9,8 +8,6 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [password, setPassword] = useState("");
 
   const { signIn, signUp, errors } = useAuth();
-  
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsRegistering(mode === "register");
@@ -40,7 +37,6 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
       }
     } else {
       const success = await signIn({ username, password });
-      console.log(success);
       if (success) {
         handleClose();
       }

@@ -27,7 +27,7 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
-  const currentUser = user == null ? null : user.username;
+  const currentUser = (user == null) ? null : user.username;
 
   return (
     <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
