@@ -1,5 +1,24 @@
 import z from "zod";
 
+export const loginSchema = z.object({
+  username: z
+    .string({
+      required_error: "El nombre de usuario es obligatorio",
+    })
+    .regex(/^[\w\d\W]{3,29}$/, {
+      message:
+        "El nombre de usuario debe tener entre 3 y 29 caracteres válidos (solo letras, números o símbolos permitidos).",
+    }),
+  password: z
+    .string({
+      required_error: "La contraseña es obligatoria",
+    })
+    .regex(/^(?=.*\d+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[^a-zA-Z\d]+)[\w\d\W]{7,30}$/, {
+      message:
+        "La contraseña debe tener entre 7 y 30 caracteres, incluir mayúsculas, minúsculas, un número y un símbolo.",
+    }),
+});
+
 export const userSchema = z.object({
     username: z .string({
         required_error: "Este campo es obligatorio",

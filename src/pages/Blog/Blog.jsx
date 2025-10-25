@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import LoginModal from "../../components/modals/LoginModal/LoginModal";
+import LoginModal from "../../components/modals/CreationModals/LoginModal";
 import BlogForm from "../../components/features/Blog/BlogForm/BlogForm";
 import BlogPostCard from "../../components/features/Blog/BlogPostCard/BlogPostCard";
 import CommentSection from "../../components/features/Blog/CommentSection/CommentSection";

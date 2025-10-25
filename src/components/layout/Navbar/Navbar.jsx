@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import { useState } from "react";
-import LoginModal from "../../modals/LoginModal/LoginModal";
+import LoginModal from "../../modals/CreationModals/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
 import { useAuth } from "../../../context/AuthContext";
@@ -27,7 +27,6 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
-  console.log(user);
   const currentUser = (user == null) ? null : user.username;
 
   return (

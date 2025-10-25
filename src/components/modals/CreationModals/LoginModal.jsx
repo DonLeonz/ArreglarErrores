@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import "./LoginModal.css";
+import "./FormModal.css";
 import { useAuth } from "../../../context/AuthContext";
-import { userSchema } from "../../../schemas/user.schema";
+import { userSchema, loginSchema } from "../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,7 +15,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
     formState: { errors },
     reset,
   } = useForm({
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(isRegistering ? userSchema : loginSchema),
   });
 
   useEffect(() => {
@@ -30,22 +30,21 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   if (!isOpen) return null;
 
   const handleFormSubmit = async (data) => {
-
     const { username, password, email, name } = data;
 
-    if (isRegistering) {
-      const success = await signUp({ username, password, email, name });
-      if (success) {
-        setIsRegistering(false);
+    try {
+      let success = false;
+      if (isRegistering) {
+        success = await signUp({ username, password, email, name });
+        if (success) setIsRegistering(false);
+      } else {
+        success = await signIn({ username, password });
+        if (success) handleClose();
       }
-    } else {
-      const success = await signIn({ username, password });
-      if (success) {
-        handleClose();
-      }
+      if (success) reset();
+    } catch (err) {
+      console.error("Auth Error:", err);
     }
-
-    reset();
   };
 
   const handleClose = () => {
