@@ -27,6 +27,7 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
+  console.log(user);
   const currentUser = (user == null) ? null : user.username;
 
   return (

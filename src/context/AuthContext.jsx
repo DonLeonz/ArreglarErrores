@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
   // Register
   const signUp = async (userData) => {
     try {
+      console.log(userData);
       const res = await registerRequest(userData);
       if (res.status === 201) {
         console.log("Registered User: ", res.data);
@@ -45,6 +46,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (loginData) => {
     try {
       const res = await loginRequest(loginData);
+      console.log(res.data);
       if (res.status === 200 && res.data) {
         localStorage.setItem("token", res.data);
         setIsAuth(true);

@@ -12,13 +12,16 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.2.2",
     "axios": "^1.12.2",
     "coffe_soft": "file:",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.65.0",
     "react-router": "^7.5.0",
-    "uikit": "^3.23.7"
+    "uikit": "^3.23.7",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
