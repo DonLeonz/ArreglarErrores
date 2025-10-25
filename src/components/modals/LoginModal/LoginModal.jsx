@@ -7,23 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [isRegistering, setIsRegistering] = useState(mode === "register");
-
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-    email: "",
-    name: "",
-  });
+  const { signIn, signUp, errors: authErrors } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
-    resolver: zodResolver(userSchema)
+    resolver: zodResolver(userSchema),
   });
-
-  const { signIn, signUp, errors: authErrors } = useAuth();
 
   useEffect(() => {
     setIsRegistering(mode === "register");
@@ -36,15 +29,9 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
 
   if (!isOpen) return null;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleFormSubmit = async (data) => {
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-    const { username, password, email, name } = user;
+    const { username, password, email, name } = data;
 
     if (isRegistering) {
       const success = await signUp({ username, password, email, name });
@@ -58,21 +45,11 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
       }
     }
 
-    setUser({
-      username: "",
-      password: "",
-      email: "",
-      name: "",
-    });
+    reset();
   };
 
   const handleClose = () => {
-    setUser({
-      username: "",
-      password: "",
-      email: "",
-      name: "",
-    });
+    reset();
     setIsRegistering(false);
     onClose();
   };
@@ -101,7 +78,10 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
           {isRegistering ? "Registrarse" : "Iniciar Sesión"}
         </h2>
 
-        <form className="uk-form-stacked" onSubmit={handleSubmit(handleFormSubmit)}>
+        <form
+          className="uk-form-stacked"
+          onSubmit={handleSubmit(handleFormSubmit)}
+        >
           {isRegistering && (
             <>
               <div className="uk-margin">
@@ -109,11 +89,12 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
                 <input
                   className="uk-input login-modal-input"
                   type="text"
-                  name="name"
-                  value={user.name}
-                  onChange={handleChange}
+                  {...register("name")}
                   placeholder="Tu nombre"
                 />
+                {errors.name && (
+                  <p className="uk-text-danger">{errors.name.message}</p>
+                )}
               </div>
 
               <div className="uk-margin">
@@ -121,11 +102,12 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
                 <input
                   className="uk-input login-modal-input"
                   type="email"
-                  name="email"
-                  value={user.email}
-                  onChange={handleChange}
+                  {...register("email")}
                   placeholder="Tu correo"
                 />
+                {errors.email?.message && (
+                  <p className="uk-text-danger">{errors.email.message}</p>
+                )}
               </div>
             </>
           )}
@@ -135,11 +117,8 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
             <input
               className="uk-input login-modal-input"
               type="text"
-              name="username"
-              value={user.username}
-              onChange={handleChange}
+              {...register("username")}
               placeholder="Ingresa tu usuario"
-              required
             />
             {errors.username?.message && (
               <p className="uk-text-danger">{errors.username.message}</p>
@@ -151,14 +130,15 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
             <input
               className="uk-input login-modal-input"
               type="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
+              {...register("password")}
               placeholder="Ingresa tu contraseña"
-              required
             />
+            {errors.password?.message && (
+              <p className="uk-text-danger">{errors.password.message}</p>
+            )}
           </div>
 
+          {/* Errores del backend */}
           {authErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
               {authErrors.map((err, idx) => (
