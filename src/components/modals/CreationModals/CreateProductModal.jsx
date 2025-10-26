@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./FormModal.css";
+import "../../cards/cards.css";
 import { useProducts } from "../../../context/ProductsContext";
 import { productSchema } from "../../../schemas/product.schema";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -8,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
   const isModifying = mode === "modify";
   const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+
+  let imagesMenu = Object.keys(import.meta.glob("/src/assets/img/menu/*"));
 
   const {
     createProduct,
@@ -36,12 +40,13 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
   });
 
   const selectedCategory = watch("category");
+  const selectedImage = watch("image");
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
     if (isOpen) searchAllCategories;
     return () => (document.body.style.overflow = "unset");
-  }, [isOpen]);
+  }, [isOpen, searchAllCategories]);
 
   if (!isOpen) return null;
 
@@ -61,12 +66,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
         success = await modifyProduct(parsedData);
       }
 
-      console.log(productErrors);
-
-      if (success) {
-        handleClose();
-      }
-
+      if (success) handleClose();
     } catch (error) {
       console.error("Error al procesar el formulario:", error);
     }
@@ -117,6 +117,54 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
         ) : (
           <p>No hay categorías registradas</p>
         )}
+      </div>
+    </div>
+  );
+
+  const ImageModal = () => (
+    <div
+      className="uk-modal uk-open login-modal-display"
+      onClick={() => setShowImageModal(false)}
+    >
+      <div
+        className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="uk-modal-title">Seleccionar Imagen del Producto</h3>
+        <button
+          className="login-modal-close"
+          type="button"
+          onClick={() => setShowImageModal(false)}
+          aria-label="Cerrar"
+        ></button>
+
+        <div
+          className="uk-grid-small uk-child-width-1-3@s uk-child-width-1-4@m"
+          data-uk-grid
+        >
+          {imagesMenu.map((src, index) => {
+            const filename = src.split("/").pop();
+            return (
+              <div className="uk-flex uk-flex-center uk-width-1-3@s uk-width-1-4@m">
+                <div
+                  key={index}
+                  className="uk-border-circle uk-overflow-hidden menu-product-image-container"
+                  onClick={() => {
+                    setValue("image", filename);
+                    setShowImageModal(false);
+                  }}
+                >
+                  <img
+                    src={src}
+                    alt={filename}
+                    className="uk-cover menu-product-image"
+                  />
+                  <small className="uk-text-muted">{filename}</small>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -173,7 +221,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
               />
               <button
                 type="button"
-                className="uk-button uk-button-secondary uk-margin-left"
+                className="uk-button-primary uk-margin-left"
                 onClick={() => setShowCategoryModal(true)}
               >
                 Elegir
@@ -181,6 +229,44 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
             </div>
             {errors.category && (
               <p className="uk-text-danger">{errors.category.message}</p>
+            )}
+          </div>
+
+          {/* Imagen */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Imagen</label>
+            <div className="uk-flex uk-flex-middle">
+              <input
+                className="uk-input login-modal-input uk-text-capitalize"
+                type="text"
+                readOnly
+                value={selectedImage || ""}
+                placeholder="Selecciona una imagen"
+                onClick={() => setShowImageModal(true)}
+              />
+              <button
+                type="button"
+                className="button-select-image uk-button-primary uk-margin-left"
+                onClick={() => setShowImageModal(true)}
+              >
+                Elegir
+              </button>
+              {selectedImage && (
+                <img
+                  src={imagesMenu.find((src) => src.includes(selectedImage))}
+                  className="uk-margin-left"
+                  alt="preview"
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </div>
+            {errors.image && (
+              <p className="uk-text-danger">{errors.image.message}</p>
             )}
           </div>
 
@@ -194,6 +280,20 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
             />
             {errors.description && (
               <p className="uk-text-danger">{errors.description.message}</p>
+            )}
+          </div>
+
+          {/* Roast Level */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Nivel de Tostado</label>
+            <input
+              className="uk-input login-modal-input"
+              type="text"
+              {...register("roastLevel")}
+              placeholder="¿Qué tan cocinado está?"
+            />
+            {errors.roastLevel && (
+              <p className="uk-text-danger">{errors.roastLevel.message}</p>
             )}
           </div>
 
@@ -272,7 +372,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
                 />
                 <button
                   type="button"
-                  className="uk-button uk-button-danger"
+                  className="uk-button-primary uk-button-danger"
                   onClick={() => remove(index)}
                 >
                   Eliminar
@@ -282,7 +382,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
 
             <button
               type="button"
-              className="uk-button uk-button-secondary"
+              className="uk-button-primary uk-button"
               onClick={() => append("")}
             >
               + Añadir Beneficio
@@ -319,6 +419,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
       </div>
 
       {showCategoryModal && <CategoryModal />}
+      {showImageModal && <ImageModal />}
     </div>
   );
 };

@@ -9,10 +9,19 @@ import "./Menu.css";
 
 const Menu = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showProductInfoModal, setShowProductInfoShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { products, searchProducts } = useProducts();
 
   const handleOpenFormModal = () => {
     setShowModal(true);
+    const offcanvas = document.getElementById("burger-menu");
+    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
+  };
+
+  const handleOpenInfoModal = (item) => {
+    setSelectedProduct(item);
+    setShowProductInfoShowModal(true);
     const offcanvas = document.getElementById("burger-menu");
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
@@ -37,8 +46,28 @@ const Menu = () => {
           {Array.isArray(coffeeItems) &&
             coffeeItems.map((item, index) => (
               <div key={index}>
-                <CoffeeCard item={item} index={index} />
-                <CoffeeModal item={item} index={index} />
+                <CoffeeCard
+                  item={item}
+                  onViewDetails={() => handleOpenInfoModal(item)}
+                />
+              </div>
+            ))}
+        </div>
+      </div>
+      <h1>TESTING REAL</h1>
+      <div className="uk-container uk-container-xlarge uk-padding-small uk-light">
+        <div
+          className="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1@s menu-grid"
+          data-uk-grid
+          data-uk-height-match="target: > div > .uk-card"
+        >
+          {Array.isArray(products) &&
+            products.map((item, index) => (
+              <div key={index}>
+                <CoffeeCard
+                  item={item}
+                  onViewDetails={() => handleOpenInfoModal(item)}
+                />
               </div>
             ))}
         </div>
@@ -50,6 +79,16 @@ const Menu = () => {
         }}
         mode="create"
       />
+      {selectedProduct && (
+        <CoffeeModal
+          isOpen={showProductInfoModal}
+          onClose={() => {
+            setSelectedProduct(null);
+            setShowProductInfoShowModal(false);
+          }}
+          item={selectedProduct}
+        />
+      )}
     </div>
   );
 };

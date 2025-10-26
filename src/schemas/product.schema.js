@@ -17,6 +17,21 @@ export const productSchema = z.object({
     .max(400, { message: "La descripción no puede superar los 400 caracteres" })
     .optional(),
 
+  roastLevel: z
+    .string({
+      required_error: "El Nivel de Tostado es obligatorio",
+    })
+    .min(3, { message: "Debe tener al menos 3 caracteres" })
+    .max(20, { message: "No debe superar los 80 caracteres" })
+    .regex(/^[A-ZÑÁÉÍÓÚ][A-Za-zÀ-ÿ\s'.,-]*$/, {
+      message:
+        "El Nivel de Tostado debe comenzar con mayúscula y solo puede contener letras y espacios",
+    }),
+
+  image: z
+    .string()
+    .optional(),
+
   category: z
     .string({
       required_error: "La categoría es obligatoria",
@@ -64,5 +79,15 @@ export const productSchema = z.object({
         .min(3, { message: "Cada beneficio debe tener al menos 3 caracteres" })
     )
     .max(10, { message: "Máximo 10 beneficios permitidos" })
+    .optional(),
+
+  ingredients: z
+    .array(
+      z
+        .string({
+          invalid_type_error: "Cada imagen debe ser parte de una URL",
+        })
+    )
+    .max(1, { message: "Máximo 10 beneficios permitidos" })
     .optional(),
 });

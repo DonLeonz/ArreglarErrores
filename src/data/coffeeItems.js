@@ -14,7 +14,7 @@ const coffeeItems = [
   {
     id: 1,
     title: "Espresso Sencillo",
-    price: "$5.200",
+    price: "5200",
     origin: "Colombia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Fuerte y Audaz",
@@ -35,7 +35,7 @@ const coffeeItems = [
   {
     id: 2,
     title: "Americano",
-    price: "$6.000",
+    price: "6000",
     origin: "Colombia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Suave y Balanceado",
@@ -52,7 +52,7 @@ const coffeeItems = [
   {
     id: 3,
     title: "Macchiato",
-    price: "$7.000",
+    price: "7000",
     origin: "Italia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Cremoso y Rico",
@@ -73,7 +73,7 @@ const coffeeItems = [
   {
     id: 4,
     title: "Espresso Doble",
-    price: "$6.500",
+    price: "6500",
     origin: "Colombia",
     roastLevel: "Tostado Oscuro",
     flavorProfile: "Intenso y Robusto",
@@ -93,7 +93,7 @@ const coffeeItems = [
   {
     id: 5,
     title: "Campesino",
-    price: "$8.000",
+    price: "8000",
     origin: "Colombia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Especiado y Dulce",
@@ -109,7 +109,7 @@ const coffeeItems = [
   {
     id: 6,
     title: "Irlandés",
-    price: "$12.000",
+    price: "12000",
     origin: "Irlanda",
     roastLevel: "Tostado Oscuro",
     flavorProfile: "Alcohólico y Cremoso",
@@ -124,7 +124,7 @@ const coffeeItems = [
   {
     id: 7,
     title: "Bombón",
-    price: "$9.000",
+    price: "9000",
     origin: "España",
     roastLevel: "Tostado Medio",
     flavorProfile: "Dulce y Cremoso",
@@ -139,7 +139,7 @@ const coffeeItems = [
   {
     id: 8,
     title: "Carajillo",
-    price: "$10.000",
+    price: "10000",
     origin: "España",
     roastLevel: "Tostado Oscuro",
     flavorProfile: "Fuerte y con Alcohol",
@@ -155,7 +155,7 @@ const coffeeItems = [
   {
     id: 9,
     title: "Cappuccino",
-    price: "$9.000",
+    price: "9000",
     origin: "Italia",
     roastLevel: "Tostado Medio",
     flavorProfile: "Saborizado y Espumoso",
@@ -174,7 +174,7 @@ const coffeeItems = [
   {
     id: 10,
     title: "Mocaccino",
-    price: "$15.000",
+    price: "15000",
     origin: "Mezcla Especial",
     roastLevel: "Tostado Medio",
     flavorProfile: "Chocolateado y Dulce",
