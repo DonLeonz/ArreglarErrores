@@ -238,10 +238,6 @@ const Navbar = () => {
           setShowModal(false);
           setShowRegisterModal(false);
         }}
-        onOpenRegister={() => {
-          setShowModal(false);
-          setShowRegisterModal(true);
-        }}
       />
     </div>
   );

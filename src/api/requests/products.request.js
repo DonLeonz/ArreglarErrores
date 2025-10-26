@@ -4,15 +4,6 @@ export const createProductRequest = async (product) => axiosInstance.post("/prod
 
 export const modifyProductRequest = async (productId, product) => axiosInstance.post(`/products/modify/${productId}`, product);
 
-export const searchProductsRequest = async (params) => axiosInstance.get("/products/search", {
-    params: {
-        id: params.id,
-        name: params.name,
-        category: params.category,
-        minPrice: params.minPrice,
-        maxPrice: params.maxPrice,
-        minStock: params.minStock,
-        maxStock: params.maxStock,
-        origin: params.origin
-    }
-});
+export const searchAllProductCategoriesRequest = async () => axiosInstance.get("/product-categories/search");
+
+export const searchProductsRequest = async (requestParams) => axiosInstance.get("/products/search", null, { params: requestParams });

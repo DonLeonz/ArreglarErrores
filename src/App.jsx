@@ -7,23 +7,26 @@ import Recomendado from "./pages/Recomendado/Recomendado";
 import Blog from "./pages/Blog/Blog";
 import Nosotros from "./pages/Nosotros/Nosotros";
 import { AuthProvider } from "./context/AuthContext";
+import { ProductProvider } from "./context/ProductsContext"
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/api" element={<Api />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/suggest" element={<Recomendado />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/about" element={<Nosotros />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <ProductProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/api" element={<Api />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/suggest" element={<Recomendado />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/about" element={<Nosotros />} />
+          </Routes>
+          <Footer />
+        </Router>
+      </ProductProvider>
     </AuthProvider>
   );
 }

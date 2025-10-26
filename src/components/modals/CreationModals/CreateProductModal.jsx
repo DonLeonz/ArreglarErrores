@@ -1,62 +1,125 @@
 import { useState, useEffect } from "react";
 import "./FormModal.css";
-import { useProducts } from "../../../context/ProductContext";
-import { ProductSchema } from "../../../schemas/product.schema";
-import { useForm } from "react-hook-form";
+import { useProducts } from "../../../context/ProductsContext";
+import { productSchema } from "../../../schemas/product.schema";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const CreateProductModal = ({ isOpen, onClose, mode = "login" }) => {
-  const [isModifying, setIsModifying] = useState(mode === "modify");
-  const { create,  errors: authErrors } = useProducts();
+const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
+  const isModifying = mode === "modify";
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+
+  const {
+    createProduct,
+    modifyProduct,
+    searchProducts,
+    categories,
+    searchAllCategories,
+    errors: productErrors,
+  } = useProducts();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    control,
+    setValue,
+    watch,
   } = useForm({
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(productSchema),
   });
 
-  useEffect(() => {
-    setIsRegistering(mode === "register");
-  }, [mode]);
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "benefits",
+  });
+
+  const selectedCategory = watch("category");
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
+    if (isOpen) searchAllCategories;
     return () => (document.body.style.overflow = "unset");
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleFormSubmit = async (data) => {
+    console.log(data);
+    try {
+      const parsedData = {
+        ...data,
+        price: parseFloat(data.price),
+        stock: data.stock ? parseInt(data.stock) : 0,
+      };
 
-    const { username, password, email, name } = data;
-
-    if (isRegistering) {
-      const success = await signUp({ username, password, email, name });
-      if (success) {
-        setIsRegistering(false);
+      let success = false;
+      if (mode === "create") {
+        success = await createProduct(parsedData);
+      } else {
+        success = await modifyProduct(parsedData);
       }
-    } else {
-      const success = await signIn({ username, password });
+
+      console.log(productErrors);
+
       if (success) {
         handleClose();
       }
-    }
 
-    reset();
+    } catch (error) {
+      console.error("Error al procesar el formulario:", error);
+    }
   };
 
   const handleClose = () => {
     reset();
-    setIsRegistering(false);
     onClose();
   };
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) handleClose();
   };
+
+  const CategoryModal = () => (
+    <div
+      className="uk-modal uk-open login-modal-display"
+      onClick={() => setShowCategoryModal(false)}
+    >
+      <div
+        className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="uk-modal-title">Seleccionar Categoría</h3>
+        <button
+          className="login-modal-close"
+          type="button"
+          onClick={() => setShowCategoryModal(false)}
+          aria-label="Cerrar"
+        ></button>
+
+        {categories?.length ? (
+          <ul className="uk-list uk-list-divider">
+            {categories.map((cat) => (
+              <li
+                key={cat._id}
+                className="uk-flex uk-flex-between uk-flex-middle"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setValue("category", cat.name); // establecemos el nombre visible
+                  setShowCategoryModal(false);
+                }}
+              >
+                <span>{cat.name}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay categorías registradas</p>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div
@@ -75,97 +138,189 @@ const CreateProductModal = ({ isOpen, onClose, mode = "login" }) => {
         ></button>
 
         <h2 className="uk-modal-title">
-          {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+          {isModifying ? "Modificar Producto" : "Registrar Producto"}
         </h2>
 
         <form
           className="uk-form-stacked"
           onSubmit={handleSubmit(handleFormSubmit)}
         >
-          {isRegistering && (
-            <>
-              <div className="uk-margin">
-                <label className="uk-form-label">Nombre completo</label>
-                <input
-                  className="uk-input login-modal-input"
-                  type="text"
-                  {...register("name")}
-                  placeholder="Tu nombre"
-                />
-                {errors.name && (
-                  <p className="uk-text-danger">{errors.name.message}</p>
-                )}
-              </div>
-
-              <div className="uk-margin">
-                <label className="uk-form-label">Correo electrónico</label>
-                <input
-                  className="uk-input login-modal-input"
-                  type="email"
-                  {...register("email")}
-                  placeholder="Tu correo"
-                />
-                {errors.email?.message && (
-                  <p className="uk-text-danger">{errors.email.message}</p>
-                )}
-              </div>
-            </>
-          )}
-
+          {/* Nombre */}
           <div className="uk-margin">
-            <label className="uk-form-label">Usuario</label>
+            <label className="uk-form-label">Nombre</label>
             <input
               className="uk-input login-modal-input"
               type="text"
-              {...register("username")}
-              placeholder="Ingresa tu usuario"
+              {...register("name")}
+              placeholder="Nombre del Producto"
             />
-            {errors.username?.message && (
-              <p className="uk-text-danger">{errors.username.message}</p>
+            {errors.name && (
+              <p className="uk-text-danger">{errors.name.message}</p>
             )}
           </div>
 
+          {/* Categoría */}
           <div className="uk-margin">
-            <label className="uk-form-label">Contraseña</label>
+            <label className="uk-form-label">Categoría</label>
+            <div className="uk-flex">
+              <input
+                className="uk-input login-modal-input"
+                type="text"
+                readOnly
+                value={selectedCategory || ""}
+                placeholder="Selecciona una categoría"
+                onClick={() => setShowCategoryModal(true)}
+              />
+              <button
+                type="button"
+                className="uk-button uk-button-secondary uk-margin-left"
+                onClick={() => setShowCategoryModal(true)}
+              >
+                Elegir
+              </button>
+            </div>
+            {errors.category && (
+              <p className="uk-text-danger">{errors.category.message}</p>
+            )}
+          </div>
+
+          {/* Descripción */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Descripción</label>
+            <textarea
+              className="uk-textarea login-modal-input"
+              {...register("description")}
+              placeholder="Describe el producto"
+            />
+            {errors.description && (
+              <p className="uk-text-danger">{errors.description.message}</p>
+            )}
+          </div>
+
+          {/* Precio */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Precio</label>
             <input
               className="uk-input login-modal-input"
-              type="password"
-              {...register("password")}
-              placeholder="Ingresa tu contraseña"
+              type="number"
+              step="0.01"
+              {...register("price", { valueAsNumber: true })}
+              placeholder="0.00"
             />
-            {errors.password?.message && (
-              <p className="uk-text-danger">{errors.password.message}</p>
+            {errors.price && (
+              <p className="uk-text-danger">{errors.price.message}</p>
+            )}
+          </div>
+
+          {/* Stock */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Stock</label>
+            <input
+              className="uk-input login-modal-input"
+              type="number"
+              min="0"
+              max="100"
+              {...register("stock", { valueAsNumber: true })}
+              placeholder="Cantidad disponible"
+            />
+            {errors.stock && (
+              <p className="uk-text-danger">{errors.stock.message}</p>
+            )}
+          </div>
+
+          {/* País de origen */}
+          <div className="uk-margin">
+            <label className="uk-form-label">País de origen</label>
+            <input
+              className="uk-input login-modal-input"
+              type="text"
+              {...register("origin")}
+              placeholder="Ej: Colombia"
+            />
+            {errors.origin && (
+              <p className="uk-text-danger">{errors.origin.message}</p>
+            )}
+          </div>
+
+          {/* Recomendaciones */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Recomendaciones</label>
+            <textarea
+              className="uk-textarea login-modal-input"
+              {...register("recommendations")}
+              placeholder="Ej: Mantener en lugar fresco"
+            />
+            {errors.recommendations && (
+              <p className="uk-text-danger">{errors.recommendations.message}</p>
+            )}
+          </div>
+
+          {/* Beneficios dinámicos */}
+          <div className="uk-margin">
+            <label className="uk-form-label">Beneficios</label>
+
+            {fields.map((field, index) => (
+              <div
+                key={field.id}
+                className="uk-flex uk-flex-middle uk-margin-small"
+              >
+                <input
+                  className="uk-input login-modal-input uk-margin-small-right"
+                  type="text"
+                  {...register(`benefits.${index}`)}
+                  placeholder={`Beneficio ${index + 1}`}
+                />
+                <button
+                  type="button"
+                  className="uk-button uk-button-danger"
+                  onClick={() => remove(index)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              className="uk-button uk-button-secondary"
+              onClick={() => append("")}
+            >
+              + Añadir Beneficio
+            </button>
+
+            {errors.benefits && (
+              <p className="uk-text-danger">{errors.benefits.message}</p>
             )}
           </div>
 
           {/* Errores del backend */}
-          {authErrors?.length > 0 && (
+          {productErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
-              {authErrors.map((err, idx) => (
+              {productErrors.map((err, idx) => (
                 <div key={idx}>{err}</div>
               ))}
             </div>
           )}
 
+          {/* Botones */}
           <div className="uk-flex uk-flex-between uk-flex-middle">
             <button className="uk-button uk-button-primary" type="submit">
-              {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+              {isModifying ? "Guardar cambios" : "Registrar"}
             </button>
-
             <button
-              className="uk-button uk-button-link"
+              className="uk-button uk-button-danger"
               type="button"
-              onClick={() => setIsRegistering(!isRegistering)}
+              onClick={handleClose}
             >
-              {isRegistering
-                ? "¿Ya tienes cuenta?"
-                : "¿No tienes cuenta? Regístrate"}
+              Cancelar
             </button>
           </div>
         </form>
       </div>
+
+      {showCategoryModal && <CategoryModal />}
     </div>
   );
 };
 
-export default LoginModal;
+export default CreateProductModal;
