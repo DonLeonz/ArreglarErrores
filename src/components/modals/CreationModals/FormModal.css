@@ -123,6 +123,7 @@
   background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(212, 167, 98, 0.5);
+  cursor: pointer;
 }
 
 .button-select-image {

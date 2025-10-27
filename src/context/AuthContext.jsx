@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const res = await verifyToken();
+        console.log(res.data);
         setUser(res.data);
         setIsAuth(true);
       } catch (error) {

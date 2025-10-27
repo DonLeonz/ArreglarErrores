@@ -24,6 +24,7 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     searchProducts();
     searchAllCategories();
+    setModifiedProducts(false);
   }, [modifiedProducts]);
 
   // Create
@@ -89,6 +90,7 @@ export const ProductProvider = ({ children }) => {
         errors,
         createProduct,
         modifyProduct,
+        setModifiedProducts,
         searchProducts,
         searchAllCategories
       }}

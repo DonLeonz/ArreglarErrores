@@ -18,7 +18,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
     modifyProduct,
     searchProducts,
     categories,
-    searchAllCategories,
     errors: productErrors,
   } = useProducts();
 
@@ -44,9 +43,8 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
-    if (isOpen) searchAllCategories;
     return () => (document.body.style.overflow = "unset");
-  }, [isOpen, searchAllCategories]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -54,9 +52,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
     console.log(data);
     try {
       const parsedData = {
-        ...data,
-        price: parseFloat(data.price),
-        stock: data.stock ? parseInt(data.stock) : 0,
+        ...data
       };
 
       let success = false;
@@ -383,15 +379,15 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
             <button
               type="button"
               className="uk-button-primary uk-button"
-              onClick={() => append("")}
+              onClick={() => append()}
             >
               + Añadir Beneficio
-            </button>
+                </button>
 
             {errors.benefits && (
               <p className="uk-text-danger">{errors.benefits.message}</p>
             )}
-          </div>
+              </div>
 
           {/* Errores del backend */}
           {productErrors?.length > 0 && (

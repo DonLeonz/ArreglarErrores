@@ -1,14 +1,22 @@
-import { NavLink } from "react-router";
 import { useState } from "react";
+import { NavLink } from "react-router";
+import { useAuth } from "../../../context/AuthContext";
+import { useOrders } from "../../../context/OrdersContext";
 import LoginModal from "../../modals/CreationModals/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
-import { useAuth } from "../../../context/AuthContext";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { user, isAuth, logout } = useAuth();
+
+  const { actualOrder, setIsCartOpen } = useOrders();
+
+  const totalItems = actualOrder.orderDetails.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   const handleOpenLogin = () => {
     setShowModal(true);
@@ -27,7 +35,7 @@ const Navbar = () => {
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
 
-  const currentUser = (user == null) ? null : user.username;
+  const currentUser = user == null ? null : user.username;
 
   return (
     <div data-uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; top: 0">
@@ -96,8 +104,25 @@ const Navbar = () => {
               </div>
             </div>
             <div className="uk-navbar-right uk-visible@l">
-              {isAuth ? (
+              {isAuth && user?.roles ? (
                 <div className="uk-navbar-item uk-light">
+                  {user.roles.map((role) => {
+                    if (role.name === "CUSTOMER")
+                      return (
+                        <button
+                          className="uk-icon-button uk-margin-small-right"
+                          uk-tooltip="Ver carrito"
+                          uk-icon="cart"
+                          onClick={() => setIsCartOpen(true)}
+                        >
+                          {totalItems > 0 && (
+                            <span className="uk-badge uk-position-absolute uk-position-top-right">
+                              {totalItems}
+                            </span>
+                          )}
+                        </button>
+                      );
+                  })}
                   <button
                     className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
                     onClick={() => logout()}
