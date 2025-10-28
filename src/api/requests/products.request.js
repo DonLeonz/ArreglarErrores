@@ -6,4 +6,4 @@ export const modifyProductRequest = async (productId, product) => axiosInstance.
 
 export const searchAllProductCategoriesRequest = async () => axiosInstance.get("/product-categories/search");
 
-export const searchProductsRequest = async (requestParams) => axiosInstance.get("/products/search", null, { params: requestParams });
+export const searchProductsRequest = async (requestParams) => axiosInstance.get("/products/search", { params: requestParams });

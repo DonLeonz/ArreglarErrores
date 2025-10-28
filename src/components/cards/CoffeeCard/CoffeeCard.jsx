@@ -1,23 +1,42 @@
+import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
 import "../cards.css";
 
 const CoffeeCard = ({ item, onViewDetails }) => {
-  const { addToCart } = useOrders();
+  const { addToCart, actualOrder } = useOrders();
+  const { roles } = useAuth();
 
   const handleAddToCart = () => {
-    // Validación básica de seguridad
+    let invalidStock = false;
+    actualOrder.orderDetails.map((detail) => {
+      if (
+        detail.product._id === item._id &&
+        detail.quantity === detail.product.stock
+      ) {
+        window.UIkit.notification({
+          message: "Producto sin stock disponible.",
+          status: "warning",
+          pos: "top-center",
+        });
+        invalidStock = true;
+        return;
+      }
+    });
+
+    if (invalidStock) return;
+
     if (!item.stock || item.stock <= 0) {
       window.UIkit.notification({
-        message: "Producto sin stock disponible 😢",
+        message: "Producto sin stock disponible.",
         status: "warning",
         pos: "top-center",
       });
       return;
     }
 
-    addToCart(item, 1); // 👈 agregamos 1 por defecto
+    addToCart(item, 1);
     window.UIkit.notification({
-      message: `<span uk-icon="icon: check"></span> ${item.name} añadido al carrito`,
+      message: `<span uk-icon="icon: check"></span> ${item.name} añadido al carrito.`,
       status: "success",
       pos: "top-center",
     });
@@ -33,7 +52,12 @@ const CoffeeCard = ({ item, onViewDetails }) => {
         <div className="uk-flex uk-flex-center uk-width-1-3@s uk-width-1-4@m">
           <div className="uk-border-circle uk-overflow-hidden menu-product-image-container">
             <img
-              src={item.img || `/src/assets/img/menu/${item.image}`}
+              src={
+                item.img ||
+                (item.image
+                  ? `/src/assets/img/menu/${item.image}`
+                  : "/src/assets/img/coffe-image-1.jpg")
+              }
               alt={item.title || item.name}
               className="uk-cover menu-product-image"
             />
@@ -81,12 +105,14 @@ const CoffeeCard = ({ item, onViewDetails }) => {
         >
           Ver más detalles
         </button>
-      <button
-        className="uk-button uk-button-default menu-details-button"
-        onClick={handleAddToCart}
-      >
-        Añadir al carrito
-      </button>
+        {roles.includes("CUSTOMER") && (
+          <button
+            className="uk-button uk-button-default menu-details-button"
+            onClick={handleAddToCart}
+          >
+            Añadir al carrito
+          </button>
+        )}
       </div>
     </div>
   );

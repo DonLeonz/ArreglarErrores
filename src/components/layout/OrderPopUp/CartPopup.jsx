@@ -1,4 +1,5 @@
 import { useOrders } from "../../../context/OrdersContext";
+import "./CartPopup.css";
 
 export const CartPopup = () => {
   const { actualOrder, removeFromCart, createOrder, isCartOpen, setIsCartOpen } = useOrders();

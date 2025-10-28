@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { createOrderRequest } from "../api/requests/orders.request";
 import { useAuth } from "./AuthContext";
 import { useEffect } from "react";
+import { useProducts } from "./ProductsContext";
 
 const OrderContext = createContext();
 
@@ -21,6 +22,7 @@ export const OrdersProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
 
   const { user, isAuth } = useAuth();
+  const { setModifiedProducts } = useProducts();
 
   useEffect(() => {
     setActualOrder({
@@ -103,6 +105,7 @@ export const OrdersProvider = ({ children }) => {
         setOrders((prev) => [...prev, res.data.order]);
         setActualOrder({ orderDetails: [], totalPrice: 0 });
         setIsCartOpen(false);
+        setModifiedProducts(true);
       }
     } catch (error) {
       console.error(error);

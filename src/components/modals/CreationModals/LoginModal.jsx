@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [isRegistering, setIsRegistering] = useState(mode === "register");
-  const { signIn, signUp, errors: authErrors } = useAuth();
+  const { signIn, signUp, errors: authErrors, setErrors } = useAuth();
 
   const {
     register,
@@ -21,6 +21,10 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   useEffect(() => {
     setIsRegistering(mode === "register");
   }, [mode]);
+
+  useEffect(() => {
+    setErrors([]);
+  }, [isRegistering, setErrors])
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";

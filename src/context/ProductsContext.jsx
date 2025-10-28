@@ -25,6 +25,7 @@ export const ProductProvider = ({ children }) => {
     searchProducts();
     searchAllCategories();
     setModifiedProducts(false);
+    setErrors([]);
   }, [modifiedProducts]);
 
   // Create

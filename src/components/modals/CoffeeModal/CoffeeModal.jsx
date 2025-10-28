@@ -40,7 +40,7 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
             <div className="uk-padding uk-flex uk-flex-center">
               <div className="uk-border-circle uk-overflow-hidden coffee-modal-image-container">
                 <img
-                  src={item.img || `/src/assets/img/menu/${item.image}`}
+                  src={item.img || (item.image ? `/src/assets/img/menu/${item.image}` : "/src/assets/img/coffe-image-1.jpg")}
                   alt={item.title || item.name}
                   className="uk-cover coffee-modal-image"
                 />
@@ -68,9 +68,9 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
             </div>
 
             <div className="uk-margin-medium-top">
-              <h3 className="coffee-modal-section-title">Preparación:</h3>
+              <h3 className="coffee-modal-section-title">{item.preparation ? "Preparación:" : "Recomendación"}</h3>
               <p className="coffee-modal-text">
-                {item.preparation || "Información no disponible."}
+                {item.preparation || item.recommendations}
               </p>
             </div>
 

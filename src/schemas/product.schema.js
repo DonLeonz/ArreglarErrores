@@ -35,6 +35,7 @@ export const productSchema = z.object({
   category: z
     .string({
       required_error: "La categoría es obligatoria",
+      invalid_type_error: "Debes inserta una categoría valida",
     })
     .min(1, { message: "Debes seleccionar una categoría" }),
 

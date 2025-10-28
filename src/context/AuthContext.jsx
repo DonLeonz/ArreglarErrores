@@ -15,6 +15,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [roles, setRoles] = useState([]);
   const [isAuth, setIsAuth] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,9 +75,12 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const res = await verifyToken();
-        console.log(res.data);
         setUser(res.data);
+        setRoles(res.data.roles.map(role => {
+          return role.name;
+        }));
         setIsAuth(true);
+        setLoading(false);
       } catch (error) {
         console.log("Invalid or Expired Token: ", error);
         localStorage.removeItem("token");
@@ -94,8 +98,10 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         isAuth,
+        roles,
         loading,
         errors,
+        setErrors,
         signUp,
         signIn,
         logout,
