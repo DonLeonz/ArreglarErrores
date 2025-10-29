@@ -11,6 +11,8 @@ import { ProductProvider } from "./context/ProductsContext";
 import { OrdersProvider } from "./context/OrdersContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { CartPopup } from "./components/layout/OrderPopUp/CartPopUp";
+import AdminProducts from "./pages/Admin/AdminProducts";
+import { ProtectedRoute } from "./routesControl/routes";
 
 function App() {
   return (
@@ -27,6 +29,9 @@ function App() {
               <Route path="/suggest" element={<Recomendado />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/about" element={<Nosotros />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/admin/products" element={<AdminProducts />} />
+              </Route>
             </Routes>
             <Footer />
           </Router>

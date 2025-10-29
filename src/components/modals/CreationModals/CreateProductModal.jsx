@@ -6,7 +6,7 @@ import { productSchema } from "../../../schemas/product.schema";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
+const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
   const isModifying = mode === "modify";
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
@@ -16,7 +16,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
   const {
     createProduct,
     modifyProduct,
-    searchProducts,
     categories,
     errors: productErrors,
   } = useProducts();
@@ -32,6 +31,23 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
   } = useForm({
     resolver: zodResolver(productSchema),
   });
+
+  useEffect(() => {
+    if (isModifying && product) {
+      reset({
+        name: product.name || "",
+        category: product.category?.name || "",
+        image: product.image || "",
+        description: product.description || "",
+        roastLevel: product.roast_level || "",
+        price: product.price || 0,
+        stock: product.stock || 0,
+        origin: product.origin || "",
+        recommendations: product.recommendations || "",
+        benefits: product.benefits || [],
+      });
+    }
+  }, [isModifying, product, reset]);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -49,17 +65,14 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
   if (!isOpen) return null;
 
   const handleFormSubmit = async (data) => {
-    console.log(data);
     try {
-      const parsedData = {
-        ...data
-      };
-
+      const parsedData = { ...data };
       let success = false;
+
       if (mode === "create") {
         success = await createProduct(parsedData);
       } else {
-        success = await modifyProduct(parsedData);
+        success = await modifyProduct(product._id, parsedData);
       }
 
       if (success) handleClose();
@@ -382,12 +395,12 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create" }) => {
               onClick={() => append()}
             >
               + Añadir Beneficio
-                </button>
+            </button>
 
             {errors.benefits && (
               <p className="uk-text-danger">{errors.benefits.message}</p>
             )}
-              </div>
+          </div>
 
           {/* Errores del backend */}
           {productErrors?.length > 0 && (

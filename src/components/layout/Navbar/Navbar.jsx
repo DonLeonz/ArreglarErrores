@@ -7,7 +7,7 @@ import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [ showLoginModal, setShowLoginModal ] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { user, isAuth, logout, roles, loading } = useAuth();
 
@@ -19,7 +19,7 @@ const Navbar = () => {
   );
 
   const handleOpenLogin = () => {
-    setShowModal(true);
+    setShowLoginModal(true);
     const offcanvas = document.getElementById("burger-menu");
     if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
   };
@@ -255,10 +255,10 @@ const Navbar = () => {
           </div>
         </nav>
         <LoginModal
-          isOpen={showModal || showRegisterModal}
+          isOpen={showLoginModal || showRegisterModal}
           mode={showRegisterModal ? "register" : "login"}
           onClose={() => {
-            setShowModal(false);
+            setShowLoginModal(false);
             setShowRegisterModal(false);
           }}
         />
