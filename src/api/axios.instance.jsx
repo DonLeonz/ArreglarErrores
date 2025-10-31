@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://daisy-dev.westus.cloudapp.azure.com:3000/api',
+    baseURL: 'https://server.coffee.daisyflows.top/api',
     withCredentials: true
 });
 
