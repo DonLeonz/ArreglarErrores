@@ -40,7 +40,6 @@
 }
 
 .home-hero-container {
-  width: 100%;
   padding: 40px !important;
   background: linear-gradient(
     135deg,
@@ -212,11 +211,19 @@
    RESPONSIVE
    ======================================== */
 
+@media (min-width: 1199px) {
+  .home-hero-container {
+    padding: 30px !important;
+    width: 100%;
+  }
+}
+
 /* Tablet y menú hamburguesa - 1199px */
 @media (max-width: 1199px) {
   .hero-content-wrapper {
     justify-content: center !important;
     padding: 0 !important;
+    top: 20px;
   }
 
   .hero-section {

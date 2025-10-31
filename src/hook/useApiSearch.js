@@ -16,6 +16,7 @@ const useApiSearch = (query, fetchFunction, enabled = true) => {
         setResults(data);
         setError(false);
       } catch (e) {
+        console.log(e);
         setError(true);
       } finally {
         setLoading(false);
@@ -23,7 +24,7 @@ const useApiSearch = (query, fetchFunction, enabled = true) => {
     };
 
     fetchData();
-  }, [query, enabled]);
+  }, [query, enabled, fetchFunction]);
 
   return { result, loading, error };
 };
