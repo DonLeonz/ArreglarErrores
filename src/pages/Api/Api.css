@@ -24,7 +24,7 @@
 }
 
 .api-title {
-  color: #d4a762 !important;
+  color: #f5f5f5 !important;
   font-weight: 700 !important;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   animation: slide-up 0.8s ease;
@@ -32,9 +32,30 @@
 
 /* Acordeón */
 .catalog-accordion-item {
+  position: relative;
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.95), rgba(30, 30, 30, 0.95)) !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   animation: slide-up 0.6s ease backwards;
-  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+  border: 2px solid rgba(212, 167, 98, 0.3) !important;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border-radius: 16px !important;
+}
+
+.catalog-accordion-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 167, 98, 0.1), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.catalog-accordion-item:hover::before {
+  left: 100%;
 }
 
 .catalog-accordion-item:nth-child(1) {
@@ -46,64 +67,108 @@
 }
 
 .catalog-accordion-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(212, 167, 98, 0.3) !important;
-  border-color: rgba(212, 167, 98, 0.5) !important;
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(212, 167, 98, 0.4) !important;
+  border-color: rgba(212, 167, 98, 0.6) !important;
 }
 
 /* Título del acordeón */
 .uk-accordion-title {
+  position: relative;
   transition: all 0.3s ease !important;
   color: #d4a762 !important;
+  font-size: 1.3rem !important;
+  padding: 18px 20px !important;
+  background: linear-gradient(135deg, rgba(212, 167, 98, 0.08), transparent) !important;
+  border-radius: 12px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+
+.uk-accordion-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d4a762, transparent);
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
 }
 
 .uk-accordion-title:hover {
   color: #f5d98d !important;
-  transform: translateX(5px);
+  transform: translateX(8px);
+  background: linear-gradient(135deg, rgba(212, 167, 98, 0.15), transparent) !important;
+  text-shadow: 0 0 20px rgba(212, 167, 98, 0.6);
+}
+
+.uk-accordion-title:hover::after {
+  width: 90%;
 }
 
 .uk-accordion-title [data-uk-icon] {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  filter: drop-shadow(0 2px 4px rgba(212, 167, 98, 0.3));
 }
 
 .uk-accordion-title:hover [data-uk-icon] {
-  transform: scale(1.15) rotate(5deg);
+  transform: scale(1.2) rotate(12deg);
+  filter: drop-shadow(0 4px 12px rgba(212, 167, 98, 0.6));
 }
 
 /* Contenido del acordeón */
 .uk-accordion-content {
-  animation: slide-up 0.4s ease;
+  padding: 25px 20px !important;
+  background: linear-gradient(180deg, rgba(212, 167, 98, 0.03), transparent) !important;
+  border-radius: 12px !important;
+  animation: slide-up 0.4s ease, fadeIn 0.5s ease;
 }
 
 /* Barra de búsqueda */
 .uk-search-input {
   background: rgba(255, 255, 255, 0.95) !important;
   border: 2px solid rgba(212, 167, 98, 0.3) !important;
-  border-radius: 8px !important;
-  transition: all 0.3s ease !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 12px 20px !important;
+  font-size: 1rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .uk-search-input:focus {
   border-color: #d4a762 !important;
-  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.2) !important;
+  box-shadow: 0 0 0 4px rgba(212, 167, 98, 0.25), 0 8px 20px rgba(212, 167, 98, 0.2) !important;
   transform: scale(1.02);
+  background: rgba(255, 255, 255, 1) !important;
 }
 
 /* Botón de búsqueda */
 .uk-search-icon-flip {
   color: #d4a762 !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+  cursor: pointer !important;
+  filter: drop-shadow(0 2px 4px rgba(212, 167, 98, 0.3));
 }
 
 .uk-search-icon-flip:hover {
   color: #f5d98d !important;
-  transform: scale(1.1) rotate(15deg);
+  transform: scale(1.2) rotate(20deg);
+  filter: drop-shadow(0 4px 12px rgba(212, 167, 98, 0.6));
+}
+
+.uk-search-icon-flip:active {
+  transform: scale(0.95) rotate(-10deg);
 }
 
 /* Spinner de carga */
 [uk-spinner] {
   color: #d4a762 !important;
   animation: spin 1s linear infinite, pulse-golden 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(212, 167, 98, 0.5));
 }
 
 @keyframes spin {
@@ -112,5 +177,161 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-golden {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Estilos para resultados de búsqueda */
+.api-background .uk-card {
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.9), rgba(30, 30, 30, 0.9)) !important;
+  border: 2px solid rgba(212, 167, 98, 0.2) !important;
+  transition: all 0.3s ease !important;
+  animation: slide-up 0.5s ease backwards;
+  border-radius: 16px !important;
+}
+
+.uk-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 167, 98, 0.3) !important;
+  border-color: rgba(212, 167, 98, 0.4) !important;
+}
+
+/* Títulos en resultados */
+.uk-card-title {
+  color: #d4a762 !important;
+  transition: color 0.3s ease !important;
+}
+
+.uk-card:hover .uk-card-title {
+  color: #f5d98d !important;
+}
+
+/* Enlaces */
+.uk-accordion-content a,
+.uk-card a {
+  color: #d4a762 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+}
+
+.uk-accordion-content a::after,
+.uk-card a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4a762, #f5d98d);
+  transition: width 0.3s ease;
+}
+
+.uk-accordion-content a:hover,
+.uk-card a:hover {
+  color: #f5d98d !important;
+  text-shadow: 0 0 15px rgba(212, 167, 98, 0.5);
+}
+
+.uk-accordion-content a:hover::after,
+.uk-card a:hover::after {
+  width: 100%;
+}
+
+/* Botones en general dentro de API */
+.api-background .uk-button-primary {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  border: none !important;
+  color: #1e1e1e !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(212, 167, 98, 0.3) !important;
+}
+
+.api-background .uk-button-primary:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 167, 98, 0.5) !important;
+}
+
+.api-background .uk-button-primary:active {
+  transform: translateY(-1px);
+}
+
+/* Grid de resultados */
+.uk-grid > * {
+  animation: slide-up 0.5s ease backwards;
+}
+
+.uk-grid > *:nth-child(1) { animation-delay: 0.05s; }
+.uk-grid > *:nth-child(2) { animation-delay: 0.1s; }
+.uk-grid > *:nth-child(3) { animation-delay: 0.15s; }
+.uk-grid > *:nth-child(4) { animation-delay: 0.2s; }
+.uk-grid > *:nth-child(5) { animation-delay: 0.25s; }
+
+/* Imágenes en resultados */
+.uk-card img {
+  transition: transform 0.4s ease !important;
+  border-radius: 8px;
+}
+
+.uk-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Badges y etiquetas */
+.uk-badge,
+.uk-label {
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #1e1e1e !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .api-title {
+    font-size: 2rem !important;
+  }
+
+  .uk-accordion-title {
+    font-size: 1.1rem !important;
+    padding: 15px !important;
+  }
+
+  .catalog-accordion-item:hover {
+    transform: translateY(-4px);
+  }
+
+  .uk-accordion-title:hover {
+    transform: translateX(5px);
   }
 }

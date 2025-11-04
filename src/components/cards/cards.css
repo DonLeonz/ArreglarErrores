@@ -114,7 +114,7 @@
 .card-manga {
   height: 100% !important;
   transition: all 0.3s ease !important;
-  border-radius: 12px !important;
+  border-radius: 20px !important;
   overflow: hidden !important;
   border: 2px solid rgba(212, 167, 98, 0.1) !important;
 }

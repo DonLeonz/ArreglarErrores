@@ -109,6 +109,8 @@
   border: none !important;
   font-weight: 600 !important;
   box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
+  padding: 8px 20px !important;
+  font-size: 0.95rem !important;
 }
 
 .uk-navbar-center .uk-button-secondary:hover,
@@ -219,6 +221,8 @@
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
   box-shadow: 0 3px 10px rgba(212, 167, 98, 0.4);
+  padding: 8px 20px !important;
+  font-size: 0.95rem !important;
 }
 
 #burger-menu .uk-button-secondary:hover {
@@ -229,8 +233,7 @@
 #burger-menu .uk-button-secondary.active {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;
-  opacity: 0.85 !important;
-  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.4) inset !important;
+  opacity: 1 !important;
 }
 
 #burger-menu .uk-button-text {
@@ -243,8 +246,9 @@
 
 #burger-menu .uk-button-text.active {
   color: #d4a762 !important;
-  background: rgba(212, 167, 98, 0.15) !important;
+  background: transparent !important;
   font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(212, 167, 98, 0.6);
 }
 
 /* ========================================
@@ -297,7 +301,83 @@
 }
 
 #burger-menu .uk-divider-icon {
-  border-color: rgba(212, 167, 98, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  margin: 20px auto !important;
+  text-align: center !important;
+  width: 80% !important;
+  display: block !important;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+#burger-menu .uk-divider-icon::after {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  display: block !important;
+  text-align: center !important;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* ========================================
+   CARRITO DE COMPRAS
+   ======================================== */
+
+.cart-button {
+  position: relative;
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  color: #2c1608 !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
+}
+
+.cart-button:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.5) !important;
+}
+
+.cart-counter {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: linear-gradient(135deg, #dc143c, #b22222);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 1.5px solid #2c1608;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  animation: pulse-cart 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes pulse-cart {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* ========================================
@@ -310,6 +390,34 @@
 
 .uk-button:hover [data-uk-icon] {
   transform: scale(1.15);
+}
+
+/* ========================================
+   TOOLTIPS CUSTOM
+   ======================================== */
+
+.uk-tooltip {
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.98), rgba(30, 30, 30, 0.98)) !important;
+  color: #d4a762 !important;
+  border: 2px solid rgba(212, 167, 98, 0.5) !important;
+  border-radius: 10px !important;
+  padding: 8px 14px !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  animation: tooltipFadeIn 0.3s ease !important;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================================

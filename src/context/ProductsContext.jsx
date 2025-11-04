@@ -46,7 +46,7 @@ export const ProductProvider = ({ children }) => {
   const modifyProduct = async (productId, productData) => {
     try {
       const res = await modifyProductRequest(productId, productData);
-      if (res.status === 204 && res.data) {
+      if (res.status === 200 || res.status === 204) {
         setModifiedProducts(true);
         return true;
       }

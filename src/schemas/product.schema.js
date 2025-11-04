@@ -55,6 +55,13 @@ export const productSchema = z.object({
     .max(100, { message: "El stock máximo permitido es 100" })
     .optional(),
 
+  enabled: z
+    .boolean({
+      invalid_type_error: "El campo habilitado debe ser verdadero o falso",
+    })
+    .optional()
+    .default(true),
+
   origin: z
     .string({
       invalid_type_error: "El país de origen debe ser texto",

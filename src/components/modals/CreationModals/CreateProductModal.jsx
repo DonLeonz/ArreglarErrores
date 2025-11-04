@@ -42,6 +42,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
         roastLevel: product.roast_level || "",
         price: product.price || 0,
         stock: product.stock || 0,
+        enabled: product.enabled !== undefined ? product.enabled : true,
         origin: product.origin || "",
         recommendations: product.recommendations || "",
         benefits: product.benefits || [],
@@ -66,7 +67,21 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
   const handleFormSubmit = async (data) => {
     try {
-      const parsedData = { ...data };
+      // Transform data to match backend format (snake_case)
+      const parsedData = {
+        name: data.name,
+        category: data.category,
+        image: data.image,
+        description: data.description,
+        roast_level: data.roastLevel, // Transform to snake_case
+        price: data.price,
+        stock: data.stock,
+        enabled: data.enabled,
+        origin: data.origin,
+        recommendations: data.recommendations,
+        benefits: data.benefits,
+      };
+
       let success = false;
 
       if (mode === "create") {
@@ -337,6 +352,24 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
+          {/* Producto habilitado */}
+          <div className="uk-margin">
+            <label className="uk-flex uk-flex-middle">
+              <input
+                className="uk-checkbox uk-margin-small-right"
+                type="checkbox"
+                {...register("enabled")}
+                defaultChecked={true}
+              />
+              <span className="uk-form-label" style={{ marginBottom: 0 }}>
+                Producto habilitado (visible en el menú)
+              </span>
+            </label>
+            {errors.enabled && (
+              <p className="uk-text-danger">{errors.enabled.message}</p>
+            )}
+          </div>
+
           {/* País de origen */}
           <div className="uk-margin">
             <label className="uk-form-label">País de origen</label>
@@ -381,7 +414,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
                 />
                 <button
                   type="button"
-                  className="uk-button-primary uk-button-danger"
+                  className="btn-delete-benefit"
                   onClick={() => remove(index)}
                 >
                   Eliminar
@@ -391,7 +424,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
             <button
               type="button"
-              className="uk-button-primary uk-button"
+              className="btn-add-benefit"
               onClick={() => append()}
             >
               + Añadir Beneficio
@@ -412,12 +445,12 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
           )}
 
           {/* Botones */}
-          <div className="uk-flex uk-flex-between uk-flex-middle">
-            <button className="uk-button uk-button-primary" type="submit">
+          <div className="uk-flex uk-flex-between uk-flex-middle uk-margin-top">
+            <button className="btn-submit-product" type="submit">
               {isModifying ? "Guardar cambios" : "Registrar"}
             </button>
             <button
-              className="uk-button uk-button-danger"
+              className="btn-cancel-product"
               type="button"
               onClick={handleClose}
             >

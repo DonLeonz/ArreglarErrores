@@ -1,6 +1,6 @@
 const AccordionItem = ({ icon, title, children }) => {
   return (
-    <li className="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-border-rounded uk-background-default">
+    <li className="uk-card uk-card-body uk-box-shadow-medium uk-border-rounded catalog-accordion-item">
       <a href="#" className="uk-accordion-title uk-text-lead uk-text-bold">
         {icon} {title}
       </a>

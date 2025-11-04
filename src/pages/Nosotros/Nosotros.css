@@ -166,20 +166,57 @@
 }
 
 .nosotros-team-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(212, 167, 98, 0.4) !important;
   border-color: #d4a762 !important;
 }
 
+.nosotros-team-image-wrapper {
+  position: relative;
+  overflow: hidden !important;
+}
+
+.nosotros-team-image-container {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden !important;
+}
+
 .nosotros-team-image {
   width: 100% !important;
-  height: 250px !important;
+  height: 380px !important;
   object-fit: cover !important;
+  object-position: center top !important;
   transition: transform 0.4s ease !important;
 }
 
 .nosotros-team-card:hover .nosotros-team-image {
   transform: scale(1.1);
+}
+
+.nosotros-team-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.nosotros-team-image-overlay span {
+  color: #d4a762 !important;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  animation: float 3s ease-in-out infinite;
+}
+
+.nosotros-team-image-container:hover .nosotros-team-image-overlay {
+  opacity: 1;
 }
 
 .nosotros-team-body {
@@ -228,6 +265,68 @@
 }
 
 /* ========================================
+   MODAL DE IMAGEN
+   ======================================== */
+.nosotros-modal-dialog-relative {
+  position: relative;
+  background: transparent !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+.nosotros-modal-image {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  width: auto !important;
+  height: auto !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  object-fit: contain !important;
+}
+
+.nosotros-image-modal-close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: rgba(212, 167, 98, 0.9) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  padding: 0 !important;
+}
+
+.nosotros-image-modal-close::before,
+.nosotros-image-modal-close::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 20px !important;
+  height: 3px !important;
+  background: #2c1608 !important;
+  border-radius: 2px !important;
+}
+
+.nosotros-image-modal-close::before {
+  transform: rotate(45deg) !important;
+}
+
+.nosotros-image-modal-close::after {
+  transform: rotate(-45deg) !important;
+}
+
+.nosotros-image-modal-close:hover {
+  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 @media (max-width: 960px) {
@@ -254,5 +353,18 @@
 
   .nosotros-team-image {
     height: 200px !important;
+  }
+}
+
+/* ========================================
+   KEYFRAMES
+   ======================================== */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

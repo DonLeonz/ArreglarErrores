@@ -393,3 +393,20 @@
 .position-relative {
   position: relative !important;
 }
+
+/* ========================================
+   INPUTS NUMÉRICOS - QUITAR FLECHITAS
+   ======================================== */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}

@@ -1,7 +1,7 @@
 import TeamMemberCard from "../../components/cards/TeamMemberCard/TeamMemberCard";
-import sofia from "../../assets/img/nosotros/sofia.jpg";
-import juan from "../../assets/img/nosotros/juan.jpg";
-import maria from "../../assets/img/nosotros/maria.jpg";
+import jhon from "../../assets/img/nosotros/jhon.png";
+import kale from "../../assets/img/nosotros/kale.png";
+import leon from "../../assets/img/nosotros/leon.png";
 import "./Nosotros.css";
 
 const Nosotros = () => {
@@ -28,12 +28,12 @@ const Nosotros = () => {
 
   const teamMembers = [
     {
-      name: "Sofía Martínez",
-      role: "Barista Principal & Catadora",
-      img: sofia,
+      name: "Jhon Alexander y Yamil",
+      role: "Son los baristas principales, hacedores de todos los cafes, y orgullosamente jhon es el limpia suelos de la cafeteria, tiene una tecnica especial llamada la lengua trapero",
+      img: jhon,
     },
-    { name: "Juan Rodríguez", role: "Maestro Tostador", img: juan },
-    { name: "María López", role: "Gerente General", img: maria },
+    { name: "Jorge Leon", role: "El mismisimo master chef de toda la cocina, carrea toda la comida, experto en creación de galletas", img: leon },
+    { name: "Kaleth Daniel", role: "El mero gerente de toda la tienda, encargado de que todos trabajen y no se la pasen echados en el suelo", img: kale },
   ];
 
   const locations = [
@@ -201,7 +201,7 @@ const Nosotros = () => {
           >
             {teamMembers.map((member, index) => (
               <div key={index}>
-                <TeamMemberCard member={member} />
+                <TeamMemberCard member={member} index={index} />
               </div>
             ))}
           </div>

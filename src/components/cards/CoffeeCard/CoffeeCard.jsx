@@ -98,7 +98,7 @@ const CoffeeCard = ({ item, onViewDetails }) => {
       </div>
 
       {/* Botón Ver Más */}
-      <div className="uk-text-center uk-padding-small">
+      <div className="uk-text-center uk-padding-small menu-product-buttons">
         <button
           className="uk-button uk-button-default menu-details-button"
           onClick={onViewDetails}

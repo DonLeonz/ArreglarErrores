@@ -275,6 +275,19 @@
 /* ========================================
    BOTÓN DE DETALLES
    ======================================== */
+.menu-product-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .menu-product-buttons {
+    flex-direction: column;
+  }
+}
+
 .menu-details-button {
   color: #d4a762 !important;
   background-color: transparent !important;
@@ -286,6 +299,7 @@
   transition: all 0.3s ease !important;
   position: relative;
   overflow: hidden;
+  line-height: 1.2 !important;
 }
 
 .menu-details-button::before {

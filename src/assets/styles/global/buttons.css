@@ -4,9 +4,9 @@
 
 /* Botón con borde dorado */
 .btn-golden-border {
-  color: #d4a762 !important;
-  background-color: transparent !important;
-  border: 2px solid rgba(212, 167, 98, 0.5) !important;
+  color: #2c1608 !important;
+  background-color: rgba(212, 167, 98, 0.1) !important;
+  border: 2px solid rgba(212, 167, 98, 0.8) !important;
   border-radius: 6px !important;
   padding: 8px 20px !important;
   font-size: 0.9rem !important;
@@ -44,20 +44,45 @@
 }
 
 /* Botón primario dorado */
-.btn-golden-primary {
+.btn-golden-primary,
+a.btn-golden-primary,
+button.btn-golden-primary,
+.uk-button.btn-golden-primary {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  color: #2c1608 !important;
+  color: #000000 !important;
   border: none !important;
   border-radius: 6px !important;
   padding: 10px 24px !important;
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
+  text-shadow: none !important;
 }
 
-.btn-golden-primary:hover {
+.btn-golden-primary *,
+a.btn-golden-primary *,
+button.btn-golden-primary *,
+.uk-button.btn-golden-primary * {
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+.btn-golden-primary:hover,
+a.btn-golden-primary:hover,
+button.btn-golden-primary:hover,
+.uk-button.btn-golden-primary:hover {
   background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(212, 167, 98, 0.4);
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+.btn-golden-primary:hover *,
+a.btn-golden-primary:hover *,
+button.btn-golden-primary:hover *,
+.uk-button.btn-golden-primary:hover * {
+  color: #000000 !important;
+  text-shadow: none !important;
 }
 
 /* Botón secundario */
