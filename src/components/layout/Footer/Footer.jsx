@@ -1,9 +1,12 @@
 import "./Footer.css";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import { useLocation } from "react-router";
+import { useAuth } from "../../../context/AuthContext";
 
 const Footer = () => {
   const location = useLocation();
+  const { roles } = useAuth();
+  const isAdminUser = roles.includes('ADMIN');
   const isAdminPage = location.pathname.includes('/admin');
 
   return (
@@ -54,8 +57,8 @@ const Footer = () => {
               ) : (
                 <>
                   <li>
-                    <a href="/menu" className="uk-link-muted footer-link">
-                      Menú
+                    <a href={isAdminUser ? "/admin/products" : "/menu"} className="uk-link-muted footer-link">
+                      {isAdminUser ? "Admin" : "Menú"}
                     </a>
                   </li>
                   <li>

@@ -198,7 +198,7 @@ const AdminProducts = () => {
             <div
               className="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s"
               data-uk-grid
-              data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;"
+              data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div; delay: 120; repeat: true"
             >
               {Array.isArray(products) &&
                 products.map((item, index) => (
@@ -240,7 +240,7 @@ const AdminProducts = () => {
           <div
             className="uk-grid-small uk-child-width-1-1@s"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;"
+            data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div; delay: 150; repeat: true"
           >
             {Array.isArray(allOrders) && allOrders.length > 0 ? (
               allOrders.map((order) => (
@@ -344,7 +344,7 @@ const AdminProducts = () => {
           <div
             className="uk-grid-small uk-child-width-1-1@s"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; target: > div; delay: 130; repeat: true"
           >
             {Array.isArray(blogs) && blogs.length > 0 ? (
               blogs.map((blog) => {
@@ -435,7 +435,7 @@ const AdminProducts = () => {
           <div
             className="uk-grid-small uk-child-width-1-2@m uk-child-width-1-1@s"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;"
+            data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 180; repeat: true"
           >
             {Array.isArray(users) && users.length > 0 ? (
               users.map((user) => (

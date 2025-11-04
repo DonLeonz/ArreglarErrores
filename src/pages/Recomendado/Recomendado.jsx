@@ -25,7 +25,7 @@ const Recomendado = () => {
             ☕ Descubre el Sabor del Día
           </span>
         </h1>
-        <div data-uk-scrollspy="cls: uk-animation-scale-up; delay: 200">
+        <div data-uk-scrollspy="cls: uk-animation-scale-up; delay: 200; repeat: true">
           <RecommendedCard
             product={productoRecomendado}
             imageError={imageError}

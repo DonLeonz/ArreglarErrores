@@ -128,7 +128,7 @@ const Blog = () => {
         </div>
 
         {Array.isArray(blogs) && blogs.length > 0 ? (
-          <div className="uk-child-width-1-2@s" data-uk-grid="masonry: pack" data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;">
+          <div className="uk-child-width-1-2@s" data-uk-grid="masonry: pack" data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 200; repeat: true">
             {blogs.map((blog) => (
               <div key={blog._id || blog.id}>
                 <BlogPostCard

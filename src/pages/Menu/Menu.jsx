@@ -27,7 +27,7 @@ const Menu = () => {
           className="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1@s menu-grid"
           data-uk-grid
           data-uk-height-match="target: > div > .uk-card"
-          data-uk-scrollspy="cls: uk-animation-fade; target: > div; delay: 100;"
+          data-uk-scrollspy="cls: uk-animation-slide-left-medium; target: > div; delay: 150; repeat: true"
         >
           {Array.isArray(products) &&
             products.map((item, index) => (
