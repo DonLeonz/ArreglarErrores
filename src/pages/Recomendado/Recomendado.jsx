@@ -19,7 +19,7 @@ const Recomendado = () => {
       <div className="uk-container uk-container-xlarge uk-light uk-background-secondary recomendado-container">
         <h1
           className="uk-heading-line uk-text-center"
-          data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+          data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
         >
           <span className="recomendado-title">
             ☕ Descubre el Sabor del Día

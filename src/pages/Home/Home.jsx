@@ -27,7 +27,7 @@ const Home = () => {
               </div>
               <div
                 className="uk-margin-top hero-buttons"
-                data-uk-scrollspy="cls: uk-animation-fade; delay: 400"
+                data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; delay: 400"
               >
                 <a
                   href="/menu"
@@ -51,14 +51,14 @@ const Home = () => {
         <div className="uk-container">
           <h2
             className="section-title"
-            data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
           >
             ¿Por qué elegirnos?
           </h2>
           <div
             className="uk-child-width-1-3@m uk-child-width-1-1 uk-grid-match uk-margin-medium-top"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div; delay: 150;"
+            data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div; delay: 150;"
           >
             <div>
               <div className="uk-card uk-card-default uk-card-body uk-text-center feature-card">
@@ -116,14 +116,14 @@ const Home = () => {
         <div className="uk-container">
           <h2
             className="section-title"
-            data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
           >
             Nuestra Cafetería en Cifras
           </h2>
           <div
             className="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center uk-margin-medium-top"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-bottom; target: > div; delay: 100;"
+            data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div; delay: 100;"
           >
             <div>
               <div className="uk-card uk-card-default uk-card-body uk-card-hover stat-card">
