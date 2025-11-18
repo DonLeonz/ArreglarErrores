@@ -5,6 +5,7 @@ import { useOrders } from "../../context/OrdersContext";
 import { useUsers } from "../../context/UsersContext";
 import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal/CreateProductModal";
 import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
+import SearchBar from "../../components/common/SearchBar/SearchBar";
 import "./Admin.css";
 import { useAuth } from "../../context/AuthContext";
 
@@ -22,6 +23,8 @@ const AdminControl = () => {
     message: "",
     onConfirm: null,
   });
+  const [orderSearchTerm, setOrderSearchTerm] = useState("");
+  const [blogSearchTerm, setBlogSearchTerm] = useState("");
 
   // PRODUCTOS
   const { products, modifyProductStatus, setModifiedProducts } = useProducts();
@@ -153,6 +156,28 @@ const AdminControl = () => {
     );
   };
 
+  const filteredOrders = Array.isArray(orders)
+    ? orders.filter((order) => {
+        const searchLower = orderSearchTerm.toLowerCase();
+        return (
+          order._id?.toLowerCase().includes(searchLower) ||
+          order.client?.username?.toLowerCase().includes(searchLower) ||
+          order.status?.toLowerCase().includes(searchLower)
+        );
+      })
+    : [];
+
+  const filteredBlogs = Array.isArray(blogs)
+    ? blogs.filter((blog) => {
+        const searchLower = blogSearchTerm.toLowerCase();
+        return (
+          blog.title?.toLowerCase().includes(searchLower) ||
+          blog.user?.username?.toLowerCase().includes(searchLower) ||
+          blog.content?.toLowerCase().includes(searchLower)
+        );
+      })
+    : [];
+
   return (
     <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small">
       <div className="uk-container uk-container-xlarge uk-padding-small">
@@ -275,13 +300,22 @@ const AdminControl = () => {
         )}
 
         {activeTab === "orders" && (
-          <div
-            className="uk-grid-small uk-grid-match uk-child-width-1-3@s"
-            data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div; delay: 150; repeat: true"
-          >
-            {Array.isArray(orders) && orders.length > 0 ? (
-              orders.map((order) => (
+          <>
+            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
+              <div className="uk-width-1-2@m">
+                <SearchBar
+                  onSearch={setOrderSearchTerm}
+                  textHint="Buscar por ID, cliente o estado"
+                />
+              </div>
+            </div>
+            <div
+              className="uk-grid-small uk-grid-match uk-child-width-1-3@s"
+              data-uk-grid
+              data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div; delay: 150; repeat: true"
+            >
+              {filteredOrders.length > 0 ? (
+                filteredOrders.map((order) => (
                 <div key={order._id || order.id}>
                   <div className="admin-blog-card">
                     <div className="uk-grid-small" data-uk-grid>
@@ -369,17 +403,27 @@ const AdminControl = () => {
                 </p>
               </div>
             )}
-          </div>
+            </div>
+          </>
         )}
 
         {activeTab === "blogs" && (
-          <div
-            className="uk-grid-small uk-child-width-1-3@m"
-            data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-top-medium; target: > div; delay: 130; repeat: true"
-          >
-            {Array.isArray(blogs) && blogs.length > 0 ? (
-              blogs.map((blog) => {
+          <>
+            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
+              <div className="uk-width-1-2@m">
+                <SearchBar
+                  onSearch={setBlogSearchTerm}
+                  textHint="Buscar por título, autor o contenido"
+                />
+              </div>
+            </div>
+            <div
+              className="uk-grid-small uk-child-width-1-3@m"
+              data-uk-grid
+              data-uk-scrollspy="cls: uk-animation-slide-top-medium; target: > div; delay: 130; repeat: true"
+            >
+              {filteredBlogs.length > 0 ? (
+                filteredBlogs.map((blog) => {
                 const blogComments = Array.isArray(comments)
                   ? comments.filter((c) => c.blog._id === blog._id)
                   : [];
@@ -469,7 +513,8 @@ const AdminControl = () => {
                 </p>
               </div>
             )}
-          </div>
+            </div>
+          </>
         )}
 
         {activeTab === "users" && (
