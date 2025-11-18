@@ -5,6 +5,7 @@ import {
   verifyToken,
 } from "../api/requests/users.request";
 import { useLogin } from "./LoginContext";
+import { showNotification } from "../utils/notifications";
 
 const AuthContext = createContext();
 
@@ -50,6 +51,10 @@ export const AuthProvider = ({ children }) => {
       if (res.status === 200 && res.data) {
         localStorage.setItem("token", res.data);
         setIsAuth(true);
+        showNotification({
+          message: `<span uk-icon="icon: check"></span> ¡Bienvenido de nuevo!`,
+          status: "success",
+        });
         return true;
       }
     } catch (error) {
@@ -64,6 +69,10 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setRoles([]);
     setIsAuth(false);
+    showNotification({
+      message: `<span uk-icon="icon: sign-out"></span> Sesión cerrada correctamente`,
+      status: "primary",
+    });
   };
 
   // Verify Token at App Start || at Token Expiration

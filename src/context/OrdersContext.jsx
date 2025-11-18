@@ -7,6 +7,7 @@ import {
 import { useAuth } from "./AuthContext";
 import { useEffect } from "react";
 import { useProducts } from "./ProductsContext";
+import { showNotification } from "../utils/notifications";
 
 const OrderContext = createContext();
 
@@ -125,10 +126,9 @@ export const OrdersProvider = ({ children }) => {
     }
 
     if (newQuantity > item.product.stock) {
-      window.UIkit?.notification({
+      showNotification({
         message: `Solo hay ${item.product.stock} unidades disponibles`,
         status: "warning",
-        pos: "top-center",
       });
       return;
     }
@@ -182,6 +182,11 @@ export const OrdersProvider = ({ children }) => {
         setActualOrder({ orderDetails: [], totalPrice: 0 });
         setIsCartOpen(false);
         setModifiedProducts(true);
+        showNotification({
+          message: `<span uk-icon="icon: check"></span> ¡Pedido realizado exitosamente!`,
+          status: "success",
+          timeout: 5000,
+        });
       }
     } catch (error) {
       console.error(error);
