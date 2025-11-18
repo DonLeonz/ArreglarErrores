@@ -95,8 +95,11 @@ const Blog = () => {
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
-        <div className="uk-text-center uk-margin-large-bottom">
-          <h1 className="blog-page-title">Nuestro Blog</h1>
+        <div className="uk-text-center uk-margin-large-bottom" data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100">
+          <h1 className="uk-heading-line blog-page-title">
+            <span>Nuestro Blog</span>
+          </h1>
+          <p className="blog-subtitle">Descubre historias, tips y novedades sobre café</p>
         </div>
         {Array.isArray(blogs) && blogs.length > 0 ? (
           <div
