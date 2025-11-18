@@ -42,18 +42,41 @@
   }
 }
 
-.user-orders-title h1 {
-  font-size: 3rem;
+.user-orders-title-text {
+  font-size: 3.2rem;
   font-weight: 800;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  margin-bottom: 15px !important;
+}
+
+.user-orders-title-text span {
   background: linear-gradient(135deg, #f5d98d, #d4a762, #b8935a);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: none;
-  animation: gradientShift 4s ease infinite;
   position: relative;
   display: inline-block;
+  animation: gradientShift 4s ease infinite, titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from {
+    filter: drop-shadow(0 0 15px rgba(212, 167, 98, 0.5));
+  }
+  to {
+    filter: drop-shadow(0 0 25px rgba(245, 217, 141, 0.8));
+  }
+}
+
+.user-orders-subtitle {
+  color: rgba(245, 245, 245, 0.8) !important;
+  font-size: 1.15rem !important;
+  margin-top: 10px !important;
+  animation: fadeIn 1s ease 0.3s backwards;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 @keyframes gradientShift {
@@ -328,8 +351,12 @@
 }
 
 @media (max-width: 960px) {
-  .user-orders-title h1 {
-    font-size: 2.3rem;
+  .user-orders-title-text {
+    font-size: 2.5rem;
+  }
+
+  .user-orders-subtitle {
+    font-size: 1.05rem !important;
   }
 
   .user-order-card {
@@ -348,8 +375,13 @@
     padding: 80px 15px 40px !important;
   }
 
-  .user-orders-title h1 {
-    font-size: 1.8rem;
+  .user-orders-title-text {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .user-orders-subtitle {
+    font-size: 0.95rem !important;
   }
 
   .user-orders-title-icon::before,
