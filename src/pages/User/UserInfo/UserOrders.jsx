@@ -21,10 +21,13 @@ const UserOrders = () => {
   return (
     <div className="first-child-adjustment user-orders-section uk-light">
       <div className="uk-container uk-container-large">
-        <div className="user-orders-title">
+        <div className="user-orders-title" data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100">
           <div className="user-orders-title-icon">
-            <h1>Mis Pedidos</h1>
+            <h1 className="user-orders-title-text">
+              <span>Mis Pedidos</span>
+            </h1>
           </div>
+          <p className="user-orders-subtitle">Gestiona y revisa el estado de tus pedidos</p>
         </div>
 
         <div
