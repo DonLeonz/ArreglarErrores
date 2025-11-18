@@ -16,28 +16,38 @@ export const showNotification = ({ message, status = "primary", timeout = 4000 }
   }
 
   requestAnimationFrame(() => {
-    const notification = window.UIkit.notification({
-      message,
-      status,
-      pos: "top-right",
-      timeout,
-    });
+    try {
+      const notification = window.UIkit.notification({
+        message,
+        status,
+        pos: "top-right",
+        timeout,
+      });
 
-    activeNotifications.push(notification);
+      if (notification) {
+        activeNotifications.push(notification);
 
-    setTimeout(() => {
-      const index = activeNotifications.indexOf(notification);
-      if (index > -1) {
-        activeNotifications.splice(index, 1);
+        setTimeout(() => {
+          const index = activeNotifications.indexOf(notification);
+          if (index > -1) {
+            activeNotifications.splice(index, 1);
+          }
+        }, timeout + 500);
       }
-    }, timeout + 500);
+    } catch (error) {
+      console.error('Error showing notification:', error);
+    }
   });
 };
 
 export const clearAllNotifications = () => {
   activeNotifications.forEach((notification) => {
     if (notification && notification.close) {
-      notification.close(true);
+      try {
+        notification.close(true);
+      } catch (e) {
+        console.warn('Error closing notification:', e);
+      }
     }
   });
   activeNotifications = [];

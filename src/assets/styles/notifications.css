@@ -52,65 +52,8 @@
   }
 }
 
-.uk-notification-message-primary {
-  background: linear-gradient(
-    135deg,
-    rgba(212, 167, 98, 0.95),
-    rgba(184, 147, 90, 0.95)
-  ) !important;
-  color: #2c1608 !important;
-  border-color: rgba(245, 217, 141, 0.5) !important;
-}
-
-.uk-notification-message-primary .uk-notification-close {
-  color: #2c1608 !important;
-}
-
-.uk-notification-message-success {
-  background: linear-gradient(
-    135deg,
-    rgba(39, 174, 96, 0.95),
-    rgba(46, 204, 113, 0.95)
-  ) !important;
-  color: white !important;
-  border-color: rgba(88, 214, 141, 0.5) !important;
-}
-
-.uk-notification-message-success .uk-notification-close {
-  color: white !important;
-}
-
-.uk-notification-message-warning {
-  background: linear-gradient(
-    135deg,
-    rgba(243, 156, 18, 0.95),
-    rgba(230, 126, 34, 0.95)
-  ) !important;
-  color: white !important;
-  border-color: rgba(245, 176, 65, 0.5) !important;
-}
-
-.uk-notification-message-warning .uk-notification-close {
-  color: white !important;
-}
-
-.uk-notification-message-danger {
-  background: linear-gradient(
-    135deg,
-    rgba(231, 76, 60, 0.95),
-    rgba(192, 57, 43, 0.95)
-  ) !important;
-  color: white !important;
-  border-color: rgba(255, 107, 107, 0.5) !important;
-}
-
-.uk-notification-message-danger .uk-notification-close {
-  color: white !important;
-}
-
 .uk-notification-close {
   background: rgba(0, 0, 0, 0.2) !important;
-  color: inherit !important;
   border-radius: 50% !important;
   width: 28px !important;
   height: 28px !important;
@@ -134,6 +77,82 @@
 .uk-notification-message svg {
   color: inherit !important;
   fill: currentColor !important;
+}
+
+.uk-notification-message-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.95),
+    rgba(184, 147, 90, 0.95)
+  ) !important;
+  color: #2c1608 !important;
+  border-color: rgba(245, 217, 141, 0.5) !important;
+}
+
+.uk-notification-message-primary .uk-notification-close {
+  color: #2c1608 !important;
+}
+
+.uk-notification-message-primary .uk-notification-close svg {
+  color: #2c1608 !important;
+  stroke: #2c1608 !important;
+}
+
+.uk-notification-message-success {
+  background: linear-gradient(
+    135deg,
+    rgba(39, 174, 96, 0.95),
+    rgba(46, 204, 113, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(88, 214, 141, 0.5) !important;
+}
+
+.uk-notification-message-success .uk-notification-close {
+  color: white !important;
+}
+
+.uk-notification-message-success .uk-notification-close svg {
+  color: white !important;
+  stroke: white !important;
+}
+
+.uk-notification-message-warning {
+  background: linear-gradient(
+    135deg,
+    rgba(243, 156, 18, 0.95),
+    rgba(230, 126, 34, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(245, 176, 65, 0.5) !important;
+}
+
+.uk-notification-message-warning .uk-notification-close {
+  color: white !important;
+}
+
+.uk-notification-message-warning .uk-notification-close svg {
+  color: white !important;
+  stroke: white !important;
+}
+
+.uk-notification-message-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(231, 76, 60, 0.95),
+    rgba(192, 57, 43, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(255, 107, 107, 0.5) !important;
+}
+
+.uk-notification-message-danger .uk-notification-close {
+  color: white !important;
+}
+
+.uk-notification-message-danger .uk-notification-close svg {
+  color: white !important;
+  stroke: white !important;
 }
 
 @media (max-width: 640px) {
