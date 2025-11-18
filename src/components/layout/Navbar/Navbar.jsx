@@ -45,10 +45,14 @@ const Navbar = () => {
                 {isAuth && roles.includes("CUSTOMER") && (
                   <div className="uk-navbar-item uk-visible@l uk-light">
                     <NavLink
-                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      className="navbar-mi-info-button"
                       to="/user/orders"
                       end
                     >
+                      <span
+                        className="navbar-mi-info-icon"
+                        data-uk-icon="icon: user; ratio: 0.9"
+                      ></span>
                       Mi Info
                     </NavLink>
                   </div>
@@ -183,10 +187,14 @@ const Navbar = () => {
                       {isAuth && roles.includes("CUSTOMER") && (
                         <div>
                           <NavLink
-                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            className="navbar-mi-info-button uk-width-1-1"
                             to="/user/orders"
                             end
                           >
+                            <span
+                              className="navbar-mi-info-icon"
+                              data-uk-icon="icon: user; ratio: 0.9"
+                            ></span>
                             Mi Info
                           </NavLink>
                         </div>
