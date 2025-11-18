@@ -1,0 +1,133 @@
+.uk-notification {
+  width: 380px !important;
+  max-width: 90vw !important;
+  z-index: 10000 !important;
+}
+
+.uk-notification-message {
+  padding: 20px 24px !important;
+  border-radius: 16px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  border: 2px solid transparent !important;
+  backdrop-filter: blur(10px) !important;
+  animation: notificationSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+@keyframes notificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.uk-notification-message::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  background-size: 200% 100%;
+  animation: shimmerNotification 2s linear infinite;
+}
+
+@keyframes shimmerNotification {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.uk-notification-message-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.95),
+    rgba(184, 147, 90, 0.95)
+  ) !important;
+  color: #2c1608 !important;
+  border-color: rgba(245, 217, 141, 0.5) !important;
+}
+
+.uk-notification-message-success {
+  background: linear-gradient(
+    135deg,
+    rgba(39, 174, 96, 0.95),
+    rgba(46, 204, 113, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(88, 214, 141, 0.5) !important;
+}
+
+.uk-notification-message-warning {
+  background: linear-gradient(
+    135deg,
+    rgba(243, 156, 18, 0.95),
+    rgba(230, 126, 34, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(245, 176, 65, 0.5) !important;
+}
+
+.uk-notification-message-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(231, 76, 60, 0.95),
+    rgba(192, 57, 43, 0.95)
+  ) !important;
+  color: white !important;
+  border-color: rgba(255, 107, 107, 0.5) !important;
+}
+
+.uk-notification-close {
+  background: rgba(0, 0, 0, 0.2) !important;
+  color: inherit !important;
+  border-radius: 50% !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  opacity: 0.7 !important;
+}
+
+.uk-notification-close:hover {
+  background: rgba(0, 0, 0, 0.4) !important;
+  transform: rotate(90deg) scale(1.1) !important;
+  opacity: 1 !important;
+}
+
+.uk-notification-message [data-uk-icon] {
+  flex-shrink: 0;
+}
+
+.uk-notification-message svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+@media (max-width: 640px) {
+  .uk-notification {
+    width: calc(100vw - 40px) !important;
+    right: 20px !important;
+  }
+
+  .uk-notification-message {
+    padding: 16px 20px !important;
+    font-size: 0.95rem !important;
+  }
+}
