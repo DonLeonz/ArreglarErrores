@@ -3,11 +3,17 @@ import { useProducts } from "../../context/ProductsContext";
 import { useBlogs } from "../../context/BlogsContext";
 import { useOrders } from "../../context/OrdersContext";
 import { useUsers } from "../../context/UsersContext";
+import { useAuth } from "../../context/AuthContext";
 import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal/CreateProductModal";
 import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
 import SearchBar from "../../components/common/SearchBar/SearchBar";
+import AdminTabs from "../../components/features/Admin/AdminTabs";
+import AdminProductCard from "../../components/features/Admin/AdminProductCard";
+import AdminOrderCard from "../../components/features/Admin/AdminOrderCard";
+import AdminBlogCard from "../../components/features/Admin/AdminBlogCard";
+import AdminUserCard from "../../components/features/Admin/AdminUserCard";
+import ConfirmModal from "../../components/features/Admin/ConfirmModal";
 import "./Admin.css";
-import { useAuth } from "../../context/AuthContext";
 
 const AdminControl = () => {
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
@@ -185,40 +191,7 @@ const AdminControl = () => {
           <span>Panel de Administración</span>
         </h2>
 
-        <div className="admin-tabs uk-margin-medium-bottom uk-flex uk-flex-center">
-          <button
-            className={`admin-tab-button ${
-              activeTab === "products" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("products")}
-          >
-            Productos
-          </button>
-          <button
-            className={`admin-tab-button ${
-              activeTab === "orders" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("orders")}
-          >
-            Pedidos
-          </button>
-          <button
-            className={`admin-tab-button ${
-              activeTab === "blogs" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("blogs")}
-          >
-            Blogs y Comentarios
-          </button>
-          <button
-            className={`admin-tab-button ${
-              activeTab === "users" ? "active" : ""
-            }`}
-            onClick={() => setActiveTab("users")}
-          >
-            Usuarios
-          </button>
-        </div>
+        <AdminTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
         {activeTab === "products" && (
           <>
@@ -243,56 +216,11 @@ const AdminControl = () => {
               {Array.isArray(products) &&
                 products.map((item, index) => (
                   <div key={index}>
-                    <div className="admin-product-card">
-                      <img
-                        src={`/src/assets/img/menu/${item.image}`}
-                        alt={item.name}
-                        className="admin-product-image"
-                      />
-                      <h4 className="admin-card-title">{item.name}</h4>
-                      <p className="admin-card-info">
-                        <strong>Categoría:</strong>{" "}
-                        {item.category?.name || "Sin categoría"}
-                      </p>
-                      <p className="admin-card-info">
-                        <strong>Precio:</strong> ${" "}
-                        {item.price.toLocaleString("es-CO")}
-                      </p>
-                      <p className="admin-card-info">
-                        <strong>Stock:</strong> {item.stock}
-                      </p>
-                      <p className="admin-card-info">
-                        <strong>Origen:</strong> {item.origin}
-                      </p>
-
-                      <button
-                        className="btn-golden-primary uk-margin-top"
-                        onClick={() => handleModifyClick(item)}
-                      >
-                        Modificar
-                      </button>
-                      <div className="uk-margin-small-top uk-width-1-1">
-                        <div className="admin-button-column">
-                          <button
-                            className={`${
-                              !item.enabled
-                                ? "admin-order-completed-btn"
-                                : "admin-order-cancelled-btn"
-                            }`}
-                            onClick={() =>
-                              modifyProductStatus(
-                                item._id,
-                                item.enabled ? false : true
-                              )
-                            }
-                          >
-                            {!item.enabled
-                              ? "Activar Producto"
-                              : "Desactivar Producto"}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <AdminProductCard
+                      product={item}
+                      onModifyClick={handleModifyClick}
+                      onToggleStatus={modifyProductStatus}
+                    />
                   </div>
                 ))}
             </div>
@@ -316,85 +244,13 @@ const AdminControl = () => {
             >
               {filteredOrders.length > 0 ? (
                 filteredOrders.map((order) => (
-                <div key={order._id || order.id}>
-                  <div className="admin-blog-card">
-                    <div className="uk-grid-small" data-uk-grid>
-                      <div className="uk-width-1-1">
-                        <h4 className="admin-card-title">
-                          Pedido #{order._id?.slice(-6)}
-                        </h4>
-                        <p className="admin-card-info">
-                          <strong>Cliente:</strong> {order.client.username}
-                        </p>
-                        <p className="admin-card-info">
-                          <strong>Estado:</strong>{" "}
-                          <span
-                            className={
-                              order.status === "COMPLETADO"
-                                ? "admin-status-completed"
-                                : order.status === "PENDIENTE"
-                                ? "admin-status-pending"
-                                : order.status === "CANCELADA"
-                                ? "admin-status-cancelled"
-                                : ""
-                            }
-                          >
-                            {order.status}
-                          </span>
-                        </p>
-                        <p className="admin-card-info">
-                          <strong>Creada:</strong>{" "}
-                          {new Date(order.createdAt).toLocaleString("es-ES")}
-                          <br />
-                          <strong>Modificada:</strong>{" "}
-                          {new Date(order.updatedAt).toLocaleString("es-ES")}
-                        </p>
-
-                        <div className="admin-blog-excerpt">
-                          <strong>Productos:</strong>
-                          <ul className="admin-product-list">
-                            {order.order_details?.map((detail, idx) => (
-                              <li key={idx}>
-                                {detail.product.name} - Cantidad:{" "}
-                                {detail.quantity} - Precio Unidad: $
-                                {detail.product.price.toLocaleString("es-CO")}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        <p className="admin-card-info admin-order-total">
-                          <strong>Total:</strong> $
-                          {order.total_price.toLocaleString("es-CO")}
-                        </p>
-                      </div>
-
-                      <div className="uk-width-1-1">
-                        <div className="admin-button-column">
-                          <button
-                            className="admin-order-completed-btn"
-                            onClick={() =>
-                              handleUpdateOrderStatus(order._id, "COMPLETADO")
-                            }
-                            disabled={order.status !== "PENDIENTE"}
-                          >
-                            Marcar Completado
-                          </button>
-                          <button
-                            className="admin-order-cancelled-btn"
-                            onClick={() =>
-                              handleUpdateOrderStatus(order._id, "CANCELADA")
-                            }
-                            disabled={order.status !== "PENDIENTE"}
-                          >
-                            Marcar Cancelado
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                  <div key={order._id || order.id}>
+                    <AdminOrderCard
+                      order={order}
+                      onUpdateStatus={handleUpdateOrderStatus}
+                    />
                   </div>
-                </div>
-              ))
+                ))
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>
@@ -423,88 +279,16 @@ const AdminControl = () => {
               data-uk-scrollspy="cls: uk-animation-slide-top-medium; target: > div; delay: 130; repeat: true"
             >
               {filteredBlogs.length > 0 ? (
-                filteredBlogs.map((blog) => {
-                const blogComments = Array.isArray(comments)
-                  ? comments.filter((c) => c.blog._id === blog._id)
-                  : [];
-
-                return (
+                filteredBlogs.map((blog) => (
                   <div key={blog._id || blog.id}>
-                    <div className="admin-blog-card">
-                      <h4 className="admin-card-title">{blog.title}</h4>
-                      <p className="admin-card-info">
-                        <strong>Autor:</strong> {blog.user.username}
-                      </p>
-                      <p className="admin-card-info">
-                        <strong>Fecha:</strong>{" "}
-                        {blog.createdAt
-                          ? new Date(blog.createdAt).toLocaleDateString("es-ES")
-                          : blog.date || "N/A"}
-                      </p>
-                      <p className="admin-blog-excerpt">{blog.content}</p>
-                      <div className="admin-button-column">
-                        <button
-                          className="btn-golden-primary"
-                          onClick={() => {
-                            window.UIkit.notification({
-                              message:
-                                "Funcionalidad de edición lista para conectar con backend",
-                              status: "primary",
-                              pos: "top-center",
-                            });
-                          }}
-                        >
-                          Editar Blog
-                        </button>
-                        <button
-                          className="admin-delete-btn"
-                          onClick={() => handleDeleteBlog(blog._id || blog.id)}
-                        >
-                          Eliminar Blog
-                        </button>
-                      </div>
-
-                      {blogComments.length > 0 && (
-                        <div className="admin-comments-section">
-                          <h5 className="admin-comments-title">
-                            Comentarios ({blogComments.length})
-                          </h5>
-                          {blogComments.map((comment) => (
-                            <div
-                              key={comment._id}
-                              className="admin-comment-card"
-                            >
-                              <div className="admin-comment-container">
-                                <p className="admin-comment-info">
-                                  <strong>{comment.user.username}</strong> -{" "}
-                                  {comment.createdAt
-                                    ? new Date(
-                                        comment.createdAt
-                                      ).toLocaleDateString("es-CO")
-                                    : "N/A"}
-                                </p>
-
-                                <div className="admin-comment-text uk-padding-left">
-                                  {comment.content}
-                                </div>
-
-                                <button
-                                  className="admin-delete-btn admin-delete-btn-small"
-                                  onClick={() =>
-                                    handleDeleteComment(comment._id)
-                                  }
-                                >
-                                  Eliminar
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <AdminBlogCard
+                      blog={blog}
+                      comments={comments}
+                      onDeleteBlog={handleDeleteBlog}
+                      onDeleteComment={handleDeleteComment}
+                    />
                   </div>
-                );
-              })
+                ))
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>
@@ -526,84 +310,12 @@ const AdminControl = () => {
             {Array.isArray(users) && users.length > 0 ? (
               users.map((user) => (
                 <div key={user._id || user.id}>
-                  <div className="admin-blog-card">
-                    <h4 className="admin-card-title">{user.username}</h4>
-                    <p className="admin-card-info">
-                      <strong>Email:</strong> {user.email}
-                    </p>
-                    <p className="admin-card-info">
-                      <strong>Rol:</strong>{" "}
-                      <span
-                        className={
-                          user.roles?.some((r) => r.name === "ADMIN")
-                            ? "admin-role-admin"
-                            : "admin-role-customer"
-                        }
-                      >
-                        {user.roles?.map((r) => r.name).join(", ") || "N/A"}
-                      </span>
-                    </p>
-                    <p className="admin-card-info">
-                      <strong>Estado:</strong>{" "}
-                      <span
-                        className={
-                          user.enabled
-                            ? "admin-user-active"
-                            : "admin-user-inactive"
-                        }
-                      >
-                        {user.enabled ? "Activo" : "Suspendido"}
-                      </span>
-                    </p>
-                    <p className="admin-card-info">
-                      <strong>Fecha de registro:</strong>{" "}
-                      {user.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString("es-ES")
-                        : "N/A"}
-                    </p>
-
-                    <div className="admin-button-column">
-                      <button
-                        className="admin-make-admin-btn"
-                        onClick={() => updateUserRole(user._id, "ADMIN")}
-                        disabled={user.roles?.some((r) => r.name === "ADMIN")}
-                      >
-                        Hacer Admin
-                      </button>
-                      <button
-                        className="admin-make-customer-btn"
-                        onClick={() => updateUserRole(user._id, "CUSTOMER")}
-                        disabled={
-                          user.roles?.some((r) => r.name === "CUSTOMER") &&
-                          !user.roles?.some((r) => r.name === "ADMIN")
-                        }
-                      >
-                        Hacer Customer
-                      </button>
-                      <button
-                        className={`admin-toggle-status-btn ${
-                          user._id !== currentUser._id
-                            ? user.enabled
-                              ? "suspend"
-                              : "activate"
-                            : "disabled"
-                        }`}
-                        onClick={() =>
-                          handleModifyUserStatus(
-                            user._id,
-                            user.enabled ? false : true
-                          )
-                        }
-                        disabled={user._id === currentUser._id}
-                      >
-                        {user._id !== currentUser._id
-                          ? user.enabled
-                            ? "Suspender"
-                            : "Activar"
-                          : "Este es tu Usuario"}
-                      </button>
-                    </div>
-                  </div>
+                  <AdminUserCard
+                    user={user}
+                    currentUserId={currentUser._id}
+                    onUpdateRole={updateUserRole}
+                    onModifyStatus={handleModifyUserStatus}
+                  />
                 </div>
               ))
             ) : (
@@ -630,47 +342,12 @@ const AdminControl = () => {
         />
       )}
 
-      {confirmModal.show && (
-        <div
-          className="uk-modal uk-open login-modal-display"
-          onClick={handleConfirmClose}
-        >
-          <div
-            className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center admin-confirm-modal-width"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="modal-close-golden"
-              type="button"
-              onClick={handleConfirmClose}
-              aria-label="Cerrar"
-            ></button>
-
-            <h2 className="uk-modal-title admin-modal-title-centered">
-              Confirmación
-            </h2>
-
-            <p className="admin-confirm-message">{confirmModal.message}</p>
-
-            <div className="uk-flex uk-flex-between uk-flex-middle">
-              <button
-                className="btn-golden-primary admin-confirm-btn-left"
-                type="button"
-                onClick={handleConfirmAccept}
-              >
-                Confirmar
-              </button>
-              <button
-                className="btn-cancel-product admin-confirm-btn-right"
-                type="button"
-                onClick={handleConfirmClose}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmModal
+        isOpen={confirmModal.show}
+        message={confirmModal.message}
+        onConfirm={handleConfirmAccept}
+        onCancel={handleConfirmClose}
+      />
     </div>
   );
 };
