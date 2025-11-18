@@ -9,6 +9,7 @@ const TeamMemberCard = ({ member, index }) => {
           imageUrl={member.img}
           alt={member.name}
           modalId={`modal-team-member-${index}`}
+          containerStyle={{ height: "380px" }}
         />
       </div>
       <div className="uk-card-body uk-flex-1 nosotros-team-body">

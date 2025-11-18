@@ -1,9 +1,13 @@
 import "./ImageModal.css";
 
-/**
- * Componente reutilizable para mostrar imágenes en un modal ampliable
- */
-const ImageModal = ({ imageUrl, alt, modalId }) => {
+const ImageModal = ({
+  imageUrl,
+  alt,
+  modalId,
+  containerClassName = "",
+  imageClassName = "",
+  containerStyle = {}
+}) => {
   const handleImageClick = (e) => {
     e.stopPropagation();
     const modalElement = document.getElementById(modalId);
@@ -16,8 +20,12 @@ const ImageModal = ({ imageUrl, alt, modalId }) => {
 
   return (
     <>
-      <div className="image-modal-container" onClick={handleImageClick}>
-        <img src={imageUrl} alt={alt} />
+      <div
+        className={`image-modal-container ${containerClassName}`}
+        onClick={handleImageClick}
+        style={containerStyle}
+      >
+        <img src={imageUrl} alt={alt} className={imageClassName} />
         <div className="image-modal-overlay">
           <span data-uk-icon="icon: eye; ratio: 2.5"></span>
         </div>

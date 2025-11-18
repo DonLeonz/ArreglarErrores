@@ -9,6 +9,7 @@ const BlogPostCard = ({ blog, onToggleBlogInfo }) => {
           imageUrl={blog.imageUrl}
           alt={blog.title}
           modalId={`modal-media-image-${blog.id}`}
+          containerStyle={{ height: "300px" }}
         />
       </div>
 
