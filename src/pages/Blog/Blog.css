@@ -2,6 +2,15 @@
    BACKGROUND Y CONTENEDORES PRINCIPALES
    ======================================== */
 
+.blog-page-section {
+  padding-top: 8rem !important;
+}
+
+.blog-page-heading {
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+}
+
 .blog-background {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(../../assets/img/blog/blog-background.jpg) !important;
@@ -10,7 +19,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
-  padding: 40px 0 !important;
+  padding-bottom: 40px !important;
 }
 
 .blog-container-round {

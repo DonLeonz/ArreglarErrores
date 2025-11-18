@@ -23,14 +23,18 @@ const ImageModal = ({
   };
 
   const handleClose = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
     const modalElement = document.getElementById(modalId);
-    const modal = window.UIkit?.modal(modalElement);
-    
-    if (modal) {
-      modal.hide();
+    if (modalElement && window.UIkit) {
+      try {
+        window.UIkit.modal(modalElement).hide();
+      } catch (error) {
+        console.error('Error closing modal:', error);
+      }
     }
   };
 

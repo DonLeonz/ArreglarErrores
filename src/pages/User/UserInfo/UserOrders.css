@@ -1,3 +1,12 @@
+.user-orders-page-section {
+  padding-top: 8rem !important;
+}
+
+.user-orders-page-heading {
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+}
+
 .user-orders-section {
   min-height: 100vh;
   background: linear-gradient(
@@ -5,7 +14,7 @@
     rgba(30, 30, 30, 0.98),
     rgba(44, 44, 44, 0.98)
   );
-  padding: 60px 20px !important;
+  padding-bottom: 60px !important;
   position: relative;
 }
 

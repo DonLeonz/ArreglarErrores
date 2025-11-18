@@ -43,6 +43,9 @@ const AdminControl = () => {
   const [blogFilters, setBlogFilters] = useState({
     ...BLOG_FILTER_DEFAULTS,
   });
+  const [userFilters, setUserFilters] = useState({
+    ...USER_FILTER_DEFAULTS,
+  });
 
   // PRODUCTOS
   const { products, modifyProductStatus, setModifiedProducts } = useProducts();
@@ -292,12 +295,49 @@ const AdminControl = () => {
     return true;
   };
 
+  const userMatchesFilters = (user) => {
+    if (!user) return false;
+
+    const keyword = userFilters.keyword?.trim().toLowerCase();
+    if (
+      keyword &&
+      ![
+        user.username,
+        user.name,
+        user.email,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(keyword)
+        )
+    ) {
+      return false;
+    }
+
+    if (userFilters.role && user.role !== userFilters.role) {
+      return false;
+    }
+
+    if (userFilters.enabled) {
+      const shouldBeEnabled = userFilters.enabled === "true";
+      if (Boolean(user.enabled) !== shouldBeEnabled) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const filteredOrders = Array.isArray(orders)
     ? orders.filter(orderMatchesFilters)
     : [];
 
   const filteredBlogs = Array.isArray(blogs)
     ? blogs.filter(blogMatchesFilters)
+    : [];
+
+  const filteredUsers = Array.isArray(users)
+    ? users.filter(userMatchesFilters)
     : [];
 
   return (
@@ -408,13 +448,17 @@ const AdminControl = () => {
         )}
 
         {activeTab === "users" && (
-          <div
-            className="uk-grid-small uk-child-width-1-2@m uk-child-width-1-1@s"
-            data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 180; repeat: true"
-          >
-            {Array.isArray(users) && users.length > 0 ? (
-              users.map((user) => (
+          <>
+            <div className="uk-margin-medium-bottom">
+              <UserSearchForm onApply={setUserFilters} />
+            </div>
+            <div
+              className="uk-grid-small uk-child-width-1-2@m uk-child-width-1-1@s"
+              data-uk-grid
+              data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 180; repeat: true"
+            >
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
                 <div key={user._id || user.id}>
                   <AdminUserCard
                     user={user}
@@ -432,7 +476,8 @@ const AdminControl = () => {
                 </p>
               </div>
             )}
-          </div>
+            </div>
+          </>
         )}
       </div>
 
