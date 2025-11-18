@@ -19,6 +19,7 @@ import { setupAxiosResponseInterceptors } from "./api/axios.instance";
 import NotFound from "./pages/Errors/NotFound/NotFound";
 import UserOrders from "./pages/User/UserInfo/UserOrders";
 import ConfirmEmailRegister from "./pages/User/UserVerifications/ConfirmEmailRegister";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 function App() {
   const { logout } = useAuth();
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <CartPopup />
       <Routes>
