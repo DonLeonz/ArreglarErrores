@@ -150,7 +150,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
               placeholder="Ingresa tu contraseña"
             />
             <button
-              className="uk-button uk-button-link"
+              className="uk-button uk-button-link uk-margin-small-top"
               type="button"
               onClick={() => {
                 handleClose();
