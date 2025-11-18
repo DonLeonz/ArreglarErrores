@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PasswordInput from "../../../common/PasswordInput/PasswordInput";
 
 const StepResetPasswod = ({
   next,
@@ -42,8 +43,7 @@ const StepResetPasswod = ({
         Ingresa el código enviado a <strong>{email}</strong>.
       </p>
 
-      <input
-        type="password"
+      <PasswordInput
         className="uk-width-1-1"
         placeholder="Nueva contraseña"
         value={newPassword}
@@ -51,8 +51,7 @@ const StepResetPasswod = ({
         required
       />
 
-      <input
-        type="password"
+      <PasswordInput
         className="uk-width-1-1"
         placeholder="Confirmar contraseña"
         value={confirmPassword}

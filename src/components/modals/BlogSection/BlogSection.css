@@ -1,3 +1,5 @@
+@import "../../common/ImageModal/ImageModal.css";
+
 /* Botón de scroll to top */
 .blog-scroll-top-btn {
   position: fixed;
@@ -90,34 +92,15 @@
 }
 
 /* Imagen del blog */
-.blog-modal-image {
+.blog-modal-image-container {
   margin: 30px 0;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-  cursor: pointer;
 }
 
-.blog-modal-image:hover {
+.blog-modal-image-container:hover {
   transform: scale(1.02);
-}
-
-.blog-modal-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.blog-modal-dialog-relative {
-  position: relative;
-}
-
-.blog-modal-image-full {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 8px;
 }
 
 /* Texto del blog */

@@ -68,6 +68,7 @@ button.btn-golden-primary:hover *,
 
 .btn-coffee-secondary:hover {
   background-color: #d4a762 !important;
+  color: #2c1608 !important;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(212, 167, 98, 0.4);
   cursor: pointer !important;
