@@ -95,6 +95,9 @@ const Blog = () => {
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
+        <div className="uk-text-center uk-margin-large-bottom">
+          <h1 className="blog-page-title">Nuestro Blog</h1>
+        </div>
         {Array.isArray(blogs) && blogs.length > 0 ? (
           <div
             className="uk-child-width-1-2@s uk-grid-match uk-margin-top"
