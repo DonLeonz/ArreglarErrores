@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PasswordInput from "../../../common/PasswordInput/PasswordInput";
+import { showNotification } from "../../../../utils/notifications";
 
 /**
  * Componente para el paso de reseteo de contraseña
@@ -48,13 +49,10 @@ const StepResetPasswod = ({
     // Si todas las validaciones pasan, proceder con el cambio
     const res = await action(email, code, newPassword);
     if (res) {
-      if (window.UIkit) {
-        window.UIkit.notification({
-          message: `Contraseña actualizada con éxito`,
-          status: "success",
-          pos: "top-center",
-        });
-      }
+      showNotification({
+        message: "Contraseña actualizada con éxito",
+        status: "success",
+      });
       next();
     }
     setLoading(false);

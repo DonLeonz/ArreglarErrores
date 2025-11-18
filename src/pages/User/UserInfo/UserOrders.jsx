@@ -1,11 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
+import OrderSearchForm, {
+  ORDER_FILTER_DEFAULTS,
+} from "../../../components/features/OrderSearchForm/OrderSearchForm";
 import "./UserOrders.css";
 
 const UserOrders = () => {
   const { user } = useAuth();
   const { orders, searchOrders } = useOrders();
+  const [orderFilters, setOrderFilters] = useState({
+    ...ORDER_FILTER_DEFAULTS,
+  });
 
   useEffect(() => {
     searchOrders({ username: user.username });
@@ -18,19 +24,71 @@ const UserOrders = () => {
     return "";
   };
 
+  const orderMatchesFilters = (order) => {
+    if (!order) return false;
+
+    const keyword = orderFilters.keyword?.trim().toLowerCase();
+    if (
+      keyword &&
+      ![
+        order._id,
+        order.status,
+        order.reference,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(keyword)
+        )
+    ) {
+      return false;
+    }
+
+    if (orderFilters.status && order.status !== orderFilters.status) {
+      return false;
+    }
+
+    const total = Number(order.total_price ?? order.totalPrice ?? 0);
+    if (orderFilters.minTotal && total < Number(orderFilters.minTotal)) {
+      return false;
+    }
+    if (orderFilters.maxTotal && total > Number(orderFilters.maxTotal)) {
+      return false;
+    }
+
+    const createdAt = order.createdAt ? new Date(order.createdAt) : null;
+    if (orderFilters.startDate) {
+      const from = new Date(orderFilters.startDate);
+      if (!createdAt || createdAt < from) return false;
+    }
+    if (orderFilters.endDate) {
+      const to = new Date(orderFilters.endDate);
+      if (!createdAt || createdAt > to) return false;
+    }
+
+    return true;
+  };
+
+  const filteredOrders = Array.isArray(orders)
+    ? orders.filter(orderMatchesFilters)
+    : [];
+
   return (
-    <div className="user-orders-section user-orders-page-section uk-light">
+    <div className="first-child-adjustment user-orders-section uk-light">
       <div className="uk-container uk-container-large">
         <h2 className="uk-heading-line uk-text-center user-orders-page-heading">
           <span>Mis Pedidos</span>
         </h2>
 
+        <div className="uk-margin-medium-bottom">
+          <OrderSearchForm onApply={setOrderFilters} />
+        </div>
+
         <div
           className="uk-grid-small uk-grid-match uk-child-width-1-3@m uk-child-width-1-2@s"
           data-uk-grid
         >
-          {Array.isArray(orders) && orders.length > 0 ? (
-            orders.map((order) => (
+          {filteredOrders.length > 0 ? (
+            filteredOrders.map((order) => (
               <div key={order._id || order.id}>
                 <div className="user-order-card">
                   <div className="user-order-header">

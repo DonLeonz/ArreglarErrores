@@ -35,7 +35,7 @@ const CoffeeCard = ({ item, onViewDetails }) => {
 
     addToCart(item, 1);
     showNotification({
-      message: `<span uk-icon="icon: check"></span> ${item.name} añadido al carrito.`,
+      message: `${item.name} añadido al carrito`,
       status: "success",
     });
   };

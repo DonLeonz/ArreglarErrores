@@ -93,7 +93,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="uk-section uk-dark blog-background blog-page-section">
+    <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
         <h2 className="uk-heading-line uk-text-center blog-page-heading">
           <span>Nuestro Blog</span>
