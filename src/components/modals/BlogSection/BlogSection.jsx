@@ -1,11 +1,12 @@
 import avatarDefault from "../../../assets/img/avatars/default.jpg";
 import { useBlogs } from "../../../context/BlogsContext";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { commentSchema } from "../../../schemas/comment.schema";
 import { useAuth } from "../../../context/AuthContext";
 import "../modals.css";
+import "./BlogSection.css";
 import { timeAgo } from "../../../assets/scripts/timeAgo";
 import blogDefault from "../../../assets/img/blog/blogDefault.jpg";
 
@@ -19,7 +20,8 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
     setModifiedBlogs,
   } = useBlogs();
 
-  console.log(blog);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const modalContentRef = useRef(null);
 
   const {
     register,
@@ -72,6 +74,29 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
     return () => (document.body.style.overflow = "unset");
   }, [isOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (modalContentRef.current) {
+        setShowScrollTop(modalContentRef.current.scrollTop > 300);
+      }
+    };
+
+    const modalContent = modalContentRef.current;
+    if (modalContent) {
+      modalContent.addEventListener("scroll", handleScroll);
+      return () => modalContent.removeEventListener("scroll", handleScroll);
+    }
+  }, [isOpen]);
+
+  const scrollToTop = () => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const handleClose = () => onClose();
 
   const handleBackdropClick = (e) => {
@@ -87,7 +112,7 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
       uk-modal="true"
     >
       <div
-        className="uk-modal-dialog uk-modal-body uk-light coffee-modal-body"
+        className="uk-modal-dialog uk-modal-body uk-light coffee-modal-body blog-modal-enhanced"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -95,31 +120,52 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
           type="button"
           onClick={handleClose}
         ></button>
-        <div className="modal-scrollable">
-          <div className="uk-margin-top">
-            <div className="uk-text-center uk-margin-large-bottom">
-              <h2 className="uk-heading-small uk-text-uppercase menu-header-title">
-                <span className="uk-display-inline-block uk-padding-small menu-header-underline">
-                  {blog.title}
-                </span>
+
+        {showScrollTop && (
+          <button
+            className="blog-scroll-top-btn"
+            onClick={scrollToTop}
+            aria-label="Volver arriba"
+          >
+            <span data-uk-icon="icon: chevron-up; ratio: 1.5"></span>
+          </button>
+        )}
+
+        <div className="modal-scrollable" ref={modalContentRef}>
+          <div className="blog-modal-content">
+            <div className="blog-modal-header">
+              <h2 className="blog-modal-title">
+                {blog.title}
               </h2>
+              <div className="blog-modal-meta">
+                <div className="blog-modal-author">
+                  <span data-uk-icon="icon: user; ratio: 0.9"></span>
+                  <span>{blog.user.username}</span>
+                </div>
+                <div className="blog-modal-date">
+                  <span data-uk-icon="icon: clock; ratio: 0.9"></span>
+                  <span>{timeAgo(blog.updatedAt)}</span>
+                </div>
+              </div>
             </div>
-            <p className="blog-content">{blog.content}</p>
-            <p className="uk-text-lead menu-header-subtitle">
-              Autor: {blog.user.username}
-            </p>
-            <p className="uk-text-lead menu-header-subtitle">
-              {timeAgo(blog.updatedAt)}
-            </p>
-            <div className="blog-preview-image-container">
+
+            <div className="blog-modal-image">
               <img
                 src={blog.image ? blog.image.source : blogDefault}
-                alt="Preview"
-                className="blog-preview-img"
+                alt={blog.title}
               />
             </div>
-            <hr />
-            <h3>Comentarios</h3>
+
+            <div className="blog-modal-text">
+              <p>{blog.content}</p>
+            </div>
+
+            <div className="blog-modal-divider"></div>
+            <div className="blog-comments-section">
+              <h3 className="blog-comments-title">
+                <span data-uk-icon="icon: comments; ratio: 1.2"></span>
+                Comentarios ({comments?.length || 0})
+              </h3>
             {isAuth && roles.includes("CUSTOMER") && (
               <form onSubmit={handleSubmit(handleCommentSubmit)}>
                 <div className="uk-flex uk-flex-middle">
@@ -144,11 +190,10 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
                   <p className="uk-text-danger">{errors.content.message}</p>
                 )}
                 <button
-                  className={"uk-button uk-button-primary blog-button-comment".concat(
-                    !errors.content ? " uk-margin-top" : ""
-                  )}
+                  className="uk-button uk-button-primary blog-button-comment uk-margin-top"
                   type="submit"
                 >
+                  <span data-uk-icon="icon: comment"></span>
                   Comentar
                 </button>
               </form>
@@ -185,10 +230,13 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
                 ))}
               </>
             ) : (
-              <div className="uk-text-center uk-margin-large-top uk-margin-large-bottom">
-                No hay comentarios para mostrar
+              <div className="blog-no-comments">
+                <span data-uk-icon="icon: commenting; ratio: 2"></span>
+                <p>No hay comentarios aún</p>
+                <p className="blog-no-comments-subtitle">¡Sé el primero en comentar!</p>
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>
