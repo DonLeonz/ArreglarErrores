@@ -16,11 +16,16 @@ const BlogPostCard = ({ blog, onToggleBlogInfo }) => {
   return (
     <>
       <div className="uk-card uk-card-default uk-card-hover blog-container-round blog-card">
-        <div
-          className="uk-card-media-top blog-image-container blog-image-clickable"
-          onClick={handleImageClick}
-        >
-          <img src={blog.imageUrl} alt={blog.title} />
+        <div className="uk-card-media-top blog-image-wrapper">
+          <div
+            className="blog-image-container"
+            onClick={handleImageClick}
+          >
+            <img src={blog.imageUrl} alt={blog.title} />
+            <div className="blog-image-overlay">
+              <span data-uk-icon="icon: eye; ratio: 2.5"></span>
+            </div>
+          </div>
         </div>
 
         <div
