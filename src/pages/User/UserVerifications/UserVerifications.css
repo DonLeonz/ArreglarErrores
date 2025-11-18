@@ -2,6 +2,8 @@
   margin-top: 0 !important;
   margin-bottom: 40px !important;
   animation: titleFloat 3s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes titleFloat {
@@ -38,26 +40,64 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px !important;
+  padding: 0 !important;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.recovery-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(212, 167, 98, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(212, 167, 98, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.uk-container-small {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .recovery-card {
-  width: 100%;
-  max-width: 550px;
-  background: linear-gradient(135deg, rgba(30, 30, 30, 0.98), rgba(44, 44, 44, 0.95));
-  padding: 40px;
-  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(94, 43, 22, 0.15)
+  );
   border: 2px solid rgba(212, 167, 98, 0.3);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-  animation: fadeUp 0.6s ease-out;
-  transition: all 0.3s ease;
+  border-radius: 16px;
+  padding: 50px 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  animation: cardSlideIn 0.6s ease-out;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .recovery-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 25px 70px rgba(212, 167, 98, 0.5);
+  border-color: #d4a762;
 }
 
 @keyframes slide-up {
@@ -82,6 +122,16 @@
 
 .step-form {
   margin-top: 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .step-form h2 {
@@ -90,34 +140,37 @@
   font-weight: 700;
   margin-bottom: 20px;
   text-align: center;
+  text-shadow: 0 2px 10px rgba(212, 167, 98, 0.3);
 }
 
 .step-form p {
-  color: rgba(245, 245, 245, 0.8);
-  margin-bottom: 20px;
+  color: rgba(245, 245, 245, 0.9);
+  margin-bottom: 25px;
   text-align: center;
+  line-height: 1.6;
 }
 
 .step-form input,
 .step-form .password-input-container input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 16px 18px;
   padding-right: 45px !important;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(212, 167, 98, 0.3);
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 0;
   color: #fff;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .step-form input {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .step-form .password-input-container {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .step-form input::placeholder {
@@ -127,9 +180,120 @@
 .step-form input:focus {
   outline: none;
   border-color: #d4a762;
-  box-shadow: 0 0 0 3px rgba(212, 167, 98, 0.2);
+  box-shadow: 0 0 0 4px rgba(212, 167, 98, 0.15),
+              0 4px 20px rgba(212, 167, 98, 0.2);
   background: rgba(255, 255, 255, 0.08);
-  transform: scale(1.01);
+  transform: translateY(-2px);
+}
+
+.step-form input:hover {
+  border-color: rgba(212, 167, 98, 0.5);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.step-form .uk-button {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #d4a762 0%, #c89952 100%);
+  border: none;
+  border-radius: 12px;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(212, 167, 98, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.step-form .uk-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.step-form .uk-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.step-form .uk-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(212, 167, 98, 0.5);
+  background: linear-gradient(135deg, #e5b872 0%, #d4a762 100%);
+}
+
+.step-form .uk-button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 6px 20px rgba(212, 167, 98, 0.4);
+}
+
+.step-form .uk-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.step-form .uk-button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.step-breadcrumb {
+  margin-bottom: 35px;
+  padding: 0;
+}
+
+.step-breadcrumb .uk-breadcrumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.step-breadcrumb .uk-breadcrumb > li {
+  position: relative;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(212, 167, 98, 0.2);
+  border-radius: 8px;
+  color: rgba(245, 245, 245, 0.5);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.step-breadcrumb .uk-breadcrumb > li.uk-active {
+  background: linear-gradient(135deg, rgba(212, 167, 98, 0.2) 0%, rgba(212, 167, 98, 0.1) 100%);
+  border-color: #d4a762;
+  color: #d4a762;
+  box-shadow: 0 4px 15px rgba(212, 167, 98, 0.3);
+}
+
+.step-breadcrumb .uk-breadcrumb > li::after {
+  content: '→';
+  position: absolute;
+  right: -18px;
+  color: rgba(212, 167, 98, 0.4);
+  font-size: 16px;
+}
+
+.step-breadcrumb .uk-breadcrumb > li:last-child::after {
+  display: none;
 }
 
 .btn-golden-primary {
@@ -171,51 +335,121 @@
 /* Tablets */
 @media (max-width: 768px) {
   .recovery-page {
-    padding: 20px 15px !important;
+    padding: 60px 0;
+  }
+
+  .recovery-page-heading h1 {
+    font-size: 2.5rem;
+  }
+
+  .recovery-page-heading p {
+    font-size: 1rem;
   }
 
   .recovery-card {
-    padding: 30px 25px;
-    max-width: 100%;
+    padding: 30px 20px;
   }
 
-  .recovery-page-heading {
-    font-size: 1.5rem;
-    margin-bottom: 30px !important;
+  .uk-container-small {
+    padding: 0 20px;
   }
 
+  .step-form h2 {
+    font-size: 1.3rem;
+  }
+
+  .step-form input,
+  .step-form .password-input-container input {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .step-form .uk-button,
   .btn-golden-primary {
-    padding: 14px;
-    font-size: 16px;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+
+  .step-breadcrumb .uk-breadcrumb {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .step-breadcrumb .uk-breadcrumb > li {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .step-breadcrumb .uk-breadcrumb > li::after {
+    right: -14px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .recovery-page-heading h1 {
+    font-size: 2rem;
+  }
+
+  .recovery-card {
+    padding: 30px 20px;
+  }
+
+  .uk-container-small {
+    padding: 0 15px;
+  }
+
+  .step-form input,
+  .step-form .password-input-container input {
+    padding: 12px 14px;
+  }
+
+  .step-breadcrumb .uk-breadcrumb > li {
+    padding: 7px 12px;
+    font-size: 12px;
   }
 }
 
 /* Móviles pequeños */
 @media (max-width: 480px) {
   .recovery-page {
-    padding: 15px 10px !important;
-  }
-
-  .recovery-card {
-    padding: 25px 20px;
-    border-radius: 14px;
+    padding: 50px 0;
   }
 
   .recovery-page-heading {
-    font-size: 1.3rem;
-    margin-bottom: 25px !important;
+    margin-bottom: 30px;
   }
 
-  h2 {
-    font-size: 20px;
+  .recovery-page-heading h1 {
+    font-size: 1.8rem;
   }
 
+  .recovery-card {
+    padding: 30px 20px;
+    border-radius: 14px;
+  }
+
+  .step-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .step-form input,
+  .step-form .password-input-container input {
+    font-size: 14px;
+  }
+
+  .step-form .uk-button,
   .btn-golden-primary {
     font-size: 15px;
     padding: 12px;
   }
 
-  .step-form input {
-    font-size: 14px;
+  .step-breadcrumb .uk-breadcrumb > li {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .step-breadcrumb .uk-breadcrumb > li::after {
+    right: -12px;
   }
 }
