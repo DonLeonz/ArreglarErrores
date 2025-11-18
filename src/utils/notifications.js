@@ -7,27 +7,31 @@ export const showNotification = ({ message, status = "primary", timeout = 4000 }
   if (activeNotifications.length >= MAX_NOTIFICATIONS) {
     const oldestNotification = activeNotifications.shift();
     if (oldestNotification && oldestNotification.close) {
-      oldestNotification.close(true);
+      try {
+        oldestNotification.close(false);
+      } catch (e) {
+        console.warn('Error closing notification:', e);
+      }
     }
   }
 
-  const notification = window.UIkit.notification({
-    message,
-    status,
-    pos: "top-right",
-    timeout,
+  requestAnimationFrame(() => {
+    const notification = window.UIkit.notification({
+      message,
+      status,
+      pos: "top-right",
+      timeout,
+    });
+
+    activeNotifications.push(notification);
+
+    setTimeout(() => {
+      const index = activeNotifications.indexOf(notification);
+      if (index > -1) {
+        activeNotifications.splice(index, 1);
+      }
+    }, timeout + 500);
   });
-
-  activeNotifications.push(notification);
-
-  setTimeout(() => {
-    const index = activeNotifications.indexOf(notification);
-    if (index > -1) {
-      activeNotifications.splice(index, 1);
-    }
-  }, timeout);
-
-  return notification;
 };
 
 export const clearAllNotifications = () => {
