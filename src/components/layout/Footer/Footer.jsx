@@ -60,7 +60,7 @@ const Footer = () => {
                 <>
                   <li>
                     <NavLink
-                      to={isAdminUser ? "/admin/products" : "/menu"}
+                      to={isAdminUser ? "/admin" : "/menu"}
                       className="uk-link-muted footer-link"
                     >
                       {isAdminUser ? "Admin" : "Menú"}

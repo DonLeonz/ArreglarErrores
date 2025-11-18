@@ -167,12 +167,24 @@
   color: #d4a762 !important;
   transition: all 0.3s ease !important;
   text-decoration: underline;
+  font-size: 0.95rem;
+  padding: 8px 0 !important;
 }
 
 .login-modal-container .uk-button-link:hover {
   color: #f5d98d !important;
   transform: translateX(3px);
   display: inline-block;
+}
+
+/* Responsive para botón olvidaste contraseña */
+@media (max-width: 640px) {
+  .login-modal-container .uk-button-link {
+    font-size: 0.85rem;
+    padding: 6px 0 !important;
+    display: block;
+    text-align: left;
+  }
 }
 
 /* Modal center position */

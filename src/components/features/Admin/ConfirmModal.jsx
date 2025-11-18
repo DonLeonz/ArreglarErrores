@@ -2,7 +2,7 @@ const ConfirmModal = ({ isOpen, message, onConfirm, onCancel }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="uk-modal uk-open" style={{ display: "block" }}>
+    <div className="uk-modal uk-open uk-flex uk-flex-center uk-flex-middle" style={{ display: "flex" }}>
       <div className="uk-modal-dialog uk-modal-body admin-confirm-modal-width">
         <h3 className="uk-modal-title admin-modal-title-centered">
           Confirmar Acción
