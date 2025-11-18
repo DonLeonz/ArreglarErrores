@@ -1,5 +1,6 @@
 import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
+import { showNotification } from "../../../utils/notifications";
 import "../cards.css";
 
 const CoffeeCard = ({ item, onViewDetails }) => {
@@ -13,10 +14,9 @@ const CoffeeCard = ({ item, onViewDetails }) => {
         detail.product._id === item._id &&
         detail.quantity === detail.product.stock
       ) {
-        window.UIkit.notification({
+        showNotification({
           message: "Producto sin stock disponible.",
           status: "warning",
-          pos: "top-center",
         });
         invalidStock = true;
         return;
@@ -26,19 +26,17 @@ const CoffeeCard = ({ item, onViewDetails }) => {
     if (invalidStock) return;
 
     if (!item.stock || item.stock <= 0) {
-      window.UIkit.notification({
+      showNotification({
         message: "Producto sin stock disponible.",
         status: "warning",
-        pos: "top-center",
       });
       return;
     }
 
     addToCart(item, 1);
-    window.UIkit.notification({
+    showNotification({
       message: `<span uk-icon="icon: check"></span> ${item.name} añadido al carrito.`,
       status: "success",
-      pos: "top-center",
     });
   };
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOrders } from "../../../context/OrdersContext";
+import { showNotification } from "../../../utils/notifications";
 import "./CartPopup.css";
 
 export const CartPopup = () => {
@@ -35,13 +36,10 @@ export const CartPopup = () => {
     if (currentQty < stock) {
       incrementQuantity(productId);
     } else {
-      if (window.UIkit) {
-        window.UIkit.notification({
-          message: `Stock máximo disponible: ${stock}`,
-          status: "warning",
-          pos: "top-center",
-        });
-      }
+      showNotification({
+        message: `Stock máximo disponible: ${stock}`,
+        status: "warning",
+      });
     }
   };
 
