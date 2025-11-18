@@ -16,6 +16,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   min-height: 68px;
+  margin-bottom: 0 !important;
 }
 
 .blog-content {
@@ -23,5 +24,5 @@
 }
 
 .blog-author-section {
-  margin-top: 8px !important;
+  margin-top: 4px !important;
 }
