@@ -103,7 +103,32 @@
 .out-of-stock {
   filter: grayscale(100%);
   opacity: 0.6;
+  position: relative;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+.out-of-stock::after {
+  content: "Agotado";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #d4a762;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
   pointer-events: none;
+  z-index: 10;
+  border: 2px solid #d4a762;
+}
+
+.out-of-stock:hover::after {
+  opacity: 1;
 }
 
 .out-of-stock img {
@@ -111,8 +136,20 @@
 }
 
 .out-of-stock:hover {
-  transform: none !important;
-  box-shadow: none !important;
+  animation: shake 0.5s ease-in-out;
+  opacity: 0.7;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 /* ========================================
