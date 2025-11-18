@@ -18,12 +18,11 @@ const PasswordRecovery = () => {
   const next = () => setStep((old) => old + 1);
 
   return (
-    <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small">
-      <div className="uk-container uk-container-xlarge uk-padding-small">
-        <h2 className="uk-heading-line uk-text-center">
+    <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small recovery-page">
+      <div className="uk-container uk-container-small">
+        <h1 className="uk-heading-line uk-text-center uk-margin-large-bottom recovery-title">
           <span>Recuperar Contraseña</span>
-        </h2>
-            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
+        </h1>
         <div className="recovery-card">
           {step !== 3 && <Breadcrumb current={step} />}
 
@@ -69,7 +68,6 @@ const PasswordRecovery = () => {
           {step === 3 && <StepSuccess />}
         </div>
       </div>
-    </div>
     </div>
   );
 };
