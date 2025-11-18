@@ -54,20 +54,17 @@ const ImageModal = ({
       <div
         id={modalId}
         className="uk-modal uk-flex-top"
-        data-uk-modal="true"
+        data-uk-modal="bg-close: true"
       >
         <div
           className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical image-modal-dialog"
           onClick={(e) => e.stopPropagation()}
         >
           <button
-            className="modal-close-golden"
+            className="modal-close-golden uk-modal-close-default uk-close-large"
             type="button"
-            onClick={handleClose}
             aria-label="Cerrar"
-          >
-            <span data-uk-icon="icon: close; ratio: 1.5"></span>
-          </button>
+          ></button>
           <img src={imageUrl} alt={alt} className="image-modal-full" />
         </div>
       </div>

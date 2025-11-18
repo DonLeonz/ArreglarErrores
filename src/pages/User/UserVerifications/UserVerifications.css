@@ -1,6 +1,35 @@
 .recovery-page-heading {
   margin-top: 0 !important;
   margin-bottom: 40px !important;
+  animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.recovery-page-heading span {
+  display: inline-block;
+  background: linear-gradient(135deg, #d4a762, #f5d98d, #d4a762);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .recovery-page {

@@ -37,31 +37,22 @@ const Footer = () => {
                 <>
                   <li>
                     <NavLink to="/admin" className="uk-link-muted footer-link">
-                      Admin
+                      Panel de Administración
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/admin#products"
-                      className="uk-link-muted footer-link"
-                    >
-                      Productos
+                    <NavLink to="/menu" className="uk-link-muted footer-link">
+                      Menú
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/admin#orders"
-                      className="uk-link-muted footer-link"
-                    >
-                      Pedidos
+                    <NavLink to="/blog" className="uk-link-muted footer-link">
+                      Blog
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      to="/admin#users"
-                      className="uk-link-muted footer-link"
-                    >
-                      Usuarios
+                    <NavLink to="/about" className="uk-link-muted footer-link">
+                      Nosotros
                     </NavLink>
                   </li>
                 </>

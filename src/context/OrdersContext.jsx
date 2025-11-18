@@ -183,7 +183,7 @@ export const OrdersProvider = ({ children }) => {
         setIsCartOpen(false);
         setModifiedProducts(true);
         showNotification({
-          message: `<span uk-icon="icon: check"></span> ¡Pedido realizado exitosamente!`,
+          message: `¡Pedido realizado exitosamente!`,
           status: "success",
           timeout: 5000,
         });

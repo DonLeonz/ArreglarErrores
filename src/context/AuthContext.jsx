@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", res.data);
         setIsAuth(true);
         showNotification({
-          message: `<span uk-icon="icon: check"></span> ¡Bienvenido de nuevo!`,
+          message: `¡Bienvenido de nuevo!`,
           status: "success",
         });
         return true;
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     setRoles([]);
     setIsAuth(false);
     showNotification({
-      message: `<span uk-icon="icon: sign-out"></span> Sesión cerrada correctamente`,
+      message: `Sesión cerrada correctamente`,
       status: "primary",
     });
   };
