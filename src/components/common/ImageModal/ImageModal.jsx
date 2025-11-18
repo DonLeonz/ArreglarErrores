@@ -9,12 +9,28 @@ const ImageModal = ({
   containerStyle = {}
 }) => {
   const handleImageClick = (e) => {
+    e.preventDefault();
     e.stopPropagation();
+    
+    setTimeout(() => {
+      const modalElement = document.getElementById(modalId);
+      const modal = window.UIkit?.modal(modalElement);
+
+      if (modal && !modalElement.classList.contains("uk-open")) {
+        modal.show();
+      }
+    }, 10);
+  };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const modalElement = document.getElementById(modalId);
     const modal = window.UIkit?.modal(modalElement);
-
-    if (modal && !modalElement.classList.contains("uk-open")) {
-      modal.show();
+    
+    if (modal) {
+      modal.hide();
     }
   };
 
@@ -35,7 +51,6 @@ const ImageModal = ({
         id={modalId}
         className="uk-modal uk-flex-top"
         data-uk-modal="true"
-        onClick={(e) => e.stopPropagation()}
       >
         <div
           className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical image-modal-dialog"
@@ -44,7 +59,7 @@ const ImageModal = ({
           <button
             className="modal-close-golden"
             type="button"
-            data-uk-toggle={`target: #${modalId}`}
+            onClick={handleClose}
             aria-label="Cerrar"
           />
           <img src={imageUrl} alt={alt} className="image-modal-full" />
