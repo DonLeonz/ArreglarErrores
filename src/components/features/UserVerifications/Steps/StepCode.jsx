@@ -1,4 +1,5 @@
 import { useUsers } from "../../../../context/UsersContext";
+import { showNotification } from "../../../../utils/notifications";
 
 const StepCode = ({
   next,
@@ -21,13 +22,10 @@ const StepCode = ({
     e.preventDefault();
     const res = await action(email, code);
     if (res) {
-      if (window.UIkit) {
-        window.UIkit.notification({
-          message: `Código verificado con éxito`,
-          status: "success",
-          pos: "top-center",
-        });
-      }
+      showNotification({
+        message: `Código verificado con éxito`,
+        status: "success",
+      });
       if (mode === "confirm-email") {
         console.log(mode);
         confirmEmailRegister(email, code);
@@ -66,13 +64,10 @@ const StepCode = ({
             className="btn-golden-primary"
             onClick={() => {
               retry();
-              if (window.UIkit) {
-                window.UIkit.notification({
-                  message: `Código enviado al correo <strong>${email}</strong>.`,
-                  status: "success",
-                  pos: "top-center",
-                });
-              }
+              showNotification({
+                message: `Código enviado al correo ${email}.`,
+                status: "success",
+              });
               setErrors([]);
             }}
           >

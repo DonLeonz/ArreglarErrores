@@ -21,6 +21,7 @@ import UserSearchForm, {
   USER_FILTER_DEFAULTS,
 } from "../../components/features/UserSearchForm/UserSearchForm";
 import ConfirmModal from "../../components/features/Admin/ConfirmModal";
+import { showNotification } from "../../utils/notifications";
 import "./Admin.css";
 
 const AdminControl = () => {
@@ -81,11 +82,10 @@ const AdminControl = () => {
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     const success = await modifyOrderStatus(orderId, newStatus);
     setModifiedProducts(true);
-    if (success && window.UIkit) {
-      window.UIkit.notification({
+    if (success) {
+      showNotification({
         message: `Estado actualizado a ${newStatus}`,
         status: "success",
-        pos: "top-center",
       });
     }
   };
@@ -117,13 +117,12 @@ const AdminControl = () => {
       }  este usuario?`,
       async () => {
         const success = await modifyUserStatus(userId, enabled);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
+        if (success) {
+          showNotification({
             message: `Usuario ${
               enabled ? "activado" : "desactivado"
             } exitosamente`,
             status: "success",
-            pos: "top-center",
           });
         }
       }
@@ -136,11 +135,10 @@ const AdminControl = () => {
       `¿Deseas asignar el rol ${roleLabel} a este usuario?`,
       async () => {
         const success = await updateUserRole(userId, role);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
+        if (success) {
+          showNotification({
             message: `Rol actualizado a ${roleLabel}`,
             status: "success",
-            pos: "top-center",
           });
         }
       }
@@ -168,11 +166,10 @@ const AdminControl = () => {
   const handleDeleteBlog = async (blogId) => {
     showConfirm("¿Estás seguro de que deseas eliminar este blog?", async () => {
       const success = await deleteBlog(blogId);
-      if (success && window.UIkit) {
-        window.UIkit.notification({
+      if (success) {
+        showNotification({
           message: "Blog eliminado exitosamente",
           status: "success",
-          pos: "top-center",
         });
       }
     });
@@ -183,11 +180,10 @@ const AdminControl = () => {
       "¿Estás seguro de que deseas eliminar este comentario?",
       async () => {
         const success = await deleteComment(commentId);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
+        if (success) {
+          showNotification({
             message: "Comentario eliminado exitosamente",
             status: "success",
-            pos: "top-center",
           });
         }
       }
@@ -314,8 +310,11 @@ const AdminControl = () => {
       return false;
     }
 
-    if (userFilters.role && user.role !== userFilters.role) {
-      return false;
+    if (userFilters.role) {
+      const hasRole = user.roles?.some((r) => r.name === userFilters.role);
+      if (!hasRole) {
+        return false;
+      }
     }
 
     if (userFilters.enabled) {

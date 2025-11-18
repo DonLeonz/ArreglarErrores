@@ -65,7 +65,9 @@ const ImageModal = ({
             type="button"
             onClick={handleClose}
             aria-label="Cerrar"
-          />
+          >
+            <span data-uk-icon="icon: close; ratio: 1.5"></span>
+          </button>
           <img src={imageUrl} alt={alt} className="image-modal-full" />
         </div>
       </div>

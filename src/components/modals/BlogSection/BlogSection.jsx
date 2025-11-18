@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { commentSchema } from "../../../schemas/comment.schema";
 import { useAuth } from "../../../context/AuthContext";
 import ImageModal from "../../common/ImageModal/ImageModal";
+import { showNotification } from "../../../utils/notifications";
 import "../modals.css";
 import "./BlogSection.css";
 import { timeAgo } from "../../../assets/scripts/timeAgo";
@@ -58,12 +59,10 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
       const success = await createComment(commentData);
       if (success) {
         reset();
-        if (window.UIkit)
-          window.UIkit.notification({
-            message: "Comentario publicado exitosamente.",
-            status: "success",
-            pos: "top-center",
-          });
+        showNotification({
+          message: "Comentario publicado exitosamente.",
+          status: "success",
+        });
       }
     } catch (error) {
       console.error("Error al enviar el comentario:", error);

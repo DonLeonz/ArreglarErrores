@@ -1,5 +1,5 @@
 .recovery-page-heading {
-  margin-top: 40px !important;
+  margin-top: 0 !important;
   margin-bottom: 40px !important;
 }
 
@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 40px !important;
+  padding: 40px 20px !important;
 }
 
 .recovery-card {
@@ -24,6 +24,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .recovery-card:hover {
@@ -77,10 +78,14 @@
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(212, 167, 98, 0.3);
   border-radius: 10px;
-  margin-bottom: 18px;
+  margin-bottom: 0;
   color: #fff;
   font-size: 15px;
   transition: all 0.3s ease;
+}
+
+.step-form input {
+  margin-bottom: 18px;
 }
 
 .step-form .password-input-container {

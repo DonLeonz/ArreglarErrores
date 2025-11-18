@@ -11,7 +11,7 @@ export const ORDER_FILTER_DEFAULTS = {
   endDate: "",
 };
 
-const OrderSearchForm = ({ onApply }) => {
+const OrderSearchForm = ({ onApply, isAdmin = true }) => {
   const [filters, setFilters] = useState(() => ({ ...ORDER_FILTER_DEFAULTS }));
 
   const handleChange = (event) => {
@@ -49,17 +49,19 @@ const OrderSearchForm = ({ onApply }) => {
           />
         </div>
 
-        <div className="search-filter-group">
-          <label>Cliente</label>
-          <input
-            type="text"
-            name="client"
-            value={filters.client}
-            onChange={handleChange}
-            placeholder="Nombre de usuario"
-            className="search-filter-input"
-          />
-        </div>
+        {isAdmin && (
+          <div className="search-filter-group">
+            <label>Cliente</label>
+            <input
+              type="text"
+              name="client"
+              value={filters.client}
+              onChange={handleChange}
+              placeholder="Nombre de usuario"
+              className="search-filter-input"
+            />
+          </div>
+        )}
 
         <div className="search-filter-group">
           <label>Estado</label>

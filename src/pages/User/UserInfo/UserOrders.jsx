@@ -80,7 +80,7 @@ const UserOrders = () => {
         </h2>
 
         <div className="uk-margin-medium-bottom">
-          <OrderSearchForm onApply={setOrderFilters} />
+          <OrderSearchForm onApply={setOrderFilters} isAdmin={false} />
         </div>
 
         <div

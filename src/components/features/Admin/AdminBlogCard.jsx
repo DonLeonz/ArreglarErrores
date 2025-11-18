@@ -1,3 +1,5 @@
+import { showNotification } from "../../../utils/notifications";
+
 const AdminBlogCard = ({ blog, comments, onDeleteBlog, onDeleteComment }) => {
   const blogComments = Array.isArray(comments)
     ? comments.filter((c) => c.blog._id === blog._id)
@@ -20,11 +22,10 @@ const AdminBlogCard = ({ blog, comments, onDeleteBlog, onDeleteComment }) => {
         <button
           className="btn-golden-primary"
           onClick={() => {
-            window.UIkit.notification({
+            showNotification({
               message:
                 "Funcionalidad de edición lista para conectar con backend",
               status: "primary",
-              pos: "top-center",
             });
           }}
         >
