@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import "./Home.css";
 
 const Home = () => {
@@ -29,18 +30,18 @@ const Home = () => {
                 className="uk-margin-top hero-buttons"
                 data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; delay: 400"
               >
-                <a
-                  href="/menu"
+                <NavLink
+                  to="/menu"
                   className="uk-button btn-golden-primary uk-margin-small-bottom"
                 >
                   <span data-uk-icon="icon: search"></span> Ver Menú
-                </a>
-                <a
-                  href="/suggest"
+                </NavLink>
+                <NavLink
+                  to="/suggest"
                   className="uk-button btn-coffee-secondary uk-margin-small-bottom"
                 >
                   <span data-uk-icon="icon: star"></span> Recomendación del Día
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -182,20 +183,20 @@ const Home = () => {
               data-uk-grid
             >
               <div>
-                <a
-                  href="/menu"
+                <NavLink
+                  to="/menu"
                   className="uk-button btn-golden-primary uk-button-large"
                 >
                   <span data-uk-icon="icon: menu"></span> Ver Menú Completo
-                </a>
+                </NavLink>
               </div>
               <div>
-                <a
-                  href="/about"
+                <NavLink
+                  to="/about"
                   className="uk-button btn-coffee-secondary uk-button-large"
                 >
                   <span data-uk-icon="icon: info"></span> Conocer Más
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>

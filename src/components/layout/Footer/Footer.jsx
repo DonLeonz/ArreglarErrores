@@ -1,6 +1,6 @@
 import "./Footer.css";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
-import { useLocation } from "react-router";
+import { useLocation, NavLink } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
 
 const Footer = () => {
@@ -36,59 +36,59 @@ const Footer = () => {
               {isAdminPage ? (
                 <>
                   <li>
-                    <a href="/admin" className="uk-link-muted footer-link">
+                    <NavLink to="/admin" className="uk-link-muted footer-link">
                       Admin
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      href="/admin#products"
+                    <NavLink
+                      to="/admin#products"
                       className="uk-link-muted footer-link"
                     >
                       Productos
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      href="/admin#orders"
+                    <NavLink
+                      to="/admin#orders"
                       className="uk-link-muted footer-link"
                     >
                       Pedidos
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a
-                      href="/admin#users"
+                    <NavLink
+                      to="/admin#users"
                       className="uk-link-muted footer-link"
                     >
                       Usuarios
-                    </a>
+                    </NavLink>
                   </li>
                 </>
               ) : (
                 <>
                   <li>
-                    <a
-                      href={isAdminUser ? "/admin/products" : "/menu"}
+                    <NavLink
+                      to={isAdminUser ? "/admin/products" : "/menu"}
                       className="uk-link-muted footer-link"
                     >
                       {isAdminUser ? "Admin" : "Menú"}
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a href="/suggest" className="uk-link-muted footer-link">
+                    <NavLink to="/suggest" className="uk-link-muted footer-link">
                       Recomendado
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a href="/blog" className="uk-link-muted footer-link">
+                    <NavLink to="/blog" className="uk-link-muted footer-link">
                       Blog
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a href="/about" className="uk-link-muted footer-link">
+                    <NavLink to="/about" className="uk-link-muted footer-link">
                       Nosotros
-                    </a>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -99,9 +99,9 @@ const Footer = () => {
             <h4 className="footer-title">Información</h4>
             <ul className="uk-list uk-list-divider footer-list">
               <li>
-                <a href="/api" className="uk-link-muted footer-link">
+                <NavLink to="/api" className="uk-link-muted footer-link">
                   API
-                </a>
+                </NavLink>
               </li>
               <li>
                 <p className="uk-text-small footer-text uk-margin-remove">
