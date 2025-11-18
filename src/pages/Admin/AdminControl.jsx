@@ -6,7 +6,12 @@ import { useUsers } from "../../context/UsersContext";
 import { useAuth } from "../../context/AuthContext";
 import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal/CreateProductModal";
 import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
-import SearchBar from "../../components/common/SearchBar/SearchBar";
+import OrderSearchForm, {
+  ORDER_FILTER_DEFAULTS,
+} from "../../components/features/OrderSearchForm/OrderSearchForm";
+import BlogSearchForm, {
+  BLOG_FILTER_DEFAULTS,
+} from "../../components/features/BlogSearchForm/BlogSearchForm";
 import AdminTabs from "../../components/features/Admin/AdminTabs";
 import AdminProductCard from "../../components/features/Admin/AdminProductCard";
 import AdminOrderCard from "../../components/features/Admin/AdminOrderCard";
@@ -29,8 +34,12 @@ const AdminControl = () => {
     message: "",
     onConfirm: null,
   });
-  const [orderSearchTerm, setOrderSearchTerm] = useState("");
-  const [blogSearchTerm, setBlogSearchTerm] = useState("");
+  const [orderFilters, setOrderFilters] = useState({
+    ...ORDER_FILTER_DEFAULTS,
+  });
+  const [blogFilters, setBlogFilters] = useState({
+    ...BLOG_FILTER_DEFAULTS,
+  });
 
   // PRODUCTOS
   const { products, modifyProductStatus, setModifiedProducts } = useProducts();
@@ -115,6 +124,23 @@ const AdminControl = () => {
     );
   };
 
+  const handleUpdateUserRole = (userId, role) => {
+    const roleLabel = role === "ADMIN" ? "Administrador" : "Cliente";
+    showConfirm(
+      `¿Deseas asignar el rol ${roleLabel} a este usuario?`,
+      async () => {
+        const success = await updateUserRole(userId, role);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: `Rol actualizado a ${roleLabel}`,
+            status: "success",
+            pos: "top-center",
+          });
+        }
+      }
+    );
+  };
+
   // GLOBAL
   const showConfirm = (message, onConfirm) => {
     setConfirmModal({ show: true, message, onConfirm });
@@ -162,32 +188,119 @@ const AdminControl = () => {
     );
   };
 
+  const orderMatchesFilters = (order) => {
+    if (!order) return false;
+
+    const keyword = orderFilters.keyword?.trim().toLowerCase();
+    if (
+      keyword &&
+      ![
+        order._id,
+        order.client?.username,
+        order.status,
+        order.reference,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(keyword)
+        )
+    ) {
+      return false;
+    }
+
+    const clientFilter = orderFilters.client?.trim().toLowerCase();
+    if (
+      clientFilter &&
+      !order.client?.username?.toLowerCase().includes(clientFilter)
+    ) {
+      return false;
+    }
+
+    if (orderFilters.status && order.status !== orderFilters.status) {
+      return false;
+    }
+
+    const total = Number(order.total_price ?? order.totalPrice ?? 0);
+    if (orderFilters.minTotal && total < Number(orderFilters.minTotal)) {
+      return false;
+    }
+    if (orderFilters.maxTotal && total > Number(orderFilters.maxTotal)) {
+      return false;
+    }
+
+    const createdAt = order.createdAt ? new Date(order.createdAt) : null;
+    if (orderFilters.startDate) {
+      const from = new Date(orderFilters.startDate);
+      if (!createdAt || createdAt < from) return false;
+    }
+    if (orderFilters.endDate) {
+      const to = new Date(orderFilters.endDate);
+      if (!createdAt || createdAt > to) return false;
+    }
+
+    return true;
+  };
+
+  const blogMatchesFilters = (blog) => {
+    if (!blog) return false;
+
+    const keyword = blogFilters.keyword?.trim().toLowerCase();
+    if (
+      keyword &&
+      ![
+        blog.title,
+        blog.content,
+        blog.summary,
+      ]
+        .filter(Boolean)
+        .some((value) =>
+          String(value).toLowerCase().includes(keyword)
+        )
+    ) {
+      return false;
+    }
+
+    const authorFilter = blogFilters.author?.trim().toLowerCase();
+    if (
+      authorFilter &&
+      !blog.user?.username?.toLowerCase().includes(authorFilter)
+    ) {
+      return false;
+    }
+
+    if (blogFilters.enabled) {
+      const shouldBeEnabled = blogFilters.enabled === "true";
+      if (Boolean(blog.enabled) !== shouldBeEnabled) {
+        return false;
+      }
+    }
+
+    const referenceDate = blog.updatedAt || blog.createdAt;
+    const parsedDate = referenceDate ? new Date(referenceDate) : null;
+    if (blogFilters.fromDate) {
+      const from = new Date(blogFilters.fromDate);
+      if (!parsedDate || parsedDate < from) return false;
+    }
+    if (blogFilters.toDate) {
+      const to = new Date(blogFilters.toDate);
+      if (!parsedDate || parsedDate > to) return false;
+    }
+
+    return true;
+  };
+
   const filteredOrders = Array.isArray(orders)
-    ? orders.filter((order) => {
-        const searchLower = orderSearchTerm.toLowerCase();
-        return (
-          order._id?.toLowerCase().includes(searchLower) ||
-          order.client?.username?.toLowerCase().includes(searchLower) ||
-          order.status?.toLowerCase().includes(searchLower)
-        );
-      })
+    ? orders.filter(orderMatchesFilters)
     : [];
 
   const filteredBlogs = Array.isArray(blogs)
-    ? blogs.filter((blog) => {
-        const searchLower = blogSearchTerm.toLowerCase();
-        return (
-          blog.title?.toLowerCase().includes(searchLower) ||
-          blog.user?.username?.toLowerCase().includes(searchLower) ||
-          blog.content?.toLowerCase().includes(searchLower)
-        );
-      })
+    ? blogs.filter(blogMatchesFilters)
     : [];
 
   return (
-    <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small">
+    <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small admin-panel-section">
       <div className="uk-container uk-container-xlarge uk-padding-small">
-        <h2 className="uk-heading-line uk-text-center">
+        <h2 className="uk-heading-line uk-text-center admin-panel-heading">
           <span>Panel de Administración</span>
         </h2>
 
@@ -229,13 +342,8 @@ const AdminControl = () => {
 
         {activeTab === "orders" && (
           <>
-            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
-              <div className="uk-width-1-2@m">
-                <SearchBar
-                  onSearch={setOrderSearchTerm}
-                  textHint="Buscar por ID, cliente o estado"
-                />
-              </div>
+            <div className="uk-margin-medium-bottom">
+              <OrderSearchForm onApply={setOrderFilters} />
             </div>
             <div
               className="uk-grid-small uk-grid-match uk-child-width-1-3@s"
@@ -265,13 +373,8 @@ const AdminControl = () => {
 
         {activeTab === "blogs" && (
           <>
-            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
-              <div className="uk-width-1-2@m">
-                <SearchBar
-                  onSearch={setBlogSearchTerm}
-                  textHint="Buscar por título, autor o contenido"
-                />
-              </div>
+            <div className="uk-margin-medium-bottom">
+              <BlogSearchForm onApply={setBlogFilters} />
             </div>
             <div
               className="uk-grid-small uk-child-width-1-3@m"
@@ -313,7 +416,7 @@ const AdminControl = () => {
                   <AdminUserCard
                     user={user}
                     currentUserId={currentUser._id}
-                    onUpdateRole={updateUserRole}
+                    onUpdateRole={handleUpdateUserRole}
                     onModifyStatus={handleModifyUserStatus}
                   />
                 </div>

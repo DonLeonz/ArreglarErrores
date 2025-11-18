@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
-  padding: 100px 0 40px 0 !important;
+  padding: 150px 0 40px 0 !important;
 }
 
 .blog-container-round {
@@ -394,6 +394,16 @@
   transition: all 0.3s ease !important;
   position: relative;
   overflow: hidden;
+}
+
+.uk-button-primary.blog-button-comment {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.uk-button-primary.blog-button-comment span[data-uk-icon] {
+  margin: 0 !important;
 }
 
 .blog-button-secondary::before,

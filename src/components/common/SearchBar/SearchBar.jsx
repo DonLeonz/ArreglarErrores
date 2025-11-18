@@ -8,22 +8,21 @@ const SearchBar = ({ onSearch, textHint }) => {
     onSearch(input.trim());
   };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="uk-search uk-search-default uk-margin"
-    >
+    <form onSubmit={handleSubmit} className="search-bar-form">
       <input
         type="text"
         placeholder={`${textHint}...`}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="uk-search-input"
+        className="search-bar-input"
       />
       <button
         type="submit"
-        className="uk-search-icon-flip"
-        data-uk-search-icon=""
-      />
+        className="search-bar-icon-button"
+        aria-label="Buscar"
+      >
+        <span data-uk-icon="icon: search; ratio: 1.2"></span>
+      </button>
     </form>
   );
 };

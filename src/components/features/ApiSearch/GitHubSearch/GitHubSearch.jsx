@@ -38,18 +38,20 @@ const GitHubSearch = () => {
         onSearch={handleSearch}
         textHint={"Buscar un usuario (ej: midudev)"}
       />
-      {error && <ErrorMessage>Hubo un error al consultar la API</ErrorMessage>}
-      {!error && enabled && loading && (
-        <p className="uk-text-center">Cargando...</p>
-      )}
-      {!error && enabled && !loading && result.length > 0 && (
-        <UserCard usuarios={result} />
-      )}
-      {!error && enabled && !loading && result.length === 0 && (
-        <p className="uk-text-center uk-text-muted">
-          No se encontraron resultados
-        </p>
-      )}
+      <div className="api-results-container">
+        {error && <ErrorMessage>Hubo un error al consultar la API</ErrorMessage>}
+        {!error && enabled && loading && (
+          <p className="uk-text-center">Cargando...</p>
+        )}
+        {!error && enabled && !loading && result.length > 0 && (
+          <UserCard usuarios={result} />
+        )}
+        {!error && enabled && !loading && result.length === 0 && (
+          <p className="uk-text-center uk-text-muted">
+            No se encontraron resultados
+          </p>
+        )}
+      </div>
     </>
   );
 };

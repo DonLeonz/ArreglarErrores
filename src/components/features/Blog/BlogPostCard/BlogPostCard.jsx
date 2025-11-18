@@ -21,7 +21,7 @@ const BlogPostCard = ({ blog, onToggleBlogInfo }) => {
         }}
       >
         <h3 className="uk-card-title uk-flex-row blog-title">{blog.title}</h3>
-        <div className="uk-child-width-1-1 uk-margin-small-top">
+        <div className="uk-child-width-1-1 blog-author-section">
           <div className="uk-flex uk-flex-middle">
             <img
               src={blog.avatarUrl}

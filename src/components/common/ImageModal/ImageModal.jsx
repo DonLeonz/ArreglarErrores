@@ -1,3 +1,5 @@
+import "./ImageModal.css";
+
 /**
  * Componente reutilizable para mostrar imágenes en un modal ampliable
  */

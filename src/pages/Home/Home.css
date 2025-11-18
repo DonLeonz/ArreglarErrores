@@ -94,6 +94,16 @@
   white-space: nowrap;
 }
 
+.uk-button.btn-coffee-secondary.home-know-more-btn,
+.uk-button.btn-coffee-secondary.home-know-more-btn * {
+  color: #d4a762 !important;
+}
+
+.uk-button.btn-coffee-secondary.home-know-more-btn:hover,
+.uk-button.btn-coffee-secondary.home-know-more-btn:hover * {
+  color: #000000 !important;
+}
+
 /* ========================================
    CARACTERÍSTICAS SECTION
    ======================================== */

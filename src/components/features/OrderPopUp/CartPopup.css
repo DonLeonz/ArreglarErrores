@@ -149,7 +149,7 @@
 
 .uk-notification-message-warning .uk-notification-close::before,
 .uk-notification-message-warning .uk-notification-close::after {
-  background: #ffffff !important;
+  background: #ffd166 !important;
 }
 
 .uk-notification-message-warning .uk-notification-close:hover {
@@ -166,7 +166,7 @@
 
 .uk-notification-message-primary .uk-notification-close::before,
 .uk-notification-message-primary .uk-notification-close::after {
-  background: #ffffff !important;
+  background: #a6d8ff !important;
 }
 
 .uk-notification-message-primary .uk-notification-close:hover {
@@ -183,7 +183,7 @@
 
 .uk-notification-message-danger .uk-notification-close::before,
 .uk-notification-message-danger .uk-notification-close::after {
-  background: #ffffff !important;
+  background: #ffb4a2 !important;
 }
 
 .uk-notification-message-danger .uk-notification-close:hover {

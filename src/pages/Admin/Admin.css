@@ -2,6 +2,15 @@
    FONDO DEL PANEL ADMIN
    ======================================== */
 
+.admin-panel-section {
+  padding-top: 8rem !important;
+}
+
+.admin-panel-heading {
+  margin-top: 40px !important;
+  margin-bottom: 40px !important;
+}
+
 .uk-background-secondary {
   background: linear-gradient(
     135deg,

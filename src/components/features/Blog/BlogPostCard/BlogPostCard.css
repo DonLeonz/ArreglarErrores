@@ -21,3 +21,7 @@
 .blog-content {
   white-space: pre-line;
 }
+
+.blog-author-section {
+  margin-top: 8px !important;
+}

@@ -193,7 +193,7 @@ const Home = () => {
               <div>
                 <NavLink
                   to="/about"
-                  className="uk-button btn-coffee-secondary uk-button-large"
+                  className="uk-button btn-coffee-secondary uk-button-large home-know-more-btn"
                 >
                   <span data-uk-icon="icon: info"></span> Conocer Más
                 </NavLink>

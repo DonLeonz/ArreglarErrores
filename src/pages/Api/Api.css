@@ -321,6 +321,12 @@
   box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
 }
 
+/* Contenedor de resultados */
+.api-results-container {
+  margin-top: 30px !important;
+  animation: fadeIn 0.5s ease;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .api-title {
@@ -338,5 +344,9 @@
 
   .uk-accordion-title:hover {
     transform: translateX(5px);
+  }
+
+  .api-results-container {
+    margin-top: 20px !important;
   }
 }
