@@ -19,7 +19,7 @@ const UserOrders = () => {
   };
 
   return (
-    <div className="user-orders-section uk-light">
+    <div className="first-child-adjustment user-orders-section uk-light">
       <div className="uk-container uk-container-large">
         <div className="user-orders-title">
           <div className="user-orders-title-icon">

@@ -158,6 +158,11 @@
   padding: 12px 20px !important;
   font-size: 1rem !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  color: #1e1e1e !important;
+}
+
+.uk-search-input::placeholder {
+  color: rgba(30, 30, 30, 0.6) !important;
 }
 
 .uk-search-input:focus {
@@ -166,6 +171,7 @@
     0 8px 20px rgba(212, 167, 98, 0.2) !important;
   transform: scale(1.02);
   background: rgba(255, 255, 255, 1) !important;
+  color: #1e1e1e !important;
 }
 
 /* Botón de búsqueda */
@@ -249,27 +255,10 @@
   position: relative;
 }
 
-.uk-accordion-content a::after,
-.uk-card a::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #d4a762, #f5d98d);
-  transition: width 0.3s ease;
-}
-
 .uk-accordion-content a:hover,
 .uk-card a:hover {
   color: #f5d98d !important;
   text-shadow: 0 0 15px rgba(212, 167, 98, 0.5);
-}
-
-.uk-accordion-content a:hover::after,
-.uk-card a:hover::after {
-  width: 100%;
 }
 
 /* Botones en general dentro de API */

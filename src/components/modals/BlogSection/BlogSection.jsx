@@ -23,6 +23,16 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const modalContentRef = useRef(null);
 
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    const modalElement = document.getElementById(`modal-blog-image-${blog._id}`);
+    const modal = window.UIkit?.modal(modalElement);
+
+    if (modal && !modalElement.classList.contains("uk-open")) {
+      modal.show();
+    }
+  };
+
   const {
     register,
     handleSubmit,
@@ -149,7 +159,7 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
               </div>
             </div>
 
-            <div className="blog-modal-image">
+            <div className="blog-modal-image" onClick={handleImageClick}>
               <img
                 src={blog.image ? blog.image.source : blogDefault}
                 alt={blog.title}
@@ -237,6 +247,30 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
               </div>
             )}
             </div>
+          </div>
+        </div>
+
+        <div
+          id={`modal-blog-image-${blog._id}`}
+          className="uk-modal uk-flex-top"
+          data-uk-modal="true"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close-golden"
+              type="button"
+              data-uk-toggle={`target: #modal-blog-image-${blog._id}`}
+              aria-label="Cerrar"
+            />
+            <img
+              src={blog.image ? blog.image.source : blogDefault}
+              alt={blog.title}
+              className="blog-modal-image-full"
+            />
           </div>
         </div>
       </div>
